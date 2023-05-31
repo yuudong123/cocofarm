@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cocofarm.webpage.mapper.BoardMapper">
+    <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from
+        tbl_board where board_category_cd = #{code} </select>
+    <select id="select" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from tbl_board
+        where board_no = #{board_no} </select>
+    <insert id="insert" parameterType="com.cocofarm.webpage.domain.BoardVO"> insert into tbl_board
+        values (seq_board_no.nextval, #{member_no}, #{board_category_cd}, #{product_id}, #{title},
+        #{content}, sysdate, sysdate) </insert>
+    <update id="update" parameterType="com.cocofarm.webpage.domain.BoardVO"> update tbl_board set
+        product_id = #{product_id} title = #{title} content = #{content} regdate = sysdate where
+        board_no = #{board_no} </update>
+    <delete id="delete"> delete from tbl_board where board_no = #{board_no} </delete>
+</mapper>
