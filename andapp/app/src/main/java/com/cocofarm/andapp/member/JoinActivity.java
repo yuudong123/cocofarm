@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cocofarm.andapp.databinding.ActivityJoinBinding;
+import com.cocofarm.andapp.R;
 
 public class JoinActivity extends AppCompatActivity {
 
