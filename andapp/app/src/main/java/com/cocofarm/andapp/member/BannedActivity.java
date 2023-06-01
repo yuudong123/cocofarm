@@ -1,14 +1,25 @@
 package com.cocofarm.andapp.member;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.cocofarm.andapp.databinding.ActivityBannedBinding;
+
 public class BannedActivity extends AppCompatActivity {
+
+    ActivityBannedBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_banned);
+        binding = ActivityBannedBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }
