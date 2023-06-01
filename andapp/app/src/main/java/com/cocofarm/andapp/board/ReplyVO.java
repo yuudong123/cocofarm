@@ -5,12 +5,10 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class BoardVO {
-    private int board_no;
+public class ReplyVO {
+    private int reply_no;
     private int member_no;
-    private int board_category_cd;
-    private int product_id;
-    private String title;
+    private int board_no;
     private String content;
     private Date regdate;
     private Date upddate;
