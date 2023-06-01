@@ -67,7 +67,10 @@ public class BoardController {
     }
 
     @GetMapping(value = "/write")
-    public void write() {
+    public ModelAndView insertBoard() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("board/write");
+        return mav;
     }
 
     @PostMapping(value = "/write")
@@ -76,7 +79,7 @@ public class BoardController {
     }
 
     @GetMapping(value = "/{board_no}/modify")
-    public ModelAndView modify(@PathVariable int board_no) {
+    public ModelAndView updateBoard(@PathVariable int board_no) {
         ModelAndView mav = new ModelAndView();
         BoardVO boardvo = boardService.select(board_no);
         mav.addObject("boardvo", boardvo);
