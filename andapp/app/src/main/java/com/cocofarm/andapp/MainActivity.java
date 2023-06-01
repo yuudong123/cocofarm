@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cocofarm.andapp.board.BoardFragment;
 import com.cocofarm.andapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new BoardFragment()).commit();
         setContentView(binding.getRoot());
     }
 
