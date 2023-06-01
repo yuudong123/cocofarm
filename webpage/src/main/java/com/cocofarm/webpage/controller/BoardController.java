@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ReplyVO;
-import com.cocofarm.webpage.domain.UserDTO;
+import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.ReplyService;
 import com.google.gson.Gson;
@@ -47,7 +47,7 @@ public class BoardController {
 
     @GetMapping(value = "/{board_no}")
     public ModelAndView selectBoard(@PathVariable int board_no,
-            @SessionAttribute("userinfo") @Nullable UserDTO userdto) {
+            @SessionAttribute("userinfo") @Nullable MemberVO memberVO) {
         ModelAndView mav = new ModelAndView();
         BoardVO boardvo = boardService.select(board_no);
         ArrayList<ReplyVO> replylist = replyService.selectList(board_no);
@@ -55,9 +55,9 @@ public class BoardController {
         if (replylist.size() != 0) {
             mav.addObject("replylist", replylist);
         }
-        if (userdto != null) {
-            mav.addObject("viewer", userdto.getMember_no());
-            mav.addObject("viewertype", userdto.getMember_type_cd());
+        if (memberVO != null) {
+            mav.addObject("viewer", memberVO.getMember_no());
+            mav.addObject("viewertype", memberVO.getMember_type_cd());
         } else {
             mav.addObject("viewer", null);
             mav.addObject("viewertype", null);
