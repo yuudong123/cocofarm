@@ -10,9 +10,11 @@ import com.cocofarm.webpage.domain.ReplyVO;
 public interface ReplyMapper {
     public ArrayList<ReplyVO> selectList(int board_no);
 
-    public void insert(ReplyVO vo);
+    public int insert(ReplyVO vo);
 
-    public void update(ReplyVO vo);
+    public int update(ReplyVO vo);
 
-    public void delete(int reply_no);
+    public int delete(int reply_no);
+
+    public void deleteAll(int board_no);
 }

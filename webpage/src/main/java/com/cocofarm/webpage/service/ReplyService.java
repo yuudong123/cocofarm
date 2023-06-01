@@ -31,4 +31,8 @@ public class ReplyService {
         mapper.delete(reply_no);
     }
 
+    public void deleteAll(int board_no) {
+        mapper.deleteAll(board_no);
+    }
+
 }
