@@ -2,16 +2,38 @@ package com.cocofarm.webpage.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.mapper.BoardMapper;
 
-public interface BoardService {
-    public ArrayList<BoardVO> selectList(int code);
+@Service
+public class BoardService {
 
-    public BoardVO select(int board_no);
+    @Autowired
+    BoardMapper mapper;
 
-    public void insert(BoardVO vo);
+    public ArrayList<BoardVO> selectList(int code) {
+        ArrayList<BoardVO> list = mapper.selectList(code);
+        return list;
+    }
 
-    public void update(BoardVO vo);
+    public BoardVO select(int board_no) {
+        BoardVO vo = mapper.select(board_no);
+        return vo;
+    }
 
-    public void delete(int board_no);
+    public void insert(BoardVO vo) {
+        mapper.insert(vo);
+    }
+
+    public void update(BoardVO vo) {
+        mapper.update(vo);
+    }
+
+    public void delete(int board_no) {
+        mapper.delete(board_no);
+    }
+
 }
