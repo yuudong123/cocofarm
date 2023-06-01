@@ -42,7 +42,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:backgroundTint="#429F5D"
+        android:backgroundTint="@color/primary"
         android:text="로그인"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"

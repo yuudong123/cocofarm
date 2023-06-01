@@ -14,10 +14,10 @@
         android:layout_height="250dp"/>
 
     <Button
-        android:id="@+id/btn_joinCoco"
+        android:id="@+id/btn_join"
         android:layout_marginVertical="10dp"
         android:text="코코팜 회원가입"
-        android:backgroundTint="#429F5D"
+        android:backgroundTint="@color/primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
