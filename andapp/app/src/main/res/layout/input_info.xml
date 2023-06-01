@@ -40,7 +40,7 @@
         app:boxStrokeColor="#123456"
         app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_infoInput"
+            android:id="@+id/tv_code"
             android:hint="코드 1x자리"
             android:inputType="text"
             android:layout_width="match_parent"
@@ -48,8 +48,8 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_infoSubmit"
-        android:backgroundTint="#429F5D"
+        android:id="@+id/btn_ok"
+        android:backgroundTint="@color/primary"
         android:text="등록"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"

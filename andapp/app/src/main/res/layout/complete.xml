@@ -20,8 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <Button
-        android:id="@+id/btn_complete"
-        android:backgroundTint="#429F5D"
+        android:id="@+id/btn_ok"
+        android:backgroundTint="@color/primary"
         android:text="확인"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
