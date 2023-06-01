@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cocofarm.webpage.domain.BoardVO;
-import com.cocofarm.webpage.mapper.AttachMapper;
 import com.cocofarm.webpage.mapper.BoardMapper;
 
 @Service
@@ -14,9 +13,6 @@ public class BoardService {
 
     @Autowired
     BoardMapper boardMapper;
-
-    @Autowired
-    AttachMapper attachMapper;
 
     public ArrayList<BoardVO> selectList(int code) {
         ArrayList<BoardVO> list = boardMapper.selectList(code);
