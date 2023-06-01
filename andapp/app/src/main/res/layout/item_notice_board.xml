@@ -24,6 +24,14 @@
         android:text="안녕하세요" />
 
     <TextView
+        android:id="@+id/regdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:maxLines="1"
+        android:text="6월 1일"/>
+
+   <TextView
         android:id="@+id/memberNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
