@@ -12,9 +12,9 @@ public interface BoardMapper {
 
     public BoardVO select(int board_no);
 
-    public void insert(BoardVO vo);
+    public int insert(BoardVO vo);
 
-    public void update(BoardVO vo);
+    public int update(BoardVO vo);
 
-    public void delete(int board_no);
+    public int delete(int board_no);
 }
