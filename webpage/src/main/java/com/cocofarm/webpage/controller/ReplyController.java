@@ -20,23 +20,17 @@ public class ReplyController {
     @Autowired
     ReplyService service;
 
-    @GetMapping(value = "selectreplylist")
-    public ArrayList<ReplyVO> selectReplyList(int board_no) {
-        ArrayList<ReplyVO> list = service.selectList(board_no);
-        return list;
-    }
-
-    @GetMapping(value = "insertreply")
+    @PostMapping(value = "insertreply")
     public void insertReply(ReplyVO vo) {
         service.insert(vo);
     }
 
-    @GetMapping(value = "updatereply")
+    @PostMapping(value = "updatereply")
     public void updateReply(ReplyVO vo) {
         service.update(vo);
     }
 
-    @GetMapping(value = "deletereply")
+    @PostMapping(value = "deletereply")
     public void deleteReply(int reply_no) {
         service.delete(reply_no);
     }
