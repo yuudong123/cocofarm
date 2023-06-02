@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:gravity="center_vertical"
-    android:background="@drawable/roundrectangle"
-    android:id="@+id/item">
+    android:paddingHorizontal="10dp">
 
     <TextView
         android:id="@+id/rownum"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:text="1" />
+        android:layout_weight="1.5"
+        android:text="1"
+        android:layout_marginEnd="10dp"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_weight="1"
-        android:maxLines="2"
+        android:layout_weight="10"
         android:ellipsize="end"
+        android:maxLines="2"
         android:text="안녕하세요" />
 
     <TextView
-        android:id="@+id/memberNo"
+        android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:text="김영문"
+        android:text="[답변완료]"/>
+
+    <TextView
+        android:id="@+id/regdate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
         android:maxLines="1"
-        android:maxLength="6"
-        android:ellipsize="end"/>
+        android:text="6월 1일"
+        android:textAlignment="center" />
 
 </LinearLayout>

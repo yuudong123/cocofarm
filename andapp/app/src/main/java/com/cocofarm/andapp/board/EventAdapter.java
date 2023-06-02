@@ -6,34 +6,29 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
+import com.cocofarm.andapp.databinding.ItemEventBoardBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
-
-    ItemQnaBoardBinding binding;
+public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
+    ItemEventBoardBinding binding;
     ArrayList<BoardVO> list;
 
-    public QnAAdapter(ArrayList<BoardVO> list) {
+    public EventAdapter(ArrayList<BoardVO> list) {
         this.list = list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemQnaBoardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        binding=ItemEventBoardBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.rownum.setText(list.get(i).getRownum() + "");
         holder.binding.title.setText(list.get(i).getTitle());
-        if (list.get(i).getReplycnt() == 0) {
-            holder.binding.answer.setText("");
-        }
         holder.binding.regdate.setText(new SimpleDateFormat("M월 d일").format(list.get(i).getRegdate()));
     }
 
@@ -43,9 +38,9 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ItemQnaBoardBinding binding;
+        ItemEventBoardBinding binding;
 
-        public ViewHolder(ItemQnaBoardBinding binding) {
+        public ViewHolder(ItemEventBoardBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
