@@ -8,7 +8,7 @@
 
     <ImageView
         android:layout_margin="20dp"
-        android:src="@drawable/question_mark"
+        android:src="@drawable/mark_question"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 
@@ -25,18 +25,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/btn_remove"
-            android:layout_marginHorizontal="10dp"
-            android:backgroundTint="#BE212F"
-            android:text="삭제"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <Button
+            android:textColor="@color/white"
             android:id="@+id/btn_cancel"
             android:layout_marginHorizontal="10dp"
             android:backgroundTint="#757373"
             android:text="취소"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:textColor="@color/white"
+            android:id="@+id/btn_remove"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="#BE212F"
+            android:text="삭제"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

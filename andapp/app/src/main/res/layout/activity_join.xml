@@ -9,11 +9,12 @@
 
     <ImageView
         android:layout_marginTop="70dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/logo_main"
         android:layout_width="250dp"
         android:layout_height="250dp"/>
 
     <Button
+        android:textColor="@color/white"
         android:id="@+id/btn_join"
         android:layout_marginVertical="10dp"
         android:text="코코팜 회원가입"
@@ -61,14 +62,14 @@
         <ImageView
             android:id="@+id/iv_joinKakao"
             android:layout_margin="10dp"
-            android:src="@drawable/kakaotalk_logo"
+            android:src="@drawable/logo_kakao"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
 
         <ImageView
             android:id="@+id/iv_joinNaver"
             android:layout_margin="10dp"
-            android:src="@drawable/naver_logo"
+            android:src="@drawable/logo_naver"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
 
@@ -76,7 +77,7 @@
         <ImageView
             android:id="@+id/iv_joinGoogle"
             android:layout_margin="10dp"
-            android:src="@drawable/naver_logo"
+            android:src="@drawable/logo_naver"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
 
