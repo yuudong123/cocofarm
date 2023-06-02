@@ -1,11 +1,12 @@
 package com.cocofarm.andapp.board;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class BoardVO {
+public class BoardVO implements Serializable {
     private int board_no;
     private int rownum;
     private int member_no;
