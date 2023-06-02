@@ -9,25 +9,21 @@ import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
 
-
 public class ProductFragment extends Fragment {
     FragmentProductBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         binding = FragmentProductBinding.inflate(inflater, container, false);
         binding.activityPruductPlant.addTab(binding.activityPruductPlant.newTab().setText("식물"));
         binding.activityPruductPlant.addTab(binding.activityPruductPlant.newTab().setText("관리 기기"));
 
-
         return binding.getRoot();
 
-
     }
-
 
     @Override
     public void onDestroyView() {

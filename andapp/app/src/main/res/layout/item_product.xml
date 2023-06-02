@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/iv_product1"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/img_product1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+        <LinearLayout
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_product_name"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="올리브"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_product_price"
+                android:text="￦ 53,000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_product_size"
+                android:text="소형 | 중형"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
