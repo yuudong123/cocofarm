@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.databinding.FragmentNoticeBinding;
@@ -19,13 +18,12 @@ public class NoticeFragment extends Fragment {
         binding = FragmentNoticeBinding.inflate(inflater, container, false);
 
 
-
         return binding.getRoot();
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         binding = null;
     }
 }

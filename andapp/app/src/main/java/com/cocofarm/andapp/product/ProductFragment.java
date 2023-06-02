@@ -1,14 +1,12 @@
 package com.cocofarm.andapp.product;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cocofarm.andapp.R;
+import androidx.fragment.app.Fragment;
+
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
 
 
@@ -34,5 +32,6 @@ public class ProductFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        binding = null;
     }
 }
