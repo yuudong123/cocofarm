@@ -31,7 +31,7 @@ public class NoticeFragment extends Fragment {
             vo.setRegdate(new Date());
             list.add(vo);
         }
-        NoticeAdapter adapter = new NoticeAdapter(list);
+        NoticeAdapter adapter = new NoticeAdapter(list, getContext());
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         binding.recvBoardList.setAdapter(adapter);
         binding.recvBoardList.setLayoutManager(manager);

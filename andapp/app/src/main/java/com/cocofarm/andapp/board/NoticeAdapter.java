@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.board;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -18,9 +20,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     ItemNoticeBoardBinding binding;
     ArrayList<BoardVO> list;
+    Context context;
 
-    public NoticeAdapter(ArrayList<BoardVO> list) {
+    public NoticeAdapter(ArrayList<BoardVO> list, Context context) {
         this.list = list;
+        this.context = context;
     }
 
     @NonNull
@@ -35,6 +39,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         holder.binding.rownum.setText(list.get(i).getRownum()+"");
         holder.binding.title.setText(list.get(i).getTitle());
         holder.binding.regdate.setText(new SimpleDateFormat("M월 d일").format(list.get(i).getRegdate()));
+        holder.binding.item.setOnClickListener(v->{
+            Intent intent = new Intent(context, BoardReadActivity.class);
+            intent.putExtra("BoardVO", list.get(i));
+            context.startActivity(intent);
+        });
     }
 
     @Override
