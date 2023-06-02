@@ -15,7 +15,7 @@
         android:id="@+id/tv_infoTitle"
         android:textColor="@color/black"
         android:textSize="30dp"
-        android:text="새 기기 등록"
+        android:text="TV_INFO TITLE"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -27,7 +27,7 @@
         <TextView
             android:id="@+id/tv_infoAssist"
             android:textSize="15dp"
-            android:text="제품 아래에 있는 코드를 입력하세요."
+            android:text="TV INFO ASSIST"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -40,8 +40,8 @@
         app:boxStrokeColor="#123456"
         app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_code"
-            android:hint="코드 1x자리"
+            android:id="@+id/tv_info"
+            android:hint="TV_INFO"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -50,7 +50,7 @@
     <Button
         android:id="@+id/btn_ok"
         android:backgroundTint="@color/primary"
-        android:text="등록"
+        android:text="BTN_OK"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

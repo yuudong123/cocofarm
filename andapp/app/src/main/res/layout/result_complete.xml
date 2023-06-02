@@ -8,7 +8,7 @@
 
     <ImageView
         android:layout_margin="20dp"
-        android:src="@drawable/complete_mark"
+        android:src="@drawable/mark_complete"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 
@@ -16,13 +16,14 @@
         android:id="@+id/tv_complete"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="기기 등록이 완료되었습니다."
+        android:text="TV_COMPLETE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <Button
+        android:textColor="@color/white"
         android:id="@+id/btn_ok"
         android:backgroundTint="@color/primary"
-        android:text="확인"
+        android:text="BTN_OK"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
