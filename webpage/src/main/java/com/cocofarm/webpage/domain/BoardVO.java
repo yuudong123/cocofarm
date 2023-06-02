@@ -29,5 +29,6 @@ public class BoardVO implements Serializable {
 // title nvarchar2(100),
 // content nvarchar2(1000),
 // regdate date,
-// upddate date
+// upddate date,
+// constraint pk_tbl_board primary key (board_no),
 // )
