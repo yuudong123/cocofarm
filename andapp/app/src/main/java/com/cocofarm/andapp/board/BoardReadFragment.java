@@ -18,9 +18,10 @@ public class BoardReadFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBoardReadBinding.inflate(inflater, container, false);
+        BoardVO vo = (BoardVO) getArguments().getSerializable("BoardVO");
 
         binding.ivMainImage.setImageResource(R.drawable.temp_image_event1); // 나중에 첨부파일로 바꿀 것
-        binding.tvContent.setText();
+        binding.tvContent.setText(vo.getContent());
         return binding.getRoot();
     }
 
