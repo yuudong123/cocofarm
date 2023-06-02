@@ -29,12 +29,5 @@ public class BoardVO implements Serializable {
 // title nvarchar2(100),
 // content nvarchar2(1000),
 // regdate date,
-// upddate date,
-// constraint pk_tbl_board primary key (board_no),
-// constraint fk_board_member foreign key (member_no) references tbl_member
-// (member_no),
-// constraint fk_board_product foreign key (product_id) references tbl_product
-// (product_id),
-// constraint fk_board_category_cd foreign key (board_category_cd) references
-// tbl_code (code)
+// upddate date
 // )

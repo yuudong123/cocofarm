@@ -24,8 +24,4 @@ public class ReplyVO implements Serializable {
 // regdate date not null,
 // upddate date not null,
 // constraint pk_tbl_reply primary key (reply_no, member_no),
-// constraint fk_reply_member foreign key (member_no) references tbl_member
-// (member_no),
-// constraint fk_reply_board foreign key (board_no) references tbl_board
-// (board_no)
 // )
