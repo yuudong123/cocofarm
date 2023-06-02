@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    >
+
+    <ImageView
+        android:scaleType="fitXY"
+       android:layout_gravity="center"
+        android:src="@drawable/img_drop_btn"
+        android:layout_width="40dp"
+        android:layout_height="25dp"/>
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_black_box"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_product1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+            <TextView
+                android:padding="15dp"
+                android:textSize="25dp"
+                android:layout_gravity="center"
+                android:text="로즈마리"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+        
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="23dp"
+                android:padding="10dp"
+                android:layout_marginLeft="30dp"
+                android:text="로즈마리"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <ImageView
+                android:padding="10dp"
+                android:layout_marginRight="30dp"
+                android:src="@drawable/img_close_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:background="#C8E3EADC"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+        <Button
+            android:id="@+id/btn_minus"
+            android:textSize="15dp"
+            android:text="-"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+            <TextView
+                android:id="@+id/tv_product_buy_amount"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:textSize="20dp"
+                android:text="0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_plus"
+                android:text="+"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+        </LinearLayout>
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:padding="10dp"
+                android:layout_marginRight="30dp"
+                android:textSize="20dp"
+                android:text="33,000원"
+             android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_gravity="center"
+        android:text="총 상품금액"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:textColor="@color/white"
+            android:text="장바구니"
+            android:backgroundTint="@color/primary"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <Button
+            android:textColor="@color/white"
+            android:text="바로구매"
+            android:backgroundTint="@color/primary"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

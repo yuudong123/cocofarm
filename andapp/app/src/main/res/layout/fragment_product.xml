@@ -7,6 +7,35 @@
     android:layout_height="match_parent"
     tools:context=".product.ProductFragment">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/page_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_page_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </LinearLayout>
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +45,7 @@
             android:id="@+id/activity_pruduct_plant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
+            android:background="@color/white"
             android:elevation="0dp"/>
 
             <!--app:tabGravity="fill"
@@ -24,6 +53,12 @@
             app:tabSelectedTextColor="@color/main"
             app:tabTextColor="@color/white"-->
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recv_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 
 </LinearLayout>

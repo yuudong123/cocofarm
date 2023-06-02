@@ -25,6 +25,7 @@ public class ProductFragment extends Fragment {
         binding.activityPruductPlant.addTab(binding.activityPruductPlant.newTab().setText("관리 기기"));
 
 
+
         return binding.getRoot();
 
 
@@ -34,5 +35,6 @@ public class ProductFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        binding=null;
     }
 }
