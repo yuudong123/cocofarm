@@ -16,10 +16,4 @@ public class SplashActivity extends AppCompatActivity {
         binding = ActivitySplashBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 }

@@ -16,10 +16,4 @@ public class BannedActivity extends AppCompatActivity {
         binding = ActivityBannedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 }

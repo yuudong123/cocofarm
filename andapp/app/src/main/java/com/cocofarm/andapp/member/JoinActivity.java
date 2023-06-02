@@ -17,10 +17,4 @@ public class JoinActivity extends AppCompatActivity {
         binding = ActivityJoinBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 }

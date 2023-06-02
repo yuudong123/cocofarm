@@ -20,9 +20,4 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 }
