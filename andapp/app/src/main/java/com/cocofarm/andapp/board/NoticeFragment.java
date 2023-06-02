@@ -29,6 +29,7 @@ public class NoticeFragment extends Fragment {
             vo.setTitle("제목테스트"+i);
             vo.setNickname("사용자"+i);
             vo.setRegdate(new Date());
+            vo.setBoard_category_cd(202);
             list.add(vo);
         }
         NoticeAdapter adapter = new NoticeAdapter(list, getContext());
