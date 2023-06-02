@@ -1,11 +1,14 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CommonVal.Md;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
 
 import java.text.SimpleDateFormat;
@@ -34,7 +37,7 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
         if (list.get(i).getReplycnt() == 0) {
             holder.binding.answer.setText("");
         }
-        holder.binding.regdate.setText(new SimpleDateFormat("M월 d일").format(list.get(i).getRegdate()));
+        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
     }
 
     @Override

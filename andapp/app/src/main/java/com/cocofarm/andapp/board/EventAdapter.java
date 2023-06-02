@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CommonVal.Md;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -8,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.databinding.ItemEventBoardBinding;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
@@ -22,14 +23,14 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding=ItemEventBoardBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        binding = ItemEventBoardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.binding.title.setText(list.get(i).getTitle());
-        holder.binding.regdate.setText(new SimpleDateFormat("M월 d일").format(list.get(i).getRegdate()));
+        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
     }
 
     @Override
