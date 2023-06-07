@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityBoardReadBlock"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".board.BoardReadActivity"
-    android:id="@+id/activityBoardReadBlock">
+    tools:context=".board.BoardReadActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,12 +27,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSeemore"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="13dp"
-            android:src="@drawable/icon_three_dot_v"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:icon="@drawable/icon_three_dot_v"
+            app:iconTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -46,11 +47,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="5dp"
         android:gravity="center_vertical"
+        android:orientation="vertical"
         android:padding="10dp">
+
+        <TextView
+            android:id="@+id/regdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6월 2일" />
 
         <TextView
             android:id="@+id/title"
@@ -61,16 +69,6 @@
             android:textSize="15dp"
             android:textStyle="bold" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/regdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6월 2일" />
     </LinearLayout>
 
     <FrameLayout
@@ -122,15 +120,16 @@
         android:id="@+id/bottomReplyWriteBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:gravity="bottom">
+        android:gravity="bottom"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/edtReplyWrite"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:minHeight="50dp" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnReplyConfirm"
             style="@style/Widget.AppCompat.Button.Borderless"
@@ -138,7 +137,8 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="13dp"
             app:icon="@drawable/icon_check"
-            app:iconTint="@color/black"/>
+            app:iconTint="@color/black" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnReplyCancel"
             style="@style/Widget.AppCompat.Button.Borderless"

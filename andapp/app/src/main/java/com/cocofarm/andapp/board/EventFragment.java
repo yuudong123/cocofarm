@@ -1,5 +1,9 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
+import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +37,14 @@ public class EventFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         binding.recvBoardList.setAdapter(adapter);
         binding.recvBoardList.setLayoutManager(manager);
+
+        if (loginMemberAdmin.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
+            binding.btnWrite.setVisibility(View.VISIBLE);
+            binding.btnWrite.setOnClickListener(v -> {
+                Intent intent = new Intent(getContext(),BoardWriteActivity.class);
+                startActivity(intent);
+            });
+        }
 
         return binding.getRoot();
     }
