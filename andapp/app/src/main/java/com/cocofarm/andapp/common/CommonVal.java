@@ -2,9 +2,7 @@ package com.cocofarm.andapp.common;
 
 import com.cocofarm.andapp.member.MemberVO;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class CommonVal {
 
@@ -14,14 +12,6 @@ public class CommonVal {
     public static MemberVO loginMemberAdmin = new MemberVO(1,"관리자1",101); // 관리자
     public static MemberVO loginMember = new MemberVO(4,"꽃향기",102); // 일반
 
-    public static String parseDate(String date, SimpleDateFormat sdf){
-        try {
-            return sdf.format(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(date));
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
     public static SimpleDateFormat Md = new SimpleDateFormat("M월 d일");
 //    private void getHashKey(){
 //        PackageInfo packageInfo = null;

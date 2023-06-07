@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.BoardMapper">
-    <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO">
-    <![CDATA[ 
-    select rownum, b.board_no, b.product_id, b.title, b.content, to_char(b.regdate,'yyyy-MM-dd hh:mm:ss') regdate, to_char(b.upddate,'yyyy-MM-dd hh:mm:ss') upddate, count(r.reply_no) replycnt
-    from tbl_board b left join tbl_reply r on b.board_no = r.board_no
-    where b.board_category_cd = 202
-    group by rownum, b.board_no, b.product_id, b.title, b.content, to_char(b.regdate,'yyyy-MM-dd hh:mm:ss'), to_char(b.upddate,'yyyy-MM-dd hh:mm:ss')
-    ]]>
-    </select>
+    <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from
+        tbl_board where board_category_cd = #{code} </select>
     <select id="select" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from tbl_board
         where board_no = #{board_no} </select>
     <insert id="insert" parameterType="com.cocofarm.webpage.domain.BoardVO"> insert into tbl_board
