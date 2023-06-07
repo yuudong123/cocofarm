@@ -3,6 +3,8 @@ package com.cocofarm.webpage.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -12,7 +14,9 @@ public class ReplyVO implements Serializable {
     private String nickname;
     private int board_no;
     private String content;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private Date regdate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private Date upddate;
 }
 
