@@ -4,7 +4,8 @@
     <select id="selectList" resultType="com.cocofarm.webpage.domain.ReplyVO"> select * from
         tbl_reply where board_no = #{board_no} </select>
     <insert id="insert" parameterType="com.cocofarm.webpage.domain.ReplyVO"> insert into tbl_reply
-        values (seq_reply_no.nextval, #{member_no}, #{board_no}, #{content}, sysdate, sysdate) </insert>
+        values (seq_reply_no.nextval, #{member_no}, #{nickname}, #{board_no}, #{content}, sysdate,
+        sysdate) </insert>
     <update id="update" parameterType="com.cocofarm.webpage.domain.ReplyVO"> update tbl_reply set
         content = #{content}, upddate = sysdate where board_no = #{board_no} </update>
     <delete id="delete"> delete from tbl_reply where reply_no = #{reply_no} </delete>
