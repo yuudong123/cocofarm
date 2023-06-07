@@ -25,7 +25,7 @@ public class NoticeFragment extends Fragment {
         ArrayList<BoardVO> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             BoardVO vo = new BoardVO();
-            vo.setRownum(i);
+            vo.setRownum(i+1);
             vo.setTitle("제목테스트"+i);
             vo.setNickname("사용자"+i);
             vo.setRegdate(new Date());
