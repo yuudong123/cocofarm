@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/activity_pruduct_plant"
             android:layout_width="match_parent"
@@ -53,12 +54,11 @@
             app:tabSelectedTextColor="@color/main"
             app:tabTextColor="@color/white"-->
     </com.google.android.material.appbar.AppBarLayout>
+<FrameLayout
+    android:id="@+id/containerProduct"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recv_product"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
 
 
 </LinearLayout>

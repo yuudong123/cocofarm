@@ -20,7 +20,7 @@ public class BoardReadFragment extends Fragment {
         binding = FragmentBoardReadBinding.inflate(inflater, container, false);
 
         binding.ivMainImage.setImageResource(R.drawable.temp_image_event1); // 나중에 첨부파일로 바꿀 것
-        binding.tvContent.setText();
+
         return binding.getRoot();
     }
 

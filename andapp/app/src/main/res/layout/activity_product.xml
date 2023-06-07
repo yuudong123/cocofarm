@@ -45,31 +45,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:id="@+id/iv_productA_1"
+                android:layout_margin="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/img_product1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/tv_productA_name"
+                android:layout_margin="10dp"
                 android:text="로즈마리"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
             <TextView
+                android:id="@+id/tv_productA_price"
+                android:layout_margin="10dp"
                 android:text="￦33,000"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
             <TextView
+                android:id="@+id/tv_productA_content"
+                android:layout_margin="10dp"
                 android:text="키우기 쉽고 보기도 좋은 향긋한 로즈마리 어쩌고 저쩌고"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
 
             <View
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="#E3595959"
+                android:layout_margin="10dp"
+                android:background="#90595959"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
 
             <Button
+                android:layout_margin="10dp"
                 android:id="@+id/btn_product_buy"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/primary"
@@ -81,8 +90,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-
-
         </LinearLayout>
 
 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_cart_order_1"
+           android:layout_margin="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_product1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_cart_order_name"
+                android:text="로즈마리"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:layout_marginRight="20dp"
+                android:id="@+id/tv_cart_order_price"
+                android:text="33,000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_margin="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/tv_cart_order_size"
+                        android:text="소형"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <LinearLayout
+                        android:layout_marginRight="10dp"
+                        android:background="#C8E3EADC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btn_minus"
+                            android:text="-"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_product_buy_amount"
+                            android:layout_gravity="center"
+                            android:padding="5dp"
+                            android:textSize="20dp"
+                            android:text="0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <Button
+                            android:id="@+id/btn_plus"
+                            android:text="+"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout
+                    >
+
+                <LinearLayout
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_order_status_img"
+                        android:src="@drawable/icon_check"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/tv_order_status"
+                        android:text="주문 가능"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <View
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <TextView
+                        android:layout_marginRight="20dp"
+                        android:id="@+id/tv_order_cancel"
+                        android:text="삭제"
+                        android:textColor="@color/primary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_marginBottom="10dp"
+            android:layout_margin="10dp"
+            android:background="#90595959"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+</LinearLayout>
+
+
+
+</LinearLayout>
