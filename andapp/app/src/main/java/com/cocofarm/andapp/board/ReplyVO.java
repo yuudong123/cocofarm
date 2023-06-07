@@ -12,8 +12,8 @@ public class ReplyVO implements Serializable {
     private String nickname;
     private int board_no;
     private String content;
-    private Date regdate;
-    private Date upddate;
+    private String regdate;
+    private String upddate;
 
     public ReplyVO(int member_no, String nickname, int board_no, String content) {
         this.member_no = member_no;

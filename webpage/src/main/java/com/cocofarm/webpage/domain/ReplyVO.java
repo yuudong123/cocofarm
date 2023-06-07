@@ -1,7 +1,6 @@
 package com.cocofarm.webpage.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import lombok.Data;
 
@@ -12,8 +11,8 @@ public class ReplyVO implements Serializable {
     private String nickname;
     private int board_no;
     private String content;
-    private Date regdate;
-    private Date upddate;
+    private String regdate;
+    private String upddate;
 }
 
 // create table tbl_reply (
