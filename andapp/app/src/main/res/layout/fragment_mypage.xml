@@ -135,6 +135,7 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"/>
+            <!-- 구매 내역은 코코몰-주문내역 세진씨가 만든 페이지로 이동 -->
 
         </LinearLayout>
 
@@ -186,7 +187,7 @@
                 android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
                 android:textColor="#121212"
-                android:text="고객센터"
+                android:text="고객 서비스"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"/>
@@ -211,6 +212,7 @@
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"/>
+            <!-- 회원탈퇴는 am_confirm -> result_remove -> result_complete -> activity_login 이용 -->
 
         </LinearLayout>
 

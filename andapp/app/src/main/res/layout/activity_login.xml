@@ -14,32 +14,32 @@
         android:layout_width="250dp"
         android:layout_height="250dp"/>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--        app:boxStrokeColor="#123456"-->
-<!--        app:hintTextColor="#123456">-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="#123456"
+        app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
             android:hint="이메일"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
 
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:endIconMode="password_toggle"-->
-<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-<!--        app:boxStrokeColor="#123456"-->
-<!--        app:hintTextColor="#123456">-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="password_toggle"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="#123456"
+        app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
             android:hint="비밀번호"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:textColor="@color/white"

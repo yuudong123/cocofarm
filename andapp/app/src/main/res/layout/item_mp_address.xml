@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:layout_marginHorizontal="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
-        android:layout_marginVertical="15dp"
-        android:textSize="16dp"
+        android:textSize="10dp"
         android:textColor="#666666"
-        android:text="정보 수정"
+        android:layout_marginLeft="30dp"
+        android:layout_marginVertical="10dp"
+        android:text="배송지 메모"
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
-
+        android:layout_height="wrap_content"/>
     <View
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginHorizontal="25dp"
         android:layout_gravity="center"
         android:background="#E0E0E0"
         android:layout_width="match_parent"
@@ -27,22 +27,21 @@
         android:orientation="horizontal">
         <TextView
             android:textSize="13dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:gravity="center_vertical"
             android:textColor="#121212"
-            android:text="이메일"
-            android:layout_width="70dp"
-            android:layout_height="30dp"/>
+            android:text="수령인"
+            android:layout_width="50dp"
+            android:layout_height="25dp"/>
         <TextView
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:textColor="#666666"
-            android:text="unknown@email.com"
+            android:text="name"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_weight="1"/>
-
 
     </LinearLayout>
     <LinearLayout
@@ -51,30 +50,41 @@
         android:orientation="horizontal">
         <TextView
             android:textSize="13dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:gravity="center_vertical"
             android:textColor="#121212"
-            android:text="비밀번호"
-            android:layout_width="70dp"
-            android:layout_height="30dp"/>
+            android:text="주소"
+            android:layout_width="50dp"
+            android:layout_height="25dp"/>
         <TextView
-            android:inputType="textPassword"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:textColor="#666666"
-            android:text="password"
+            android:text="도로명"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_weight="1"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <TextView
-            android:gravity="center"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="12dp"
-            android:textColor="#007DEA"
-            android:text="수정"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_marginLeft="40dp"
+            android:gravity="center_vertical"
+            android:layout_width="50dp"
+            android:layout_height="20dp"/>
+        <TextView
+            android:textSize="13dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            android:textColor="#666666"
+            android:text="상세주소"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"/>
 
     </LinearLayout>
     <LinearLayout
@@ -83,73 +93,29 @@
         android:orientation="horizontal">
         <TextView
             android:textSize="13dp"
-            android:layout_marginLeft="30dp"
-            android:gravity="center_vertical"
-            android:textColor="#121212"
-            android:text="닉네임"
-            android:layout_width="70dp"
-            android:layout_height="30dp"/>
-        <TextView
-            android:textSize="13dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="center_vertical"
-            android:textColor="#666666"
-            android:text="Unknown"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"/>
-        <TextView
-            android:gravity="center"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="12dp"
-            android:textColor="#007DEA"
-            android:text="수정"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:textSize="13dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="40dp"
             android:gravity="center_vertical"
             android:textColor="#121212"
             android:text="연락처"
-            android:layout_width="70dp"
-            android:layout_height="30dp"/>
+            android:layout_width="50dp"
+            android:layout_height="25dp"/>
         <TextView
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:textColor="#666666"
-            android:text="01012341234"
+            android:text="01012345678"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="25dp"
             android:layout_weight="1"/>
-        <TextView
-            android:gravity="center"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="12dp"
-            android:textColor="#007DEA"
-            android:text="수정"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
     </LinearLayout>
-
-    <Button
+    <View
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="25dp"
         android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:id="@+id/btn_ok"
-        android:backgroundTint="@color/primary"
-        android:text="저장"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-
+        android:background="#E0E0E0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 </LinearLayout>
