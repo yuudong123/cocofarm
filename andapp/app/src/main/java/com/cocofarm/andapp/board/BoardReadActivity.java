@@ -51,7 +51,7 @@ public class BoardReadActivity extends AppCompatActivity {
                 binding.btnReply.setText("댓글 닫기");
                 fragment = new BoardReadReplyFragment();
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("BoardVO", vo);
+                bundle.putInt("board_no", vo.getBoard_no());
                 fragment.setArguments(bundle);
             } else {
                 binding.btnReply.setIcon(getDrawable(R.drawable.icon_reply));
