@@ -1,15 +1,19 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.HHmmss;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemReplyBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> {
 
@@ -31,7 +35,13 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.binding.tvNickname.setText(list.get(i).getNickname());
         holder.binding.tvContent.setText(list.get(i).getContent());
-        holder.binding.tvRegdate.setText(CommonVal.Md.format(list.get(i).getRegdate()));
+        SimpleDateFormat sdf;
+        if (new Date().getTime() - list.get(i).getRegdate().getTime() < 86400000) {
+            sdf = HHmmss;
+        } else {
+            sdf = Md;
+        }
+        holder.binding.tvRegdate.setText(sdf.format(list.get(i).getRegdate()));
     }
 
     @Override
