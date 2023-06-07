@@ -30,7 +30,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.binding.title.setText(list.get(i).getTitle());
-        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
+        holder.binding.regdate.setText(list.get(i).getRegdate());
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.parseDate;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -31,7 +34,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.binding.tvNickname.setText(list.get(i).getNickname());
         holder.binding.tvContent.setText(list.get(i).getContent());
-        holder.binding.tvRegdate.setText(CommonVal.Md.format(list.get(i).getRegdate()));
+        holder.binding.tvRegdate.setText(list.get(i).getRegdate());
     }
 
     @Override
