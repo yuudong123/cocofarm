@@ -1,6 +1,7 @@
 package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.binding.title.setText(list.get(i).getTitle());
-        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
+        holder.binding.regdate.setText(yyyyMMddHHmmss.format(list.get(i).getRegdate()));
     }
 
     @Override

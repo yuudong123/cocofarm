@@ -13,8 +13,8 @@ public class CommonVal {
     public static MemberVO loginMember = new MemberVO(4,"꽃향기",102); // 일반
 
     public static SimpleDateFormat Md = new SimpleDateFormat("M월 d일");
-    public static SimpleDateFormat yyyyMMddhhmmss = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    public static SimpleDateFormat hhmmss = new SimpleDateFormat("hh:mm:ss");
+    public static SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat HHmmss = new SimpleDateFormat("HH:mm:ss");
 //    private void getHashKey(){
 //        PackageInfo packageInfo = null;
 //        try {

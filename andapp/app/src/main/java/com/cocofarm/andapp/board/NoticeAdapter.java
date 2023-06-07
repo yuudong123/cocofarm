@@ -1,6 +1,7 @@
 package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.content.Context;
 import android.content.Intent;

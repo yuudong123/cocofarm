@@ -1,6 +1,8 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CommonVal.HHmmss;
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
 
@@ -37,7 +40,13 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
         if (list.get(i).getReplycnt() == 0) {
             holder.binding.answer.setText("");
         }
-        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
+        SimpleDateFormat sdf;
+        if (new Date().getTime() - list.get(i).getRegdate().getTime() < 86400000) {
+            sdf = HHmmss;
+        } else {
+            sdf = Md;
+        }
+        holder.binding.regdate.setText(sdf.format(list.get(i).getRegdate()));
     }
 
     @Override
