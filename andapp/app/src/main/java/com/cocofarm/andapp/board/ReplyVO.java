@@ -14,4 +14,14 @@ public class ReplyVO implements Serializable {
     private String content;
     private Date regdate;
     private Date upddate;
+
+    public ReplyVO(int member_no, String nickname, int board_no, String content) {
+        this.member_no = member_no;
+        this.nickname = nickname;
+        this.board_no = board_no;
+        this.content = content;
+    }
+
+    public ReplyVO() {
+    }
 }

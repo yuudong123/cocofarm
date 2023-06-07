@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".board.BoardReadActivity">
+    tools:context=".board.BoardReadActivity"
+    android:id="@+id/activityBoardReadBlock">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -79,6 +80,7 @@
         android:layout_weight="1" />
 
     <LinearLayout
+        android:id="@+id/bottomMenuBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -90,10 +92,10 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text="댓글 보기"
             android:textColor="@color/black"
             android:textSize="16dp"
-            android:padding="10dp"
             app:icon="@drawable/icon_reply"
             app:iconTint="@color/black" />
 
@@ -107,13 +109,45 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:backgroundTint="#00000000"
-            android:text="댓글 작성"
             android:padding="10dp"
+            android:text="댓글 작성"
+            android:textColor="@color/black"
             android:textSize="16dp"
             app:icon="@drawable/icon_pencil"
             app:iconTint="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomReplyWriteBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="bottom">
+
+        <EditText
+            android:id="@+id/edtReplyWrite"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReplyConfirm"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="13dp"
+            app:icon="@drawable/icon_check"
+            app:iconTint="@color/black"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReplyCancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="13dp"
+            app:icon="@drawable/icon_close"
+            app:iconTint="@color/black" />
+
     </LinearLayout>
 
 </LinearLayout>
