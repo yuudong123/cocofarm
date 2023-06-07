@@ -1,6 +1,7 @@
 package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.parseDate;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
         if (list.get(i).getReplycnt() == 0) {
             holder.binding.answer.setText("");
         }
-        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
+        holder.binding.regdate.setText(parseDate(list.get(i).getRegdate(),Md));
     }
 
     @Override

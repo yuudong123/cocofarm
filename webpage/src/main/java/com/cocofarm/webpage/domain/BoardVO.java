@@ -1,7 +1,6 @@
 package com.cocofarm.webpage.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import lombok.Data;
 
@@ -15,8 +14,8 @@ public class BoardVO implements Serializable {
     private int product_id;
     private String title;
     private String content;
-    private Date regdate;
-    private Date upddate;
+    private String regdate;
+    private String upddate;
     private int replycnt; // join해서 가져올때만 사용
 }
 

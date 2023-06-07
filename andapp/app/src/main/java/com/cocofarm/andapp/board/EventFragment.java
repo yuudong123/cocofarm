@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.FragmentEventBinding;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class EventFragment extends Fragment {
             BoardVO vo = new BoardVO();
             vo.setRownum(i);
             vo.setTitle("제목테스트"+i);
-            vo.setRegdate(new Date());
+            vo.setRegdate(CommonVal.Md.format(new Date()));
             list.add(vo);
         }
         EventAdapter adapter = new EventAdapter(list);
