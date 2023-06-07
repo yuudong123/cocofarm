@@ -18,7 +18,6 @@ public class BoardVO implements Serializable {
     private int product_id;
     private String title;
     private String content;
-
     @JsonAdapter(DateJsonAdapter.class)
     private Date regdate;
     @JsonAdapter(DateJsonAdapter.class)
