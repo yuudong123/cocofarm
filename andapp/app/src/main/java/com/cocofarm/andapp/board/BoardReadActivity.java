@@ -38,7 +38,7 @@ public class BoardReadActivity extends AppCompatActivity {
             category = "이벤트";
         }
         binding.tvCategory.setText(category);
-        binding.regdate.setText(vo.getRegdate());
+        binding.regdate.setText(Md.format(vo.getRegdate()));
         Fragment readFragment = new BoardReadFragment();
         Bundle readBundle = new Bundle();
         readBundle.putSerializable("BoardVO", vo);
