@@ -15,7 +15,7 @@ public class BoardVO implements Serializable {
     private int product_id;
     private String title;
     private String content;
-    private String regdate;
-    private String upddate;
+    private Date regdate;
+    private Date upddate;
     private int replycnt;
 }
