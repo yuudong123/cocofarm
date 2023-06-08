@@ -18,7 +18,7 @@ public class AwayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAmConfirmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.tvTitle.setText("회원탈퇴");
         binding.tvEmail.setText(CommonVal.loginMember.getEmail());
         binding.btnOk.setOnClickListener(v->{
             if(binding.edtPw.getText().toString() == CommonVal.loginMember.getPassword()) {

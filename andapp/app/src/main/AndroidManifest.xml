@@ -58,8 +58,8 @@
             android:name=".board.QnAReadActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".Order_FinishActivity"
+<!--        <activity-->
+<!--            android:name=".Order_FinishActivity"-->
 
         <activity
             android:name=".mypage.AwayConfirmActivity"

@@ -29,9 +29,6 @@ import kotlin.jvm.functions.Function2;
 public class JoinActivity extends AppCompatActivity {
 
     ActivityJoinBinding binding;
-    Button joinCoco;
-    ImageView joinKakao, joinNaver, joinGoogle;
-    Fragment fragment;
 
 
 
@@ -64,6 +61,7 @@ public class JoinActivity extends AppCompatActivity {
             }
         };
         KakaoSdk.init(this, "73eaa0878647dc013752cd7b307750b3");
+
         binding.ivJoinKakao.setOnClickListener(v->{
             if(UserApiClient.getInstance().isKakaoTalkLoginAvailable(this)){
                 Log.d("카카오톡", "onCreate: true");
@@ -91,6 +89,7 @@ public class JoinActivity extends AppCompatActivity {
             return null;
         });
     }
+
     // HashKey
     private void getHashKey(){
         PackageInfo packageInfo = null;
