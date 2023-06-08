@@ -60,6 +60,8 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Order_FinishActivity"
+
+        <activity
             android:name=".mypage.AwayConfirmActivity"
             android:exported="false" />
         <activity
