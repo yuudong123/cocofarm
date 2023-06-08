@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_QNA;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.databinding.FragmentQnABinding;
 
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class QnAFragment extends Fragment {
 
         binding.btnWrite.setOnClickListener(v->{
             Intent intent = new Intent(getContext(),QnAWriteActivity.class);
+            intent.putExtra("category", BOARD_CATEGORY_QNA);
             startActivity(intent);
         });
 

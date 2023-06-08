@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
 
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.databinding.FragmentEventBinding;
 
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public class EventFragment extends Fragment {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(),BoardWriteActivity.class);
+                intent.putExtra("category", BOARD_CATEGORY_EVENT);
                 startActivity(intent);
             });
         }
