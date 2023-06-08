@@ -19,13 +19,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
-
         binding.bottomNav.setOnItemSelectedListener(menu->{
             Fragment fragment =  null;
             if(menu.getItemId()==R.id.home){

@@ -41,6 +41,13 @@ public class ReplyController {
         return new Gson().toJson(list);
     }
 
+    @PostMapping(value = "selectanswer.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectAnswerAnd(int board_no) {
+        ReplyVO vo = service.selectAnswer(board_no);
+        return new Gson().toJson(vo);
+    }
+
     @PostMapping(value = "insertreply.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void insertReplyAnd(ReplyVO vo) {

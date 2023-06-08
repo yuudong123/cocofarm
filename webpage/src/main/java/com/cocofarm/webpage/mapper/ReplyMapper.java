@@ -10,6 +10,8 @@ import com.cocofarm.webpage.domain.ReplyVO;
 public interface ReplyMapper {
     public ArrayList<ReplyVO> selectList(int board_no);
 
+    public ReplyVO selectAnswer(int board_no);
+
     public int insert(ReplyVO vo);
 
     public int update(ReplyVO vo);
