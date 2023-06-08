@@ -7,8 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".order.Order_FinishActivity">
-
+    tools:context=".order.Order_Change_CheckActivity">
 
     <ImageView
         android:layout_margin="20dp"
@@ -20,7 +19,7 @@
         android:id="@+id/tv_order_complete"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:text="결제가 완료되었습니다."
+        android:text="교환신청이 완료되었습니다."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <Button

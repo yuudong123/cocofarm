@@ -13,6 +13,7 @@ import com.cocofarm.andapp.board.EventFragment;
 import com.cocofarm.andapp.board.NoticeFragment;
 import com.cocofarm.andapp.board.QnAFragment;
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
+import com.cocofarm.andapp.home.HomeFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class ProductFragment extends Fragment{
@@ -23,6 +24,8 @@ public class ProductFragment extends Fragment{
             Bundle savedInstanceState) {
 
         binding = FragmentProductBinding.inflate(inflater, container, false);
+
+        getChildFragmentManager().beginTransaction().replace(R.id.containerProduct,new ProductPlantFragment()).commit();
 
         binding.activityPruductPlant.addTab(binding.activityPruductPlant.newTab().setText("식물"));
         binding.activityPruductPlant.addTab(binding.activityPruductPlant.newTab().setText("관리 기기"));

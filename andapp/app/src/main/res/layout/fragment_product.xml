@@ -25,6 +25,7 @@
             app:tabSelectedTextColor="@color/main"
             app:tabTextColor="@color/white"-->
     </com.google.android.material.appbar.AppBarLayout>
+
 <FrameLayout
     android:id="@+id/containerProduct"
     android:layout_width="wrap_content"
