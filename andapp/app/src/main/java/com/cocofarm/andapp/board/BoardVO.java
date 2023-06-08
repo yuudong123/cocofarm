@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.board;
 
+import com.cocofarm.andapp.util.DateJsonAdapter;
+import com.google.gson.annotations.JsonAdapter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,7 +18,9 @@ public class BoardVO implements Serializable {
     private int product_id;
     private String title;
     private String content;
+    @JsonAdapter(DateJsonAdapter.class)
     private Date regdate;
+    @JsonAdapter(DateJsonAdapter.class)
     private Date upddate;
     private int replycnt;
 }

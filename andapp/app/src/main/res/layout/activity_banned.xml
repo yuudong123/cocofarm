@@ -22,7 +22,15 @@
     <TextView
         android:textColor="#000000"
         android:textSize="12dp"
-        android:text="고객센터 1588-1588"
+        android:text="고객센터 1588-0000\n 평일 09:00~18:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:textColor="@color/white"
+        android:id="@+id/btn_ok"
+        android:backgroundTint="@color/primary"
+        android:text="홈으로"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 

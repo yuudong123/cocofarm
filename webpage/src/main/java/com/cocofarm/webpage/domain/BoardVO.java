@@ -1,11 +1,12 @@
 package com.cocofarm.webpage.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class BoardVO {
+public class BoardVO implements Serializable {
     private int board_no;
     private int rownum;
     private int member_no;
@@ -16,7 +17,7 @@ public class BoardVO {
     private String content;
     private Date regdate;
     private Date upddate;
-    private int replycnt; //join해서 가져올때만 사용
+    private int replycnt; // join해서 가져올때만 사용
 }
 
 // create table tbl_board (
@@ -30,10 +31,4 @@ public class BoardVO {
 // regdate date,
 // upddate date,
 // constraint pk_tbl_board primary key (board_no),
-// constraint fk_board_member foreign key (member_no) references tbl_member
-// (member_no),
-// constraint fk_board_product foreign key (product_id) references tbl_product
-// (product_id),
-// constraint fk_board_category_cd foreign key (board_category_cd) references
-// tbl_code (code)
 // )

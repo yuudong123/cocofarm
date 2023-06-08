@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -11,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.R;
+import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemNoticeBoardBinding;
 
 import java.text.SimpleDateFormat;
@@ -38,7 +42,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.binding.rownum.setText(list.get(i).getRownum()+"");
         holder.binding.title.setText(list.get(i).getTitle());
-        holder.binding.regdate.setText(new SimpleDateFormat("M월 d일").format(list.get(i).getRegdate()));
+        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
         holder.binding.item.setOnClickListener(v->{
             Intent intent = new Intent(context, BoardReadActivity.class);
             intent.putExtra("BoardVO", list.get(i));

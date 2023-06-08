@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.board;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,11 @@ public class QnAFragment extends Fragment {
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         binding.recvBoardList.setAdapter(adapter);
         binding.recvBoardList.setLayoutManager(manager);
+
+        binding.btnWrite.setOnClickListener(v->{
+            Intent intent = new Intent(getContext(),QnAWriteActivity.class);
+            startActivity(intent);
+        });
 
         return binding.getRoot();
     }
