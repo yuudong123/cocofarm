@@ -8,15 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
-import com.cocofarm.webpage.domain.ReplyVO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.ReplyVO;
 import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.ReplyService;
 import com.google.gson.Gson;
@@ -25,7 +24,6 @@ import groovyjarjarantlr4.v4.runtime.misc.Nullable;
 import lombok.AllArgsConstructor;
 
 @Controller
-@RequestMapping(value = { "/notice/*", "/qna/*", "/review/*" })
 @SessionAttributes("userinfo")
 @AllArgsConstructor
 public class BoardController {
@@ -116,7 +114,13 @@ public class BoardController {
 
     @PostMapping(value = "insertboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public void insertBoardAnd(BoardVO vo) {
+    public void insertBoardAnd(int member_no, String nickname, int board_category_cd, String title, String content) {
+        BoardVO vo = new BoardVO();
+        vo.setMember_no(member_no);
+        vo.setNickname(nickname);
+        vo.setBoard_category_cd(board_category_cd);
+        vo.setTitle(title);
+        vo.setContent(content);
         boardService.insert(vo);
     }
 

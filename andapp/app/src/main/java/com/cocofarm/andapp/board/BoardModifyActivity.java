@@ -28,13 +28,16 @@ public class BoardModifyActivity extends AppCompatActivity {
             if(binding.edtTitle.getText().toString().equals("")||binding.edtContent.getText().toString().equals("")){
                 Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
             }
-            CommonConn conn = new CommonConn(null, "updateboard.and");
+            CommonConn conn = new CommonConn(this, "updateboard.and");
             conn.addParam("board_no", vo.getBoard_no());
             conn.addParam("product_id", vo.getProduct_id());
             conn.addParam("title",binding.edtTitle.getText().toString());
             conn.addParam("content",binding.edtContent.getText().toString());
             conn.onExcute((isResult, data) -> {
                 Log.d("글 작성", "onCreate: "+isResult);
+                if(isResult) {
+                    finish();
+                }
             });
         });
         binding.btnCancel.setOnClickListener(v->{

@@ -1,6 +1,7 @@
 package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,7 @@ public class BoardReadActivity extends AppCompatActivity {
             category = "이벤트";
         }
         binding.tvCategory.setText(category);
-        binding.regdate.setText(Md.format(vo.getRegdate()));
+        binding.regdate.setText(yyyyMMddHHmmss.format(vo.getRegdate()));
         Fragment readFragment = new BoardReadFragment();
         Bundle readBundle = new Bundle();
         readBundle.putSerializable("BoardVO", vo);
@@ -78,7 +79,7 @@ public class BoardReadActivity extends AppCompatActivity {
                 return;
             }
 
-            CommonConn conn = new CommonConn(null, "insertreply.and");
+            CommonConn conn = new CommonConn(this, "insertreply.and");
             conn.addParam("board_no", vo.getBoard_no());
             conn.addParam("member_no", CommonVal.loginMember.getMember_no());
             conn.addParam("nickname", CommonVal.loginMember.getNickname());
