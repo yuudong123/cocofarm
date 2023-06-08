@@ -11,6 +11,6 @@ public class Order_Finish_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_finish);
+        setContentView(R.layout.activity_order_content);
     }
 }
