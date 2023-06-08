@@ -27,6 +27,8 @@ public class JoinNameActivity extends AppCompatActivity {
         binding.tvInfoTitle.setText("닉네임");
         binding.tvInfoAssist.setText("닉네임을 입력하세요.");
 
+        binding.edtInfo.getText().toString();
+
 
 //        binding.btnOk.setOnClickListener(v-> {
 //            Intent intent = new Intent(JoinNameActivity.this, JoinPwActivity.class);

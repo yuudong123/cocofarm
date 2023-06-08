@@ -1,6 +1,7 @@
 package com.cocofarm.webpage.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import lombok.Data;
 
@@ -8,4 +9,12 @@ import lombok.Data;
 public class MemberVO implements Serializable {
     private int member_no;
     private int member_type_cd;
+ 
+    private String nickname;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private String address;
+    private Date joindate;
+    private String isactivated = "Y";
 }

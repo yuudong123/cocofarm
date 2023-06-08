@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,9 +21,7 @@ import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
-    EditText id, pw;
-    TextView join;
-    Button login;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,28 +29,30 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        // 로그인
+        // 로그인 정보
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        String id = preferences.getString("id", "");
-        String pw = preferences.getString("pw", "");
+        String email = preferences.getString("email", "");
+        String pw = preferences.getString("password", "");
 
-        binding.edtId.setText(id);
+        binding.edtId.setText(email);
         binding.edtPw.setText(pw);
 
+
+        // 로그인
         binding.btnLogin.setOnClickListener(v-> {
             CommonConn conn = new CommonConn(this, "login");
-            conn.addParam("id", binding.edtId.getText().toString());
-            conn.addParam("pw", binding.edtPw.getText().toString());
+            conn.addParam("email", binding.edtId.getText().toString());
+            conn.addParam("password", binding.edtPw.getText().toString());
 
             conn.onExcute((isResult, data) -> {
+                Log.d("로그인", "onCreate: " + data);
                 CommonVal.loginMember = new Gson().fromJson(data, MemberVO.class);
-
                 if(CommonVal.loginMember != null) {
+                    Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent); // 로그인 성공
+                    startActivity(intent);
                 } else {
-                    Toast.makeText(this, "이메일 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show(); // 로그인 실패
+                    Toast.makeText(this, "이메일 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 }
             });
         });
@@ -65,8 +66,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 회원가입 화면으로
-        join.setOnClickListener(v->{
+        binding.tvJoin.setOnClickListener(v->{
             Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
+            startActivity(intent);
+        });
+
+        // 비회원
+        binding.tvNonmember.setOnClickListener(v->{
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         });
     }
