@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 public class BoardFragment extends Fragment {
 
     FragmentBoardBinding binding;
+    int selected=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -22,20 +23,10 @@ public class BoardFragment extends Fragment {
         binding.boardSelectMenu.addTab(binding.boardSelectMenu.newTab().setText("공지사항"));
         binding.boardSelectMenu.addTab(binding.boardSelectMenu.newTab().setText("이벤트"));
         binding.boardSelectMenu.addTab(binding.boardSelectMenu.newTab().setText("QnA"));
-        getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, new NoticeFragment()).commit();
         binding.boardSelectMenu.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int i = tab.getPosition();
-                Fragment fragment = null;
-                if (i==0){
-                    fragment = new NoticeFragment();
-                } else if (i==1) {
-                    fragment = new EventFragment();
-                } else if (i==2) {
-                    fragment = new QnAFragment();
-                }
-                getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
+                loadTab(tab.getPosition());
             }
 
             @Override
@@ -45,7 +36,7 @@ public class BoardFragment extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                loadTab(tab.getPosition());
             }
         });
 
@@ -53,8 +44,27 @@ public class BoardFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        loadTab(selected);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    protected void loadTab(int i) {
+        selected = i;
+        Fragment fragment = null;
+        if (i==0){
+            fragment = new NoticeFragment();
+        } else if (i==1) {
+            fragment = new EventFragment();
+        } else if (i==2) {
+            fragment = new QnAFragment();
+        }
+        getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
     }
 }

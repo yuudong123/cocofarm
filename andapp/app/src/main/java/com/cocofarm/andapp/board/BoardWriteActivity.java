@@ -3,6 +3,7 @@ package com.cocofarm.andapp.board;
 import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
