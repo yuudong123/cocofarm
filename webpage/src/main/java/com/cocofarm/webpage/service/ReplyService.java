@@ -19,6 +19,11 @@ public class ReplyService {
         return list;
     }
 
+    public ReplyVO selectAnswer(int board_no) {
+        ReplyVO vo = mapper.selectAnswer(board_no);
+        return vo;
+    }
+
     public void insert(ReplyVO vo) {
         mapper.insert(vo);
     }

@@ -8,15 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
-import com.cocofarm.webpage.domain.ReplyVO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.ReplyVO;
 import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.ReplyService;
 import com.google.gson.Gson;
@@ -25,7 +24,6 @@ import groovyjarjarantlr4.v4.runtime.misc.Nullable;
 import lombok.AllArgsConstructor;
 
 @Controller
-@RequestMapping(value = { "/notice/*", "/qna/*", "/review/*" })
 @SessionAttributes("userinfo")
 @AllArgsConstructor
 public class BoardController {
@@ -100,33 +98,33 @@ public class BoardController {
         boardService.delete(board_no);
     }
 
-    @PostMapping(value = "selectboardlist.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/selectboardlist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardListAnd(int code) {
         ArrayList<BoardVO> list = boardService.selectList(code);
         return new Gson().toJson(list);
     }
 
-    @PostMapping(value = "selectboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/selectboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardAnd(int board_no) {
         BoardVO vo = boardService.select(board_no);
         return new Gson().toJson(vo);
     }
 
-    @PostMapping(value = "insertboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/insertboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void insertBoardAnd(BoardVO vo) {
         boardService.insert(vo);
     }
 
-    @PostMapping(value = "updateboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/updateboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void updateBoardAnd(BoardVO vo) {
         boardService.update(vo);
     }
 
-    @PostMapping(value = "deleteboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/deleteboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void deleteBoardAnd(int board_no) {
         boardService.delete(board_no);

@@ -10,9 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature
-        android:name="android.hardware.camera2"
-        android:required="true" /> <!-- API30이상에서는 queries사용해서 권한부여를 한번 더 해야함. -->
+    <uses-feature android:name="android.hardware.camera2" android:required="true" />
+    <!-- API30이상에서는 queries사용해서 권한부여를 한번 더 해야함. -->
     <queries>
 
         <!-- WebView -->
@@ -40,60 +39,24 @@
         </intent>
     </queries>
 
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Cocofarm"
-        tools:targetApi="31">
-        <activity
-            android:name=".OrderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Cart_PopupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Order_FinishActivity"
-            android:exported="false" />
-        <activity
-            android:name=".order.Order_ContentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".board.QnAWriteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".board.BoardReadActivity"
-            android:exported="false" />
-        <activity
-            android:name=".board.BoardModifyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".board.BoardWriteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".order.CartActivity"
-            android:exported="false" />
-        <activity
-            android:name=".product.ProductActivity"
-            android:exported="false" />
-        <activity
-            android:name=".member.JoinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".member.BannedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".member.LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SplashActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+    <application android:allowBackup="true" android:dataExtractionRules="@xml/data_extraction_rules" android:fullBackupContent="@xml/backup_rules" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:supportsRtl="true" android:theme="@style/Theme.Cocofarm" android:usesCleartextTraffic="true" tools:targetApi="31">
+        <activity android:name=".OrderActivity" android:exported="false" />
+        <activity android:name=".Cart_PopupActivity" android:exported="false" />
+ android:name=".board.QnAModifyActivity" android:exported="false" />
+        <activity android:name=".board.QnAReadActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".Order_FinishActivity" android:exported="false" />
+        <activity android:name=".order.Order_ContentActivity" android:exported="false" />
+        <activity android:name=".board.QnAWriteActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".board.BoardReadActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".board.BoardModifyActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".board.BoardWriteActivity" android:exported="false" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".order.CartActivity" android:exported="false" />
+        <activity android:name=".product.ProductActivity" android:exported="false" />
+        <activity android:name=".member.JoinActivity" android:exported="false" />
+        <activity android:name=".member.BannedActivity" android:exported="false" />
+        <activity android:name=".member.LoginActivity" android:exported="false" />
+        <activity android:name=".SplashActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

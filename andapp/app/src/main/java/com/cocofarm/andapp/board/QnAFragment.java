@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_QNA;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +11,12 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentQnABinding;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class QnAFragment extends Fragment {
 
@@ -22,21 +26,22 @@ public class QnAFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentQnABinding.inflate(inflater, container, false);
 
-        ArrayList<BoardVO> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            BoardVO vo = new BoardVO();
-            vo.setRownum(i);
-            vo.setTitle("제목테스트" + i);
-            vo.setRegdate(new Date());
-            list.add(vo);
-        }
-        QnAAdapter adapter = new QnAAdapter(list);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        binding.recvBoardList.setAdapter(adapter);
-        binding.recvBoardList.setLayoutManager(manager);
+        CommonConn conn = new CommonConn(getContext(), "selectboardlist.and");
+        conn.addParam("code", BOARD_CATEGORY_QNA);
+        conn.onExcute((isResult, data) -> {
+            if (isResult) {
+                ArrayList<BoardVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+                }.getType());
+                QnAAdapter adapter = new QnAAdapter(list, getContext());
+                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                binding.recvBoardList.setAdapter(adapter);
+                binding.recvBoardList.setLayoutManager(manager);
+            }
+        });
 
-        binding.btnWrite.setOnClickListener(v->{
-            Intent intent = new Intent(getContext(),QnAWriteActivity.class);
+
+        binding.btnWrite.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), QnAWriteActivity.class);
             startActivity(intent);
         });
 
