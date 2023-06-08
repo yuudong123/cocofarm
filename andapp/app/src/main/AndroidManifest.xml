@@ -51,9 +51,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".board.QnAReadActivity"
-            android:windowSoftInputMode="adjustResize"
+            android:name=".board.QnAModifyActivity"
             android:exported="false" />
+        <activity
+            android:name=".board.QnAReadActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Order_FinishActivity"
             android:exported="false" />
@@ -62,20 +65,20 @@
             android:exported="false" />
         <activity
             android:name=".board.QnAWriteActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".board.BoardReadActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".board.BoardModifyActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".board.BoardWriteActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".product.CartActivity"
             android:exported="false" />
