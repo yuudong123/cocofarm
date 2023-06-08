@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".order.Order_Finish_Activity">
+    tools:context=".order.Order_ContentActivity">
 
 
         <TextView

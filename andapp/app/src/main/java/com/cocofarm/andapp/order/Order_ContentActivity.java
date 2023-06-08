@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.cocofarm.andapp.R;
 
-public class Order_Finish_Activity extends AppCompatActivity {
+public class Order_ContentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

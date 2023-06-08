@@ -56,7 +56,7 @@
             android:name=".Order_FinishActivity"
             android:exported="false" />
         <activity
-            android:name=".order.Order_Finish_Activity"
+            android:name=".order.Order_ContentActivity"
             android:exported="false" />
         <activity
             android:name=".board.QnAWriteActivity"
