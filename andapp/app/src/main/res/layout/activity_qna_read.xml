@@ -57,15 +57,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvRegdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="6월 2일" />
+            <TextView
+                android:id="@+id/tvRegdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="6월 2일" />
+
             <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="0dp"/>
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,18 +78,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="작성된 제목"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="작성된 제목"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
             <View
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="0dp"/>
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/tvQuestionNickname"
                 android:layout_width="wrap_content"
@@ -96,6 +100,59 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/qnaProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ddd"
+        android:padding="10dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/ivProductImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvProductId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="0"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:maxLines="1"
+                    android:text="안녕"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvProductContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:text="상품 설명 어쩌구 저쩌구..." />
         </LinearLayout>
 
     </LinearLayout>
@@ -109,6 +166,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,6 +176,7 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tvContentQ"
                 android:layout_width="match_parent"
@@ -164,13 +223,13 @@
     </ScrollView>
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/bottomAnswerWriteBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:background="#eee"
         android:elevation="5dp"
-        android:background="#eee">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -199,10 +258,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#e0e0e0" />
+
         <EditText
             android:id="@+id/edtAnswer"
             android:layout_width="match_parent"

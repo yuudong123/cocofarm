@@ -22,10 +22,10 @@ import java.util.Date;
 public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
 
     ItemQnaBoardBinding binding;
-    ArrayList<BoardVO> list;
+    ArrayList<QnaDTO> list;
     Context context;
 
-    public QnAAdapter(ArrayList<BoardVO> list, Context context) {
+    public QnAAdapter(ArrayList<QnaDTO> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -53,7 +53,7 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
         holder.binding.regdate.setText(sdf.format(list.get(i).getRegdate()));
         holder.binding.item.setOnClickListener(v->{
             Intent intent = new Intent(context, QnAReadActivity.class);
-            intent.putExtra("BoardVO", list.get(i));
+            intent.putExtra("QnaDTO", list.get(i));
             context.startActivity(intent);
         });
     }

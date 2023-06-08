@@ -34,7 +34,7 @@ public class EventFragment extends Fragment {
             if (isResult) {
                 ArrayList<BoardVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
                 }.getType());
-                EventAdapter adapter = new EventAdapter(list);
+                EventAdapter adapter = new EventAdapter(list, getContext());
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                 binding.recvBoardList.setAdapter(adapter);
                 binding.recvBoardList.setLayoutManager(manager);

@@ -4,12 +4,15 @@ import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityBoardModifyBinding;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class BoardModifyActivity extends AppCompatActivity {
 
@@ -36,7 +39,18 @@ public class BoardModifyActivity extends AppCompatActivity {
             conn.onExcute((isResult, data) -> {
                 Log.d("글 작성", "onCreate: "+isResult);
                 if(isResult) {
-                    finish();
+                    if (BoardReadActivity.getInstance()!=null){
+                        BoardReadActivity.getInstance().finish();
+                    }
+                    this.finish();
+                    Intent intent = new Intent(BoardModifyActivity.this,BoardReadActivity.class);
+                    CommonConn newconn = new CommonConn(BoardModifyActivity.this,"selectboard.and");
+                    newconn.addParam("board_no", vo.getBoard_no());
+                    newconn.onExcute((isResult1, data1) -> {
+                        BoardVO newvo = (BoardVO) new Gson().fromJson(data1,new TypeToken<BoardVO>(){}.getType());
+                        intent.putExtra("BoardVO", newvo);
+                        startActivity(intent);
+                    });
                 }
             });
         });

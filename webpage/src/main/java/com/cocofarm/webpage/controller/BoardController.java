@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.domain.ReplyVO;
 import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.ReplyService;
@@ -102,6 +103,13 @@ public class BoardController {
     @ResponseBody
     public String selectBoardListAnd(int code) {
         ArrayList<BoardVO> list = boardService.selectList(code);
+        return new Gson().toJson(list);
+    }
+
+    @PostMapping(value = "/selectqnalist.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectQnaListAnd(int code) {
+        ArrayList<QnaDTO> list = boardService.selectQnaList();
         return new Gson().toJson(list);
     }
 
