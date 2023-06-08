@@ -3,10 +3,10 @@
 <mapper namespace="com.cocofarm.webpage.mapper.BoardMapper">
     <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO">
     <![CDATA[ 
-    select rownum, b.board_no, b.member_no, b.nickname, b.product_id, b.title, b.content, b.regdate, b.upddate, count(r.reply_no) replycnt
+    select rownum, b.board_no, b.member_no, b.nickname, b.board_category_cd, b.product_id, b.title, b.content, b.regdate, b.upddate, count(r.reply_no) replycnt
     from tbl_board b left join tbl_reply r on b.board_no = r.board_no
     where b.board_category_cd = #{code}
-    group by rownum, b.board_no, b.member_no, b.nickname, b.product_id, b.title, b.content, b.regdate, b.upddate
+    group by rownum, b.board_no, b.member_no, b.nickname, b.board_category_cd, b.product_id, b.title, b.content, b.regdate, b.upddate
     ]]>
     </select>
     <select id="select" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from tbl_board
