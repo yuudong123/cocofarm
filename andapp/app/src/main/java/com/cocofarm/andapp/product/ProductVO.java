@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.product;
 
+import com.cocofarm.andapp.util.DateJsonAdapter;
+import com.google.gson.annotations.JsonAdapter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -12,6 +15,8 @@ public class ProductVO implements Serializable {
     private String content;
     private int price;
     private int amount;
+
+    @JsonAdapter(DateJsonAdapter.class)
     private Date regdate;
     private String isdeleted;
 }

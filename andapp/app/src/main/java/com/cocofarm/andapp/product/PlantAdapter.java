@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.product;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,16 +12,22 @@ import com.cocofarm.andapp.databinding.ItemProductBinding;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
     ItemProductBinding binding;
-
+    Context context;
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding=ItemProductBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        context = parent.getContext();
+        binding=ItemProductBinding.inflate(LayoutInflater.from(context),parent,false);
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        holder.binding.layoutProductItem.setOnClickListener(view -> {
+            Intent intent = new Intent(context , ProductActivity.class);
+            context.startActivity(intent);
+        });
+
 
     }
 

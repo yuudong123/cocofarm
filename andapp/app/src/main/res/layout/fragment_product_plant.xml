@@ -9,9 +9,9 @@
     tools:context=".product.ProductPlantFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recv_product"
+        android:id="@+id/recv_product_plant"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         />
 
 </LinearLayout>
