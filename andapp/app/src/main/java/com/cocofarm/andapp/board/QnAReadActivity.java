@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
 import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
@@ -9,7 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityQnaReadBinding;
 import com.google.gson.Gson;
@@ -24,19 +24,25 @@ public class QnAReadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityQnaReadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        BoardVO vo = (BoardVO) getIntent().getSerializableExtra("BoardVO");
+        QnaDTO dto = (QnaDTO) getIntent().getSerializableExtra("QnaDTO");
 
-        if (loginMemberAdmin.getMember_type_cd() == CodeTable.MEMBER_TYPE_ADMIN) {
+        if (loginMemberAdmin.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnAnswerConfirm.setOnClickListener(v -> {
-                writeAnswer(vo.getBoard_no());
+                writeAnswer(dto.getBoard_no());
             });
         }
 
-        loadAnswer(vo.getBoard_no());
-        binding.tvTitle.setText(vo.getTitle());
-        binding.tvQuestionNickname.setText(vo.getNickname());
-        binding.tvContentQ.setText(vo.getContent());
-        binding.tvRegdate.setText(yyyyMMddHHmmss.format(vo.getRegdate()));
+        loadAnswer(dto.getBoard_no());
+        binding.tvTitle.setText(dto.getTitle());
+        binding.tvQuestionNickname.setText(dto.getNickname());
+        binding.tvContentQ.setText(dto.getContent());
+        binding.tvRegdate.setText(yyyyMMddHHmmss.format(dto.getRegdate()));
+        if (dto.getProduct_id() != 0) {
+            binding.tvProductId.setText(dto.getProduct_id()+"");
+            binding.tvProductName.setText(dto.getProduct_name());
+            binding.tvProductContent.setText(dto.getProduct_content());
+            binding.qnaProduct.setVisibility(View.VISIBLE);
+        }
     }
 
     protected void loadAnswer(int board_no) {
@@ -49,7 +55,7 @@ public class QnAReadActivity extends AppCompatActivity {
             if (data.equals("null")) {
                 binding.tvContentA.setText("답변을 준비중입니다.");
                 binding.tvAnswerNickname.setText("");
-                if (loginMemberAdmin.getMember_type_cd() == CodeTable.MEMBER_TYPE_ADMIN) {
+                if (loginMemberAdmin.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
                     binding.bottomAnswerWriteBar.setVisibility(View.VISIBLE);
                 }
             } else {

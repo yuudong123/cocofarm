@@ -4,10 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
+    android:paddingBottom="10dp"
     android:background="#eeeeee"
-    android:minHeight="80dp"
-    android:padding="10dp">
+    android:minHeight="80dp">
 
+    <LinearLayout
+        android:id="@+id/itemReplyModifyBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/edtReplyModify"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxHeight="200dp"
+            android:minHeight="50dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReplyModifyConfirm"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="13dp"
+            app:icon="@drawable/icon_check"
+            app:iconTint="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReplyModifyCancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="13dp"
+            app:icon="@drawable/icon_close"
+            app:iconTint="@color/black" />
+
+    </LinearLayout>
     <TextView
         android:id="@+id/tvNickname"
         android:layout_width="wrap_content"
@@ -15,8 +52,10 @@
         android:text="닉네임"
         android:textSize="15dp"
         android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/itemReplyModifyBar" />
 
     <TextView
         android:id="@+id/tvRegdate"
@@ -27,21 +66,25 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvNickname"
         app:layout_constraintStart_toEndOf="@+id/tvNickname" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_three_dot_v"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSeemore"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:padding="10dp"
+        app:icon="@drawable/icon_three_dot_v"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/tvContent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tvContent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="안녕하세요 안녕하세요"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSeemore"
+        app:layout_constraintStart_toStartOf="@+id/tvNickname"
         app:layout_constraintTop_toBottomOf="@+id/tvNickname" />
 
 
