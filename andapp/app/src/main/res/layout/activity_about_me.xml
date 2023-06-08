@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:layout_marginHorizontal="20dp"
+    android:paddingHorizontal="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
     <TextView
         android:layout_marginVertical="15dp"
         android:textSize="16dp"
         android:textColor="#666666"
-        android:text="정보 수정"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:text="내 정보"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tv_modify"
+            android:clickable="true"
+            android:gravity="bottom"
+            android:layout_marginVertical="15dp"
+            android:textSize="10dp"
+            android:textColor="#007DEA"
+            android:text="정보 수정하기"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"/>
+    </LinearLayout>
 
     <View
         android:layout_marginBottom="20dp"
@@ -34,6 +52,7 @@
             android:layout_width="70dp"
             android:layout_height="30dp"/>
         <TextView
+            android:id="@+id/tv_email"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
@@ -42,7 +61,6 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"/>
-
 
     </LinearLayout>
     <LinearLayout
@@ -58,6 +76,7 @@
             android:layout_width="70dp"
             android:layout_height="30dp"/>
         <TextView
+            android:id="@+id/tv_pw"
             android:inputType="textPassword"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
@@ -67,14 +86,6 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"/>
-        <TextView
-            android:gravity="center"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="12dp"
-            android:textColor="#007DEA"
-            android:text="수정"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
 
     </LinearLayout>
     <LinearLayout
@@ -90,22 +101,14 @@
             android:layout_width="70dp"
             android:layout_height="30dp"/>
         <TextView
+            android:id="@+id/tv_nickname"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:textColor="#666666"
-            android:text="Unknown"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"/>
-        <TextView
-            android:gravity="center"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="12dp"
-            android:textColor="#007DEA"
-            android:text="수정"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
 
     </LinearLayout>
     <LinearLayout
@@ -121,35 +124,65 @@
             android:layout_width="70dp"
             android:layout_height="30dp"/>
         <TextView
+            android:id="@+id/tv_phone"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
             android:textColor="#666666"
-            android:text="01012341234"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"/>
-        <TextView
-            android:gravity="center"
-            android:layout_marginHorizontal="25dp"
-            android:textSize="12dp"
-            android:textColor="#007DEA"
-            android:text="수정"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
-    <Button
+    <View
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:id="@+id/btn_ok"
-        android:backgroundTint="@color/primary"
-        android:text="저장"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
+        android:background="#121212"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:textColor="#121212"
+        android:layout_marginLeft="30dp"
+        android:layout_marginVertical="10dp"
+        android:text="배송지"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_marginRight="35dp"
+            android:layout_marginVertical="15dp"
+            android:src="@drawable/mark_plus"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_marginHorizontal="15dp"
+        android:layout_gravity="center"
+        android:background="#121212"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_gravity="center"
+        android:background="#121212"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
 
 </LinearLayout>
