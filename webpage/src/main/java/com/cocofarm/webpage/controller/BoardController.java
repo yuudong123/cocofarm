@@ -98,39 +98,33 @@ public class BoardController {
         boardService.delete(board_no);
     }
 
-    @PostMapping(value = "selectboardlist.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/selectboardlist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardListAnd(int code) {
         ArrayList<BoardVO> list = boardService.selectList(code);
         return new Gson().toJson(list);
     }
 
-    @PostMapping(value = "selectboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/selectboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardAnd(int board_no) {
         BoardVO vo = boardService.select(board_no);
         return new Gson().toJson(vo);
     }
 
-    @PostMapping(value = "insertboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/insertboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public void insertBoardAnd(int member_no, String nickname, int board_category_cd, String title, String content) {
-        BoardVO vo = new BoardVO();
-        vo.setMember_no(member_no);
-        vo.setNickname(nickname);
-        vo.setBoard_category_cd(board_category_cd);
-        vo.setTitle(title);
-        vo.setContent(content);
+    public void insertBoardAnd(BoardVO vo) {
         boardService.insert(vo);
     }
 
-    @PostMapping(value = "updateboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/updateboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void updateBoardAnd(BoardVO vo) {
         boardService.update(vo);
     }
 
-    @PostMapping(value = "deleteboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/deleteboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void deleteBoardAnd(int board_no) {
         boardService.delete(board_no);

@@ -22,6 +22,7 @@ public class BoardFragment extends Fragment {
         binding.boardSelectMenu.addTab(binding.boardSelectMenu.newTab().setText("공지사항"));
         binding.boardSelectMenu.addTab(binding.boardSelectMenu.newTab().setText("이벤트"));
         binding.boardSelectMenu.addTab(binding.boardSelectMenu.newTab().setText("QnA"));
+        getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, new NoticeFragment()).commit();
         binding.boardSelectMenu.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

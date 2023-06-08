@@ -13,11 +13,12 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.cocofarm.andapp.common.CodeTable;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentEventBinding;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class EventFragment extends Fragment {
 
@@ -27,23 +28,24 @@ public class EventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEventBinding.inflate(inflater, container, false);
 
-        ArrayList<BoardVO> list = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            BoardVO vo = new BoardVO();
-            vo.setRownum(i);
-            vo.setTitle("제목테스트"+i);
-            vo.setRegdate(new Date());
-            list.add(vo);
-        }
-        EventAdapter adapter = new EventAdapter(list);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        binding.recvBoardList.setAdapter(adapter);
-        binding.recvBoardList.setLayoutManager(manager);
+        CommonConn conn = new CommonConn(getContext(), "selectboardlist.and");
+        conn.addParam("code", BOARD_CATEGORY_EVENT);
+        conn.onExcute((isResult, data) -> {
+            if (isResult) {
+                ArrayList<BoardVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+                }.getType());
+                EventAdapter adapter = new EventAdapter(list);
+                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                binding.recvBoardList.setAdapter(adapter);
+                binding.recvBoardList.setLayoutManager(manager);
+            }
+        });
+
 
         if (loginMemberAdmin.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
-                Intent intent = new Intent(getContext(),BoardWriteActivity.class);
+                Intent intent = new Intent(getContext(), BoardWriteActivity.class);
                 intent.putExtra("category", BOARD_CATEGORY_EVENT);
                 startActivity(intent);
             });
