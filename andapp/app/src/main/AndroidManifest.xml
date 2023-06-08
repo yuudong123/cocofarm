@@ -12,8 +12,7 @@
 
     <uses-feature
         android:name="android.hardware.camera2"
-        android:required="true" />
-    <!-- API30이상에서는 queries사용해서 권한부여를 한번 더 해야함. -->
+        android:required="true" /> <!-- API30이상에서는 queries사용해서 권한부여를 한번 더 해야함. -->
     <queries>
 
         <!-- WebView -->
@@ -49,21 +48,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cocofarm"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".board.QnAReadActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
         <activity
             android:name=".product.Order_Finish_Activity"
             android:exported="false" />
         <activity
             android:name=".board.QnAWriteActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".board.BoardReadActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".board.BoardModifyActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".board.BoardWriteActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".product.CartActivity"
