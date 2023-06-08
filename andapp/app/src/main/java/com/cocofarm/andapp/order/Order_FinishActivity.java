@@ -1,4 +1,4 @@
-package com.cocofarm.andapp.product;
+package com.cocofarm.andapp.order;
 
 import androidx.appcompat.app.AppCompatActivity;
 
