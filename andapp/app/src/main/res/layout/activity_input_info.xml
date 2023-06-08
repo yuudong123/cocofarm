@@ -40,8 +40,8 @@
         app:boxStrokeColor="#123456"
         app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_info"
-            android:hint="TV_INFO"
+            android:id="@+id/edt_info"
+            android:hint="EDT_INFO"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -61,6 +61,7 @@
         android:layout_weight="1"/>
 
     <!-- 필요 없으면 삭제 -->
+<!--
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,9 +80,8 @@
             android:text="고객센터로 이동"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
-
     </LinearLayout>
+    -->
 
 
 </LinearLayout>

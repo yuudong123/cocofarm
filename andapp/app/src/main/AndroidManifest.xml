@@ -51,6 +51,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".CocoJoinActivity"
+            android:exported="false"
+            android:label="@string/title_activity_coco_join"
+            android:theme="@style/Theme.Cocofarm.NoActionBar" />
+        <activity
             android:name=".board.QnAWriteActivity"
             android:exported="false" />
         <activity
