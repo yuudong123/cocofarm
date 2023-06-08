@@ -30,7 +30,7 @@ public class BoardModifyActivity extends AppCompatActivity {
             }
             CommonConn conn = new CommonConn(this, "updateboard.and");
             conn.addParam("board_no", vo.getBoard_no());
-            conn.addParam("product_id", vo.getProduct_id());
+            conn.addParam("product_id",0);
             conn.addParam("title",binding.edtTitle.getText().toString());
             conn.addParam("content",binding.edtContent.getText().toString());
             conn.onExcute((isResult, data) -> {
