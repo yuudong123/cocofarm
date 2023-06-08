@@ -78,22 +78,12 @@ public class BoardReadActivity extends AppCompatActivity {
                 Toast.makeText(this, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            CommonConn conn = new CommonConn(this, "insertreply.and");
-            conn.addParam("board_no", vo.getBoard_no());
-            conn.addParam("member_no", CommonVal.loginMember.getMember_no());
-            conn.addParam("nickname", CommonVal.loginMember.getNickname());
-            conn.addParam("content", binding.edtReplyWrite.getText().toString());
-            conn.onExcute((isResult, data) -> {
-                Log.d("Reply", "onCreate: " + isResult);
-                if (isResult) {
-                    binding.edtReplyWrite.setText("");
-                    binding.bottomMenuBar.setVisibility(View.VISIBLE);
-                    binding.bottomReplyWriteBar.setVisibility(View.GONE);
-                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(binding.edtReplyWrite.getWindowToken(), 0);
-                }
-            });
+            writeReply(vo.getBoard_no());
+            Fragment fragment = new BoardReadReplyFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("board_no", vo.getBoard_no());
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction().replace(R.id.containerBoardRead, fragment).commit();
         });
         binding.btnReplyCancel.setOnClickListener(v -> {
             binding.bottomMenuBar.setVisibility(View.VISIBLE);
@@ -101,6 +91,24 @@ public class BoardReadActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(binding.edtReplyWrite.getWindowToken(), 0);
             binding.edtReplyWrite.setText("");
+        });
+    }
+
+    protected void writeReply(int board_no) {
+        CommonConn conn = new CommonConn(this, "insertreply.and");
+        conn.addParam("board_no", board_no);
+        conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+        conn.addParam("nickname", CommonVal.loginMember.getNickname());
+        conn.addParam("content", binding.edtReplyWrite.getText().toString());
+        conn.onExcute((isResult, data) -> {
+            Log.d("Reply", "onCreate: " + isResult);
+            if (isResult) {
+                binding.edtReplyWrite.setText("");
+                binding.bottomMenuBar.setVisibility(View.VISIBLE);
+                binding.bottomReplyWriteBar.setVisibility(View.GONE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(binding.edtReplyWrite.getWindowToken(), 0);
+            }
         });
     }
 }
