@@ -8,4 +8,6 @@ public class CodeTable {
     public static final int BOARD_CATEGORY_NOTICE = 202;
     public static final int BOARD_CATEGORY_REVIEW = 203;
     public static final int BOARD_CATEGORY_EVENT = 204;
+
+
 }
