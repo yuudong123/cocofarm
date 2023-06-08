@@ -57,7 +57,17 @@
             android:text="비밀번호"
             android:layout_width="70dp"
             android:layout_height="30dp"/>
+        <EditText
+            android:id="@+id/edt_pw"
+            android:gravity="center_vertical"
+            android:textSize="12dp"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"/>
         <TextView
+            android:visibility="visible"
+            android:id="@+id/tv_pw"
             android:inputType="textPassword"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
@@ -68,6 +78,8 @@
             android:layout_height="30dp"
             android:layout_weight="1"/>
         <TextView
+            android:visibility="visible"
+            android:id="@+id/tv_pwModify"
             android:gravity="center"
             android:layout_marginHorizontal="25dp"
             android:textSize="12dp"
@@ -89,7 +101,17 @@
             android:text="닉네임"
             android:layout_width="70dp"
             android:layout_height="30dp"/>
+        <EditText
+            android:id="@+id/edt_name"
+            android:gravity="center_vertical"
+            android:textSize="12dp"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"/>
         <TextView
+            android:visibility="visible"
+            android:id="@+id/tv_name"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
@@ -99,6 +121,8 @@
             android:layout_height="30dp"
             android:layout_weight="1"/>
         <TextView
+            android:visibility="visible"
+            android:id="@+id/tv_nameModify"
             android:gravity="center"
             android:layout_marginHorizontal="25dp"
             android:textSize="12dp"
@@ -120,7 +144,17 @@
             android:text="연락처"
             android:layout_width="70dp"
             android:layout_height="30dp"/>
+        <EditText
+            android:id="@+id/edt_phone"
+            android:gravity="center_vertical"
+            android:textSize="12dp"
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"/>
         <TextView
+            android:visibility="visible"
+            android:id="@+id/tv_phone"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
@@ -130,6 +164,8 @@
             android:layout_height="30dp"
             android:layout_weight="1"/>
         <TextView
+            android:visibility="visible"
+            android:id="@+id/tv_phoneModify"
             android:gravity="center"
             android:layout_marginHorizontal="25dp"
             android:textSize="12dp"

@@ -48,6 +48,7 @@
             android:layout_width="70dp"
             android:layout_height="30dp"/>
         <TextView
+            android:id="@+id/tv_email"
             android:textSize="13dp"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
@@ -71,6 +72,7 @@
             android:layout_width="70dp"
             android:layout_height="30dp"/>
         <EditText
+            android:id="@+id/edt_pw"
             android:textSize="10dp"
             android:hint="비밀번호를 입력하세요."
             android:layout_marginLeft="20dp"

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import com.cocofarm.andapp.board.BoardFragment;
 import com.cocofarm.andapp.databinding.ActivityMainBinding;
 import com.cocofarm.andapp.home.HomeFragment;
+import com.cocofarm.andapp.mypage.MypageFragment;
 import com.cocofarm.andapp.product.ProductFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,12 +20,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
+
 
         binding.bottomNav.setOnItemSelectedListener(menu->{
             Fragment fragment =  null;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (menu.getItemId()==R.id.mydevice) {
                 
             } else if (menu.getItemId()==R.id.mypage) {
-                
+                fragment = new MypageFragment();
             }else{
                 return false;
             }
