@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".product.Order_Finish_Activity">
+    tools:context=".product.Order_FinishActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -37,25 +37,34 @@
         </LinearLayout>
     </LinearLayout>
 
-        <TextView
-            android:textStyle="bold"
-            android:layout_margin="10dp"
-            android:textSize="20dp"
-            android:text="주문목록"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    <androidx.appcompat.widget.SearchView
-        app:queryHint="주문한 상품을 검색할 수 있어요"
-        android:id="@+id/order_content_search"
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recv_order_finish"
+    <ImageView
+        android:layout_margin="20dp"
+        android:src="@drawable/mark_complete"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:id="@+id/tv_order_complete"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="결제가 완료되었습니다."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:textColor="@color/white"
+        android:id="@+id/btn_order_ok"
+        android:backgroundTint="@color/primary"
+        android:text="코코몰로 이동"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+</LinearLayout>
 
-    </LinearLayout>
-
+</LinearLayout>

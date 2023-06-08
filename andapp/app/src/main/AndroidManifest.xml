@@ -12,8 +12,7 @@
 
     <uses-feature
         android:name="android.hardware.camera2"
-        android:required="true" />
-    <!-- API30이상에서는 queries사용해서 권한부여를 한번 더 해야함. -->
+        android:required="true" /> <!-- API30이상에서는 queries사용해서 권한부여를 한번 더 해야함. -->
     <queries>
 
         <!-- WebView -->
@@ -50,6 +49,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cocofarm"
         tools:targetApi="31">
+        <activity
+            android:name=".Order_FinishActivity"
+            android:exported="false" />
         <activity
             android:name=".product.Order_Finish_Activity"
             android:exported="false" />
