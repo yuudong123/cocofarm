@@ -26,11 +26,11 @@ public class QnAFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentQnABinding.inflate(inflater, container, false);
 
-        CommonConn conn = new CommonConn(getContext(), "selectboardlist.and");
+        CommonConn conn = new CommonConn(null, "selectqnalist.and");
         conn.addParam("code", BOARD_CATEGORY_QNA);
         conn.onExcute((isResult, data) -> {
             if (isResult) {
-                ArrayList<BoardVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+                ArrayList<QnaDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>() {
                 }.getType());
                 QnAAdapter adapter = new QnAAdapter(list, getContext());
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
@@ -38,7 +38,6 @@ public class QnAFragment extends Fragment {
                 binding.recvBoardList.setLayoutManager(manager);
             }
         });
-
 
         binding.btnWrite.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), QnAWriteActivity.class);

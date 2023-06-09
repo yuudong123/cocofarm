@@ -143,14 +143,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvFileSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="크기 : " />
-
-            <TextView
-                android:id="@+id/btnProductChange"
+                android:id="@+id/btnImageChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"

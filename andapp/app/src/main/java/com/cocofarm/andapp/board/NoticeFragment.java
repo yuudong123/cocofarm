@@ -2,7 +2,7 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_NOTICE;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
-import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +28,7 @@ public class NoticeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNoticeBinding.inflate(inflater, container, false);
 
-        CommonConn conn = new CommonConn(getContext(), "selectboardlist.and");
+        CommonConn conn = new CommonConn(null, "selectboardlist.and");
         conn.addParam("code", BOARD_CATEGORY_NOTICE);
         conn.onExcute((isResult, data) -> {
             if (isResult) {
@@ -41,13 +41,15 @@ public class NoticeFragment extends Fragment {
             }
         });
 
-        if (loginMemberAdmin.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
+        if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), BoardWriteActivity.class);
                 intent.putExtra("category", BOARD_CATEGORY_NOTICE);
                 startActivity(intent);
             });
+        } else {
+            binding.btnWrite.setVisibility(View.GONE);
         }
 
         return binding.getRoot();

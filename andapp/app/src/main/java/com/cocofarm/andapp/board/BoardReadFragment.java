@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.databinding.FragmentBoardReadBinding;
+import com.cocofarm.andapp.image.ImageUtil;
 
 public class BoardReadFragment extends Fragment {
 
@@ -19,7 +20,7 @@ public class BoardReadFragment extends Fragment {
         binding = FragmentBoardReadBinding.inflate(inflater, container, false);
         BoardVO vo = (BoardVO) getArguments().getSerializable("BoardVO");
 
-        binding.ivMainImage.setImageResource(R.drawable.temp_image_event1); // 나중에 첨부파일로 바꿀 것
+        ImageUtil.load(getContext(),binding.ivMainImage,vo.getMainimage()); // 나중에 첨부파일로 바꿀 것
         binding.tvContent.setText(vo.getContent());
         return binding.getRoot();
     }

@@ -2,7 +2,6 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.HHmmss;
 import static com.cocofarm.andapp.common.CommonVal.Md;
-import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
 
 import java.text.SimpleDateFormat;
@@ -22,10 +20,10 @@ import java.util.Date;
 public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
 
     ItemQnaBoardBinding binding;
-    ArrayList<BoardVO> list;
+    ArrayList<QnaDTO> list;
     Context context;
 
-    public QnAAdapter(ArrayList<BoardVO> list, Context context) {
+    public QnAAdapter(ArrayList<QnaDTO> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -39,7 +37,6 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.rownum.setText(list.get(i).getRownum() + "");
         holder.binding.title.setText(list.get(i).getTitle());
         if (list.get(i).getReplycnt() == 0) {
             holder.binding.answer.setText("");
@@ -51,9 +48,9 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
             sdf = Md;
         }
         holder.binding.regdate.setText(sdf.format(list.get(i).getRegdate()));
-        holder.binding.item.setOnClickListener(v->{
+        holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, QnAReadActivity.class);
-            intent.putExtra("BoardVO", list.get(i));
+            intent.putExtra("QnaDTO", list.get(i));
             context.startActivity(intent);
         });
     }

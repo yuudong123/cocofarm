@@ -1,15 +1,20 @@
 package com.cocofarm.andapp.board;
 
-import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
 import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.R;
@@ -21,12 +26,14 @@ import com.cocofarm.andapp.databinding.ActivityBoardReadBinding;
 public class BoardReadActivity extends AppCompatActivity {
 
     ActivityBoardReadBinding binding;
+    private static BoardReadActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityBoardReadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        instance = this;
 
         BoardVO vo = (BoardVO) getIntent().getSerializableExtra("BoardVO");
         binding.title.setText(vo.getTitle());
@@ -92,6 +99,54 @@ public class BoardReadActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(binding.edtReplyWrite.getWindowToken(), 0);
             binding.edtReplyWrite.setText("");
         });
+        binding.btnSeemore.setOnClickListener(v -> {
+            PopupMenu menu = new PopupMenu(v.getContext(), v);
+            if (loginMember.getMember_no() != vo.getMember_no() && loginMember.getMember_type_cd() != MEMBER_TYPE_ADMIN) {
+                menu.getMenuInflater().inflate(R.menu.seemore_no_perm, menu.getMenu());
+            } else {
+                menu.getMenuInflater().inflate(R.menu.board_seemore,menu.getMenu());
+            }
+            menu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.menuBoardSeemoreModify:
+                        Intent intent = new Intent(this, BoardModifyActivity.class);
+                        intent.putExtra("BoardVO", vo);
+                        startActivity(intent);
+                        break;
+                    case R.id.menuBoardSeemoreDelete:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle("게시글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
+                                .setPositiveButton("확인", (dialogInterface, i1) -> {
+                                    CommonConn conn = new CommonConn(this, "deleteboard.and");
+                                    conn.addParam("board_no", vo.getBoard_no());
+                                    conn.onExcute((isResult, data) -> {
+                                        if (isResult) {
+                                            Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                                            this.finish();
+                                        }
+                                    });
+                                })
+                                .setNegativeButton("취소", (dialogInterface, i1) -> {
+                                }).create().show();
+                        break;
+                    case R.id.menuBoardSeemoreShare:
+                        Intent intentShare = new Intent(Intent.ACTION_SEND);
+                        intentShare.setType("text/plain");
+                        intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/" + vo.getBoard_no());
+                        startActivity(Intent.createChooser(intentShare, "공유하기"));
+                        break;
+                    case R.id.menuBoardSeemoreBrowser:
+                        Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
+                        intentBrowser.setData(Uri.parse("http://localhost:9090/board/" + vo.getBoard_no()));
+                        startActivity(intentBrowser);
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            });
+            menu.show();
+        });
     }
 
     protected void writeReply(int board_no) {
@@ -110,5 +165,9 @@ public class BoardReadActivity extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(binding.edtReplyWrite.getWindowToken(), 0);
             }
         });
+    }
+
+    public static BoardReadActivity getInstance() {
+        return instance;
     }
 }

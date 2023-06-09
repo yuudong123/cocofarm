@@ -2,7 +2,7 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
-import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,27 +28,28 @@ public class EventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEventBinding.inflate(inflater, container, false);
 
-        CommonConn conn = new CommonConn(getContext(), "selectboardlist.and");
+        CommonConn conn = new CommonConn(null, "selectboardlist.and");
         conn.addParam("code", BOARD_CATEGORY_EVENT);
         conn.onExcute((isResult, data) -> {
             if (isResult) {
                 ArrayList<BoardVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
                 }.getType());
-                EventAdapter adapter = new EventAdapter(list);
+                EventAdapter adapter = new EventAdapter(list, getContext());
                 LinearLayoutManager manager = new LinearLayoutManager(getContext());
                 binding.recvBoardList.setAdapter(adapter);
                 binding.recvBoardList.setLayoutManager(manager);
             }
         });
 
-
-        if (loginMemberAdmin.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
+        if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), BoardWriteActivity.class);
                 intent.putExtra("category", BOARD_CATEGORY_EVENT);
                 startActivity(intent);
             });
+        } else {
+            binding.btnWrite.setVisibility(View.GONE);
         }
 
         return binding.getRoot();

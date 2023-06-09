@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 public class BoardFragment extends Fragment {
 
     FragmentBoardBinding binding;
-    int selected=0;
+    int selected = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -31,7 +31,6 @@ public class BoardFragment extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -58,11 +57,11 @@ public class BoardFragment extends Fragment {
     protected void loadTab(int i) {
         selected = i;
         Fragment fragment = null;
-        if (i==0){
+        if (i == 0) {
             fragment = new NoticeFragment();
-        } else if (i==1) {
+        } else if (i == 1) {
             fragment = new EventFragment();
-        } else if (i==2) {
+        } else if (i == 2) {
             fragment = new QnAFragment();
         }
         getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();

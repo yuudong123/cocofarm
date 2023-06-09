@@ -8,14 +8,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:paddingHorizontal="10dp"
+        android:gravity="center_vertical"
         android:background="@color/board_item_background"
         android:elevation="10dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:text="이벤트 게시판입니다."
             android:textSize="15dp" />
@@ -24,7 +25,6 @@
             android:id="@+id/btnWrite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:backgroundTint="@color/primary"
             android:text="글 작성"
             android:textColor="@color/white"
