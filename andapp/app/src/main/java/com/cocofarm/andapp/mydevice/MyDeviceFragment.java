@@ -22,8 +22,6 @@ public class MyDeviceFragment extends Fragment {
 
 
 
-
-
         return binding.getRoot();
     }
 }

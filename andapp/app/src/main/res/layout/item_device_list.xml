@@ -11,6 +11,7 @@
         android:background="@drawable/background_device_add">
 
         <ImageView
+            android:id="@+id/iv_productImg"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -24,6 +25,7 @@
             android:src="@drawable/ic_launcher_foreground" />
 
         <TextView
+            android:id="@+id/tv_dvName"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -37,6 +39,7 @@
             android:textSize="25dp" />
 
         <TextView
+            android:id="@+id/tv_productId"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -48,7 +51,7 @@
             android:textSize="12dp" />
 
         <Button
-            android:id="@+id/btn_info"
+            android:id="@+id/btn_select"
             android:layout_width="100dp"
             android:layout_height="40dp"
             android:layout_alignParentEnd="true"

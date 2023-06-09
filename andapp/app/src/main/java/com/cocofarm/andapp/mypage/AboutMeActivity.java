@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ActivityAboutMeBinding;
@@ -34,8 +35,13 @@ public class AboutMeActivity extends AppCompatActivity {
             binding.tvNickname.setText(CommonVal.loginMember.getNickname());
             binding.tvPhone.setText(CommonVal.loginMember.getPhoneNumber());
         } catch (NullPointerException e) {
-
+            Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
         }
+
+        binding.ivAddressAdd.setOnClickListener(v->{
+            Intent intent = new Intent(AboutMeActivity.this, MpAddressActivity.class);
+            startActivity(intent);
+        });
 
     }
 
