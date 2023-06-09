@@ -71,7 +71,7 @@ public class ProductActivity extends AppCompatActivity {
             });
         }
         else {
-          
+
     }
 
 

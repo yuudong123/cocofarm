@@ -68,7 +68,6 @@
             android:exported="false" />
         <activity
             android:name=".order.Cart_PopupActivity"
-            android:name=".mypage.MpAddressActivity"
             android:exported="false" />
         <activity
             android:name=".board.BoardImageSelectActivity"
@@ -83,7 +82,6 @@
         <!-- android:name=".Order_FinishActivity" -->
         <activity
             android:name=".order.Order_FinishActivity"
-            android:name=".mypage.AwayConfirmActivity"
             android:exported="false" />
         <activity
             android:name=".mypage.AwayRemoveActivity"
