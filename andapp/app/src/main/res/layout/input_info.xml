@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/layout"
     android:paddingBottom="30dp"
     android:paddingTop="60dp"
     android:paddingHorizontal="45dp"
@@ -41,7 +42,6 @@
         app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_info"
-            android:hint="EDT_INFO"
             android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

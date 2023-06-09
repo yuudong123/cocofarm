@@ -1,11 +1,13 @@
 package com.cocofarm.andapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.board.BoardFragment;
+import com.cocofarm.andapp.board.NoticeFragment;
 import com.cocofarm.andapp.databinding.ActivityMainBinding;
 import com.cocofarm.andapp.home.HomeFragment;
 import com.cocofarm.andapp.mydevice.MyDeviceFragment;
@@ -13,7 +15,7 @@ import com.cocofarm.andapp.mypage.MypageFragment;
 import com.cocofarm.andapp.product.ProductFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static Context mContext;
     ActivityMainBinding binding;
 
     @Override
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        mContext = this;
+
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
     }
 
@@ -42,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
             } else if (menu.getItemId()==R.id.mydevice) {
                 fragment = new MyDeviceFragment();
+
             } else if (menu.getItemId()==R.id.mypage) {
                 fragment = new MypageFragment();
+
             }else{
                 return false;
             }
@@ -55,3 +61,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
+

@@ -2,6 +2,7 @@
 <LinearLayout
     android:paddingHorizontal="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -61,20 +62,14 @@
         android:text="전화로 문의하기"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/btn_notice"
-        android:backgroundTint="#D7F1DE"
-        android:textColor="@color/primary"
-        android:text="공지사항 바로가기"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/btn_event"
-        android:backgroundTint="#D7F1DE"
-        android:textColor="@color/primary"
-        android:text="이벤트 바로가기"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+<!--    <Button-->
+<!--        android:id="@+id/btn_notice"-->
+<!--        android:backgroundTint="#D7F1DE"-->
+<!--        android:textColor="@color/primary"-->
+<!--        android:text="공지사항 바로가기"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+
     <View
         android:layout_marginVertical="20dp"
         android:layout_gravity="center"
@@ -82,6 +77,12 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
-
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
 
 </LinearLayout>

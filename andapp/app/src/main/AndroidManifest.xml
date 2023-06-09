@@ -127,6 +127,9 @@
             android:name=".product.ProductActivity"
             android:exported="false" />
         <activity
+            android:name=".member.JoinNameActivity"
+            android:exported="false" />
+        <activity
             android:name=".member.JoinActivity"
             android:exported="false" />
         <activity
