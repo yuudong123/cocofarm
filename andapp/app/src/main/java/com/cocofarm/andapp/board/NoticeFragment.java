@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class NoticeFragment extends Fragment {
 
     FragmentNoticeBinding binding;
-
+    private int page=1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNoticeBinding.inflate(inflater, container, false);

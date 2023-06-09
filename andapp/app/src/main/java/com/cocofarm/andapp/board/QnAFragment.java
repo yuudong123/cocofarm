@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class QnAFragment extends Fragment {
 
     FragmentQnABinding binding;
+    private int page = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

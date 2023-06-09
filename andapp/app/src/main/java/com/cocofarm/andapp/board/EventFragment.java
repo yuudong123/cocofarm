@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class EventFragment extends Fragment {
 
     FragmentEventBinding binding;
+    private int page=1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
