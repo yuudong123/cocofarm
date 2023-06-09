@@ -59,8 +59,7 @@ public class QnAReadActivity extends AppCompatActivity {
                     binding.bottomAnswerWriteBar.setVisibility(View.VISIBLE);
                 }
             } else {
-                ReplyVO reply = new Gson().fromJson(data, new TypeToken<ReplyVO>() {
-                }.getType());
+                ReplyVO reply = new Gson().fromJson(data, ReplyVO.class);
                 binding.tvContentA.setText(reply.getContent());
                 binding.tvAnswerNickname.setText(reply.getNickname());
                 binding.bottomAnswerWriteBar.setVisibility(View.GONE);

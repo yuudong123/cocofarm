@@ -47,7 +47,7 @@ public class BoardModifyActivity extends AppCompatActivity {
                     CommonConn newconn = new CommonConn(BoardModifyActivity.this,"selectboard.and");
                     newconn.addParam("board_no", vo.getBoard_no());
                     newconn.onExcute((isResult1, data1) -> {
-                        BoardVO newvo = (BoardVO) new Gson().fromJson(data1,new TypeToken<BoardVO>(){}.getType());
+                        BoardVO newvo = (BoardVO) new Gson().fromJson(data1,BoardVO.class);
                         intent.putExtra("BoardVO", newvo);
                         startActivity(intent);
                     });
