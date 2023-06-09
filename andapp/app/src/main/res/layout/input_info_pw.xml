@@ -41,7 +41,7 @@
         app:boxStrokeColor="#123456"
         app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tv_info"
+            android:id="@+id/edt_info"
             android:hint="TV_INFO_HIDDEN"
             android:inputType="text"
             android:layout_width="match_parent"

@@ -22,6 +22,9 @@ public class MemberVO implements Serializable {
     private Date joindate;
     private String isactivated = "Y";
 
+    public MemberVO() {
+
+    }
 
     public MemberVO(int member_no, String nickname, int member_type_cd) {
         this.member_no = member_no;

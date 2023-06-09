@@ -42,7 +42,8 @@ public class JoinActivity extends AppCompatActivity {
 
         // 코코팜 회원가입
         binding.btnJoin.setOnClickListener(v-> {
-
+            Intent intent = new Intent(JoinActivity.this, JoinNameActivity.class);
+            startActivity(intent);
         });
 
 

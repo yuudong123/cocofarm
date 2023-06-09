@@ -31,17 +31,6 @@ public class MypageFragment extends Fragment {
         binding = FragmentMypageBinding.inflate(inflater, container, false);
 
 
-
-        try {
-            binding.tvNickname.setText(CommonVal.loginMember.getNickname());
-            binding.tvEmail.setText(CommonVal.loginMember.getEmail());
-        } catch (NullPointerException e) {
-            Toast.makeText(getActivity(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-        }
-
-
         binding.btnLogout.setOnClickListener(v-> {
             CommonVal.loginMember = null;
             Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -72,7 +61,25 @@ public class MypageFragment extends Fragment {
         });
 
 
-
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+            binding.tvNickname.setText(CommonVal.loginMember.getNickname());
+            binding.tvEmail.setText(CommonVal.loginMember.getEmail());
+        } catch (NullPointerException e) {
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+            Toast.makeText(getActivity(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
