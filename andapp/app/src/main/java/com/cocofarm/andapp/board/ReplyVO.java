@@ -19,14 +19,4 @@ public class ReplyVO implements Serializable {
     private Date regdate;
     @JsonAdapter(DateJsonAdapter.class)
     private Date upddate;
-
-    public ReplyVO(int member_no, String nickname, int board_no, String content) {
-        this.member_no = member_no;
-        this.nickname = nickname;
-        this.board_no = board_no;
-        this.content = content;
-    }
-
-    public ReplyVO() {
-    }
 }

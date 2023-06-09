@@ -2,7 +2,6 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.HHmmss;
 import static com.cocofarm.andapp.common.CommonVal.Md;
-import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
 
 import java.text.SimpleDateFormat;
@@ -51,7 +49,7 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
             sdf = Md;
         }
         holder.binding.regdate.setText(sdf.format(list.get(i).getRegdate()));
-        holder.binding.item.setOnClickListener(v->{
+        holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, QnAReadActivity.class);
             intent.putExtra("QnaDTO", list.get(i));
             context.startActivity(intent);

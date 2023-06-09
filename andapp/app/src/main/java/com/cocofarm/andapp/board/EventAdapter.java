@@ -1,6 +1,5 @@
 package com.cocofarm.andapp.board;
 
-import static com.cocofarm.andapp.common.CommonVal.Md;
 import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.content.Context;
@@ -36,7 +35,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         holder.binding.title.setText(list.get(i).getTitle());
         holder.binding.regdate.setText(yyyyMMddHHmmss.format(list.get(i).getRegdate()));
-        holder.binding.item.setOnClickListener(v->{
+        holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
             intent.putExtra("BoardVO", list.get(i));
             context.startActivity(intent);

@@ -114,7 +114,7 @@ public class BoardReadActivity extends AppCompatActivity {
                                     CommonConn conn = new CommonConn(this, "deleteboard.and");
                                     conn.addParam("board_no", vo.getBoard_no());
                                     conn.onExcute((isResult, data) -> {
-                                        if(isResult) {
+                                        if (isResult) {
                                             Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                                             this.finish();
                                         }
@@ -126,12 +126,12 @@ public class BoardReadActivity extends AppCompatActivity {
                     case R.id.menuBoardSeemoreShare:
                         Intent intentShare = new Intent(Intent.ACTION_SEND);
                         intentShare.setType("text/plain");
-                        intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/"+vo.getBoard_no());
+                        intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/" + vo.getBoard_no());
                         startActivity(Intent.createChooser(intentShare, "공유하기"));
                         break;
                     case R.id.menuBoardSeemoreBrowser:
                         Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
-                        intentBrowser.setData(Uri.parse("http://localhost:9090/board/"+vo.getBoard_no()));
+                        intentBrowser.setData(Uri.parse("http://localhost:9090/board/" + vo.getBoard_no()));
                         startActivity(intentBrowser);
                         break;
                     default:

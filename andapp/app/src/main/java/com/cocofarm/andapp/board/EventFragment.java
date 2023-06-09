@@ -2,7 +2,7 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
-import static com.cocofarm.andapp.common.CommonVal.loginMemberAdmin;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,7 +42,7 @@ public class EventFragment extends Fragment {
         });
 
 
-        if (loginMemberAdmin.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
+        if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), BoardWriteActivity.class);
