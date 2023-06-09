@@ -55,6 +55,9 @@
             android:name=".mypage.MpAddressActivity"
             android:exported="false" />
         <activity
+            android:name=".board.BoardImageSelectActivity"
+            android:exported="false" />
+        <activity
             android:name=".board.QnAModifyActivity"
             android:exported="false" />
         <activity

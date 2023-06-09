@@ -28,7 +28,7 @@ public class NoticeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentNoticeBinding.inflate(inflater, container, false);
 
-        CommonConn conn = new CommonConn(getContext(), "selectboardlist.and");
+        CommonConn conn = new CommonConn(null, "selectboardlist.and");
         conn.addParam("code", BOARD_CATEGORY_NOTICE);
         conn.onExcute((isResult, data) -> {
             if (isResult) {
@@ -48,6 +48,8 @@ public class NoticeFragment extends Fragment {
                 intent.putExtra("category", BOARD_CATEGORY_NOTICE);
                 startActivity(intent);
             });
+        } else {
+            binding.btnWrite.setVisibility(View.GONE);
         }
 
         return binding.getRoot();

@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -32,4 +33,7 @@ public interface ApiInterface {
     @POST
     @Multipart                                                                     //여러건은 HashMap<String, Part> map
     Call<String> sendFiles(@Url String url, @PartMap HashMap<String, RequestBody> maps, @Part MultipartBody.Part file);
+
+    @GET("/image/{filename}")
+    Call<ResponseBody> getImage(@Path("filename") String filename);
 }

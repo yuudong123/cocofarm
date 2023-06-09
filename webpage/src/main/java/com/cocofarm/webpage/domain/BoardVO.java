@@ -17,7 +17,8 @@ public class BoardVO implements Serializable {
     private String content;
     private Date regdate;
     private Date upddate;
-    private int replycnt; // join해서 가져올때만 사용
+    private int replycnt;
+    private String mainimage; // join해서 가져올때만 사용
 }
 
 // create table tbl_board (

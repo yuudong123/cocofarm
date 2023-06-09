@@ -7,8 +7,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Service {
-   // private static final String BASE_URL = "http://192.168.0.219:9090/"; //개발시 각자 아이피가 다르므로 localhost 사용. 에러시 자신의 아이피로 바꿔보기
-    private static final String BASE_URL = "http://192.168.0.202:9090/"; //명근
+    private static final String BASE_URL = "http://192.168.0.219:9090/"; //현재
+//    private static final String BASE_URL = "http://192.168.0.202:9090/"; //명근
     private static Retrofit retrofit;
 
     public static Retrofit getApiClient() {

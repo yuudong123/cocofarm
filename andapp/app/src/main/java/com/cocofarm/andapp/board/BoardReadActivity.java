@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
 import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 
 import android.content.Intent;
@@ -99,7 +101,11 @@ public class BoardReadActivity extends AppCompatActivity {
         });
         binding.btnSeemore.setOnClickListener(v -> {
             PopupMenu menu = new PopupMenu(v.getContext(), v);
-            menu.getMenuInflater().inflate(R.menu.board_seemore, menu.getMenu());
+            if (loginMember.getMember_no() != vo.getMember_no() && loginMember.getMember_type_cd() != MEMBER_TYPE_ADMIN) {
+                menu.getMenuInflater().inflate(R.menu.seemore_no_perm, menu.getMenu());
+            } else {
+                menu.getMenuInflater().inflate(R.menu.board_seemore,menu.getMenu());
+            }
             menu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.menuBoardSeemoreModify:
