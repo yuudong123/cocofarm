@@ -21,6 +21,7 @@ public class AmModifyActivity extends AppCompatActivity {
         binding = ActivityAmModifyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.tvEmail.setText(CommonVal.loginMember.getEmail());
         binding.tvName.setText(CommonVal.loginMember.getNickname());
         binding.tvPw.setText(CommonVal.loginMember.getPassword());
         binding.tvName.setText(CommonVal.loginMember.getNickname());

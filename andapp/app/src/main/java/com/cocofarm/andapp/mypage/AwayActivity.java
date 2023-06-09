@@ -18,11 +18,13 @@ public class AwayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAmConfirmBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         binding.tvTitle.setText("회원탈퇴");
         binding.tvEmail.setText(CommonVal.loginMember.getEmail());
+
         binding.btnOk.setOnClickListener(v->{
-            if(binding.edtPw.getText().toString() == CommonVal.loginMember.getPassword()) {
-                Intent intent = new Intent(AwayActivity.this, AmModifyActivity.class);
+            if(binding.edtPw.getText().toString().equals(CommonVal.loginMember.getPassword().toString())) {
+                Intent intent = new Intent(AwayActivity.this, AwayRemoveActivity.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();

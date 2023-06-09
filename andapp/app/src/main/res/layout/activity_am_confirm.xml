@@ -73,6 +73,7 @@
             android:layout_width="70dp"
             android:layout_height="30dp"/>
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/edt_pw"
             android:textSize="10dp"
             android:hint="비밀번호를 입력하세요."

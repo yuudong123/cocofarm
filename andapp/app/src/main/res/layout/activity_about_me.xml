@@ -157,6 +157,8 @@
         android:layout_weight="1"/>
 
         <ImageView
+            android:clickable="true"
+            android:id="@+id/iv_address_add"
             android:layout_marginRight="35dp"
             android:layout_marginVertical="15dp"
             android:src="@drawable/mark_plus"
@@ -172,9 +174,12 @@
         android:background="#121212"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <ListView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recv_address"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <View
         android:layout_marginTop="10dp"

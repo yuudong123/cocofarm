@@ -31,7 +31,7 @@ public class JoinNameActivity extends AppCompatActivity {
 
 
 //        binding.btnOk.setOnClickListener(v-> {
-//            Intent intent = new Intent(JoinNameActivity.this, JoinPwActivity.class);
+//            Intent intent = new Intent(JoinNameActivity.this, JoinEmailActivity.class);
 //            startActivity(intent);
 //        });
 
