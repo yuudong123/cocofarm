@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_margin="10dp"
-        android:id="@+id/layout_product_item"
+        android:id="@+id/layout_product_device_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
