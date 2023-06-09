@@ -4,10 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
+import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ResultRemoveBinding;
 
 // 회원탈퇴 확인
@@ -33,6 +36,13 @@ public class AwayRemoveActivity extends AppCompatActivity {
 
         binding.btnRemove.setOnClickListener(v->{
             Intent intent = new Intent(AwayRemoveActivity.this, AwayConfirmActivity.class);
+            CommonConn conn = new CommonConn(this, "Away");
+            conn.addParam("email", CommonVal.loginMember.getEmail().toString());
+
+            conn.onExcute((isResult, data) -> {
+                Log.d("탈퇴", "onCreate: " + data);
+
+            });
         });
 
 

@@ -10,7 +10,7 @@ public class CommonVal {
     // 이대로 둘지, 하나로 통일할지, 통일한다면 userinfo로할지 loginmember로 할지 정해야함.
     // 테스트시 관리자와 일반회원 중 선택해서 사용할 수 있게 추가
     public static MemberVO loginMemberAdmin = new MemberVO(1,"관리자1",101); // 관리자
-    public static MemberVO loginMember = new MemberVO(4,"꽃향기",102); // 일반
+    public static MemberVO loginMember = new MemberVO(4,"꽃향기",102, "flowerscent@hanmail.net", "1234"); // 일반
 
 
     public static SimpleDateFormat Md = new SimpleDateFormat("M월 d일");

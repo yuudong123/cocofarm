@@ -25,7 +25,7 @@ public class AmConfirmActivity extends AppCompatActivity {
         binding.tvEmail.setText(CommonVal.loginMember.getEmail());
 
         binding.btnOk.setOnClickListener(v->{
-            if(binding.edtPw.getText().toString() == CommonVal.loginMember.getPassword()) {
+            if(binding.edtPw.getText().toString().equals(CommonVal.loginMember.getPassword().toString())) {
                 Intent intent = new Intent(AmConfirmActivity.this, AmModifyActivity.class);
                 startActivity(intent);
             } else {
