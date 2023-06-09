@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_margin="10dp"
@@ -31,7 +31,7 @@
                 android:id="@+id/tv_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="올리브"
+                android:text="기기1"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -39,13 +39,13 @@
                 android:id="@+id/tv_product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="￦ 53,000" />
+                android:text="￦ 50,000" />
 
             <TextView
                 android:id="@+id/tv_product_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="소형"/>
+                android:text="소형 | 중형" />
 
         </LinearLayout>
 
