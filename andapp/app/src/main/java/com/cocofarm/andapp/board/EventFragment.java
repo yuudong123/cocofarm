@@ -28,7 +28,7 @@ public class EventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEventBinding.inflate(inflater, container, false);
 
-        CommonConn conn = new CommonConn(getContext(), "selectboardlist.and");
+        CommonConn conn = new CommonConn(null, "selectboardlist.and");
         conn.addParam("code", BOARD_CATEGORY_EVENT);
         conn.onExcute((isResult, data) -> {
             if (isResult) {
@@ -41,7 +41,6 @@ public class EventFragment extends Fragment {
             }
         });
 
-
         if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
@@ -49,6 +48,8 @@ public class EventFragment extends Fragment {
                 intent.putExtra("category", BOARD_CATEGORY_EVENT);
                 startActivity(intent);
             });
+        } else {
+            binding.btnWrite.setVisibility(View.GONE);
         }
 
         return binding.getRoot();

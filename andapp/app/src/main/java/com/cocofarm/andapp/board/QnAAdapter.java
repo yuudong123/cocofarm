@@ -37,7 +37,6 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.rownum.setText(list.get(i).getRownum() + "");
         holder.binding.title.setText(list.get(i).getTitle());
         if (list.get(i).getReplycnt() == 0) {
             holder.binding.answer.setText("");
