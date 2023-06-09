@@ -1,14 +1,19 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityBoardModifyBinding;
+import com.cocofarm.andapp.image.ImageUtil;
 import com.google.gson.Gson;
 
 public class BoardModifyActivity extends AppCompatActivity {
@@ -24,6 +29,17 @@ public class BoardModifyActivity extends AppCompatActivity {
 
         binding.edtTitle.setText(vo.getTitle());
         binding.edtContent.setText(vo.getContent());
+
+        if(vo.getMainimage()!=null||vo.getMainimage().equals("")){
+            boardselectedImage = vo.getMainimage();
+            ImageUtil.load(this,binding.ivMainImage,boardselectedImage);
+            binding.tvFileName.setText(boardselectedImage);
+            binding.mainImageSelect.setVisibility(View.GONE);
+            binding.mainImageSelected.setVisibility(View.VISIBLE);
+        } else {
+            binding.mainImageSelected.setVisibility(View.GONE);
+            binding.mainImageSelect.setVisibility(View.VISIBLE);
+        }
 
         binding.btnConfirm.setOnClickListener(v -> {
             if (binding.edtTitle.getText().toString().equals("") || binding.edtContent.getText().toString().equals("")) {
@@ -55,5 +71,25 @@ public class BoardModifyActivity extends AppCompatActivity {
         binding.btnCancel.setOnClickListener(v -> {
             finish();
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(boardselectedImage!=null){
+            ImageUtil.load(this,binding.ivMainImage,boardselectedImage);
+            binding.tvFileName.setText(boardselectedImage);
+            binding.mainImageSelect.setVisibility(View.GONE);
+            binding.mainImageSelected.setVisibility(View.VISIBLE);
+        } else {
+            binding.mainImageSelected.setVisibility(View.GONE);
+            binding.mainImageSelect.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        boardselectedImage=null;
     }
 }
