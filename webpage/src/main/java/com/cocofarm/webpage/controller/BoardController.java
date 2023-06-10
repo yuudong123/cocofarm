@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.domain.ReplyVO;
@@ -35,7 +36,7 @@ public class BoardController {
     @Autowired
     ReplyService replyService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = { "/board/notice", "/board/qna", "/board/event" })
     public ModelAndView selectBoardList(int code) {
         ModelAndView mav = new ModelAndView();
         ArrayList<BoardVO> boardlist = boardService.selectList(code);
@@ -103,6 +104,13 @@ public class BoardController {
     @ResponseBody
     public String selectBoardListAnd(int code) {
         ArrayList<BoardVO> list = boardService.selectList(code);
+        return new Gson().toJson(list);
+    }
+
+    @PostMapping(value = "/selectboardlistcri.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectBoardListCriAnd(CriteriaDTO cri) {
+        ArrayList<BoardVO> list = boardService.selectListCri(cri);
         return new Gson().toJson(list);
     }
 

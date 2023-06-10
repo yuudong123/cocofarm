@@ -24,7 +24,9 @@ import com.google.gson.Gson;
 @Controller
 public class ImageController {
 
-    private static final String IMAGE_DIRECTORY = "D:/cocofarm/webpage/src/main/resources/static/images";
+    // private static final String IMAGE_DIRECTORY =
+    // "D:/cocofarm/webpage/src/main/resources/static/images";
+    private static final String IMAGE_DIRECTORY = "D:/yuudong123/cocofarm/webpage/src/main/resources/static/images";
 
     @Autowired
     ImageService service;

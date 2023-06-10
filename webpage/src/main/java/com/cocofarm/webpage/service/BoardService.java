@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.mapper.BoardMapper;
 
@@ -17,6 +18,11 @@ public class BoardService {
 
     public ArrayList<BoardVO> selectList(int code) {
         ArrayList<BoardVO> list = boardMapper.selectList(code);
+        return list;
+    }
+
+    public ArrayList<BoardVO> selectListCri(CriteriaDTO cri) {
+        ArrayList<BoardVO> list = boardMapper.selectListCri(cri);
         return list;
     }
 
