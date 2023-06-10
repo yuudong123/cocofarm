@@ -1,21 +1,32 @@
 package com.cocofarm.andapp.board;
 
-import android.content.Context;
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_NOTICE;
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_QNA;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.R;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentBoardBinding;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 
 public class BoardFragment extends Fragment {
 
     FragmentBoardBinding binding;
-    int selected = 0;
+    private int selected = 0;
+    public static CriteriaDTO cri = new CriteriaDTO();
+    public static ArrayList boardList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,7 +38,9 @@ public class BoardFragment extends Fragment {
         binding.boardSelectMenu.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                loadTab(tab.getPosition());
+                selected = tab.getPosition();
+                cri.setPagenum(1);
+                loadTab();
             }
 
             @Override
@@ -36,7 +49,9 @@ public class BoardFragment extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                loadTab(tab.getPosition());
+                selected = tab.getPosition();
+                cri.setPagenum(1);
+                loadTab();
             }
         });
 
@@ -46,7 +61,8 @@ public class BoardFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        loadTab(selected);
+        cri.setPagenum(1);
+        loadTab();
     }
 
     @Override
@@ -55,16 +71,19 @@ public class BoardFragment extends Fragment {
         binding = null;
     }
 
-    protected void loadTab(int i) {
-        selected = i;
+    protected void loadTab() {
         Fragment fragment = null;
-        if (i == 0) {
+        if (selected == 0) {
+            cri.setCode(BOARD_CATEGORY_NOTICE);
             fragment = new NoticeFragment();
-        } else if (i == 1) {
+        } else if (selected == 1) {
+            cri.setCode(BOARD_CATEGORY_EVENT);
             fragment = new EventFragment();
-        } else if (i == 2) {
+        } else if (selected == 2) {
+            cri.setCode(BOARD_CATEGORY_QNA);
             fragment = new QnAFragment();
         }
         getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
     }
+
 }

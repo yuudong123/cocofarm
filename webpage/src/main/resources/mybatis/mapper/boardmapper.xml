@@ -13,23 +13,34 @@
     order by rownum desc
     ]]>
     </select>
+    <select id="selectListCri" resultType="com.cocofarm.webpage.domain.BoardVO">
+    <![CDATA[ 
+    select rownum, b.*, coalesce(r.replycnt, 0) as replycnt
+    from tbl_board b 
+        left join (
+        select board_no, count(*) as replycnt
+        from tbl_reply
+        group by board_no) r on b.board_no = r.board_no
+    where board_category_cd = #{code}
+    and rownum >= #{startnum}
+    and rownum <= #{endnum}
+    and title like '%'||#{keyword}||'%'
+    order by rownum desc
+    ]]>
+    </select>
     <select id="select" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from tbl_board
         where board_no = #{board_no} </select>
     <select id="selectQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
-    <![CDATA[ 
-    select rownum, a.*
-    from (  
-        select b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
-        from tbl_board b
-            left join tbl_product p on b.product_id = p.product_id
-            left join (
-                select board_no, count(*) as replycnt
-                from tbl_reply
-                group by board_no) r on b.board_no = r.board_no
-        where board_category_cd = 201
-        order by b.board_no
-    ) a
-    order by rownum desc
+    <![CDATA[   
+    select b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
+    from tbl_board b
+        left join tbl_product p on b.product_id = p.product_id
+        left join (
+            select board_no, count(*) as replycnt
+            from tbl_reply
+            group by board_no) r on b.board_no = r.board_no
+    where board_category_cd = 201
+    order by b.board_no
     ]]>
     </select>
     <insert id="insert" parameterType="com.cocofarm.webpage.domain.BoardVO"> insert into tbl_board

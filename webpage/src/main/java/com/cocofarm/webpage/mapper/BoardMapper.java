@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.QnaDTO;
 
 @Mapper
 public interface BoardMapper {
+
     public ArrayList<BoardVO> selectList(int code);
+
+    public ArrayList<BoardVO> selectListCri(CriteriaDTO cri);
 
     public ArrayList<QnaDTO> selectQnaList();
 

@@ -7,7 +7,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class Service {
-    private static final String BASE_URL = "http://192.168.0.219:9090/"; //현재
+//    private static final String BASE_URL = "http://192.168.0.219:9090/"; //현재
+    private static final String BASE_URL = "http://172.30.1.82:9090/"; //현재 집
 //    private static final String BASE_URL = "http://192.168.0.202:9090/"; //명근
     private static Retrofit retrofit;
 
