@@ -8,42 +8,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:elevation="10dp"
-        android:background="@color/board_item_background"
         android:layout_height="wrap_content"
+        android:background="@color/board_item_background"
+        android:elevation="10dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:layout_weight="1"
                 android:text="QnA 통합 게시판입니다."
-                android:layout_weight="1" />
+                android:textSize="15dp" />
 
             <Button
                 android:id="@+id/btnWrite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/primary"
-                android:textStyle="bold"
+                android:text="글 작성"
                 android:textColor="@color/white"
-                android:text="글 작성" />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center_vertical"
-            android:background="#88ffffff"
-            android:paddingHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            >
+            android:background="#88ffffff"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -51,8 +50,8 @@
                 android:layout_weight="10"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textAlignment="center"
-                android:text="제목" />
+                android:text="제목"
+                android:textAlignment="center" />
 
             <TextView
                 android:layout_width="0dp"
@@ -68,7 +67,8 @@
         android:id="@+id/recvBoardList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -83,48 +83,53 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:src="@drawable/icon_first_page"/>
+            android:src="@drawable/icon_first_page" />
+
         <ImageView
             android:id="@+id/btnPrev"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:src="@drawable/icon_left_arrow"/>
+            android:src="@drawable/icon_left_arrow" />
+
         <TextView
             android:id="@+id/pagenum"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
-            android:text="1"
             android:background="@color/board_item_background"
-            android:textStyle="bold"
+            android:padding="10dp"
+            android:text="1"
+            android:textAlignment="center"
             android:textSize="15dp"
-            android:padding="10dp"/>
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="페이지"
+            android:layout_marginEnd="10dp"
             android:background="@color/board_item_background"
-            android:textStyle="bold"
+            android:text="페이지"
+            android:textAlignment="center"
             android:textSize="15dp"
-            android:layout_marginEnd="10dp"/>
+            android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/btnNext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:src="@drawable/icon_right_arrow"/>
+            android:src="@drawable/icon_right_arrow" />
+
         <ImageView
             android:id="@+id/btnLast"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="10dp"
-            android:src="@drawable/icon_last_page"/>
+            android:src="@drawable/icon_last_page" />
 
 
     </LinearLayout>

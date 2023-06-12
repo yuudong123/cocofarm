@@ -4,18 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".board.BoardReadReplyFragment"
     android:paddingHorizontal="10dp"
-    android:paddingTop="10dp">
+    android:paddingTop="10dp"
+    tools:context=".board.BoardReadReplyFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="댓글"
         android:textColor="@color/black"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginBottom="10dp"/>
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recvReply"
