@@ -13,8 +13,8 @@ public class MemberVO implements Serializable {
     private String nickname;
     private String email;
     private String password;
-    private String phoneNumber;
+    private String phonenumber;
     private String address;
     private Date joindate;
-    private String isactivated = "Y";
+    private String isactivated;
 }

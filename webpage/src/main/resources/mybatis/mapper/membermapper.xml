@@ -6,4 +6,15 @@
 select * from TBL_MEMBER where EMAIL = #{email} and PASSWORD = #{password}
 </select>
 
+<insert id="join">
+insert into TBL_MEMBER (member_no, member_type_cd, email, password, nickname, joindate, isactivated)
+values (seq_member_no.nextval, 102, #{email}, #{password}, #{nickname}, sysdate, 'Y')
+</insert>
+
+<update id="am_modify">
+update tbl_member
+set nickname = #{nickname}, password = #{password}, phonenumber = #{phonenumber}
+where email = #{email}
+</update>
+
 </mapper>

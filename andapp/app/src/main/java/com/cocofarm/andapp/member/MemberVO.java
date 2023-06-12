@@ -16,11 +16,11 @@ public class MemberVO implements Serializable {
 
     private String email;
     private String password;
-    private String phoneNumber;
+    private String phonenumber;
     private String address;
     @JsonAdapter(DateJsonAdapter.class)
     private Date joindate;
-    private String isactivated = "Y";
+    private String isactivated;
 
     public MemberVO() {
 

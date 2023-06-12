@@ -4,17 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityAmModifyBinding;
 import com.cocofarm.andapp.member.MemberVO;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.text.DecimalFormat;
 
 public class AmModifyActivity extends AppCompatActivity {
 
     ActivityAmModifyBinding binding;
-    MemberVO vo;
-
+    MemberVO vo = CommonVal.loginMember;
+    public String oldEdtPhone = "";
+    TextWatcher watcher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,15 +35,14 @@ public class AmModifyActivity extends AppCompatActivity {
         binding.tvEmail.setText(CommonVal.loginMember.getEmail());
         binding.tvName.setText(CommonVal.loginMember.getNickname());
         binding.tvPw.setText(CommonVal.loginMember.getPassword());
-        binding.tvName.setText(CommonVal.loginMember.getNickname());
-        binding.tvPhone.setText(CommonVal.loginMember.getPhoneNumber());
+        binding.tvPhone.setText(CommonVal.loginMember.getPhonenumber());
 
         // 비밀번호
         binding.tvPwModify.setOnClickListener(v->{
             binding.tvPwModify.setVisibility(View.INVISIBLE);
             binding.tvPw.setVisibility(View.INVISIBLE);
             binding.edtPw.setVisibility(View.VISIBLE);
-            binding.edtPw.setText(" ");
+            binding.edtPw.setText(binding.tvPw.getText().toString());
         });
 
         // 닉네임
@@ -52,18 +62,83 @@ public class AmModifyActivity extends AppCompatActivity {
             binding.tvPhoneModify.setVisibility(View.INVISIBLE);
             binding.tvPhone.setVisibility(View.INVISIBLE);
             binding.edtPhone.setVisibility(View.VISIBLE);
-            binding.edtPhone.setText(phone);
+
+
         });
+        watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                oldEdtPhone = charSequence.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setEdtChangeText(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(oldEdtPhone.equals(editable.toString())) return;;
+
+
+                setEdtChangeText(phone_format(editable.toString().toString()));
+            }
+        };
+
+
+        binding.edtPhone.addTextChangedListener(watcher);
 
 
         // 완료
         binding.btnOk.setOnClickListener(v->{
-            vo.setPassword(binding.edtPw.getText().toString());
-            vo.setNickname(binding.edtName.getText().toString());
-            vo.setPhoneNumber(binding.edtPhone.getText().toString());
+            CommonConn conn = new CommonConn(this, "am.modify");
 
-            Intent intent = new Intent(AmModifyActivity.this, AboutMeActivity.class);
-            startActivity(intent);
+            if (binding.edtPw.getVisibility() == View.VISIBLE) {
+                conn.addParam("password", binding.edtPw.getText().toString());
+            } else {
+                conn.addParam("password", binding.tvPw.getText().toString());
+            }
+
+            if (binding.edtName.getVisibility() == View.VISIBLE) {
+                conn.addParam("nickname", binding.edtName.getText().toString());
+            } else {
+                conn.addParam("nickname", binding.tvName.getText().toString());
+            }
+
+            if (binding.edtPhone.getVisibility() == View.VISIBLE) {
+                conn.addParam("phonenumber", binding.edtPhone.getText().toString());
+            } else {
+                conn.addParam("phonenumber", binding.tvPhone.getText().toString());
+            }
+
+            conn.addParam("email", CommonVal.loginMember.getEmail());
+
+            conn.onExcute((isResult, data) -> {
+                if (isResult) {
+                    Log.d("정보수정", "onCreate: " + data);
+                    CommonVal.loginMember = new Gson().fromJson(data, new TypeToken<MemberVO>(){}.getType());
+                    Intent intent = new Intent(AmModifyActivity.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    Toast.makeText(this, "정보 수정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.e("정보수정", "데이터를 가져오지 못했습니다.");
+                }
+            });
+
         });
+    }
+
+    public void setEdtChangeText(String text){
+        binding.edtPhone.removeTextChangedListener(watcher);
+        binding.edtPhone.setText(text);
+        binding.edtPhone.setSelection(binding.edtPhone.getText().toString().length());
+        binding.edtPhone.addTextChangedListener(watcher);
+
+    }
+
+    public String phone_format(String number) {
+        String regEx = "(\\d{3})(\\d{4})(\\d{4})";
+        return number.replaceAll(regEx, "$1-$2-$3");
     }
 }
