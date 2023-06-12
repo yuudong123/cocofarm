@@ -38,9 +38,7 @@ public class ProductActivity extends AppCompatActivity {
         bindingSheet = BtnSheetProductBinding.inflate(getLayoutInflater(), null, false);
         binding.btnProductBuy.setOnClickListener(v -> {
 
-
             BottomSheetDialog dialog = new BottomSheetDialog(this);
-
             dialog.setContentView(bindingSheet.getRoot());
             dialog.show();
             bindingSheet.btnMinus.setOnClickListener(view -> {
@@ -60,7 +58,6 @@ public class ProductActivity extends AppCompatActivity {
 
 
         bindingSheet.btnGoCart.setOnClickListener(view -> {
-
             if (number <= 0) {
                 Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 return;
