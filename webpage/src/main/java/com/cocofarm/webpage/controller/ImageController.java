@@ -1,6 +1,5 @@
 package com.cocofarm.webpage.controller;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,9 +23,7 @@ import com.google.gson.Gson;
 @Controller
 public class ImageController {
 
-    // private static final String IMAGE_DIRECTORY =
-    // "D:/cocofarm/webpage/src/main/resources/static/images";
-    private static final String IMAGE_DIRECTORY = "D:/yuudong123/cocofarm/webpage/src/main/resources/static/images";
+    private static final String IMAGE_DIRECTORY = "D:/cocofarm/webpage/src/main/resources/static/images";
 
     @Autowired
     ImageService service;
@@ -58,8 +55,6 @@ public class ImageController {
             }
         } catch (MalformedURLException e) {
             return ResponseEntity.notFound().build();
-        } catch (IOException e) {
-            return ResponseEntity.badRequest().build();
         }
     }
 

@@ -53,13 +53,15 @@ public class QnAReadActivity extends AppCompatActivity {
         if (loginMember.getMember_no() != dto.getMember_no() && loginMember.getMember_type_cd() != MEMBER_TYPE_ADMIN) {
             menu.getMenuInflater().inflate(R.menu.seemore_no_perm, menu.getMenu());
         } else {
-            menu.getMenuInflater().inflate(R.menu.qna_seemore,menu.getMenu());
+            menu.getMenuInflater().inflate(R.menu.qna_seemore, menu.getMenu());
         }
         menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.menuQnASeemoreDelete:
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("게시글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
+                    builder.setTitle("게시글 삭제")
+                            .setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?")
+                            .setCancelable(false)
                             .setPositiveButton("확인", (dialogInterface, i1) -> {
                                 CommonConn conn = new CommonConn(this, "deleteboard.and");
                                 conn.addParam("board_no", dto.getBoard_no());

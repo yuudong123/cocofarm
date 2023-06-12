@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
 
     ItemQnaBoardBinding binding;
-    ArrayList<QnaDTO> list;
+    List<QnaDTO> list;
     Context context;
 
-    public QnAAdapter(ArrayList<QnaDTO> list, Context context) {
+    public QnAAdapter(List<QnaDTO> list, Context context) {
         this.list = list;
         this.context = context;
     }

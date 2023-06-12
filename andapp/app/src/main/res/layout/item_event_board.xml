@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item"
+    android:id="@+id/itemEventBoard"
     android:layout_width="match_parent"
     android:layout_height="250dp"
+    android:layout_marginBottom="10dp"
     android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:layout_marginBottom="10dp">
+    android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/ivMainimage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:src="@drawable/temp_image_event1"/>
+        android:minHeight="200dp" />
 
     <LinearLayout
-        android:background="#e8e8e8"
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
         android:layout_height="40dp"
+        android:background="#e8e8e8"
+        android:gravity="center_vertical"
         android:padding="10dp">
 
         <TextView
-            android:maxLines="1"
-            android:textStyle="bold"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/title"
-            android:text="출석체크 이벤트!"/>
+            android:maxLines="1"
+            android:text=""
+            android:textStyle="bold" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
+
         <TextView
-            android:id="@+id/regdate"
+            android:id="@+id/tvRegdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6월 2일"/>
+            android:text="" />
     </LinearLayout>
 </LinearLayout>

@@ -11,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.databinding.ItemEventBoardBinding;
+import com.cocofarm.andapp.image.ImageUtil;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     ItemEventBoardBinding binding;
-    ArrayList<BoardVO> list;
+    List<BoardVO> list;
     Context context;
 
-    public EventAdapter(ArrayList<BoardVO> list, Context context) {
+    public EventAdapter(List<BoardVO> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -33,9 +34,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.title.setText(list.get(i).getTitle());
-        holder.binding.regdate.setText(yyyyMMddHHmmss.format(list.get(i).getRegdate()));
-        holder.binding.item.setOnClickListener(v -> {
+        holder.binding.tvTitle.setText(list.get(i).getTitle());
+        holder.binding.tvRegdate.setText(yyyyMMddHHmmss.format(list.get(i).getRegdate()));
+        ImageUtil.load(holder.binding.ivMainimage, list.get(i).getMainimage());
+        holder.binding.itemEventBoard.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
             intent.putExtra("BoardVO", list.get(i));
             context.startActivity(intent);

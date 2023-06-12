@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class BoardVO implements Serializable {
     private int board_no;
-    private int rownum;
+    private int rn;
     private int member_no;
     private String nickname;
     private int board_category_cd;
@@ -18,7 +18,7 @@ public class BoardVO implements Serializable {
     private Date regdate;
     private Date upddate;
     private int replycnt;
-    private String mainimage; // join해서 가져올때만 사용
+    private String mainimage;
 }
 
 // create table tbl_board (

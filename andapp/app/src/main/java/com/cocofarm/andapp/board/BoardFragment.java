@@ -8,25 +8,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.R;
-import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentBoardBinding;
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
 
 public class BoardFragment extends Fragment {
 
     FragmentBoardBinding binding;
     private int selected = 0;
     public static CriteriaDTO cri = new CriteriaDTO();
-    public static ArrayList boardList;
+    public static int pagenum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,7 +33,7 @@ public class BoardFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 selected = tab.getPosition();
-                cri.setPagenum(1);
+                pagenum = 1;
                 loadTab();
             }
 
@@ -50,18 +44,17 @@ public class BoardFragment extends Fragment {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 selected = tab.getPosition();
-                cri.setPagenum(1);
+                pagenum = 1;
                 loadTab();
             }
         });
-
         return binding.getRoot();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        cri.setPagenum(1);
+        pagenum = 1;
         loadTab();
     }
 
@@ -85,5 +78,4 @@ public class BoardFragment extends Fragment {
         }
         getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
     }
-
 }

@@ -32,7 +32,7 @@ public class BoardModifyActivity extends AppCompatActivity {
 
         if(vo.getMainimage()!=null||vo.getMainimage().equals("")){
             boardselectedImage = vo.getMainimage();
-            ImageUtil.load(this,binding.ivMainImage,boardselectedImage);
+            ImageUtil.load(binding.ivMainImage,boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
             binding.mainImageSelect.setVisibility(View.GONE);
             binding.mainImageSelected.setVisibility(View.VISIBLE);
@@ -77,7 +77,7 @@ public class BoardModifyActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(boardselectedImage!=null){
-            ImageUtil.load(this,binding.ivMainImage,boardselectedImage);
+            ImageUtil.load(binding.ivMainImage,boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
             binding.mainImageSelect.setVisibility(View.GONE);
             binding.mainImageSelected.setVisibility(View.VISIBLE);

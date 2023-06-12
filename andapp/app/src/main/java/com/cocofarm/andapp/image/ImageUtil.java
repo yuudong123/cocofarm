@@ -10,8 +10,8 @@ import com.cocofarm.andapp.conn.ImageConn;
 import java.io.InputStream;
 
 public class ImageUtil {
-    public static void load(Context context, ImageView imageView, String filename) {
-        ImageConn conn = new ImageConn(context, filename);
+    public static void load(ImageView imageView, String filename) {
+        ImageConn conn = new ImageConn(null, filename);
         conn.onExcute((isResult, data) -> {
             if (data != null) {
                 InputStream inputStream = data.byteStream();
