@@ -21,8 +21,8 @@ import lombok.val;
 
 public class ProductActivity extends AppCompatActivity {
 
-   ActivityProductBinding binding;
-   BtnSheetProductBinding bindingSheet;
+    ActivityProductBinding binding;
+    BtnSheetProductBinding bindingSheet;
 
     int number = 0;
 
@@ -30,56 +30,59 @@ public class ProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityProductBinding.inflate(getLayoutInflater());
+        binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 
-
-        bindingSheet = BtnSheetProductBinding.inflate(getLayoutInflater(), null , false);
-        binding.btnProductBuy.setOnClickListener(v->{
+        bindingSheet = BtnSheetProductBinding.inflate(getLayoutInflater(), null, false);
+        binding.btnProductBuy.setOnClickListener(v -> {
 
 
             BottomSheetDialog dialog = new BottomSheetDialog(this);
 
             dialog.setContentView(bindingSheet.getRoot());
             dialog.show();
-                bindingSheet.btnMinus.setOnClickListener(view->{
-                    if(number !=0){
-                        number--;
-                    }
-                bindingSheet.tvProductBuyAmount.setText(number+"");
+            bindingSheet.btnMinus.setOnClickListener(view -> {
+                if (number != 0) {
+                    number--;
+                }
+                bindingSheet.tvProductBuyAmount.setText(number + "");
                 allPrice();
             });
-            bindingSheet.btnPlus.setOnClickListener(view->{
+            bindingSheet.btnPlus.setOnClickListener(view -> {
                 number++;
-                bindingSheet.tvProductBuyAmount.setText(number+"");
+                bindingSheet.tvProductBuyAmount.setText(number + "");
                 allPrice();
             });
         });
         allPrice();
 
-        if(number != 0){
-        bindingSheet.btnGoCart.setOnClickListener(view-> {
-                    Intent intent = new Intent(ProductActivity.this, CartActivity.class);
-                    startActivity(intent);
-                });
-        }
-        if(number != 0) {
-            bindingSheet.btnGoBuy.setOnClickListener(view -> {
-                Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
+
+        bindingSheet.btnGoCart.setOnClickListener(view -> {
+
+            if (number <= 0) {
+                Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+                Intent intent = new Intent(ProductActivity.this, CartActivity.class);
                 startActivity(intent);
-            });
-        }
-        else {
 
-    }
+        });
 
+        bindingSheet.btnGoBuy.setOnClickListener(view -> {
+            if (number <= 0) {
+                Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
+            startActivity(intent);
+        });
 
 
         //tv_all_price에 tv_product_buy_amount*tv_sheet_order_price 한 가격을 넣어줘야 함.
 
 
-           // tv_product_buy_amount = findViewById(R.id.tv_product_buy_amount);
+        // tv_product_buy_amount = findViewById(R.id.tv_product_buy_amount);
 
 
 //            btn_minus.setOnClickListener(v->{
@@ -91,16 +94,15 @@ public class ProductActivity extends AppCompatActivity {
 //            );
 
 
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding=null;
+        binding = null;
     }
 
-    public void allPrice(){
+    public void allPrice() {
         int value1 = number;
         int value2 = Integer.parseInt(bindingSheet.tvSheetOrderPrice.getText().toString());
 
