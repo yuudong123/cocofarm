@@ -52,6 +52,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".board.QnAProductSelectActivity"
+            android:exported="false" />
+        <activity
             android:name=".order.Order_Refund_CheckActivity"
             android:exported="false" />
         <activity

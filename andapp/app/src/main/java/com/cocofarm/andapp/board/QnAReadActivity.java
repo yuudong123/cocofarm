@@ -18,6 +18,7 @@ import androidx.appcompat.widget.PopupMenu;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityQnaReadBinding;
+import com.cocofarm.andapp.image.ImageUtil;
 import com.google.gson.Gson;
 
 public class QnAReadActivity extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class QnAReadActivity extends AppCompatActivity {
         binding.tvQuestionNickname.setText(dto.getNickname());
         binding.tvContentQ.setText(dto.getContent());
         binding.tvRegdate.setText(yyyyMMddHHmmss.format(dto.getRegdate()));
+
         if (dto.getProduct_id() != 0) {
             binding.tvProductId.setText(dto.getProduct_id() + "");
             binding.tvProductName.setText(dto.getProduct_name());
@@ -133,4 +135,8 @@ public class QnAReadActivity extends AppCompatActivity {
             }
         });
     }
+
+//    protected void loadProduct() {
+//        CommonConn conn = new CommonConn(this, "")
+//    }
 }

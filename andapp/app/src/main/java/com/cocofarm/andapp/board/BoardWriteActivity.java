@@ -19,7 +19,6 @@ public class BoardWriteActivity extends AppCompatActivity {
 
     ActivityBoardWriteBinding binding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

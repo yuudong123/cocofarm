@@ -30,12 +30,13 @@ public class ImageController {
 
     @GetMapping("image/{filename}")
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+        Path imagePath = Paths.get(IMAGE_DIRECTORY).resolve(filename);
+        Resource imageResource;
         try {
-            Path imagePath = Paths.get(IMAGE_DIRECTORY).resolve(filename);
-            Resource imageResource = new UrlResource(imagePath.toUri());
-            String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+            imageResource = new UrlResource(imagePath.toUri());
+            String ext = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
             String mime;
-            switch (extension) {
+            switch (ext) {
                 case "png":
                     mime = "image/png";
                     break;
@@ -54,7 +55,7 @@ public class ImageController {
                 return ResponseEntity.notFound().build();
             }
         } catch (MalformedURLException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -62,6 +63,14 @@ public class ImageController {
     @PostMapping(value = "/selectimagelist.and", produces = "text/html;charset=utf-8")
     public String selectImageList() {
         ArrayList<ImageDTO> list = service.selectImageList();
+        return new Gson().toJson(list);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/selectproductimagelist.and", produces = "text/html;charset=utf-8")
+    public String selectProductImageList() {
+        ArrayList<ImageDTO> list = service.selectProductImageList();
+        System.out.println(list);
         return new Gson().toJson(list);
     }
 
