@@ -54,6 +54,17 @@
         <activity
             android:name=".board.QnAProductSelectActivity"
             android:exported="false" />
+            
+        <activity
+            android:name=".AmAddressActivity"
+            android:exported="false" />
+            
+        <activity
+            android:name=".AddressApiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".member.JoinCompleteActivity"
+            android:exported="false" />
         <activity
             android:name=".order.Order_Refund_CheckActivity"
             android:exported="false" />
@@ -128,6 +139,12 @@
             android:exported="false" />
         <activity
             android:name=".product.ProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".member.JoinEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".member.JoinPwActivity"
             android:exported="false" />
         <activity
             android:name=".member.JoinNameActivity"

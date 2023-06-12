@@ -12,8 +12,16 @@ public class MemberService {
     @Autowired
     MemberMapper mapper;
 
-    public MemberVO login(MemberVO vo) {
-    
+    public MemberVO login(MemberVO vo) {   
+      return mapper.login(vo);
+    }
+
+    public int join(MemberVO vo) {
+      return mapper.join(vo);
+    }
+
+    public MemberVO am_modify(MemberVO vo) {
+      mapper.am_modify(vo);
       return mapper.login(vo);
     }
 }

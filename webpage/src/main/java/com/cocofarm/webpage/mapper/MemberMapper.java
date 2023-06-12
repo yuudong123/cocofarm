@@ -7,4 +7,6 @@ import com.cocofarm.webpage.domain.MemberVO;
 @Mapper
 public interface MemberMapper {
     public MemberVO login(MemberVO vo);
+    public int join(MemberVO vo);
+    public void am_modify(MemberVO vo);
 }
