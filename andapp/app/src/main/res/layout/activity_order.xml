@@ -149,6 +149,7 @@
         android:layout_height="wrap_content"/>
 
     <Button
+        android:id="@+id/btn_order_finish"
         android:layout_margin="10dp"
         android:text="결제 하기"
         android:layout_gravity="center"

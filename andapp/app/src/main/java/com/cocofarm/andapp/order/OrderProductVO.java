@@ -3,7 +3,7 @@ package com.cocofarm.andapp.order;
 import lombok.Data;
 
 @Data
-public class Order_ProductVO {
+public class OrderProductVO {
     private int order_product_id;
     private int product_id;
     private int order_id;

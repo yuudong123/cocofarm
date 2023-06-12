@@ -1,24 +1,17 @@
 package com.cocofarm.andapp.product;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.databinding.ActivityProductBinding;
 import com.cocofarm.andapp.databinding.BtnSheetProductBinding;
-import com.cocofarm.andapp.databinding.FragmentProductBinding;
 import com.cocofarm.andapp.order.CartActivity;
-import com.cocofarm.andapp.order.Cart_PopupActivity;
 import com.cocofarm.andapp.order.OrderActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-
-import lombok.val;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -62,8 +55,15 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
-                Intent intent = new Intent(ProductActivity.this, Cart_PopupActivity.class);
-                startActivity(intent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("").setMessage("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?").setCancelable(false)
+                    .setPositiveButton("확인", (dialogInterface, i1) -> {
+                        Intent intent = new Intent(ProductActivity.this, CartActivity.class);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("취소", (dialogInterface, i1) -> {
+                    }).create().show();
+
 
         });
 
@@ -75,6 +75,8 @@ public class ProductActivity extends AppCompatActivity {
             Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
             startActivity(intent);
         });
+
+
 
 
         //tv_all_price에 tv_product_buy_amount*tv_sheet_order_price 한 가격을 넣어줘야 함.

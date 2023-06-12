@@ -29,8 +29,8 @@
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
-        <TextView
 
+        <TextView
             android:text="상품 준비중"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -81,25 +81,74 @@
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:visibility="visible"
+                    android:layout_margin="10dp"
+                    android:id="@+id/btns_onready"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/btn_change"
-                        android:text="교환 · 반품 신청"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:text="교환·반품"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"/>
 
                     <Button
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/btn_delivery_check"
                         android:text="배송조회"
+                        />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:id="@+id/btns_arrived"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_weight="1"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_review"
+                        android:text="리뷰쓰기"
+                        />
+
+                    <Button
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/btn_rebuy"
+                        android:text="재구매"
                         android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:id="@+id/btns_cancel"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_cancel"
+                        android:text="취소"
+                        />
+
 
                 </LinearLayout>
 

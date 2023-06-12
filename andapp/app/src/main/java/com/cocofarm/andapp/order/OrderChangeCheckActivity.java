@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.cocofarm.andapp.R;
 
-public class Order_ChangeActivity extends AppCompatActivity {
+public class OrderChangeCheckActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_change);
+        setContentView(R.layout.activity_order_change_check);
     }
 }

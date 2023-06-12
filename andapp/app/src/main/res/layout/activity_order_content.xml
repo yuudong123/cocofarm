@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".order.Order_ContentActivity">
+    tools:context=".order.OrderContentActivity">
 
 
         <TextView
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"/>
 
     <androidx.appcompat.widget.SearchView
-        app:queryHint="주문한 상품을 검색할 수 있어요"
+        android:hint="주문한 상품을 검색할 수 있어요"
         android:id="@+id/order_content_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

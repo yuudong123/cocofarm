@@ -1,69 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".order.CartActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <TextView
-        android:layout_margin="10dp"
-        android:textSize="20dp"
-        android:text="장바구니"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="장바구니"
+            android:textSize="20dp" />
+
         <View
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
         <ImageView
             android:id="@+id/btn_close"
-            android:layout_margin="10dp"
-            android:src="@drawable/img_close_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-</LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/img_close_btn" />
+    </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_margin="10dp"
-            android:textSize="20dp"
-            android:text="상품"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/tv_cart_order_count"
-            android:layout_margin="10dp"
-            android:textSize="20dp"
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-</LinearLayout>
-
-    <View
-        android:layout_marginBottom="10dp"
-        android:layout_margin="10dp"
-        android:background="#90595959"
+        android:id="@+id/layout_cart"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="visible">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="상품"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/tv_cart_order_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text=""
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#90595959" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_weight="1"
+            android:id="@+id/recv_cart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textAlignment="center"
+                android:text="총 상품 금액"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:id="@+id/tv_all_price"
+                android:text=""
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:layout_margin="10dp"
+                android:id="@+id/btn_order"
+                android:text="결제하기"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_cart_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:src="@drawable/img_cart_empty" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장바구니가 비었습니다."
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_go_cocomall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="코코몰로 이동" />
+    </LinearLayout>
 
 
 

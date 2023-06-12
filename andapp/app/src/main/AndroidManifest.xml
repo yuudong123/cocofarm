@@ -52,22 +52,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".order.Order_Refund_CheckActivity"
+            android:name=".order.OrderRefundCheckActivity"
             android:exported="false" />
         <activity
-            android:name=".order.Order_RefundActivity"
+            android:name=".order.OrderRefundActivity"
             android:exported="false" />
         <activity
-            android:name=".order.Order_Change_CheckActivity"
+            android:name=".order.OrderChangeCheckActivity"
             android:exported="false" />
         <activity
-            android:name=".order.Order_ChangeActivity"
+            android:name=".order.OrderChangeActivity"
             android:exported="false" />
         <activity
             android:name=".order.OrderActivity"
-            android:exported="false" />
-        <activity
-            android:name=".order.Cart_PopupActivity"
             android:exported="false" />
         <activity
             android:name=".board.BoardImageSelectActivity"
@@ -79,9 +76,9 @@
             android:name=".board.QnAReadActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" /> <!-- <activity -->
-        <!-- android:name=".Order_FinishActivity" -->
+        <!-- android:name=".OrderFinishActivity" -->
         <activity
-            android:name=".order.Order_FinishActivity"
+            android:name=".order.OrderFinishActivity"
             android:exported="false" />
         <activity
             android:name=".mypage.AwayRemoveActivity"
@@ -102,7 +99,7 @@
             android:name=".mypage.AboutMeActivity"
             android:exported="false" />
         <activity
-            android:name=".order.Order_ContentActivity"
+            android:name=".order.OrderContentActivity"
             android:exported="false" />
         <activity
             android:name=".board.QnAWriteActivity"
