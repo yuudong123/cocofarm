@@ -14,6 +14,7 @@ import com.cocofarm.andapp.databinding.ActivityProductBinding;
 import com.cocofarm.andapp.databinding.BtnSheetProductBinding;
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
 import com.cocofarm.andapp.order.CartActivity;
+import com.cocofarm.andapp.order.Cart_PopupActivity;
 import com.cocofarm.andapp.order.OrderActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -64,7 +65,7 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
-                Intent intent = new Intent(ProductActivity.this, CartActivity.class);
+                Intent intent = new Intent(ProductActivity.this, Cart_PopupActivity.class);
                 startActivity(intent);
 
         });
