@@ -30,7 +30,7 @@
             from tbl_reply
             group by board_no) r on b.board_no = r.board_no
     where board_category_cd = 201
-    order by b.board_no
+    order by b.board_no desc
     ]]>
     </select>
     <select id="selectboard" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from
