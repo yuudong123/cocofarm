@@ -47,6 +47,7 @@ public class QnAWriteActivity extends AppCompatActivity {
             conn.addParam("board_category_cd", BOARD_CATEGORY_QNA);
             conn.addParam("title", binding.edtTitle.getText().toString());
             conn.addParam("content", binding.edtContent.getText().toString());
+            conn.addParam("mainimage", "");
             conn.onExcute((isResult, data) -> {
                 Log.d("글 작성", "onCreate: " + isResult);
                 if (isResult) {

@@ -20,7 +20,6 @@ public class BoardFragment extends Fragment {
     FragmentBoardBinding binding;
     private int selected = 0;
     public static CriteriaDTO cri = new CriteriaDTO();
-    public static int pagenum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,7 +32,7 @@ public class BoardFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 selected = tab.getPosition();
-                pagenum = 1;
+                cri.setPage(1);
                 loadTab();
             }
 
@@ -44,7 +43,7 @@ public class BoardFragment extends Fragment {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
                 selected = tab.getPosition();
-                pagenum = 1;
+                cri.setPage(1);
                 loadTab();
             }
         });
@@ -54,7 +53,7 @@ public class BoardFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        pagenum = 1;
+        cri.setPage(1);
         loadTab();
     }
 
