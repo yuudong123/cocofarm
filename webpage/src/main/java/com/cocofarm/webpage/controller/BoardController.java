@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -23,11 +24,10 @@ import com.cocofarm.webpage.service.ReplyService;
 import com.google.gson.Gson;
 
 import groovyjarjarantlr4.v4.runtime.misc.Nullable;
-import lombok.AllArgsConstructor;
 
 @Controller
+@RequestMapping("board/*")
 @SessionAttributes("userinfo")
-@AllArgsConstructor
 public class BoardController {
 
     @Autowired
