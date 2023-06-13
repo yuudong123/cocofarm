@@ -1,8 +1,14 @@
 package com.cocofarm.webpage.controller;
 
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_EVENT;
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_NOTICE;
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_QNA;
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_REVIEW;
+
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +29,6 @@ import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.ReplyService;
 import com.google.gson.Gson;
 
-import groovyjarjarantlr4.v4.runtime.misc.Nullable;
-
 @Controller
 @RequestMapping("board/*")
 @SessionAttributes("userinfo")
@@ -36,16 +40,32 @@ public class BoardController {
     @Autowired
     ReplyService replyService;
 
-    @GetMapping(value = { "/board/notice", "/board/qna", "/board/event" })
-    public ModelAndView selectBoardList(int code) {
+    @GetMapping(value = "/board/{category}")
+    public ModelAndView selectBoardList(@PathVariable String category) {
         ModelAndView mav = new ModelAndView();
-        ArrayList<BoardVO> boardlist = boardService.selectList(code);
+        int code = 0;
+        CriteriaDTO cri = null;
+        if (category.equals("qna")) {
+            cri = new CriteriaDTO(BOARD_CATEGORY_QNA, "");
+            ArrayList<QnaDTO> qnalist = boardService.selectQnaList();
+            mav.addObject("boardlist", qnalist);
+            mav.setViewName("board/qnalist");
+            return mav;
+        } else if (category.equals("notice")) {
+            code = BOARD_CATEGORY_NOTICE;
+        } else if (category.equals("event")) {
+            code = BOARD_CATEGORY_EVENT;
+        } else if (category.equals("review")) {
+            code = BOARD_CATEGORY_REVIEW;
+        }
+        cri = new CriteriaDTO(code, "");
+        ArrayList<BoardVO> boardlist = boardService.selectListCri(cri);
         mav.addObject("boardlist", boardlist);
-        mav.setViewName("/");
+        mav.setViewName("board/boardlist");
         return mav;
     }
 
-    @GetMapping(value = "/{board_no}")
+    @GetMapping(value = { "notice/{board_no}", "event/{board_no}" })
     public ModelAndView selectBoard(@PathVariable int board_no,
             @SessionAttribute("userinfo") @Nullable MemberVO memberVO) {
         ModelAndView mav = new ModelAndView();
@@ -62,42 +82,58 @@ public class BoardController {
             mav.addObject("viewer", null);
             mav.addObject("viewertype", null);
         }
-        mav.setViewName("board/read");
+        mav.setViewName("board/boardread");
         return mav;
     }
 
     @GetMapping(value = "/write")
     public ModelAndView insertBoard() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("board/write");
+        mav.setViewName("board/boardwrite");
+        return mav;
+    }
+
+    @GetMapping(value = "/qnawrite")
+    public ModelAndView insertQna() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("board/qnawrite");
         return mav;
     }
 
     @PostMapping(value = "/write")
-    public void insertBoard(BoardVO vo) {
-        boardService.insert(vo);
+    public int insertBoard(BoardVO vo) {
+        return boardService.insert(vo);
+    }
+
+    @PostMapping(value = "/qnawrite")
+    public int insertQna(BoardVO vo) {
+        return boardService.insert(vo);
     }
 
     @GetMapping(value = "/{board_no}/modify")
     public ModelAndView updateBoard(@PathVariable int board_no) {
         ModelAndView mav = new ModelAndView();
         BoardVO boardvo = boardService.selectboard(board_no);
+        if (boardvo.getBoard_category_cd() == BOARD_CATEGORY_QNA) {
+            mav.setViewName("board/qnamodify");
+        } else {
+            mav.setViewName("board/boardmodify");
+        }
         mav.addObject("boardvo", boardvo);
-        mav.setViewName("board/modify");
         return mav;
     }
 
     @PostMapping(value = "/{board_no}/modify")
-    public void updateBoard(@PathVariable int board_no, BoardVO vo) {
+    public int updateBoard(@PathVariable int board_no, BoardVO vo) {
         vo.setBoard_no(board_no);
-        boardService.update(vo);
+        return boardService.update(vo);
     }
 
     @Transactional
     @PostMapping(value = "/{board_no}/delete")
-    public void deleteBoard(int board_no) {
+    public int deleteBoard(int board_no) {
         replyService.deleteAll(board_no);
-        boardService.delete(board_no);
+        return boardService.delete(board_no);
     }
 
     @PostMapping(value = "/selectboardlist.and", produces = "text/html;charset=utf-8")

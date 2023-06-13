@@ -20,18 +20,18 @@ public class ReplyController {
     ReplyService service;
 
     @PostMapping(value = "insertreply")
-    public void insertReply(ReplyVO vo) {
-        service.insert(vo);
+    public int insertReply(ReplyVO vo) {
+        return service.insert(vo);
     }
 
     @PostMapping(value = "updatereply")
-    public void updateReply(ReplyVO vo) {
-        service.update(vo);
+    public int updateReply(ReplyVO vo) {
+        return service.update(vo);
     }
 
     @PostMapping(value = "deletereply")
-    public void deleteReply(int reply_no) {
-        service.delete(reply_no);
+    public int deleteReply(int reply_no) {
+        return service.delete(reply_no);
     }
 
     @PostMapping(value = "selectreplylist.and", produces = "text/html;charset=utf-8")

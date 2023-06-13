@@ -16,11 +16,6 @@ public class BoardService {
     @Autowired
     BoardMapper boardMapper;
 
-    public ArrayList<BoardVO> selectList(int code) {
-        ArrayList<BoardVO> list = boardMapper.selectList(code);
-        return list;
-    }
-
     public ArrayList<BoardVO> selectListCri(CriteriaDTO cri) {
         ArrayList<BoardVO> list = boardMapper.selectListCri(cri);
         return list;
@@ -41,16 +36,16 @@ public class BoardService {
         return vo;
     }
 
-    public void insert(BoardVO vo) {
-        boardMapper.insert(vo);
+    public int insert(BoardVO vo) {
+        return boardMapper.insert(vo);
     }
 
-    public void update(BoardVO vo) {
-        boardMapper.update(vo);
+    public int update(BoardVO vo) {
+        return boardMapper.update(vo);
     }
 
-    public void delete(int board_no) {
-        boardMapper.delete(board_no);
+    public int delete(int board_no) {
+        return boardMapper.delete(board_no);
     }
 
 }
