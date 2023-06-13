@@ -13,7 +13,7 @@ import com.cocofarm.webpage.service.ReplyService;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping
+@RequestMapping("reply/*")
 public class ReplyController {
 
     @Autowired
