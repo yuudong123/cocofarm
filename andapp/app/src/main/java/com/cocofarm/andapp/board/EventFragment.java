@@ -1,6 +1,7 @@
 package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.board.BoardFragment.cri;
+import static com.cocofarm.andapp.board.BoardFragment.pagenum;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
@@ -21,11 +22,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventFragment extends Fragment {
 
     FragmentEventBinding binding;
     ArrayList<BoardVO> list;
+    int startnum;
+    int endnum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,27 +38,27 @@ public class EventFragment extends Fragment {
         loadBoard();
 
         binding.btnFirst.setOnClickListener(v -> {
-            cri.setPagenum(1);
+            pagenum = 1;
             loadBoard();
         });
         binding.btnPrev.setOnClickListener(v -> {
-            if (cri.getPagenum() >= 1) {
+            if (pagenum >= 1) {
                 Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                cri.setPagenum(cri.getPagenum() - 1);
+                pagenum--;
                 loadBoard();
             }
         });
         binding.btnNext.setOnClickListener(v -> {
-            if (cri.getPagenum() > list.size() / 10) {
+            if (pagenum > list.size() / 10) {
                 Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                cri.setPagenum(cri.getPagenum() + 1);
+                pagenum++;
                 loadBoard();
             }
         });
         binding.btnLast.setOnClickListener(v -> {
-            cri.setPagenum((list.size() - 1) / 10 + 1);
+            pagenum = ((list.size() - 1) / 10 + 1);
             loadBoard();
         });
 
@@ -79,22 +83,30 @@ public class EventFragment extends Fragment {
     }
 
     protected void loadBoard() {
-        CommonConn conn = new CommonConn(null, "selectboardlistcri.and");
+        CommonConn conn = new CommonConn(null, "selectboardlist.and");
         conn.addParam("code", cri.getCode());
-        conn.addParam("pagenum", cri.getPagenum());
-        conn.addParam("board_per_page", cri.getBoard_per_page());
-        conn.addParam("startnum", cri.getStartnum());
-        conn.addParam("endnum", cri.getEndnum());
         conn.addParam("keyword", cri.getKeyword());
         conn.onExcute((isResult, data) -> {
-            if (isResult) {
-                list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
-                }.getType());
-                EventAdapter adapter = new EventAdapter(list, getContext());
-                LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                binding.recvBoardList.setAdapter(adapter);
-                binding.recvBoardList.setLayoutManager(manager);
+            if (!isResult) {
+                return;
             }
+            list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+            }.getType());
+            pager();
         });
+        binding.pagenum.setText(pagenum + "");
+    }
+
+    protected void pager() {
+        endnum = pagenum * 10;
+        startnum = endnum - 9;
+        if (endnum > list.size()) {
+            endnum = list.size();
+        }
+        List blist = list.subList(startnum - 1, endnum);
+        EventAdapter adapter = new EventAdapter(blist, getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        binding.recvBoardList.setAdapter(adapter);
+        binding.recvBoardList.setLayoutManager(manager);
     }
 }

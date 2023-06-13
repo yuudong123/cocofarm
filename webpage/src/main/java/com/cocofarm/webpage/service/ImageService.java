@@ -18,4 +18,9 @@ public class ImageService {
         ArrayList<ImageDTO> list = mapper.selectImageList();
         return list;
     }
+
+    public ArrayList<ImageDTO> selectProductImageList() {
+        ArrayList<ImageDTO> list = mapper.selectProductImageList();
+        return list;
+    }
 }

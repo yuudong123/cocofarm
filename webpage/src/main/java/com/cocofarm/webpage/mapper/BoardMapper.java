@@ -17,7 +17,9 @@ public interface BoardMapper {
 
     public ArrayList<QnaDTO> selectQnaList();
 
-    public BoardVO select(int board_no);
+    public BoardVO selectboard(int board_no);
+
+    public QnaDTO selectqna(int board_no);
 
     public int insert(BoardVO vo);
 

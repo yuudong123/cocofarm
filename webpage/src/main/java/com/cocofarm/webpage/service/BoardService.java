@@ -31,8 +31,13 @@ public class BoardService {
         return list;
     }
 
-    public BoardVO select(int board_no) {
-        BoardVO vo = boardMapper.select(board_no);
+    public BoardVO selectboard(int board_no) {
+        BoardVO vo = boardMapper.selectboard(board_no);
+        return vo;
+    }
+
+    public BoardVO selectqna(int board_no) {
+        BoardVO vo = boardMapper.selectqna(board_no);
         return vo;
     }
 

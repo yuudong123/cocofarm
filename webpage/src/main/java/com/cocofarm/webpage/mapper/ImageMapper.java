@@ -9,4 +9,6 @@ import com.cocofarm.webpage.domain.ImageDTO;
 @Mapper
 public interface ImageMapper {
     public ArrayList<ImageDTO> selectImageList();
+
+    public ArrayList<ImageDTO> selectProductImageList();
 }

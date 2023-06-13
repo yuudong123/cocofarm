@@ -42,7 +42,7 @@ public class JoinActivity extends AppCompatActivity {
 
         // 코코팜 회원가입
         binding.btnJoin.setOnClickListener(v-> {
-            Intent intent = new Intent(JoinActivity.this, JoinNameActivity.class);
+            Intent intent = new Intent(JoinActivity.this, JoinEmailActivity.class);
             startActivity(intent);
         });
 
@@ -75,16 +75,15 @@ public class JoinActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
     private void kakaoProfile() {
         UserApiClient.getInstance().me((user, throwable) -> {
             if(throwable != null) {
                 Log.d("카카오", "kakaoProfile: " + throwable.getMessage());
             } else {
+                MemberVO vo = new MemberVO();
+                vo.setEmail(user.getKakaoAccount().getEmail());
                 Log.d("카카오프로필", "kakaoProfile: " + user.getKakaoAccount().getEmail());
+                vo.setNickname(user.getKakaoAccount().getProfile().getNickname());
                 Log.d("카카오프로필", "kakaoProfile: " + user.getKakaoAccount().getProfile().getNickname());
             }
             return null;

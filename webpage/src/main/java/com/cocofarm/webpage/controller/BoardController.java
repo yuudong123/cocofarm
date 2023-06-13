@@ -49,7 +49,7 @@ public class BoardController {
     public ModelAndView selectBoard(@PathVariable int board_no,
             @SessionAttribute("userinfo") @Nullable MemberVO memberVO) {
         ModelAndView mav = new ModelAndView();
-        BoardVO boardvo = boardService.select(board_no);
+        BoardVO boardvo = boardService.selectboard(board_no);
         ArrayList<ReplyVO> replylist = replyService.selectList(board_no);
         mav.addObject("boardvo", boardvo);
         if (replylist.size() != 0) {
@@ -81,7 +81,7 @@ public class BoardController {
     @GetMapping(value = "/{board_no}/modify")
     public ModelAndView updateBoard(@PathVariable int board_no) {
         ModelAndView mav = new ModelAndView();
-        BoardVO boardvo = boardService.select(board_no);
+        BoardVO boardvo = boardService.selectboard(board_no);
         mav.addObject("boardvo", boardvo);
         mav.setViewName("board/modify");
         return mav;
@@ -102,13 +102,6 @@ public class BoardController {
 
     @PostMapping(value = "/selectboardlist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String selectBoardListAnd(int code) {
-        ArrayList<BoardVO> list = boardService.selectList(code);
-        return new Gson().toJson(list);
-    }
-
-    @PostMapping(value = "/selectboardlistcri.and", produces = "text/html;charset=utf-8")
-    @ResponseBody
     public String selectBoardListCriAnd(CriteriaDTO cri) {
         ArrayList<BoardVO> list = boardService.selectListCri(cri);
         return new Gson().toJson(list);
@@ -124,7 +117,14 @@ public class BoardController {
     @PostMapping(value = "/selectboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardAnd(int board_no) {
-        BoardVO vo = boardService.select(board_no);
+        BoardVO vo = boardService.selectboard(board_no);
+        return new Gson().toJson(vo);
+    }
+
+    @PostMapping(value = "/selectqna.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectQnaAnd(int board_no) {
+        BoardVO vo = boardService.selectqna(board_no);
         return new Gson().toJson(vo);
     }
 

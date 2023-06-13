@@ -42,8 +42,7 @@
         app:hintTextColor="#123456">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_info"
-            android:hint="TV_INFO_HIDDEN"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -63,6 +62,7 @@
 
     <!-- 필요 없으면 삭제 -->
     <LinearLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

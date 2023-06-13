@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.databinding.ItemNoticeBoardBinding;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
 
     ItemNoticeBoardBinding binding;
-    ArrayList<BoardVO> list;
+    List<BoardVO> list;
     Context context;
 
-    public NoticeAdapter(ArrayList<BoardVO> list, Context context) {
+    public NoticeAdapter(List<BoardVO> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -34,7 +34,7 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.rownum.setText(list.get(i).getRownum() + "");
+        holder.binding.rownum.setText(list.get(i).getRn() + "");
         holder.binding.title.setText(list.get(i).getTitle());
         holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
         holder.binding.item.setOnClickListener(v -> {

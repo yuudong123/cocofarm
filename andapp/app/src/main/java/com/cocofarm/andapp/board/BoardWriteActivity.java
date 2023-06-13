@@ -19,7 +19,6 @@ public class BoardWriteActivity extends AppCompatActivity {
 
     ActivityBoardWriteBinding binding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +61,8 @@ public class BoardWriteActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (boardselectedImage != null) {
-            ImageUtil.load(this, binding.ivMainImage, boardselectedImage);
+        if (boardselectedImage != "") {
+            ImageUtil.load(binding.ivMainImage, boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
             binding.mainImageSelect.setVisibility(View.GONE);
             binding.mainImageSelected.setVisibility(View.VISIBLE);
@@ -76,6 +75,6 @@ public class BoardWriteActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        boardselectedImage = null;
+        boardselectedImage = "";
     }
 }

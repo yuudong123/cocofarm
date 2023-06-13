@@ -14,5 +14,5 @@ public class CommonVal {
     public static SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static SimpleDateFormat HHmmss = new SimpleDateFormat("HH:mm:ss");
 
-    public static String boardselectedImage = null;
+    public static String boardselectedImage = "";
 }

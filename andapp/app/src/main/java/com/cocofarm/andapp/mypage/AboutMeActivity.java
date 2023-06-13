@@ -33,13 +33,13 @@ public class AboutMeActivity extends AppCompatActivity {
             binding.tvEmail.setText(CommonVal.loginMember.getEmail());
             binding.tvPw.setText(CommonVal.loginMember.getPassword());
             binding.tvNickname.setText(CommonVal.loginMember.getNickname());
-            binding.tvPhone.setText(CommonVal.loginMember.getPhoneNumber());
+            binding.tvPhone.setText(CommonVal.loginMember.getPhonenumber());
         } catch (NullPointerException e) {
             Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
         }
 
         binding.ivAddressAdd.setOnClickListener(v->{
-            Intent intent = new Intent(AboutMeActivity.this, MpAddressActivity.class);
+            Intent intent = new Intent(AboutMeActivity.this, AddressApiActivity.class);
             startActivity(intent);
         });
 

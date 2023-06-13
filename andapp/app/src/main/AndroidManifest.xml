@@ -52,6 +52,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".board.QnAProductSelectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mypage.AmAddressActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".mypage.AddressApiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".member.JoinCompleteActivity"
+            android:exported="false" />
+        <activity
             android:name=".order.OrderRefundCheckActivity"
             android:exported="false" />
         <activity
@@ -122,6 +135,12 @@
             android:exported="false" />
         <activity
             android:name=".product.ProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".member.JoinEmailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".member.JoinPwActivity"
             android:exported="false" />
         <activity
             android:name=".member.JoinNameActivity"
