@@ -65,7 +65,7 @@ public class QnAReadActivity extends AppCompatActivity {
                             .setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?")
                             .setCancelable(false)
                             .setPositiveButton("확인", (dialogInterface, i1) -> {
-                                CommonConn conn = new CommonConn(this, "deleteboard.and");
+                                CommonConn conn = new CommonConn(this, "board/deleteboard.and");
                                 conn.addParam("board_no", dto.getBoard_no());
                                 conn.onExcute((isResult, data) -> {
                                     if (isResult) {
@@ -99,7 +99,7 @@ public class QnAReadActivity extends AppCompatActivity {
     }
 
     protected void loadAnswer(int board_no) {
-        CommonConn conn = new CommonConn(this, "selectanswer.and");
+        CommonConn conn = new CommonConn(this, "reply/selectanswer.and");
         conn.addParam("board_no", board_no);
         conn.onExcute((isResult, data) -> {
             if (!isResult) {
@@ -121,7 +121,7 @@ public class QnAReadActivity extends AppCompatActivity {
     }
 
     protected void writeAnswer(int board_no) {
-        CommonConn conn = new CommonConn(this, "insertreply.and");
+        CommonConn conn = new CommonConn(this, "reply/insertreply.and");
         conn.addParam("member_no", loginMember.getMember_no());
         conn.addParam("nickname", loginMember.getNickname());
         conn.addParam("board_no", board_no);

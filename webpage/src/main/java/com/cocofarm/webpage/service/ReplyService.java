@@ -24,16 +24,16 @@ public class ReplyService {
         return vo;
     }
 
-    public void insert(ReplyVO vo) {
-        mapper.insert(vo);
+    public int insert(ReplyVO vo) {
+        return mapper.insert(vo);
     }
 
-    public void update(ReplyVO vo) {
-        mapper.update(vo);
+    public int update(ReplyVO vo) {
+        return mapper.update(vo);
     }
 
-    public void delete(int reply_no) {
-        mapper.delete(reply_no);
+    public int delete(int reply_no) {
+        return mapper.delete(reply_no);
     }
 
     public void deleteAll(int board_no) {

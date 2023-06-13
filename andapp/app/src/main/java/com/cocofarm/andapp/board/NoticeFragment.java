@@ -83,7 +83,7 @@ public class NoticeFragment extends Fragment {
     }
 
     protected void loadBoard() {
-        CommonConn conn = new CommonConn(null, "selectboardlist.and");
+        CommonConn conn = new CommonConn(null, "board/selectboardlist.and");
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", cri.getKeyword());
         conn.onExcute((isResult, data) -> {

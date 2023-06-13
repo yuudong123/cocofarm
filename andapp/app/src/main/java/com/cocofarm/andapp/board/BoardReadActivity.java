@@ -117,7 +117,7 @@ public class BoardReadActivity extends AppCompatActivity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
                         builder.setTitle("게시글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
                                 .setPositiveButton("확인", (dialogInterface, i1) -> {
-                                    CommonConn conn = new CommonConn(this, "deleteboard.and");
+                                    CommonConn conn = new CommonConn(this, "board/deleteboard.and");
                                     conn.addParam("board_no", vo.getBoard_no());
                                     conn.onExcute((isResult, data) -> {
                                         if (isResult) {
@@ -150,7 +150,7 @@ public class BoardReadActivity extends AppCompatActivity {
     }
 
     protected void writeReply(int board_no) {
-        CommonConn conn = new CommonConn(this, "insertreply.and");
+        CommonConn conn = new CommonConn(this, "reply/insertreply.and");
         conn.addParam("board_no", board_no);
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());
         conn.addParam("nickname", CommonVal.loginMember.getNickname());
