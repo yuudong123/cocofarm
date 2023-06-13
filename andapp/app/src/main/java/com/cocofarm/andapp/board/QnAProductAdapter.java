@@ -39,7 +39,7 @@ public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.Vi
         ImageUtil.load(holder.binding.thumbnail, list.get(i).getFilename());
         holder.binding.itemImageSelect.setOnClickListener(v -> {
             boardselectedImage = list.get(i).getFilename();
-            Toast.makeText(context, list.get(i).getFilename() + " 로 변경", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, list.get(i).getProduct_name() + " 로 변경", Toast.LENGTH_SHORT).show();
         });
     }
 
