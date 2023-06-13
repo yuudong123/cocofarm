@@ -10,9 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.databinding.ItemProductDeviceBinding;
+import com.cocofarm.andapp.image.ImageUtil;
+
+import java.util.ArrayList;
 
 public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder> {
     Context context;
+
+    ArrayList<ProductVO>list;
+
+    public DeviceAdapter(ArrayList<ProductVO> list) {
+        this.list = list;
+    }
 
     ItemProductDeviceBinding binding;
 
@@ -26,6 +35,12 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+
+        ImageUtil.load(holder.binding.imgvProduct,list.get(i).getFilename());
+        holder.binding.tvProductName.setText(list.get(i).getName()+"");
+        holder.binding.tvProductPrice.setText(list.get(i).getPrice()+"");
+
+
         holder.binding.layoutProductDeviceItem.setOnClickListener(view -> {
             Intent intent = new Intent(context , ProductActivity.class);
             context.startActivity(intent);
@@ -35,7 +50,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

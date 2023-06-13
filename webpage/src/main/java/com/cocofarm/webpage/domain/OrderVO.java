@@ -1,7 +1,4 @@
-package com.cocofarm.andapp.order;
-
-import com.cocofarm.andapp.util.DateJsonAdapter;
-import com.google.gson.annotations.JsonAdapter;
+package com.cocofarm.webpage.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,7 +10,6 @@ public class OrderVO implements Serializable {
     private int order_id;
     private int member_no;
 
-    @JsonAdapter(DateJsonAdapter.class)
     private Date orderdate;
     private int price;
     private String address;

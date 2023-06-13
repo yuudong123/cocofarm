@@ -1,7 +1,4 @@
-package com.cocofarm.andapp.product;
-
-import com.cocofarm.andapp.util.DateJsonAdapter;
-import com.google.gson.annotations.JsonAdapter;
+package com.cocofarm.webpage.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,10 +13,19 @@ public class ProductVO implements Serializable {
     private int price;
     private int amount;
 
-    @JsonAdapter(DateJsonAdapter.class)
     private Date regdate;
     private String isdeleted;
-
     private int product_category_cd;
     private String filename;
+
 }
+
+/*create table tbl_orderproduct(
+orderproduct_id number,
+product_id number,
+order_id number,
+member_no number,
+amount number,
+price number,
+constraint pk_tbl_orderproduct primary key (orderproduct_id)
+);*/

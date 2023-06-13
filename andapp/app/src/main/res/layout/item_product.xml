@@ -18,7 +18,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:scaleType="fitXY"
-            android:src="@drawable/img_product1" />
+             />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -31,7 +31,6 @@
                 android:id="@+id/tv_product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="올리브"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -39,13 +38,7 @@
                 android:id="@+id/tv_product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="￦ 53,000" />
-
-            <TextView
-                android:id="@+id/tv_product_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="소형"/>
+               />
 
         </LinearLayout>
 

@@ -1,4 +1,4 @@
-package com.cocofarm.andapp.order;
+package com.cocofarm.webpage.domain;
 
 import java.io.Serializable;
 

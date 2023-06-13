@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.product;
 
+import static com.cocofarm.andapp.board.BoardFragment.cri;
+import static com.cocofarm.andapp.board.BoardFragment.pagenum;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,23 +12,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cocofarm.andapp.R;
+import com.cocofarm.andapp.board.BoardVO;
 import com.cocofarm.andapp.board.EventFragment;
 import com.cocofarm.andapp.board.NoticeFragment;
 import com.cocofarm.andapp.board.QnAFragment;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
 import com.cocofarm.andapp.home.HomeFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-public class ProductFragment extends Fragment{
+import java.util.ArrayList;
+
+public class ProductFragment extends Fragment {
     FragmentProductBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         binding = FragmentProductBinding.inflate(inflater, container, false);
 
-        getChildFragmentManager().beginTransaction().replace(R.id.containerProduct,new ProductPlantFragment()).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.containerProduct, new ProductPlantFragment()).commit();
 
         binding.activityPruductPlant.addTab(binding.activityPruductPlant.newTab().setText("식물"));
         binding.activityPruductPlant.addTab(binding.activityPruductPlant.newTab().setText("관리 기기"));
@@ -34,13 +43,13 @@ public class ProductFragment extends Fragment{
             public void onTabSelected(TabLayout.Tab tab) {
                 int i = tab.getPosition();
                 Fragment fragment = null;
-                if (i==0){
+                if (i == 0) {
                     fragment = new ProductPlantFragment();
-                } else if (i==1) {
+                } else if (i == 1) {
                     fragment = new ProductDeviceFragment();
 
                 }
-                    getChildFragmentManager().beginTransaction().replace(R.id.containerProduct, fragment).commit();
+                getChildFragmentManager().beginTransaction().replace(R.id.containerProduct, fragment).commit();
 
             }
 
@@ -54,7 +63,7 @@ public class ProductFragment extends Fragment{
 
             }
 
-    });
+        });
         return binding.getRoot();
     }
 
@@ -63,5 +72,4 @@ public class ProductFragment extends Fragment{
         super.onDestroyView();
         binding = null;
     }
-
-    }
+}

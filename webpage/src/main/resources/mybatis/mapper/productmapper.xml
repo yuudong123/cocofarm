@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cocofarm.webpage.mapper.ProductMapper">
+
+    <select id="selectProductPlant" resultType="com.cocofarm.webpage.domain.ProductVO">
+     select p.name, p.price, i.filename
+    FROM tbl_product p
+    inner join tbl_product r on p.product_id = r.product_id
+    inner join(
+    select product_id, min(filename) as filename
+    from tbl_image 
+    group by product_id 
+    ) i on p.product_id = i.product_id
+    where p.product_category_cd = 401
+    </select>
+
+    <select id="selectProductDevice" resultType="com.cocofarm.webpage.domain.ProductVO">
+    select p.name, p.price, i.filename
+    FROM tbl_product p
+    inner join tbl_product r on p.product_id = r.product_id
+    inner join(
+    select product_id, min(filename) as filename
+    from tbl_image 
+    group by product_id 
+    ) i on p.product_id = i.product_id
+    where p.product_category_cd = 402
+    </select>
+
+</mapper>
