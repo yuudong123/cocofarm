@@ -26,7 +26,7 @@ public class BoardImageSelectActivity extends AppCompatActivity {
         binding = ActivityBoardImageSelectBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        CommonConn conn = new CommonConn(null, "selectimagelist.and");
+        CommonConn conn = new CommonConn(null, "board/selectimagelist.and");
         conn.onExcute((isResult, data) -> {
             ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
             }.getType());

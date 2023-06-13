@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <table>
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="board : ${boardlist}">
+              <td th:text="${board.rn}">번호</td>
+              <td th:text="${board.title}">제목</td>
+              <td th:text="${#dates.format(board.regdate, (board.regdate.time < #calendars.createNow().timeInMillis - 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+  </body>
+</html>

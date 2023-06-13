@@ -73,7 +73,7 @@ public class QnAFragment extends Fragment {
     }
 
     protected void loadBoard() {
-        CommonConn conn = new CommonConn(null, "selectqnalist.and");
+        CommonConn conn = new CommonConn(null, "board/selectqnalist.and");
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", cri.getKeyword());
         conn.onExcute((isResult, data) -> {

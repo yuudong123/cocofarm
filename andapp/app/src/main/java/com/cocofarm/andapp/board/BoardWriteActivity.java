@@ -39,7 +39,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                 Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
                 return;
             }
-            CommonConn conn = new CommonConn(this, "insertboard.and");
+            CommonConn conn = new CommonConn(this, "board/insertboard.and");
             conn.addParam("member_no", loginMember.getMember_no());
             conn.addParam("nickname", loginMember.getNickname());
             conn.addParam("board_category_cd", getIntent().getIntExtra("category", 0));
