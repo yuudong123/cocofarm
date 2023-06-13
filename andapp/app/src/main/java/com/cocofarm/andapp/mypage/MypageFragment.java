@@ -33,7 +33,7 @@ public class MypageFragment extends Fragment {
 
         binding.btnLogout.setOnClickListener(v-> {
             CommonVal.loginMember = null;
-            Intent intent = new Intent(getActivity(), MainActivity.class);
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
             Toast.makeText(getActivity(), "로그아웃 완료", Toast.LENGTH_SHORT).show();
         });

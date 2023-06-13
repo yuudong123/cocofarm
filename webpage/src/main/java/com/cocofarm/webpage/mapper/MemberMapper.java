@@ -9,4 +9,5 @@ public interface MemberMapper {
     public MemberVO login(MemberVO vo);
     public int join(MemberVO vo);
     public void am_modify(MemberVO vo);
+    public int away(String email);
 }

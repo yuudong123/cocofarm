@@ -35,16 +35,25 @@ public class AwayRemoveActivity extends AppCompatActivity {
         });
 
         binding.btnRemove.setOnClickListener(v->{
-            Intent intent = new Intent(AwayRemoveActivity.this, AwayConfirmActivity.class);
-            CommonConn conn = new CommonConn(this, "Away");
+            CommonConn conn = new CommonConn(this, "away");
             conn.addParam("email", CommonVal.loginMember.getEmail().toString());
 
             conn.onExcute((isResult, data) -> {
-                Log.d("탈퇴", "onCreate: " + data);
-
+                if (isResult) {
+                    Log.d("탈퇴", "onCreate: " + data);
+                    Intent intent = new Intent(AwayRemoveActivity.this, AwayConfirmActivity.class);
+                    startActivity(intent);
+                } else {
+                    finish();
+                }
             });
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
     }
 }

@@ -1,8 +1,6 @@
 package com.cocofarm.andapp.mypage;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,15 +32,10 @@ public class AboutMeActivity extends AppCompatActivity {
             binding.tvPw.setText(CommonVal.loginMember.getPassword());
             binding.tvNickname.setText(CommonVal.loginMember.getNickname());
             binding.tvPhone.setText(CommonVal.loginMember.getPhonenumber());
+            binding.tvAddress.setText(CommonVal.loginMember.getAddress());
         } catch (NullPointerException e) {
             Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
         }
-
-        binding.ivAddressAdd.setOnClickListener(v->{
-            Intent intent = new Intent(AboutMeActivity.this, AddressApiActivity.class);
-            startActivity(intent);
-        });
-
     }
 
 

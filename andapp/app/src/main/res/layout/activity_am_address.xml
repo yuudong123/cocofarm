@@ -36,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
+
     <com.google.android.material.textfield.TextInputLayout
         app:startIconDrawable="@drawable/icon_mydevice"
         app:errorEnabled="true"
@@ -75,8 +76,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_address"
-            android:clickable="true"
             android:hint="주소"
+            android:clickable="true"
             android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

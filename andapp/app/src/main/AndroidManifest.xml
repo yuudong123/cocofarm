@@ -52,15 +52,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".mypage.RoadSearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".board.QnAProductSelectActivity"
-            android:exported="false" />
-            
-        <activity
-            android:name=".AmAddressActivity"
-            android:exported="false" />
-            
-        <activity
-            android:name=".AddressApiActivity"
             android:exported="false" />
         <activity
             android:name=".member.JoinCompleteActivity"
@@ -160,6 +155,12 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mypage.AwayConfirmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FirstActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

@@ -24,4 +24,8 @@ public class MemberService {
       mapper.am_modify(vo);
       return mapper.login(vo);
     }
+
+    public int away(String email) {
+      return mapper.away(email);
+    }
 }

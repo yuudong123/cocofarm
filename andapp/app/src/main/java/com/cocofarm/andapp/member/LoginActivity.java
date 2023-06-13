@@ -48,9 +48,15 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("로그인", "onCreate: " + data);
                 CommonVal.loginMember = new Gson().fromJson(data, MemberVO.class);
                 if(CommonVal.loginMember != null) {
-                    Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    if(CommonVal.loginMember.getIsactivated().equals("Y")) {
+                        Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(LoginActivity.this, BannedActivity.class);
+                        CommonVal.loginMember = null;
+                        startActivity(intent);
+                    }
                 } else {
                     Toast.makeText(this, "이메일 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 }
