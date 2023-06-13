@@ -52,6 +52,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MyBoardActivity"
+            android:exported="false" />
+        <activity
             android:name=".mypage.RoadSearchActivity"
             android:exported="false" />
         <activity
@@ -61,19 +64,22 @@
             android:name=".member.JoinCompleteActivity"
             android:exported="false" />
         <activity
-            android:name=".order.OrderRefundCheckActivity"
+            android:name=".order.Order_Refund_CheckActivity"
             android:exported="false" />
         <activity
-            android:name=".order.OrderRefundActivity"
+            android:name=".order.Order_RefundActivity"
             android:exported="false" />
         <activity
-            android:name=".order.OrderChangeCheckActivity"
+            android:name=".order.Order_Change_CheckActivity"
             android:exported="false" />
         <activity
-            android:name=".order.OrderChangeActivity"
+            android:name=".order.Order_ChangeActivity"
             android:exported="false" />
         <activity
             android:name=".order.OrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".order.Cart_PopupActivity"
             android:exported="false" />
         <activity
             android:name=".board.BoardImageSelectActivity"
@@ -85,9 +91,9 @@
             android:name=".board.QnAReadActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" /> <!-- <activity -->
-        <!-- android:name=".OrderFinishActivity" -->
+        <!-- android:name=".Order_FinishActivity" -->
         <activity
-            android:name=".order.OrderFinishActivity"
+            android:name=".order.Order_FinishActivity"
             android:exported="false" />
         <activity
             android:name=".mypage.AwayRemoveActivity"
@@ -108,7 +114,7 @@
             android:name=".mypage.AboutMeActivity"
             android:exported="false" />
         <activity
-            android:name=".order.OrderContentActivity"
+            android:name=".order.Order_ContentActivity"
             android:exported="false" />
         <activity
             android:name=".board.QnAWriteActivity"
