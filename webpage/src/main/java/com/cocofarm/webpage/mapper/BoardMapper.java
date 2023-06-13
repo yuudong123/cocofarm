@@ -11,8 +11,6 @@ import com.cocofarm.webpage.domain.QnaDTO;
 @Mapper
 public interface BoardMapper {
 
-    public ArrayList<BoardVO> selectList(int code);
-
     public ArrayList<BoardVO> selectListCri(CriteriaDTO cri);
 
     public ArrayList<QnaDTO> selectQnaList();
