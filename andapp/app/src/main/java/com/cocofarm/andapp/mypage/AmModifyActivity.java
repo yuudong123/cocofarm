@@ -1,6 +1,9 @@
 package com.cocofarm.andapp.mypage;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityAmModifyBinding;
 import com.cocofarm.andapp.member.MemberVO;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -26,8 +30,10 @@ public class AmModifyActivity extends AppCompatActivity {
     MemberVO vo = CommonVal.loginMember;
     public String oldEdtPhone = "";
     TextWatcher watcher;
+    NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         binding = ActivityAmModifyBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -36,13 +42,14 @@ public class AmModifyActivity extends AppCompatActivity {
         binding.tvName.setText(CommonVal.loginMember.getNickname());
         binding.tvPw.setText(CommonVal.loginMember.getPassword());
         binding.tvPhone.setText(CommonVal.loginMember.getPhonenumber());
+        binding.tvAddress.setText(CommonVal.loginMember.getAddress());
 
         // 비밀번호
         binding.tvPwModify.setOnClickListener(v->{
             binding.tvPwModify.setVisibility(View.INVISIBLE);
             binding.tvPw.setVisibility(View.INVISIBLE);
             binding.edtPw.setVisibility(View.VISIBLE);
-            binding.edtPw.setText(binding.tvPw.getText().toString());
+            //binding.edtPw.setText(binding.tvPw.getText().toString());
         });
 
         // 닉네임
@@ -63,8 +70,20 @@ public class AmModifyActivity extends AppCompatActivity {
             binding.tvPhone.setVisibility(View.INVISIBLE);
             binding.edtPhone.setVisibility(View.VISIBLE);
 
-
+            binding.edtPhone.setText(phone);
         });
+
+        // 주소
+        binding.tvAddressModify.setOnClickListener(v->{
+            String address = (String)binding.tvAddress.getText();
+
+            Intent intent = new Intent(AmModifyActivity.this, RoadSearchActivity.class);
+            getSearchResult.launch(intent);
+            binding.edtAddress.setVisibility(View.VISIBLE);
+        });
+
+
+
         watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -111,6 +130,12 @@ public class AmModifyActivity extends AppCompatActivity {
                 conn.addParam("phonenumber", binding.tvPhone.getText().toString());
             }
 
+            if (binding.edtAddress.getVisibility() == View.VISIBLE) {
+                conn.addParam("address", binding.tvAddress.getText().toString() + ", " + binding.edtAddress.getText().toString());
+            } else {
+                conn.addParam("address", binding.tvAddress.getText().toString());
+            }
+
             conn.addParam("email", CommonVal.loginMember.getEmail());
 
             conn.onExcute((isResult, data) -> {
@@ -141,4 +166,17 @@ public class AmModifyActivity extends AppCompatActivity {
         String regEx = "(\\d{3})(\\d{4})(\\d{4})";
         return number.replaceAll(regEx, "$1-$2-$3");
     }
+
+    private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    if (result.getData() != null) {
+                        String data = result.getData().getStringExtra("address");
+                        binding.tvAddress.setText(data);
+                    }
+                }
+            }
+    );
+
 }

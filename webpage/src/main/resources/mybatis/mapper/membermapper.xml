@@ -13,8 +13,13 @@ values (seq_member_no.nextval, 102, #{email}, #{password}, #{nickname}, sysdate,
 
 <update id="am_modify">
 update tbl_member
-set nickname = #{nickname}, password = #{password}, phonenumber = #{phonenumber}
+set nickname = #{nickname}, password = #{password}, phonenumber = #{phonenumber}, address = #{address}
 where email = #{email}
 </update>
+
+<delete id="away">
+delete from tbl_member
+where email = #{email}
+</delete>
 
 </mapper>

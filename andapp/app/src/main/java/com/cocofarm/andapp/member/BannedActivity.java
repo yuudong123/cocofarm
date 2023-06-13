@@ -17,7 +17,6 @@ public class BannedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBannedBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        onBackPressed();
 
         binding.btnOk.setOnClickListener(v->{
             Intent intent = new Intent(BannedActivity.this, MainActivity.class);

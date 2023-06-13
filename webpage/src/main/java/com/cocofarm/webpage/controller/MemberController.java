@@ -36,27 +36,36 @@ public class MemberController {
     }
 
     @RequestMapping(value = "am.modify")
-    public String am_modify(String password, String nickname, String phonenumber, String email) {
+    public String am_modify(String password, String nickname, String phonenumber, String email, String address) {
         MemberVO vo = new MemberVO();
         vo.setPassword(password);
         vo.setNickname(nickname);
         vo.setPhonenumber(phonenumber);
         vo.setEmail(email);
+        vo.setAddress(address);
         service.am_modify(vo);
 
         return new Gson().toJson(service.login(vo));
+    }
+
+
+    @RequestMapping(value = "away")
+    public int away(String email) {
+        MemberVO vo = new MemberVO();
+        vo.setEmail(email);
+
+        return service.away(email);
     }
 
     @RequestMapping(value = "email")
     public String sendEmail(String confirm_text, String email){
                 SimpleEmail mail = new SimpleEmail();
                 mail.setHostName("smtp.naver.com");
-                mail.setCharset("utf-8"); //한글깨짐방지
-                mail.setDebug(true); //오류를 찾아서 개발을 하고있는 과정인지
+                mail.setCharset("utf-8");
+                mail.setDebug(true);
                
                 mail.setAuthentication("hanul_test", "hanul301");
                 mail.setSSLOnConnect(true);
-                ///==============고정 어떤메일을 쓰든 smtp서버와 smtp서버를 이용할수있는고객인증
 
                 //송신인
                 try {
@@ -65,7 +74,6 @@ public class MemberController {
                     mail.setSubject("코코팜 이메일 인증 메일입니다.");
                     mail.setMsg("안녕하세요, 코코팜 입니다.\n\n아래 인증번호를 가입 화면에 입력해주세요.\n인증번호 : " + confirm_text);
 
-                    //mail객체가 모든 정보를 가지고 전송할준비를 마침. ↑
                     mail.send();
                 } catch (EmailException e) {
                     e.printStackTrace();

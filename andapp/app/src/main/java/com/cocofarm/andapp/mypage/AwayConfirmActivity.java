@@ -20,12 +20,12 @@ public class AwayConfirmActivity extends AppCompatActivity {
         binding = ResultCompleteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        onBackPressed();
         binding.tvComplete.setText("탈퇴가 완료되었습니다.\n이용해주셔서 감사합니다.");
         binding.btnOk.setText("확인");
 
         binding.btnOk.setOnClickListener(v->{
             Intent intent = new Intent(AwayConfirmActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
     }
