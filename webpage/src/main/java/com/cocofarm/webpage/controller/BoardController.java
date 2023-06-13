@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.PageDTO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.domain.ReplyVO;
 import com.cocofarm.webpage.service.BoardService;
@@ -41,13 +42,13 @@ public class BoardController {
     ReplyService replyService;
 
     @GetMapping(value = "/board/{category}")
-    public ModelAndView selectBoardList(@PathVariable String category) {
+    public ModelAndView selectBoardList(@PathVariable String category, CriteriaDTO cri) {
         ModelAndView mav = new ModelAndView();
         int code = 0;
-        CriteriaDTO cri = null;
         if (category.equals("qna")) {
-            cri = new CriteriaDTO(BOARD_CATEGORY_QNA, "");
-            ArrayList<QnaDTO> qnalist = boardService.selectQnaList();
+            cri.setCode(BOARD_CATEGORY_QNA);
+            cri.setKeyword("");
+            ArrayList<QnaDTO> qnalist = boardService.selectQnaList(cri);
             mav.addObject("boardlist", qnalist);
             mav.setViewName("board/qnalist");
             return mav;
@@ -58,9 +59,15 @@ public class BoardController {
         } else if (category.equals("review")) {
             code = BOARD_CATEGORY_REVIEW;
         }
-        cri = new CriteriaDTO(code, "");
-        ArrayList<BoardVO> boardlist = boardService.selectListCri(cri);
+        cri.setCode(code);
+        cri.setKeyword("");
+        cri.setBoardPerPage(10);
+        ArrayList<BoardVO> boardlist = boardService.selectList(cri);
+        int total = boardService.getTotal(cri);
+        PageDTO page = new PageDTO(cri, total);
+        mav.addObject("pager", page);
         mav.addObject("boardlist", boardlist);
+        System.out.println(page);
         mav.setViewName("board/boardlist");
         return mav;
     }
@@ -136,17 +143,30 @@ public class BoardController {
         return boardService.delete(board_no);
     }
 
+    @PostMapping(value = "/getTotal.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String getTotalAnd(CriteriaDTO cri) {
+        if (cri.getKeyword() == null) {
+            cri.setKeyword("");
+        }
+        return boardService.getTotal(cri) + "";
+    }
+
     @PostMapping(value = "/selectboardlist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardListCriAnd(CriteriaDTO cri) {
-        ArrayList<BoardVO> list = boardService.selectListCri(cri);
+        if (cri.getKeyword() == null) {
+            cri.setKeyword("");
+        }
+        ArrayList<BoardVO> list = boardService.selectList(cri);
         return new Gson().toJson(list);
     }
 
     @PostMapping(value = "/selectqnalist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectQnaListAnd(int code) {
-        ArrayList<QnaDTO> list = boardService.selectQnaList();
+        CriteriaDTO cri = new CriteriaDTO(code, "");
+        ArrayList<QnaDTO> list = boardService.selectQnaList(cri);
         return new Gson().toJson(list);
     }
 

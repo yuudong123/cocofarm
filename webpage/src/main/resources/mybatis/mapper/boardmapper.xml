@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.BoardMapper">
-    <select id="selectListCri" resultType="com.cocofarm.webpage.domain.BoardVO">
+    <select id="getTotal" resultType="int"> select count(*) from tbl_board where board_category_cd =
+        #{code} and title like '%'||#{keyword}||'%' </select>
+    <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO">
     <![CDATA[ 
     select * from (
         select rownum as rn, a.* from (
@@ -14,10 +16,13 @@
                 ) r on b.board_no = r.board_no
             where board_category_cd = #{code}
             and title like '%'||#{keyword}||'%'
-            order by b.board_no
+            order by b.board_no desc
         ) a
+        order by rownum
     )
-    order by rownum desc
+    where rn <= #{page} * #{boardPerPage}
+    and rn > (#{page}-1) * #{boardPerPage}
+    
     ]]>
     </select>
     <select id="selectQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
@@ -30,6 +35,7 @@
             from tbl_reply
             group by board_no) r on b.board_no = r.board_no
     where board_category_cd = 201
+    and title like '%'||#{keyword}||'%'
     order by b.board_no desc
     ]]>
     </select>

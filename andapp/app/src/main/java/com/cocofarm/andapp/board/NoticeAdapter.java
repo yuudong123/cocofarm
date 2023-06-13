@@ -34,7 +34,6 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.rownum.setText(list.get(i).getRn() + "");
         holder.binding.title.setText(list.get(i).getTitle());
         holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
         holder.binding.item.setOnClickListener(v -> {

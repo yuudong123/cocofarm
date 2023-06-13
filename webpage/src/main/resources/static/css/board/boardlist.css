@@ -1,0 +1,18 @@
+#page {
+  margin: 0 auto;
+  width: 50%;
+}
+
+#page > a {
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  padding: 0;
+  line-height: 60%;
+}
+
+.pagenum {
+  font-size: 20px !important;
+  padding: 6px !important;
+}
