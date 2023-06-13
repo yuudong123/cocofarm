@@ -45,7 +45,7 @@ public class BoardModifyActivity extends AppCompatActivity {
             if (binding.edtTitle.getText().toString().equals("") || binding.edtContent.getText().toString().equals("")) {
                 Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
             }
-            CommonConn conn = new CommonConn(this, "updateboard.and");
+            CommonConn conn = new CommonConn(this, "board/updateboard.and");
             conn.addParam("board_no", vo.getBoard_no());
             conn.addParam("product_id", 0);
             conn.addParam("title", binding.edtTitle.getText().toString());
@@ -58,7 +58,7 @@ public class BoardModifyActivity extends AppCompatActivity {
                     }
                     this.finish();
                     Intent intent = new Intent(BoardModifyActivity.this, BoardReadActivity.class);
-                    CommonConn newconn = new CommonConn(BoardModifyActivity.this, "selectboard.and");
+                    CommonConn newconn = new CommonConn(BoardModifyActivity.this, "board/selectboard.and");
                     newconn.addParam("board_no", vo.getBoard_no());
                     newconn.onExcute((isResult1, data1) -> {
                         BoardVO newvo = (BoardVO) new Gson().fromJson(data1, BoardVO.class);

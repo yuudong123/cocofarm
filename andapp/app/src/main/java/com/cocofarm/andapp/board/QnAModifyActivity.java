@@ -34,7 +34,7 @@ public class QnAModifyActivity extends AppCompatActivity {
                 Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
                 return;
             }
-            CommonConn conn = new CommonConn(this, "updateboard.and");
+            CommonConn conn = new CommonConn(this, "board/updateboard.and");
             conn.addParam("board_no", dto.getBoard_no());
             conn.addParam("product_id", binding.tvProductId.getText().toString());
             conn.addParam("title", binding.edtTitle.getText().toString());
