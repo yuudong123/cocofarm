@@ -99,7 +99,7 @@ public class QnAReadActivity extends AppCompatActivity {
     }
 
     protected void loadAnswer(int board_no) {
-        CommonConn conn = new CommonConn(this, "board/selectanswer.and");
+        CommonConn conn = new CommonConn(this, "reply/selectanswer.and");
         conn.addParam("board_no", board_no);
         conn.onExcute((isResult, data) -> {
             if (!isResult) {
@@ -121,7 +121,7 @@ public class QnAReadActivity extends AppCompatActivity {
     }
 
     protected void writeAnswer(int board_no) {
-        CommonConn conn = new CommonConn(this, "board/insertreply.and");
+        CommonConn conn = new CommonConn(this, "reply/insertreply.and");
         conn.addParam("member_no", loginMember.getMember_no());
         conn.addParam("nickname", loginMember.getNickname());
         conn.addParam("board_no", board_no);

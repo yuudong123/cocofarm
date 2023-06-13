@@ -150,7 +150,7 @@ public class BoardReadActivity extends AppCompatActivity {
     }
 
     protected void writeReply(int board_no) {
-        CommonConn conn = new CommonConn(this, "board/insertreply.and");
+        CommonConn conn = new CommonConn(this, "reply/insertreply.and");
         conn.addParam("board_no", board_no);
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());
         conn.addParam("nickname", CommonVal.loginMember.getNickname());

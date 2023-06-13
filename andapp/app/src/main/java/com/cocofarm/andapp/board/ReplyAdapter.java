@@ -75,7 +75,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
                                 Toast.makeText(context, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            CommonConn conn = new CommonConn(null, "board/updatereply.and");
+                            CommonConn conn = new CommonConn(null, "reply/updatereply.and");
                             conn.addParam("board_no", board_no);
                             conn.addParam("content", holder.binding.edtReplyModify.getText().toString());
                             conn.onExcute((isResult, data) -> {
@@ -129,7 +129,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
     }
 
     protected void deleteReply(int reply_no) {
-        CommonConn conn = new CommonConn(null, "board/deletereply.and");
+        CommonConn conn = new CommonConn(null, "reply/deletereply.and");
         conn.addParam("reply_no", reply_no);
         conn.onExcute((isResult, data) -> {
             if (isResult) {
