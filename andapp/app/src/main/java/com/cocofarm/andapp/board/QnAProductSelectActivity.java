@@ -26,7 +26,7 @@ public class QnAProductSelectActivity extends AppCompatActivity {
         binding = ActivityQnaProductSelectBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        CommonConn conn = new CommonConn(null, "selectproductimagelist.and");
+        CommonConn conn = new CommonConn(null, "selectproductlistwithimage.and");
         conn.onExcute((isResult, data) -> {
             ArrayList<ProductVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ProductVO>>() {
             }.getType());

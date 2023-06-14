@@ -7,6 +7,7 @@ import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -19,11 +20,15 @@ import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityQnaReadBinding;
 import com.cocofarm.andapp.image.ImageUtil;
+import com.cocofarm.andapp.product.ProductActivity;
+import com.cocofarm.andapp.product.ProductVO;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class QnAReadActivity extends AppCompatActivity {
 
     ActivityQnaReadBinding binding;
+    ProductVO productVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +50,21 @@ public class QnAReadActivity extends AppCompatActivity {
         binding.tvRegdate.setText(yyyyMMddHHmmss.format(dto.getRegdate()));
 
         if (dto.getProduct_id() != 0) {
+
             binding.tvProductName.setText(dto.getProduct_name());
             binding.tvProductContent.setText(dto.getProduct_content());
+            ImageUtil.load(binding.ivProductImage,dto.getMainimage());
             binding.qnaProduct.setVisibility(View.VISIBLE);
+            binding.qnaProduct.setOnClickListener(v->{
+                Intent intent = new Intent(QnAReadActivity.this, ProductActivity.class);
+                CommonConn conn = new CommonConn(this, "selectProductContent.and");
+                conn.addParam("product_id", dto.getProduct_id());
+                conn.onExcute((isResult, data) -> {
+                    productVO = new Gson().fromJson(data, new TypeToken<ProductVO>(){}.getType());
+                    intent.putExtra("productVO", productVO);
+                    startActivity(intent);
+                });
+            });
         }
 
         PopupMenu menu = new PopupMenu(binding.btnSeemore.getContext(), binding.btnSeemore);
@@ -134,8 +151,4 @@ public class QnAReadActivity extends AppCompatActivity {
             }
         });
     }
-
-//    protected void loadProduct() {
-//        CommonConn conn = new CommonConn(this, "")
-//    }
 }

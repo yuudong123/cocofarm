@@ -2,42 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.ProductMapper">
 
-    <!--productVO하나만 불러올때-->
-    <select id="selectProductContent" resultType="com.cocofarm.webpage.domain.ProductVO">
-    select p.*
-    FROM tbl_product p
-    where product_id=#{product_id};
-    </select>
+    <!--productVO하나만불러올때-->
+    <select id="selectProductContent" resultType="com.cocofarm.webpage.domain.ProductVO"> select p.*
+        FROM tbl_product p where product_id=#{product_id} </select>
 
     <!-- 카테고리로 분류해서 상품전체 검색, 이미지는 처음것만 검색 -->
-    <select id="selectProductList" resultType="com.cocofarm.webpage.domain.ProductVO">
-     select p.*,  i.filename
-    FROM tbl_product p
-    inner join tbl_product r on p.product_id = r.product_id
-    inner join(
-    select product_id, min(filename) as filename
-    from tbl_image 
-    group by product_id 
-    ) i on p.product_id = i.product_id
-    where p.product_category_cd = #{category_cd}
-    and p.amount > 0 and p.isdeleted = 'N'
-    </select>
+    <select id="selectProductList" resultType="com.cocofarm.webpage.domain.ProductVO"> select p.*,
+        i.filename FROM tbl_product p inner join tbl_product r on p.product_id = r.product_id inner
+        join( select product_id, min(filename) as filename from tbl_image group by product_id ) i on
+        p.product_id = i.product_id where p.product_category_cd = #{category_cd} and p.amount > 0
+        and p.isdeleted = 'N' </select>
 
     <!-- 현재's : 이미지만 하나씩+ 상품 다 불러오기-->
     <select id="selectProductListWithImage" resultType="com.cocofarm.webpage.domain.ProductVO">
-       select p.*, i.filename
-    FROM tbl_product p
-    inner join tbl_product r on p.product_id = r.product_id
-    inner join(
-    select product_id, min(filename) as filename
-    from tbl_image 
-    group by product_id 
-    ) i on p.product_id = i.product_id;
-    </select>
-
-
-
-
+        select p.*, i.filename FROM tbl_product p inner join tbl_product r on p.product_id =
+        r.product_id inner join( select product_id, min(filename) as filename from tbl_image group
+        by product_id ) i on p.product_id = i.product_id </select>
 
 
 </mapper>
