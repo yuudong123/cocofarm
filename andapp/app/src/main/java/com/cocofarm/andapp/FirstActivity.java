@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.cocofarm.andapp.databinding.ActivityFirstBinding;
 import com.cocofarm.andapp.member.JoinActivity;
+import com.cocofarm.andapp.member.JoinEmailActivity;
 import com.cocofarm.andapp.member.LoginActivity;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -27,8 +28,8 @@ public class FirstActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityFirstBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//        YoYo.with(Techniques.FadeInUp).duration(1500).repeat(0).playOn(binding.ivCheck);
-        YoYo.with(Techniques.FadeInUp).duration(1800).repeat(0).playOn(binding.tvStart);
+        YoYo.with(Techniques.FadeInUp).duration(1800).repeat(0).playOn(binding.layoutFirst);
+
 
         TextView function_text = binding.tvJoinInfo;
         binding.tvJoin.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -49,7 +50,7 @@ public class FirstActivity extends AppCompatActivity {
         });
 
         binding.tvJoin.setOnClickListener(v->{
-            Intent intent = new Intent(this, JoinActivity.class);
+            Intent intent = new Intent(this, JoinEmailActivity.class);
             startActivity(intent);
         });
 

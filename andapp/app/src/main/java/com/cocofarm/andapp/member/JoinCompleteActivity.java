@@ -9,15 +9,16 @@ import android.view.LayoutInflater;
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ResultCompleteBinding;
+import com.cocofarm.andapp.databinding.ResultCompleteLottieBinding;
 
 public class JoinCompleteActivity extends AppCompatActivity {
 
-    ResultCompleteBinding binding;
+    ResultCompleteLottieBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ResultCompleteBinding.inflate(getLayoutInflater());
+        binding = ResultCompleteLottieBinding.inflate(getLayoutInflater());
 
         binding.tvComplete.setText("감사합니다.\n코코팜 회원가입이 완료되었습니다.");
         binding.btnOk.setText("로그인하기");

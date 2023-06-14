@@ -136,13 +136,10 @@
             android:name=".product.ProductActivity"
             android:exported="false" />
         <activity
+            android:name=".member.JoinInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".member.JoinEmailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".member.JoinPwActivity"
-            android:exported="false" />
-        <activity
-            android:name=".member.JoinNameActivity"
             android:exported="false" />
         <activity
             android:name=".member.JoinActivity"
