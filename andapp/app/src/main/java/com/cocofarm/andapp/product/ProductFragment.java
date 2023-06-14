@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.product;
 
+import static com.cocofarm.andapp.board.BoardFragment.cri;
+//import static com.cocofarm.andapp.board.BoardFragment.pagenum;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;

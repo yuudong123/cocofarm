@@ -72,9 +72,9 @@ public class ProductActivity extends AppCompatActivity {
                 int i = tab.getPosition();
                 Fragment fragment = null;
                 if (i == 0) {
-                   // fragment = new ProductPlantFragment();
+                    fragment = new ProductDetailFragment();
                 } else if (i == 1) {
-                   // fragment = new ProductDeviceFragment();
+                    fragment = new ProductReviewFragment();
                 }
                 else if (i == 2) {
                    // fragment = new ProductDeviceFragment();
@@ -82,19 +82,15 @@ public class ProductActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment).commit();
 
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
 
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
 
         });
-
 
 
 
@@ -102,7 +98,6 @@ public class ProductActivity extends AppCompatActivity {
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(bindingSheet.getRoot());
 
-        //바인딩시트 열리고 닫힘
         binding.btnProductBuy.setOnClickListener(v -> {
             toggleBottomSheet();
         });
@@ -139,7 +134,6 @@ public class ProductActivity extends AppCompatActivity {
                     .setNegativeButton("취소", (dialogInterface, i1) -> {
                     }).create().show();
 
-            // 장바구니로 이동하는 로직
         });
         bindingSheet.btnGoBuy.setOnClickListener(v -> {
 
@@ -149,36 +143,9 @@ public class ProductActivity extends AppCompatActivity {
             }
             Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
             startActivity(intent);
-            // 주문 화면으로 이동하는 로직
         });
         allPrice();
     }
-
-    //안될까봐 예비용.
-        /*bindingSheet.btnGoCart.setOnClickListener(view -> {
-            if (number <= 0) {
-                Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("").setMessage("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?").setCancelable(false)
-                    .setPositiveButton("확인", (dialogInterface, i1) -> {
-                        Intent intent = new Intent(ProductActivity.this, CartActivity.class);
-                        startActivity(intent);
-                    })
-                    .setNegativeButton("취소", (dialogInterface, i1) -> {
-                    }).create().show();
-
-        });
-
-        bindingSheet.btnGoBuy.setOnClickListener(view -> {
-            if (number <= 0) {
-                Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
-            startActivity(intent);
-        });*/
 
     //바인딩시트 열고 닫기 토글 버튼으로 만들기.
     private void toggleBottomSheet() {
@@ -191,11 +158,6 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding = null;
-    }
 
     public void allPrice() {
         int value1 = number;
@@ -205,7 +167,11 @@ public class ProductActivity extends AppCompatActivity {
         bindingSheet.tvAllPrice.setText(String.valueOf(result));
     }
 
-    protected void loadProduct() {
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
+
+
 }
