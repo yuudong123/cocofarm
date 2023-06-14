@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cocofarm.andapp.R;
+import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentProductDeviceBinding;
 import com.google.gson.Gson;
@@ -37,7 +38,8 @@ public class ProductDeviceFragment extends Fragment {
 
 
     protected void loadProduct() {
-        CommonConn conn = new CommonConn(getContext(), "selectProductDevice.and");
+        CommonConn conn = new CommonConn(getContext(), "selectProductList.and");
+        conn.addParam("category_cd", CodeTable.PRODUCT_CATEGORY_DEVICE);
         conn.onExcute((isResult, data) -> {
             ArrayList<ProductVO> list = new Gson().fromJson(data,
                     new TypeToken<ArrayList<ProductVO>>(){}.getType());

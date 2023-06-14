@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.cocofarm.andapp.R;
+import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentEventBinding;
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
@@ -48,8 +49,21 @@ public class ProductPlantFragment extends Fragment {
     }
 
     protected void loadProduct() {
-        CommonConn conn = new CommonConn(getContext(), "selectProductPlant.and");
-        //conn.addParam("product_id","1");
+        CommonConn conn = new CommonConn(getContext(), "selectProductList.and");
+        conn.addParam("category_cd", CodeTable.PRODUCT_CATEGORY_PLANT);
+        conn.onExcute((isResult, data) -> {
+            ArrayList<ProductVO> list = new Gson().fromJson(data,
+                    new TypeToken<ArrayList<ProductVO>>(){}.getType());
+            Log.d("데이터emp", "onCreateView: "+list.size());
+            PlantAdapter adapter = new PlantAdapter(list,getContext());
+            LinearLayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
+            binding.recvProductPlant.setAdapter(adapter);
+            binding.recvProductPlant.setLayoutManager(manager);
+        });
+    }
+
+    /* protected void loadProduct() {
+        CommonConn conn = new CommonConn(getContext(), "selectProductDevice.and");
         conn.onExcute((isResult, data) -> {
             ArrayList<ProductVO> list = new Gson().fromJson(data,
                     new TypeToken<ArrayList<ProductVO>>(){}.getType());
@@ -57,8 +71,8 @@ public class ProductPlantFragment extends Fragment {
 
             PlantAdapter adapter = new PlantAdapter(list,getContext());
             LinearLayoutManager manager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL,false);
-            binding.recvProductPlant.setAdapter(adapter);
-            binding.recvProductPlant.setLayoutManager(manager);
+            binding.recvProductDevice.setAdapter(adapter);
+            binding.recvProductDevice.setLayoutManager(manager);
         });
-    }
+    }*/
 }

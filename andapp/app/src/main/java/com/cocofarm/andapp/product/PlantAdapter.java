@@ -43,9 +43,9 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
 
         holder.binding.layoutProductItem.setOnClickListener(view -> {
             Intent intent = new Intent(context , ProductActivity.class);
+            intent.putExtra("productVO", list.get(i));
             context.startActivity(intent);
         });
-
 
     }
 

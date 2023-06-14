@@ -4,8 +4,15 @@
 
     <select id="selectImageList" resultType="com.cocofarm.webpage.domain.ImageDTO"> select * from
         tbl_image where isusing = 'Y' and product_id = 0 </select>
-    <select id="selectProductImageList" resultType="com.cocofarm.webpage.domain.ImageDTO"> select
-        min(i.filename) filename, p.name product_name from tbl_image i left join tbl_product p on
-        i.product_id = p.product_id where i.product_id != 0 group by i.product_id, p.name </select>
+
+    <!-- 세진's : 상품 하나(product_id)에 이미지 다 불러오기 -->
+    <select id="selectAllImageWithProductId" resultType="com.cocofarm.webpage.domain.ImageDTO">
+    select i.*
+    from tbl_image i
+    where product_id = #{product_id}
+    </select>
+
+
+
 
 </mapper>
