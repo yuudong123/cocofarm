@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cocofarm.andapp.FirstActivity;
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.common.CommonVal;
@@ -30,11 +31,12 @@ public class MypageFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentMypageBinding.inflate(inflater, container, false);
 
+        binding.tvNickname.setText(CommonVal.loginMember.getNickname());
+        binding.tvEmail.setText(CommonVal.loginMember.getEmail());
 
         binding.btnLogout.setOnClickListener(v-> {
             CommonVal.loginMember = null;
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
+            getActivity().finish();
             Toast.makeText(getActivity(), "로그아웃 완료", Toast.LENGTH_SHORT).show();
         });
 
@@ -49,7 +51,8 @@ public class MypageFragment extends Fragment {
 //            Intent intent = new Intent(getActivity(), MyOrderListActivity.class);
         });
         binding.tvMyboard.setOnClickListener(v-> {
-//            Intent intent = new Intent(getActivity(), MyBoardListActivity.class);
+            Intent intent = new Intent(getActivity(), MyBoardActivity.class);
+            startActivity(intent);
         });
         binding.tvCscenter.setOnClickListener(v-> {
             Intent intent = new Intent(getActivity(), CsCenterActivity.class);
@@ -67,14 +70,7 @@ public class MypageFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        try {
-            binding.tvNickname.setText(CommonVal.loginMember.getNickname());
-            binding.tvEmail.setText(CommonVal.loginMember.getEmail());
-        } catch (NullPointerException e) {
-            Intent intent = new Intent(getActivity(), LoginActivity.class);
-            startActivity(intent);
-            Toast.makeText(getActivity(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_LONG).show();
-        }
+
     }
 
     @Override

@@ -7,8 +7,8 @@ select * from TBL_MEMBER where EMAIL = #{email} and PASSWORD = #{password}
 </select>
 
 <insert id="join">
-insert into TBL_MEMBER (member_no, member_type_cd, email, password, nickname, joindate, isactivated)
-values (seq_member_no.nextval, 102, #{email}, #{password}, #{nickname}, sysdate, 'Y')
+insert into TBL_MEMBER (member_no, member_type_cd, email, password, nickname, phonenumber, address, joindate, isactivated)
+values (seq_member_no.nextval, 102, #{email}, #{password}, #{nickname}, #{phonenumber}, #{address}, sysdate, 'Y')
 </insert>
 
 <update id="am_modify">
@@ -21,5 +21,12 @@ where email = #{email}
 delete from tbl_member
 where email = #{email}
 </delete>
+
+<select id="myboard" resultType="com.cocofarm.webpage.domain.BoardVO">
+select *
+from tbl_board
+where member_no = #{member_no}
+order by board_no desc
+</select>
 
 </mapper>
