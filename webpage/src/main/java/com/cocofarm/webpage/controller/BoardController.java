@@ -59,15 +59,16 @@ public class BoardController {
         } else if (category.equals("review")) {
             code = BOARD_CATEGORY_REVIEW;
         }
+        cri.setPage(1);
         cri.setCode(code);
         cri.setKeyword("");
         cri.setBoardPerPage(10);
         ArrayList<BoardVO> boardlist = boardService.selectList(cri);
         int total = boardService.getTotal(cri);
-        PageDTO page = new PageDTO(cri, total);
-        mav.addObject("pager", page);
+        PageDTO pagedto = new PageDTO(cri, total);
+        mav.addObject("pager", pagedto);
         mav.addObject("boardlist", boardlist);
-        System.out.println(page);
+        System.out.println(pagedto);
         mav.setViewName("board/boardlist");
         return mav;
     }

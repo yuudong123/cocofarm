@@ -95,6 +95,10 @@ public class EventFragment extends Fragment {
             }
             list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
             }.getType());
+            EventAdapter adapter = new EventAdapter(list, getContext());
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            binding.recvBoardList.setAdapter(adapter);
+            binding.recvBoardList.setLayoutManager(manager);
         });
         binding.pagenum.setText(cri.getPage() + "");
     }

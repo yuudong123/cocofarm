@@ -1,6 +1,6 @@
 package com.cocofarm.andapp.board;
 
-import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
+import static com.cocofarm.andapp.board.QnAWriteActivity.qnaselectedproduct;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,17 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.databinding.ItemImageSelectBinding;
-import com.cocofarm.andapp.image.ImageDTO;
 import com.cocofarm.andapp.image.ImageUtil;
+import com.cocofarm.andapp.product.ProductVO;
 
 import java.util.ArrayList;
 
 public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.ViewHolder> {
     ItemImageSelectBinding binding;
-    ArrayList<ImageDTO> list;
+    ArrayList<ProductVO> list;
     Context context;
 
-    public QnAProductAdapter(Context context, ArrayList<ImageDTO> list) {
+    public QnAProductAdapter(Context context, ArrayList<ProductVO> list) {
         this.context = context;
         this.list = list;
     }
@@ -35,11 +35,11 @@ public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.filename.setText(list.get(i).getProduct_name());
+        holder.binding.filename.setText(list.get(i).getName());
         ImageUtil.load(holder.binding.thumbnail, list.get(i).getFilename());
         holder.binding.itemImageSelect.setOnClickListener(v -> {
-            boardselectedImage = list.get(i).getFilename();
-            Toast.makeText(context, list.get(i).getProduct_name() + " 로 변경", Toast.LENGTH_SHORT).show();
+            qnaselectedproduct = list.get(i);
+            Toast.makeText(context, list.get(i).getName() + " 로 변경", Toast.LENGTH_SHORT).show();
         });
     }
 

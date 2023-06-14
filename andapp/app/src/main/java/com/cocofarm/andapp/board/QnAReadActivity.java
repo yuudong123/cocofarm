@@ -45,7 +45,6 @@ public class QnAReadActivity extends AppCompatActivity {
         binding.tvRegdate.setText(yyyyMMddHHmmss.format(dto.getRegdate()));
 
         if (dto.getProduct_id() != 0) {
-            binding.tvProductId.setText(dto.getProduct_id() + "");
             binding.tvProductName.setText(dto.getProduct_name());
             binding.tvProductContent.setText(dto.getProduct_content());
             binding.qnaProduct.setVisibility(View.VISIBLE);
