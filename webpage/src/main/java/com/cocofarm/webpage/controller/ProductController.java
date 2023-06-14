@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.service.ProductService;
 import com.google.gson.Gson;
+
 
 @Controller
 public class ProductController {
@@ -26,18 +28,18 @@ public class ProductController {
      * }
      */
 
-    @PostMapping(value = "/selectProductPlant.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/selectProductList.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String selectProductPlant() {
-        ArrayList<ProductVO> productList = productService.selectProductPlant();
+    public String selectProductList(int category_cd) {
+        ArrayList<ProductVO> productList = productService.selectProductList(category_cd);
         return new Gson().toJson(productList);
     }
-    
-    @PostMapping(value = "/selectProductDevice.and", produces = "text/html;charset=utf-8")
+
+    @GetMapping(value = "/selectProductContent.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String selectProductDevice() {
-        ArrayList<ProductVO> productDeList = productService.selectProductDevice();
-        return new Gson().toJson(productDeList);
+    public String selectProductConetent(int product_id) {
+        ProductVO productContent = productService.selectProductContent(product_id);
+        return new Gson().toJson(productContent);
     }
 
 }

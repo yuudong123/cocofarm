@@ -68,8 +68,8 @@ public class ImageController {
 
     @ResponseBody
     @PostMapping(value = "/selectproductimagelist.and", produces = "text/html;charset=utf-8")
-    public String selectProductImageList() {
-        ArrayList<ImageDTO> list = service.selectProductImageList();
+    public String selectProductImageList(int product_id) {
+        ArrayList<ImageDTO> list = service.selectAllImageWithProductId(product_id);
         System.out.println(list);
         return new Gson().toJson(list);
     }

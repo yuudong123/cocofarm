@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<LinearLayout android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".product.ProductFragment">
+    tools:context=".product.ProductFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -18,12 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:elevation="0dp"/>
-
-            <!--app:tabGravity="fill"
+            android:elevation="0dp"
+            app:tabGravity="fill"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/main"
-            app:tabTextColor="@color/white"-->
+            app:tabSelectedTextColor="@color/primary"
+            app:tabTextColor="@color/black"/>
     </com.google.android.material.appbar.AppBarLayout>
 
 <FrameLayout

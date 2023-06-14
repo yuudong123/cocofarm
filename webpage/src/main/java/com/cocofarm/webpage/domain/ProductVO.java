@@ -1,6 +1,7 @@
 package com.cocofarm.webpage.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 import lombok.Data;
@@ -17,6 +18,7 @@ public class ProductVO implements Serializable {
     private String isdeleted;
     private int product_category_cd;
     private String filename;
+    private ArrayList<ImageDTO> img;
 
 }
 
