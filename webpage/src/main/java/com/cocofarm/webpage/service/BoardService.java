@@ -16,13 +16,17 @@ public class BoardService {
     @Autowired
     BoardMapper boardMapper;
 
-    public ArrayList<BoardVO> selectListCri(CriteriaDTO cri) {
-        ArrayList<BoardVO> list = boardMapper.selectListCri(cri);
+    public int getTotal(CriteriaDTO cri) {
+        return boardMapper.getTotal(cri);
+    }
+
+    public ArrayList<BoardVO> selectList(CriteriaDTO cri) {
+        ArrayList<BoardVO> list = boardMapper.selectList(cri);
         return list;
     }
 
-    public ArrayList<QnaDTO> selectQnaList() {
-        ArrayList<QnaDTO> list = boardMapper.selectQnaList();
+    public ArrayList<QnaDTO> selectQnaList(CriteriaDTO cri) {
+        ArrayList<QnaDTO> list = boardMapper.selectQnaList(cri);
         return list;
     }
 

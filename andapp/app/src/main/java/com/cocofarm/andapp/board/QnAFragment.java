@@ -1,7 +1,6 @@
 package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.board.BoardFragment.cri;
-import static com.cocofarm.andapp.board.BoardFragment.pagenum;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,37 +24,34 @@ public class QnAFragment extends Fragment {
 
     FragmentQnABinding binding;
     ArrayList<QnaDTO> list;
-    int startnum;
-    int endnum;
+    private int startPage;
+    private int endPage;
+    private boolean prev, next;
+    private int total;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentQnABinding.inflate(inflater, container, false);
 
         loadBoard();
-        binding.btnFirst.setOnClickListener(v -> {
-            pagenum = 1;
-            loadBoard();
-        });
+
         binding.btnPrev.setOnClickListener(v -> {
-            if (pagenum >= 1) {
+            pager();
+            if (!prev) {
                 Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                pagenum--;
+                cri.setPage(cri.getPage()-1);
                 loadBoard();
             }
         });
         binding.btnNext.setOnClickListener(v -> {
-            if (pagenum > list.size() / 10) {
+            pager();
+            if (!next) {
                 Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                pagenum++;
+                cri.setPage(cri.getPage()+1);
                 loadBoard();
             }
-        });
-        binding.btnLast.setOnClickListener(v -> {
-            pagenum = ((list.size() - 1) / 10 + 1);
-            loadBoard();
         });
 
         binding.btnWrite.setOnClickListener(v -> {
@@ -73,30 +69,35 @@ public class QnAFragment extends Fragment {
     }
 
     protected void loadBoard() {
-        CommonConn conn = new CommonConn(null, "board/selectqnalist.and");
+        CommonConn conn = new CommonConn(null, "board/getTotal.and");
         conn.addParam("code", cri.getCode());
-        conn.addParam("keyword", cri.getKeyword());
+        conn.addParam("keyword", "");
+        conn.onExcute((isResult, data) -> {
+            if(isResult) {
+                this.total = Integer.parseInt(data);
+            }
+        });
+        conn = new CommonConn(null, "board/selectqnalist.and");
+        conn.addParam("code", cri.getCode());
+        conn.addParam("keyword", "");
         conn.onExcute((isResult, data) -> {
             if (!isResult) {
                 return;
             }
             list = new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>() {
             }.getType());
-            pager();
         });
-        binding.pagenum.setText(pagenum + "");
+        binding.pagenum.setText(cri.getPage() + "");
     }
 
     protected void pager() {
-        endnum = pagenum * 10;
-        startnum = endnum - 9;
-        if (endnum > list.size()) {
-            endnum = list.size();
+        endPage = (int) (Math.ceil(cri.getPage() / 10.0)) * 10;
+        startPage = endPage - 9;
+        int realEnd = (int) (Math.ceil((total * 1.0) / cri.getBoardPerPage()));
+        if (realEnd < endPage) {
+            endPage = realEnd;
         }
-        List blist = list.subList(startnum - 1, endnum);
-        QnAAdapter adapter = new QnAAdapter(blist, getContext());
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        binding.recvBoardList.setAdapter(adapter);
-        binding.recvBoardList.setLayoutManager(manager);
+        prev = startPage > 1;
+        next = endPage < realEnd;
     }
 }

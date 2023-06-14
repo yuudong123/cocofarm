@@ -6,7 +6,25 @@
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <div class="container">기본 페이지, 새 html 생성시 복붙</div>
+      <div class="container">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>관련 상품</th>
+              <th>제목</th>
+              <th>작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="board : ${boardlist}">
+              <td th:text="${(board.product_name == null)?'X':'board.product_name'}">관련 상품</td>
+              <td th:text="${board.title}">제목</td>
+              <td th:text="${#dates.format(board.regdate, (board.regdate.time < #calendars.createNow().timeInMillis - 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <a href="#" role="button">글 쓰기</a>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>

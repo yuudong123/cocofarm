@@ -1,7 +1,6 @@
 package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.board.BoardFragment.cri;
-import static com.cocofarm.andapp.board.BoardFragment.pagenum;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_NOTICE;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
@@ -28,8 +27,9 @@ public class NoticeFragment extends Fragment {
 
     FragmentNoticeBinding binding;
     ArrayList<BoardVO> list;
-    int startnum;
-    int endnum;
+    private int endPage;
+    private boolean prev, next;
+    private int total;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,31 +48,24 @@ public class NoticeFragment extends Fragment {
             binding.btnWrite.setVisibility(View.GONE);
         }
 
-        binding.btnFirst.setOnClickListener(v -> {
-            pagenum = 1;
-            loadBoard();
-        });
         binding.btnPrev.setOnClickListener(v -> {
-            if (pagenum <= 1) {
+            pager();
+            if (!prev) {
                 Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                pagenum--;
+                cri.setPage(cri.getPage()-1);
                 loadBoard();
             }
         });
         binding.btnNext.setOnClickListener(v -> {
-            if (endnum == list.size()) {
+            pager();
+            if (!next) {
                 Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                pagenum++;
+                cri.setPage(cri.getPage()+1);
                 loadBoard();
             }
         });
-        binding.btnLast.setOnClickListener(v -> {
-            pagenum = ((list.size() - 1) / 10 + 1);
-            loadBoard();
-        });
-
         return binding.getRoot();
     }
 
@@ -83,30 +76,36 @@ public class NoticeFragment extends Fragment {
     }
 
     protected void loadBoard() {
-        CommonConn conn = new CommonConn(null, "board/selectboardlist.and");
+        CommonConn conn = new CommonConn(null, "board/getTotal.and");
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", cri.getKeyword());
+        conn.onExcute((isResult, data) -> {
+            if(isResult) {
+                this.total = Integer.parseInt(data);
+            }
+        });
+        conn = new CommonConn(null, "board/selectboardlist.and");
+        conn.addParam("code", cri.getCode());
+        conn.addParam("keyword", cri.getKeyword());
+        conn.addParam("page", cri.getPage());
+        conn.addParam("boardPerPage", 10);
         conn.onExcute((isResult, data) -> {
             if (!isResult) {
                 return;
             }
             list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
             }.getType());
-            pager();
+            NoticeAdapter adapter = new NoticeAdapter(list, getContext());
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            binding.recvBoardList.setAdapter(adapter);
+            binding.recvBoardList.setLayoutManager(manager);
         });
-        binding.pagenum.setText(pagenum + "");
+        binding.pagenum.setText(cri.getPage() + "");
     }
 
     protected void pager() {
-        endnum = pagenum * 10;
-        startnum = endnum - 9;
-        if (endnum > list.size()) {
-            endnum = list.size();
-        }
-        List blist = list.subList(startnum - 1, endnum);
-        NoticeAdapter adapter = new NoticeAdapter(blist, getContext());
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        binding.recvBoardList.setAdapter(adapter);
-        binding.recvBoardList.setLayoutManager(manager);
+        endPage = (total-1)/10 +1;
+        prev = cri.getPage()>1;
+        next = cri.getPage()<endPage;
     }
 }

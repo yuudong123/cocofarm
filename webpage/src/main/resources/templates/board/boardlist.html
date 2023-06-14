@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/board/boardlist.css}" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
@@ -23,6 +24,17 @@
             </tr>
           </tbody>
         </table>
+        <a th:href="@{/board/write}" role="button">글 쓰기</a>
+        <div class="grid" id="page">
+          <a href="#" role="button">&laquo;</a>
+          <th:block th:if="pager.prev">
+            <a href="#" role="button">&lsaquo;</a>
+          </th:block>
+          <th:block th:if="pager.next">
+            <a href="#" role="button">&rsaquo;</a>
+          </th:block>
+          <a href="#" role="button">&raquo;</a>
+        </div>
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
