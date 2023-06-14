@@ -8,11 +8,11 @@ import com.cocofarm.webpage.domain.ProductVO;
 
 @Mapper
 public interface ProductMapper {
- 
-    public ProductVO selectProductContent(int product_id); // 나중에 파라미터 두개 추가 프로덕트 아이디, +a 로 카테고리.
-    
-    public ArrayList<ProductVO> selectProductList(int category_cd); //이미지 전체 부르기.
 
-    public ArrayList<ProductVO> selectProductListWithImage(); // 이미지 하나 프로덕트 전체 부르기.
+    public ProductVO selectProductContent(int product_id); // productVO하나만 불러올때
+
+    public ArrayList<ProductVO> selectProductList(int category_cd); // 카테고리로 분류해서 상품전체 검색, 이미지는 처음것만 검색
+
+    public ArrayList<ProductVO> selectProductListWithImage(); // 현재's : 이미지만 하나씩+ 상품 다 불러오기
 
 }
