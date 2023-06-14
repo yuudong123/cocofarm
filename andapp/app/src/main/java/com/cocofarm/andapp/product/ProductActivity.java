@@ -34,17 +34,15 @@ public class ProductActivity extends AppCompatActivity {
 
     BottomSheetDialog bottomSheetDialog;
     boolean isSheetVisible = false;
-
     int number = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
 
+        ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
         binding.tvProductAName.setText(productVO.getName());
         binding.tvProductAPrice.setText("￦" + productVO.getPrice());
         binding.tvProductAContent.setText(productVO.getContent());
@@ -52,9 +50,8 @@ public class ProductActivity extends AppCompatActivity {
         CommonConn conn = new CommonConn(this, "selectproductimagelist.and");
         conn.addParam("product_id", productVO.getProduct_id());
         conn.onExcute((isResult, data) -> {
-            ArrayList<ImageDTO> list = new Gson().fromJson(data,
-                    new TypeToken<ArrayList<ImageDTO>>() {
-                    }.getType());
+            ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
+            }.getType());
 
             ProductImgAdapter adapter = new ProductImgAdapter(list);
             LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
@@ -75,24 +72,22 @@ public class ProductActivity extends AppCompatActivity {
                     fragment = new ProductDetailFragment();
                 } else if (i == 1) {
                     fragment = new ProductReviewFragment();
+                } else if (i == 2) {
+                    // fragment = new ProductDeviceFragment();
                 }
-                else if (i == 2) {
-                   // fragment = new ProductDeviceFragment();
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment).commit();
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment)
+                        .commit();
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
             }
 
         });
-
-
 
         bindingSheet = BtnSheetProductBinding.inflate(getLayoutInflater(), null, false);
         bottomSheetDialog = new BottomSheetDialog(this);
@@ -133,10 +128,9 @@ public class ProductActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("취소", (dialogInterface, i1) -> {
                     }).create().show();
-
+            // 장바구니로 이동하는 로직
         });
         bindingSheet.btnGoBuy.setOnClickListener(v -> {
-
             if (number <= 0) {
                 Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 return;
@@ -147,7 +141,7 @@ public class ProductActivity extends AppCompatActivity {
         allPrice();
     }
 
-    //바인딩시트 열고 닫기 토글 버튼으로 만들기.
+    // 바인딩시트 열고 닫기 토글 버튼으로 만들기.
     private void toggleBottomSheet() {
         if (isSheetVisible) {
             bottomSheetDialog.dismiss();
@@ -158,11 +152,9 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
-
     public void allPrice() {
         int value1 = number;
         int value2 = Integer.parseInt(bindingSheet.tvSheetOrderPrice.getText().toString());
-
         int result = value1 * value2;
         bindingSheet.tvAllPrice.setText(String.valueOf(result));
     }
@@ -172,6 +164,4 @@ public class ProductActivity extends AppCompatActivity {
         super.onDestroy();
         binding = null;
     }
-
-
 }
