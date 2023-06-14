@@ -1,29 +1,15 @@
 package com.cocofarm.andapp.product;
 
-import static com.cocofarm.andapp.board.BoardFragment.cri;
-import static com.cocofarm.andapp.board.BoardFragment.pagenum;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cocofarm.andapp.R;
-import com.cocofarm.andapp.board.BoardVO;
-import com.cocofarm.andapp.board.EventFragment;
-import com.cocofarm.andapp.board.NoticeFragment;
-import com.cocofarm.andapp.board.QnAFragment;
-import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
-import com.cocofarm.andapp.home.HomeFragment;
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.util.ArrayList;
 
 public class ProductFragment extends Fragment {
     FragmentProductBinding binding;

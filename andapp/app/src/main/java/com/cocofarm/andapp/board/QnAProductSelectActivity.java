@@ -1,6 +1,6 @@
 package com.cocofarm.andapp.board;
 
-import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
+import static com.cocofarm.andapp.board.QnAWriteActivity.qnaselectedproduct;
 
 import android.os.Bundle;
 
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityQnaProductSelectBinding;
 import com.cocofarm.andapp.image.ImageDTO;
+import com.cocofarm.andapp.product.ProductVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -27,7 +28,7 @@ public class QnAProductSelectActivity extends AppCompatActivity {
 
         CommonConn conn = new CommonConn(null, "selectproductimagelist.and");
         conn.onExcute((isResult, data) -> {
-            ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
+            ArrayList<ProductVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ProductVO>>() {
             }.getType());
             QnAProductAdapter adapter = new QnAProductAdapter(this, list);
             LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -39,7 +40,7 @@ public class QnAProductSelectActivity extends AppCompatActivity {
             finish();
         });
         binding.btnCancel.setOnClickListener(v -> {
-            boardselectedImage = null;
+            qnaselectedproduct = null;
             finish();
         });
     }

@@ -3,7 +3,7 @@
   width: 50%;
 }
 
-#page > a {
+#page > button {
   border-radius: 5px;
   width: 30px;
   height: 30px;
@@ -12,7 +12,7 @@
   line-height: 60%;
 }
 
-.pagenum {
+.btnPageNum {
   font-size: 20px !important;
   padding: 6px !important;
 }

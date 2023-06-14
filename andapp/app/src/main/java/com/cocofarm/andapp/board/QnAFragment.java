@@ -86,6 +86,10 @@ public class QnAFragment extends Fragment {
             }
             list = new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>() {
             }.getType());
+            QnAAdapter adapter = new QnAAdapter(list, getContext());
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            binding.recvBoardList.setAdapter(adapter);
+            binding.recvBoardList.setLayoutManager(manager);
         });
         binding.pagenum.setText(cri.getPage() + "");
     }

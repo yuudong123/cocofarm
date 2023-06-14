@@ -43,7 +43,7 @@ public class QnAWriteActivity extends AppCompatActivity {
             CommonConn conn = new CommonConn(this, "board/insertboard.and");
             conn.addParam("member_no", loginMember.getMember_no());
             conn.addParam("nickname", loginMember.getNickname());
-            conn.addParam("product_id", binding.tvProductId.getText().toString());
+            conn.addParam("product_id", qnaselectedproduct.getProduct_id());
             conn.addParam("board_category_cd", BOARD_CATEGORY_QNA);
             conn.addParam("title", binding.edtTitle.getText().toString());
             conn.addParam("content", binding.edtContent.getText().toString());
@@ -64,9 +64,10 @@ public class QnAWriteActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (boardselectedImage != "") {
-            ImageUtil.load(binding.ivProductImage, boardselectedImage);
-            binding.tvProductName.setText(boardselectedImage);
+        if (qnaselectedproduct != null) {
+            ImageUtil.load(binding.ivProductImage, qnaselectedproduct.getFilename());
+            binding.tvProductName.setText(qnaselectedproduct.getName());
+            binding.tvProductContent.setText(qnaselectedproduct.getContent());
             binding.qnaProductSelect.setVisibility(View.GONE);
             binding.qnaProductSelected.setVisibility(View.VISIBLE);
         } else {
@@ -78,6 +79,6 @@ public class QnAWriteActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        boardselectedImage = "";
+        qnaselectedproduct = null;
     }
 }
