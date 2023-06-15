@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
+        binding.bottomNav.setSelectedItemId(R.id.home);
         binding.bottomNav.setOnItemSelectedListener(menu->{
             Fragment fragment =  null;
             if(menu.getItemId()==R.id.home){

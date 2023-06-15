@@ -1,0 +1,52 @@
+package com.cocofarm.andapp.product;
+
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.cocofarm.andapp.board.QnaDTO;
+import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.databinding.ItemProductQnaBinding;
+
+import java.util.ArrayList;
+
+public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.ViewHolder> {
+    ItemProductQnaBinding binding;
+    ArrayList<QnaDTO> list;
+
+    public ProductQnAAdapter(ArrayList<QnaDTO> list) {
+        this.list = list;
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        binding = ItemProductQnaBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        return new ViewHolder(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        holder.binding.tvTitle.setText(list.get(i).getTitle());
+        holder.binding.tvNickname.setText(list.get(i).getNickname());
+        holder.binding.tvRegdate.setText(CommonVal.yyyyMMddHHmmss.format(list.get(i).getRegdate()));
+        holder.binding.tvContentQ.setText(list.get(i).getContent());
+        holder.binding.tvAnswerNickname.setText(list.get(i).getAnswer().getNickname());
+        holder.binding.tvContentA.setText(list.get(i).getAnswer().getContent());
+    }
+
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+
+    protected class ViewHolder extends RecyclerView.ViewHolder {
+        ItemProductQnaBinding binding;
+        public ViewHolder(@NonNull ItemProductQnaBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+}

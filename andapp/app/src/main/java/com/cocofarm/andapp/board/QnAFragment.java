@@ -32,7 +32,12 @@ public class QnAFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentQnABinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
         loadBoard();
 
         binding.btnPrev.setOnClickListener(v -> {
@@ -59,7 +64,6 @@ public class QnAFragment extends Fragment {
             startActivity(intent);
         });
 
-        return binding.getRoot();
     }
 
     @Override

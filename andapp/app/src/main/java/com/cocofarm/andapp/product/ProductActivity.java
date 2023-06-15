@@ -69,13 +69,14 @@ public class ProductActivity extends AppCompatActivity {
                 int i = tab.getPosition();
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("product_id", productVO.getProduct_id());
+                bundle.putInt("product_id", productVO.getProduct_id());
                 if (i == 0) {
                     fragment = new ProductDetailFragment();
                 } else if (i == 1) {
                     fragment = new ProductReviewFragment();
                 } else if (i == 2) {
                     fragment = new ProductQnAFragment();
+                    bundle.putSerializable("productVO",productVO);
                     fragment.setArguments(bundle);
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment)
