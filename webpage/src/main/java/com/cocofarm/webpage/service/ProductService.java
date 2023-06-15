@@ -44,4 +44,8 @@ public class ProductService {
         }
         return list;
     }
+
+    public int selectProductQnaTotal(int product_id, int page) {
+        return productMapper.selectProductQnaTotal(product_id, page);
+    }
 }

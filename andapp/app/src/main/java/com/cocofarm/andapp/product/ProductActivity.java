@@ -2,27 +2,24 @@ package com.cocofarm.andapp.product;
 
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.cocofarm.andapp.R;
-import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityProductBinding;
 import com.cocofarm.andapp.databinding.BtnSheetProductBinding;
 import com.cocofarm.andapp.image.ImageDTO;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.order.CartActivity;
-import com.cocofarm.andapp.order.CartDTO;
 import com.cocofarm.andapp.order.OrderActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
@@ -79,21 +76,20 @@ public class ProductActivity extends AppCompatActivity {
                 int i = tab.getPosition();
                 Fragment fragment = null;
                 Bundle bundle = new Bundle();
-                bundle.putInt("product_id", productVO.getProduct_id());
                 if (i == 0) {
                     fragment = new ProductDetailFragment();
                     bundle.putString("product_content", productVO.getContent());
                     fragment.setArguments(bundle);
                 } else if (i == 1) {
                     fragment = new ProductReviewFragment();
+                    bundle.putInt("product_id", productVO.getProduct_id());
                     fragment.setArguments(bundle);
                 } else if (i == 2) {
                     fragment = new ProductQnAFragment();
-                    bundle.putSerializable("productVO",productVO);
+                    bundle.putSerializable("productVO", productVO);
                     fragment.setArguments(bundle);
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment)
-                        .commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment).commit();
             }
 
             @Override
@@ -110,16 +106,12 @@ public class ProductActivity extends AppCompatActivity {
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(bindingSheet.getRoot());
 
-        binding.btnProductBuy.setOnClickListener(v -> {
-            toggleBottomSheet();
-        });
-        bindingSheet.btnDrop.setOnClickListener(v -> {
-            toggleBottomSheet();
-        });
+        binding.btnProductBuy.setOnClickListener(v -> toggleBottomSheet());
+        bindingSheet.btnDrop.setOnClickListener(v -> toggleBottomSheet());
 
         ImageUtil.load(bindingSheet.ivSheetProduct1, productVO.getFilename());
         bindingSheet.tvSheetProductName.setText(productVO.getName());
-        bindingSheet.tvSheetOrderPrice.setText(productVO.getPrice()+"");
+        bindingSheet.tvSheetOrderPrice.setText(productVO.getPrice() + "");
 
         bindingSheet.btnMinus.setOnClickListener(view -> {
             if (number > 0) {
@@ -143,12 +135,12 @@ public class ProductActivity extends AppCompatActivity {
             }
 
             //사용자가 선택한 상품 장바구니에 넣기.
-            CommonConn conn1 = new CommonConn(this,"insertcart.and");
-            conn1.addParam("member_no",loginMember.getMember_no());
-            conn1.addParam("product_id",productVO.getProduct_id());
-            conn1.addParam("amount", Integer.parseInt(bindingSheet.tvProductBuyAmount.getText()+""));
+            CommonConn conn1 = new CommonConn(this, "insertcart.and");
+            conn1.addParam("member_no", loginMember.getMember_no());
+            conn1.addParam("product_id", productVO.getProduct_id());
+            conn1.addParam("amount", Integer.parseInt(bindingSheet.tvProductBuyAmount.getText() + ""));
             conn1.onExcute((isResult, data) -> {
-                Log.d("장바구니", "onCreate: "+isResult);
+                Log.d("장바구니", "onCreate: " + isResult);
             });
 
 

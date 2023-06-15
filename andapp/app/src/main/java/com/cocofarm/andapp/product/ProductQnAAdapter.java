@@ -1,6 +1,7 @@
 package com.cocofarm.andapp.product;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -23,18 +24,24 @@ public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemProductQnaBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        binding = ItemProductQnaBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.tvTitle.setText(list.get(i).getTitle());
+
         holder.binding.tvNickname.setText(list.get(i).getNickname());
         holder.binding.tvRegdate.setText(CommonVal.yyyyMMddHHmmss.format(list.get(i).getRegdate()));
         holder.binding.tvContentQ.setText(list.get(i).getContent());
-        holder.binding.tvAnswerNickname.setText(list.get(i).getAnswer().getNickname());
-        holder.binding.tvContentA.setText(list.get(i).getAnswer().getContent());
+        if (list.get(i).getAnswer() != null) {
+            holder.binding.tvTitle.setText("[답변완료] "+list.get(i).getTitle());
+            holder.binding.tvAnswerNickname.setText(list.get(i).getAnswer().getNickname());
+            holder.binding.tvContentA.setText(list.get(i).getAnswer().getContent());
+            holder.binding.layoutAnswer.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.tvTitle.setText(list.get(i).getTitle());
+        }
     }
 
     @Override
@@ -44,6 +51,7 @@ public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.Vi
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
         ItemProductQnaBinding binding;
+
         public ViewHolder(@NonNull ItemProductQnaBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

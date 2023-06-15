@@ -55,6 +55,12 @@ public class ProductController {
         System.out.println(list);
         return new Gson().toJson(list);
     }
+
+    @PostMapping(value = "/selectproductqnatotal.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectProductQnaTotalAnd(int product_id, int page) {
+        return new Gson().toJson(productService.selectProductQnaTotal(product_id, page));
+    }
 }
 
 /*

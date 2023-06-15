@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.cocofarm.andapp.board.CriteriaDTO;
 import com.cocofarm.andapp.board.QnAWriteActivity;
 import com.cocofarm.andapp.board.QnaDTO;
 import com.cocofarm.andapp.conn.CommonConn;
@@ -23,29 +22,38 @@ public class ProductQnAFragment extends Fragment {
 
     FragmentProductQnaBinding binding;
     ArrayList<QnaDTO> qnaList = new ArrayList<>();
+    ProductVO productVO;
     ProductQnAAdapter adapter;
+    boolean fisrtLoad = true;
+    int total;
     int page = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProductQnaBinding.inflate(inflater, container, false);
 
+        productVO = (ProductVO) getArguments().getSerializable("productVO");
+
         binding.btnWrite.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), QnAWriteActivity.class);
-            intent.putExtra("productVO", getArguments().getSerializable("productVO"));
+            intent.putExtra("productVO", productVO);
             startActivity(intent);
         });
 
-        qnaList.addAll(loadQna());
+        loadQna();
         adapter = new ProductQnAAdapter(qnaList);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         binding.recvProductQna.setAdapter(adapter);
         binding.recvProductQna.setLayoutManager(manager);
 
         binding.btnLoadMore.setOnClickListener(v -> {
-            page++;
-            qnaList.addAll(loadQna());
-            adapter.notifyDataSetChanged();
+            if (page * 10 < total) {
+                page++;
+                loadQna();
+            }
+            if (page * 10 >= total) {
+                binding.btnLoadMore.setVisibility(View.GONE);
+            }
         });
 
         return binding.getRoot();
@@ -63,17 +71,24 @@ public class ProductQnAFragment extends Fragment {
         page = 1;
     }
 
-    protected ArrayList<QnaDTO> loadQna() {
-        CommonConn conn = new CommonConn(getContext(), "selectproductqnalist.and");
-        ArrayList<QnaDTO> list = new ArrayList<>();
-        conn.addParam("product_id", getArguments().getInt("product_id"));
+    protected void loadQna() {
+        if (fisrtLoad) {
+            CommonConn conn = new CommonConn(null, "selectproductqnatotal.and");
+            conn.addParam("product_id", productVO.getProduct_id());
+            conn.addParam("page", page);
+            conn.onExcute((isResult, data) -> total = Integer.parseInt(data));
+            fisrtLoad = false;
+        }
+        CommonConn conn = new CommonConn(null, "selectproductqnalist.and");
+        conn.addParam("product_id", productVO.getProduct_id());
         conn.addParam("page", page);
         conn.onExcute((isResult, data) -> {
             if (isResult) {
-                list.addAll(new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>() {
-                }.getType()));
+                ArrayList<QnaDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>() {
+                }.getType());
+                qnaList.addAll(list);
+                adapter.notifyDataSetChanged();
             }
         });
-        return list;
     }
 }

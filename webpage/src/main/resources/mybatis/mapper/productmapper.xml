@@ -3,9 +3,8 @@
 <mapper namespace="com.cocofarm.webpage.mapper.ProductMapper">
 
     <!--productVO하나만불러올때-->
-    <select id="selectProductContent" resultType="com.cocofarm.webpage.domain.ProductVO"> 
-    select p.*
-    FROM tbl_product p where product_id=#{product_id} </select>
+    <select id="selectProductContent" resultType="com.cocofarm.webpage.domain.ProductVO"> select p.*
+        FROM tbl_product p where product_id=#{product_id} </select>
 
     <!-- 카테고리로 분류해서 상품전체 검색, 이미지는 처음것만 검색 -->
     <select id="selectProductList" resultType="com.cocofarm.webpage.domain.ProductVO"> select p.*,
@@ -40,5 +39,8 @@
     <select id="selectProductQnaAnswer" resultType="com.cocofarm.webpage.domain.ReplyVO"> select
         reply_no, member_no, nickname, board_no, content, regdate from tbl_reply where board_no =
         #{board_no} </select>
+
+    <select id="selectProductQnaTotal"> select count(*) from tbl_board where board_category_cd = 201
+        and product_id = #{product_id} </select>
 
 </mapper>
