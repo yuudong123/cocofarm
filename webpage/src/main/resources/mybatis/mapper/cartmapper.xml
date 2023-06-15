@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.CartMapper">
-
-<insert id="insert" parameterType="com.cocofarm.webpage.domain.CartVO">
-insert into tbl_cart values (seq_board_no.nextval, #{cart_id}, #{member_no}, #{amount})
-</insert>
+    <insert id="insert" parameterType="com.cocofarm.webpage.domain.CartDTO">
+insert into tbl_cart values (seq_board_no.nextval, #{member_no},#{product_id}, #{amount})
+    </insert>
+</mapper>

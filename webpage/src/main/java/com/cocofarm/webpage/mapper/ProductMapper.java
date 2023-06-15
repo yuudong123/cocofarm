@@ -9,7 +9,7 @@ import com.cocofarm.webpage.domain.ProductVO;
 @Mapper
 public interface ProductMapper {
 
-    public ProductVO selectProductContent(int product_id); // productVO하나만 불러올때
+    public ProductVO selectProductContent(int product_id); // productVO하나만 불러올때 
 
     public ArrayList<ProductVO> selectProductList(int category_cd); // 카테고리로 분류해서 상품전체 검색, 이미지는 처음것만 검색
 
