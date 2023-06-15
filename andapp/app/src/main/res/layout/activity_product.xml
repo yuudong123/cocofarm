@@ -91,19 +91,11 @@
             </com.google.android.material.appbar.AppBarLayout>
 
 
-
             <FrameLayout
                 android:id="@+id/product_detail_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_productA_content"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
-                android:text="키우기 쉽고 보기도 좋은 향긋한 로즈마리 어쩌고 저쩌고" />
 
         </LinearLayout>
 

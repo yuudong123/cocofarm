@@ -49,7 +49,6 @@ public class ProductActivity extends AppCompatActivity {
         ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
         binding.tvProductAName.setText(productVO.getName());
         binding.tvProductAPrice.setText("￦" + productVO.getPrice());
-        binding.tvProductAContent.setText(productVO.getContent());
 
         CommonConn conn = new CommonConn(this, "selectproductimagelist.and");
         conn.addParam("product_id", productVO.getProduct_id());
@@ -64,10 +63,16 @@ public class ProductActivity extends AppCompatActivity {
             Log.d("데이터emp", "onCreateView: " + list.size());
         });
 
-        //
+        Fragment fragment = new ProductDetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("product_content", productVO.getContent());
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment)
+                .commit();
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("상세정보"));
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("리뷰"));
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("QnA"));
+
         binding.productDetailMenu.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
