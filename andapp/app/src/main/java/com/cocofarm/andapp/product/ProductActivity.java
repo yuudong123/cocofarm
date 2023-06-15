@@ -18,6 +18,7 @@ import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityProductBinding;
 import com.cocofarm.andapp.databinding.BtnSheetProductBinding;
 import com.cocofarm.andapp.image.ImageDTO;
+import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.order.CartActivity;
 import com.cocofarm.andapp.order.OrderActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -60,6 +61,7 @@ public class ProductActivity extends AppCompatActivity {
             Log.d("데이터emp", "onCreateView: " + list.size());
         });
 
+        //
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("상세정보"));
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("리뷰"));
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("QnA"));
@@ -102,6 +104,10 @@ public class ProductActivity extends AppCompatActivity {
         bindingSheet.btnDrop.setOnClickListener(v -> {
             toggleBottomSheet();
         });
+
+        ImageUtil.load(bindingSheet.ivSheetProduct1, productVO.getFilename());
+        bindingSheet.tvSheetProductName.setText(productVO.getName());
+        bindingSheet.tvSheetOrderPrice.setText(productVO.getPrice()+"");
 
         bindingSheet.btnMinus.setOnClickListener(view -> {
             if (number > 0) {
