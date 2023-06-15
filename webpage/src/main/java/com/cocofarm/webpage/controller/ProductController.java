@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cocofarm.webpage.domain.ProductVO;
+import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.ProductService;
 import com.google.gson.Gson;
 
@@ -47,6 +48,12 @@ public class ProductController {
         return new Gson().toJson(list);
     }
 
+    @PostMapping(value = "/selectproductqnalist.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectProductQnaListAnd(int product_id) {
+        ArrayList<QnaDTO> list = productService.selectProductQnaList();
+        return new Gson().toJson(list);
+    }
 }
 
 /*

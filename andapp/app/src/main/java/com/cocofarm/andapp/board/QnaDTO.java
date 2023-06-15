@@ -8,4 +8,5 @@ import lombok.EqualsAndHashCode;
 public class QnaDTO extends BoardVO {
     private String product_name;
     private String product_content;
+    private ReplyVO answer;
 }

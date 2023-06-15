@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cocofarm.webpage.domain.ProductVO;
+import com.cocofarm.webpage.domain.QnaDTO;
+import com.cocofarm.webpage.domain.ReplyVO;
 import com.cocofarm.webpage.mapper.ProductMapper;
 
 @Service
@@ -29,6 +31,17 @@ public class ProductService {
 
     public ArrayList<ProductVO> selectProductListWithImage() {
         ArrayList<ProductVO> list = productMapper.selectProductListWithImage();
+        return list;
+    }
+
+    public ArrayList<QnaDTO> selectProductQnaList() {
+        ArrayList<QnaDTO> list = productMapper.selectProductQnaList();
+        for (QnaDTO qnaDTO : list) {
+            ReplyVO answer = productMapper.selectProductQnaAnswer();
+            if (answer != null) {
+                qnaDTO.setAnswer(answer);
+            }
+        }
         return list;
     }
 }

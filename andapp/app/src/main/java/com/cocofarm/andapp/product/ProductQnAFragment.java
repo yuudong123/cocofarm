@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentProductQnaBinding;
 
 public class ProductQnAFragment extends Fragment {
@@ -22,5 +23,10 @@ public class ProductQnAFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    protected void loadQna() {
+        CommonConn conn = new CommonConn(getContext(), "selectproductanslist.and");
+        conn.addParam("product_id",);
     }
 }
