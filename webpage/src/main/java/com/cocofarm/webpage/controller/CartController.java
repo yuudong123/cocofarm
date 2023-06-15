@@ -24,4 +24,11 @@ public class CartController {
         return new Gson().toJson(list);
 
     }
+
+    @PostMapping(value ="/insertcart.and", produces = "text/html; charset=UTF-8")
+    @ResponseBody
+    public void insertCartAnd(CartDTO dto){
+        cartService.insert(dto);
+    }
+
 }

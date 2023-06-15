@@ -17,7 +17,10 @@ public class CartService {
     public ArrayList<CartDTO> selectCartList(int member_no){
         ArrayList<CartDTO> list = cartmapper.selectCartList(member_no);
         return list;
+    }
 
+    public int insert(CartDTO dto){
+        return cartmapper.insert(dto);
     }
     
 }

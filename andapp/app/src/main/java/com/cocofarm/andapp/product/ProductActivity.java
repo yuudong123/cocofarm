@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.product;
 
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -20,6 +22,7 @@ import com.cocofarm.andapp.databinding.BtnSheetProductBinding;
 import com.cocofarm.andapp.image.ImageDTO;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.order.CartActivity;
+import com.cocofarm.andapp.order.CartDTO;
 import com.cocofarm.andapp.order.OrderActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.tabs.TabLayout;
@@ -132,6 +135,17 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            //사용자가 선택한 상품 장바구니에 넣기.
+            CommonConn conn1 = new CommonConn(this,"insertcart.and");
+            conn1.addParam("member_no",loginMember.getMember_no());
+            conn1.addParam("product_id",productVO.getProduct_id());
+            conn1.addParam("amount", Integer.parseInt(bindingSheet.tvProductBuyAmount.getText()+""));
+            conn1.onExcute((isResult, data) -> {
+                Log.d("장바구니", "onCreate: "+isResult);
+            });
+
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("").setMessage("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?").setCancelable(false)
                     .setPositiveButton("확인", (dialogInterface, i1) -> {
