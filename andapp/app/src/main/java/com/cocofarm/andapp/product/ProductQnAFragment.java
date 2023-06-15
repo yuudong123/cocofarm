@@ -27,6 +27,6 @@ public class ProductQnAFragment extends Fragment {
 
     protected void loadQna() {
         CommonConn conn = new CommonConn(getContext(), "selectproductanslist.and");
-        conn.addParam("product_id",);
+        //conn.addParam("product_id");
     }
 }

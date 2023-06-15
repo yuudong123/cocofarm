@@ -30,8 +30,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ImageUtil.load(holder.binding.ivCartOrder1,list.get(position).getProduct_image());
-        holder.binding.tvCartOrderName.setText(list.get(position).getProduct_id());
-        holder.binding.tvCartProductPrice.setText(list.get(position).getProduct_price());
+        holder.binding.tvCartOrderName.setText(list.get(position).getProduct_name());
+        holder.binding.tvCartProductPrice.setText(list.get(position).getProduct_price()+"");
+        holder.binding.tvProductBuyAmount.setText(list.get(position).getAmount()+"");
+
+        holder.binding.checkCartSelect.setOnCheckedChangeListener((compoundButton, b) -> {
+            if(holder.binding.checkCartSelect.isChecked()){
+
+
+            }
+        });
+
+
 
         String cartProductPrice = holder.binding.tvCartProductPrice.getText().toString();
         int intProductPrice = Integer.parseInt(cartProductPrice);
@@ -39,13 +49,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         int amount = Integer.parseInt(buyAmountText);
         int totalAmount = intProductPrice * amount;
 
-        holder.binding.tvCartOrderPrice.setText(String.valueOf(totalAmount));
+        holder.binding.tvCartOrderPrice.setText("￦"+totalAmount+"원");
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

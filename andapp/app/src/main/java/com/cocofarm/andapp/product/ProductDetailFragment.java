@@ -21,6 +21,9 @@ public class ProductDetailFragment extends Fragment {
                              Bundle savedInstanceState) {
      
         binding=FragmentProductDetailBinding.inflate(inflater,container,false);
+        String productContent = getArguments().getString("product_content"); //해당상품과 관련된 내용만 받으려고.
+
+
         return binding.getRoot();
     }
 }

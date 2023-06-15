@@ -23,6 +23,8 @@ public class ProductReviewFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding=FragmentProductReviewBinding.inflate(inflater,container,false);
+        int product_id = getArguments().getInt("product_id");//해당 상품과 연관된 아이디만 받아오려고
+
         return binding.getRoot();
     }
 }
