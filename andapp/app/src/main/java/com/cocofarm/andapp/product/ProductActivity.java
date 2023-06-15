@@ -89,6 +89,7 @@ public class ProductActivity extends AppCompatActivity {
                     fragment.setArguments(bundle);
                 } else if (i == 2) {
                     fragment = new ProductQnAFragment();
+                    bundle.putSerializable("productVO",productVO);
                     fragment.setArguments(bundle);
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.product_detail_container, fragment)

@@ -34,10 +34,10 @@ public class ProductService {
         return list;
     }
 
-    public ArrayList<QnaDTO> selectProductQnaList() {
-        ArrayList<QnaDTO> list = productMapper.selectProductQnaList();
+    public ArrayList<QnaDTO> selectProductQnaList(int product_id, int page) {
+        ArrayList<QnaDTO> list = productMapper.selectProductQnaList(product_id, page);
         for (QnaDTO qnaDTO : list) {
-            ReplyVO answer = productMapper.selectProductQnaAnswer();
+            ReplyVO answer = productMapper.selectProductQnaAnswer(qnaDTO.getBoard_no());
             if (answer != null) {
                 qnaDTO.setAnswer(answer);
             }

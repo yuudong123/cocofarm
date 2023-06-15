@@ -9,8 +9,6 @@ import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.mapper.MemberMapper;
 
-import groovyjarjarantlr.collections.List;
-
 @Service
 public class MemberService {
 

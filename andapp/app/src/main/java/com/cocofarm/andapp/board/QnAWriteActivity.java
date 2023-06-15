@@ -27,6 +27,11 @@ public class QnAWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityQnaWriteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        if(getIntent().getSerializableExtra("productVO")!=null) {
+            qnaselectedproduct = (ProductVO) getIntent().getSerializableExtra("productVO");
+        }
+
         binding.qnaProductSelect.setOnClickListener(v -> {
             Intent intent = new Intent(QnAWriteActivity.this, QnAProductSelectActivity.class);
             startActivity(intent);
@@ -65,7 +70,11 @@ public class QnAWriteActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (qnaselectedproduct != null) {
-            ImageUtil.load(binding.ivProductImage, qnaselectedproduct.getFilename());
+            if(qnaselectedproduct.getFilename()==null){
+                ImageUtil.load(binding.ivProductImage,qnaselectedproduct.getImg().get(0).getFilename());
+            } else {
+                ImageUtil.load(binding.ivProductImage, qnaselectedproduct.getFilename());
+            }
             binding.tvProductName.setText(qnaselectedproduct.getName());
             binding.tvProductContent.setText(qnaselectedproduct.getContent());
             binding.qnaProductSelect.setVisibility(View.GONE);

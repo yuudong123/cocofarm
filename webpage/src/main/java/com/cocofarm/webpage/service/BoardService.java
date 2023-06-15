@@ -35,9 +35,9 @@ public class BoardService {
         return vo;
     }
 
-    public BoardVO selectqna(int board_no) {
-        BoardVO vo = boardMapper.selectqna(board_no);
-        return vo;
+    public QnaDTO selectqna(int board_no) {
+        QnaDTO dto = boardMapper.selectqna(board_no);
+        return dto;
     }
 
     public int insert(BoardVO vo) {

@@ -50,8 +50,9 @@ public class ProductController {
 
     @PostMapping(value = "/selectproductqnalist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String selectProductQnaListAnd(int product_id) {
-        ArrayList<QnaDTO> list = productService.selectProductQnaList();
+    public String selectProductQnaListAnd(int product_id, int page) {
+        ArrayList<QnaDTO> list = productService.selectProductQnaList(product_id, page);
+        System.out.println(list);
         return new Gson().toJson(list);
     }
 }

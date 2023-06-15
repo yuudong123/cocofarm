@@ -181,8 +181,8 @@ public class BoardController {
     @PostMapping(value = "/selectqna.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectQnaAnd(int board_no) {
-        BoardVO vo = boardService.selectqna(board_no);
-        return new Gson().toJson(vo);
+        QnaDTO dto = boardService.selectqna(board_no);
+        return new Gson().toJson(dto);
     }
 
     @PostMapping(value = "/insertboard.and", produces = "text/html;charset=utf-8")
