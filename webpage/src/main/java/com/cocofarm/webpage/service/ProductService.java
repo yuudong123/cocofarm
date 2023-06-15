@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.domain.ReplyVO;
@@ -47,5 +48,15 @@ public class ProductService {
 
     public int selectProductQnaTotal(int product_id, int page) {
         return productMapper.selectProductQnaTotal(product_id, page);
+    }
+
+    public ArrayList<BoardVO> selectProductReviewList(int product_id, int page) {
+        ArrayList<BoardVO> list = productMapper.selectProductReviewList(product_id, page);
+        System.out.println("서비스" + list);
+        return list;
+    }
+
+    public int selectProductReviewTotal(int product_id, int page) {
+        return productMapper.selectProductReviewTotal(product_id, page);
     }
 }

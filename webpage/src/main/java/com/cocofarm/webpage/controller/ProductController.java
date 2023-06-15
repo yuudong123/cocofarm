@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.ProductService;
@@ -60,6 +61,20 @@ public class ProductController {
     @ResponseBody
     public String selectProductQnaTotalAnd(int product_id, int page) {
         return new Gson().toJson(productService.selectProductQnaTotal(product_id, page));
+    }
+
+    @PostMapping(value = "/selectproductreviewlist.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectProductReviewListAnd(int product_id, int page) {
+        ArrayList<BoardVO> list = productService.selectProductReviewList(product_id, page);
+        System.out.println("컨트롤러" + list);
+        return new Gson().toJson(list);
+    }
+
+    @PostMapping(value = "/selectproductreviewtotal.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String selectProductReviewTotalAnd(int product_id, int page) {
+        return new Gson().toJson(productService.selectProductReviewTotal(product_id, page));
     }
 }
 

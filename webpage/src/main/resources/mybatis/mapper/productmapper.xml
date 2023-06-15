@@ -20,8 +20,8 @@
         by product_id ) i on p.product_id = i.product_id </select>
 
     <!-- 바로 아래 쿼리와 세트, 답변은 ProductService에서 붙임 -->
-    <select id="selectProductQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO"> 
-    <![CDATA[ 
+    <select id="selectProductQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
+        <![CDATA[ 
     select * from (
         select rownum rn, b.* from (
             select board_no, member_no, nickname, title, content, regdate
@@ -32,7 +32,7 @@
         ) b
     )
     where rn >= #{page}*10-9
-    and rn < #{page}*10
+    and rn <= #{page}*10
     ]]>
     </select>
 
@@ -41,6 +41,27 @@
         #{board_no} </select>
 
     <select id="selectProductQnaTotal"> select count(*) from tbl_board where board_category_cd = 201
-        and product_id = #{product_id} </select>
+        and product_id = #{product_id} 
+    </select>
+
+    <select id="selectProductReviewTotal"> select count(*) from tbl_board where board_category_cd = 203
+        and product_id = #{product_id} 
+    </select>
+
+    <select id="selectProductReviewList" resultType="com.cocofarm.webpage.domain.BoardVO">
+        <![CDATA[ 
+        select * from (
+            select rownum rn, b.* from (
+                select nickname, content, regdate
+                from tbl_board
+                where board_category_cd = 203
+                and product_id = #{product_id}
+                order by board_no desc
+            ) b
+        )
+        where rn >= #{page}*10-9
+        and rn <= #{page}*10
+    ]]>
+    </select>
 
 </mapper>
