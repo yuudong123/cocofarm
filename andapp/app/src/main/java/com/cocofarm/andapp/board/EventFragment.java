@@ -10,10 +10,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentEventBinding;
@@ -21,41 +22,18 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EventFragment extends Fragment {
 
     FragmentEventBinding binding;
-    ArrayList<BoardVO> list;
-    private int startPage;
-    private int endPage;
-    private boolean prev, next;
+    ArrayList<BoardVO> boardList = new ArrayList<>();
+    EventAdapter adapter;
+    private int page = 1;
     private int total;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEventBinding.inflate(inflater, container, false);
-
-        loadBoard();
-
-        binding.btnPrev.setOnClickListener(v -> {
-            pager();
-            if (!prev) {
-                Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                cri.setPage(cri.getPage()-1);
-                loadBoard();
-            }
-        });
-        binding.btnNext.setOnClickListener(v -> {
-            pager();
-            if (!next) {
-                Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                cri.setPage(cri.getPage()+1);
-                loadBoard();
-            }
-        });
 
         if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
@@ -67,6 +45,30 @@ public class EventFragment extends Fragment {
         } else {
             binding.btnWrite.setVisibility(View.GONE);
         }
+
+        loadBoard();
+        adapter = new EventAdapter(boardList, getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        binding.recvBoardList.setAdapter(adapter);
+        binding.recvBoardList.setLayoutManager(manager);
+
+        binding.recvBoardList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager manager = (LinearLayoutManager) binding.recvBoardList.getLayoutManager();
+                if (manager != null && manager.findLastCompletelyVisibleItemPosition() == boardList.size() - 1 && total > page*10) {
+                    page++;
+                    loadBoard();
+                }
+            }
+        });
 
         return binding.getRoot();
     }
@@ -80,37 +82,21 @@ public class EventFragment extends Fragment {
     protected void loadBoard() {
         CommonConn conn = new CommonConn(null, "board/getTotal.and");
         conn.addParam("code", cri.getCode());
-        conn.addParam("keyword", "");
-        conn.onExcute((isResult, data) -> {
-            if(isResult) {
-                this.total = Integer.parseInt(data);
-            }
-        });
+        conn.addParam("keyword", cri.getKeyword());
+        conn.onExcute((isResult, data) -> this.total = Integer.parseInt(data));
+
         conn = new CommonConn(null, "board/selectboardlist.and");
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", "");
+        conn.addParam("page", cri.getPage());
+        conn.addParam("boardPerPage", 10);
         conn.onExcute((isResult, data) -> {
-            if (!isResult) {
-                return;
+            if (isResult) {
+                ArrayList<BoardVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+                }.getType());
+                boardList.addAll(list);
+                adapter.notifyDataSetChanged();
             }
-            list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
-            }.getType());
-            EventAdapter adapter = new EventAdapter(list, getContext());
-            LinearLayoutManager manager = new LinearLayoutManager(getContext());
-            binding.recvBoardList.setAdapter(adapter);
-            binding.recvBoardList.setLayoutManager(manager);
         });
-        binding.pagenum.setText(cri.getPage() + "");
-    }
-
-    protected void pager() {
-        endPage = (int) (Math.ceil(cri.getPage() / 10.0)) * 10;
-        startPage = endPage - 9;
-        int realEnd = (int) (Math.ceil((total * 1.0) / cri.getBoardPerPage()));
-        if (realEnd < endPage) {
-            endPage = realEnd;
-        }
-        prev = startPage > 1;
-        next = endPage < realEnd;
     }
 }

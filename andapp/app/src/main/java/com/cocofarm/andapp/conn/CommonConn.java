@@ -73,6 +73,6 @@ public class CommonConn {
     }
 
     public interface ConnCallback {
-        public void onResult(boolean isResult, String data);
+        void onResult(boolean isResult, String data);
     }
 }

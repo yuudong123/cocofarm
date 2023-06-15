@@ -22,21 +22,27 @@
     )
     where rn <= #{page} * #{boardPerPage}
     and rn > (#{page}-1) * #{boardPerPage}
-    
     ]]>
     </select>
     <select id="selectQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
-    <![CDATA[   
-    select b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
-    from tbl_board b
-        left join tbl_product p on b.product_id = p.product_id
-        left join (
-            select board_no, count(*) as replycnt
-            from tbl_reply
-            group by board_no) r on b.board_no = r.board_no
-    where board_category_cd = 201
-    and title like '%'||#{keyword}||'%'
-    order by b.board_no desc
+    <![CDATA[
+    select * from (
+        select rownum as rn, a.* from (   
+            select b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
+            from tbl_board b
+                left join tbl_product p on b.product_id = p.product_id
+                left join (
+                    select board_no, count(*) as replycnt
+                    from tbl_reply
+                    group by board_no) r on b.board_no = r.board_no
+            where board_category_cd = 201
+            and title like '%'||#{keyword}||'%'
+            order by b.board_no desc
+        ) a
+        order by rownum
+    )
+    where rn <= #{page} * #{boardPerPage}
+    and rn > (#{page}-1) * #{boardPerPage}
     ]]>
     </select>
     <select id="selectboard" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from

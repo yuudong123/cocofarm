@@ -24,9 +24,8 @@ public class ProductQnAFragment extends Fragment {
     ArrayList<QnaDTO> qnaList = new ArrayList<>();
     ProductVO productVO;
     ProductQnAAdapter adapter;
-    boolean fisrtLoad = true;
-    int total;
-    int page = 1;
+    private int page = 1;
+    private int total;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,14 +71,12 @@ public class ProductQnAFragment extends Fragment {
     }
 
     protected void loadQna() {
-        if (fisrtLoad) {
-            CommonConn conn = new CommonConn(null, "selectproductqnatotal.and");
-            conn.addParam("product_id", productVO.getProduct_id());
-            conn.addParam("page", page);
-            conn.onExcute((isResult, data) -> total = Integer.parseInt(data));
-            fisrtLoad = false;
-        }
-        CommonConn conn = new CommonConn(null, "selectproductqnalist.and");
+        CommonConn conn = new CommonConn(null, "selectproductqnatotal.and");
+        conn.addParam("product_id", productVO.getProduct_id());
+        conn.addParam("page", page);
+        conn.onExcute((isResult, data) -> total = Integer.parseInt(data));
+
+        conn = new CommonConn(null, "selectproductqnalist.and");
         conn.addParam("product_id", productVO.getProduct_id());
         conn.addParam("page", page);
         conn.onExcute((isResult, data) -> {

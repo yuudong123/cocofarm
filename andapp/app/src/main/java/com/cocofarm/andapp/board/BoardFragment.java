@@ -75,6 +75,9 @@ public class BoardFragment extends Fragment {
             cri.setCode(BOARD_CATEGORY_QNA);
             fragment = new QnAFragment();
         }
-        getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
+        if(fragment!=null) {
+            getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
+        }
+
     }
 }

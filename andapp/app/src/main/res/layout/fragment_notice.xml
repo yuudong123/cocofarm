@@ -78,14 +78,6 @@
         android:paddingHorizontal="50dp">
 
         <ImageView
-            android:id="@+id/btnFirst"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:src="@drawable/icon_first_page" />
-
-        <ImageView
             android:id="@+id/btnPrev"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -95,9 +87,8 @@
 
         <TextView
             android:id="@+id/pagenum"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@color/board_item_background"
             android:padding="10dp"
             android:text="1"
@@ -122,14 +113,6 @@
             android:layout_weight="1"
             android:padding="10dp"
             android:src="@drawable/icon_right_arrow" />
-
-        <ImageView
-            android:id="@+id/btnLast"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:src="@drawable/icon_last_page" />
 
     </LinearLayout>
 

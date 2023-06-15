@@ -24,7 +24,6 @@ public class QnAFragment extends Fragment {
 
     FragmentQnABinding binding;
     ArrayList<QnaDTO> list;
-    private int startPage;
     private int endPage;
     private boolean prev, next;
     private int total;
@@ -32,12 +31,7 @@ public class QnAFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentQnABinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
         loadBoard();
 
         binding.btnPrev.setOnClickListener(v -> {
@@ -64,6 +58,7 @@ public class QnAFragment extends Fragment {
             startActivity(intent);
         });
 
+        return binding.getRoot();
     }
 
     @Override
@@ -75,7 +70,7 @@ public class QnAFragment extends Fragment {
     protected void loadBoard() {
         CommonConn conn = new CommonConn(null, "board/getTotal.and");
         conn.addParam("code", cri.getCode());
-        conn.addParam("keyword", "");
+        conn.addParam("keyword", cri.getKeyword());
         conn.onExcute((isResult, data) -> {
             if(isResult) {
                 this.total = Integer.parseInt(data);
@@ -84,6 +79,8 @@ public class QnAFragment extends Fragment {
         conn = new CommonConn(null, "board/selectqnalist.and");
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", "");
+        conn.addParam("page", cri.getPage());
+        conn.addParam("boardPerPage", 10);
         conn.onExcute((isResult, data) -> {
             if (!isResult) {
                 return;
@@ -99,13 +96,8 @@ public class QnAFragment extends Fragment {
     }
 
     protected void pager() {
-        endPage = (int) (Math.ceil(cri.getPage() / 10.0)) * 10;
-        startPage = endPage - 9;
-        int realEnd = (int) (Math.ceil((total * 1.0) / cri.getBoardPerPage()));
-        if (realEnd < endPage) {
-            endPage = realEnd;
-        }
-        prev = startPage > 1;
-        next = endPage < realEnd;
+        endPage = (total-1)/10 +1;
+        prev = cri.getPage()>1;
+        next = cri.getPage()<endPage;
     }
 }

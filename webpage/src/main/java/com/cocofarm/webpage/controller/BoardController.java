@@ -155,7 +155,7 @@ public class BoardController {
 
     @PostMapping(value = "/selectboardlist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String selectBoardListCriAnd(CriteriaDTO cri) {
+    public String selectBoardListAnd(CriteriaDTO cri) {
         if (cri.getKeyword() == null) {
             cri.setKeyword("");
         }
@@ -165,8 +165,10 @@ public class BoardController {
 
     @PostMapping(value = "/selectqnalist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String selectQnaListAnd(int code) {
-        CriteriaDTO cri = new CriteriaDTO(code, "");
+    public String selectQnaListAnd(CriteriaDTO cri) {
+        if (cri.getKeyword() == null) {
+            cri.setKeyword("");
+        }
         ArrayList<QnaDTO> list = boardService.selectQnaList(cri);
         return new Gson().toJson(list);
     }
