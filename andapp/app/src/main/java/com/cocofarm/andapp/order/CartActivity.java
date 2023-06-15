@@ -27,6 +27,8 @@ public class CartActivity extends AppCompatActivity {
      binding= ActivityCartBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
 
+
+
      //디비에서 리스트 불러오는 코드 필요.
         CommonConn conn = new CommonConn(this,"");
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());

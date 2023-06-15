@@ -64,6 +64,7 @@ public class ProductActivity extends AppCompatActivity {
             Log.d("데이터emp", "onCreateView: " + list.size());
         });
 
+        //
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("상세정보"));
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("리뷰"));
         binding.productDetailMenu.addTab(binding.productDetailMenu.newTab().setText("QnA"));

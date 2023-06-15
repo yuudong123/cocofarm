@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.databinding.ItemCartBinding;
+import com.cocofarm.andapp.image.ImageUtil;
 
 import java.util.ArrayList;
 
@@ -28,8 +29,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ImageUtil.load(holder.binding.ivCartOrder1,list.get(position).getProduct_image());
         holder.binding.tvCartOrderName.setText(list.get(position).getProduct_id());
+        holder.binding.tvCartProductPrice.setText(list.get(position).getProduct_price());
 
+        String cartProductPrice = holder.binding.tvCartProductPrice.getText().toString();
+        int intProductPrice = Integer.parseInt(cartProductPrice);
+        String buyAmountText = holder.binding.tvProductBuyAmount.getText().toString();
+        int amount = Integer.parseInt(buyAmountText);
+        int totalAmount = intProductPrice * amount;
+
+        holder.binding.tvCartOrderPrice.setText(String.valueOf(totalAmount));
 
     }
 
