@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.domain.ReplyVO;
@@ -22,5 +23,12 @@ public interface ProductMapper {
     public ReplyVO selectProductQnaAnswer(int board_no);
 
     public int selectProductQnaTotal(int product_id, int page);
+
+    public ArrayList<BoardVO> selectProductReviewList(int product_id, int page);
+
+    public int selectProductReviewTotal(int product_id, int page);
+
+
+
 
 }
