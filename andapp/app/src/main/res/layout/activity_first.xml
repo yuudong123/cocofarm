@@ -59,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"/>
     <Button
+        android:id="@+id/btn_sns"
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:text="SNS 간편 로그인"
@@ -67,7 +68,7 @@
 
     <TextView
         android:clickable="true"
-        android:id="@id/tv_join"
+        android:id="@+id/tv_join"
         android:textSize="15dp"
         android:layout_marginVertical="20dp"
         android:textColor="#ffffff"
