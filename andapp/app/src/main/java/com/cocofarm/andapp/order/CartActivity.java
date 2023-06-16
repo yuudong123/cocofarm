@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.common.CommonVal;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
 
-
+    CommonConn conn;
     ActivityCartBinding binding;
 
     CartAdapter adapter;
@@ -46,7 +47,7 @@ public class CartActivity extends AppCompatActivity {
         //디비에서 리스트 불러오는 메소드
         load();
 
-        //전체상품 선택 , 해제 , 금액
+        //전체상품 선택 , 해제 , 금액.
         binding.checkCartAll.setOnClickListener(v -> {
             boolean isChecked = binding.checkCartAll.isChecked();
 
@@ -64,12 +65,23 @@ public class CartActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         });
 
+
         //상품 전체 삭제 후 비어있는 페이지 보여주게 하기..
         binding.btnCartAlldelete.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("").setMessage("상품 전체를 삭제하시겠습니까?").setCancelable(false)
                     .setPositiveButton("확인", (dialogInterface, i1) -> {
-
+                        //해당 회원이 전체 삭제 눌렀을때 삭제
+                        conn = new CommonConn(this, "deletecartlist.and");
+                        conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+                        conn.onExcute((isResult, data) -> {
+                            if(isResult){
+                                adapter.notifyDataSetChanged();
+                                //notifyDataSetChanged();만했을때 화면이 그대로여서 load();사용
+                                //후에 코드 문제 있으면 고치는걸로.
+                                load();
+                            }
+                        });
 
                     })
                     .setNegativeButton("취소", (dialogInterface, i1) -> {
@@ -97,7 +109,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     protected void load() {
-        CommonConn conn = new CommonConn(this, "selectCartList.and");
+        conn = new CommonConn(this, "selectCartList.and");
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());
         conn.onExcute((isResult, data) -> {
             if (isResult) {
@@ -119,7 +131,10 @@ public class CartActivity extends AppCompatActivity {
 
         });
 
+
+
     }
+
 
     @Override
     protected void onStart() {

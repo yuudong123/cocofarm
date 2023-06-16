@@ -31,4 +31,19 @@ public class CartController {
         cartService.insert(dto);
     }
 
+    //장바구니 상품 한개 삭제
+    @PostMapping(value ="/deletecartone.and", produces = "text/html; charset=UTF-8")
+    @ResponseBody
+    public void deleteCartProductOne(CartDTO dto){
+        cartService.deleteCartProductOne(dto);
+    }
+
+    //장바구니 전체 삭제
+     @PostMapping(value ="/deletecartlist.and", produces = "text/html; charset=UTF-8")
+    @ResponseBody
+    public void deleteCartList(int member_no){
+        cartService.deleteCartList(member_no);
+    }
+
+
 }

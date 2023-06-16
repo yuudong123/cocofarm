@@ -1,12 +1,15 @@
 package com.cocofarm.andapp.order;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ItemCartBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
@@ -42,6 +45,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
 
         holder.binding.checkCartSelect.setOnClickListener(v->{
             CommonVal.cart.get(position).setChecked(holder.binding.checkCartSelect.isChecked());
+        });
+
+        holder.binding.tvOrderCancel.setOnClickListener(v->{
+            int cartId = CommonVal.cart.get(position).getCart_id();
+            CommonConn conn = new CommonConn(v.getContext(),"deletecartone.and");
+            conn.addParam("cart_id", cartId+"");
+            conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+            conn.onExcute((isResult, data) -> {
+                if(isResult){
+                    CommonVal.cart.remove(position);
+                    notifyDataSetChanged();
+                    Toast.makeText(v.getContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
 
