@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.board.QnaDTO;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemProductQnaBinding;
@@ -35,13 +36,22 @@ public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.Vi
         holder.binding.tvRegdate.setText(CommonVal.yyyyMMddHHmmss.format(list.get(i).getRegdate()));
         holder.binding.tvContentQ.setText(list.get(i).getContent());
         if (list.get(i).getAnswer() != null) {
-            holder.binding.tvTitle.setText("[답변완료] "+list.get(i).getTitle());
+            holder.binding.tvTitle.setText("[답변완료] " + list.get(i).getTitle());
             holder.binding.tvAnswerNickname.setText(list.get(i).getAnswer().getNickname());
             holder.binding.tvContentA.setText(list.get(i).getAnswer().getContent());
             holder.binding.layoutAnswer.setVisibility(View.VISIBLE);
         } else {
             holder.binding.tvTitle.setText(list.get(i).getTitle());
         }
+        holder.binding.layoutTitle.setOnClickListener(v -> {
+            if (holder.binding.layoutContent.getVisibility() == View.GONE) {
+                holder.binding.layoutContent.setVisibility(View.VISIBLE);
+                holder.binding.ivDropBtn.setImageResource(R.drawable.icon_drop_up);
+            } else {
+                holder.binding.layoutContent.setVisibility(View.GONE);
+                holder.binding.ivDropBtn.setImageResource(R.drawable.icon_drop_down);
+            }
+        });
     }
 
     @Override

@@ -12,7 +12,7 @@
         android:id="@+id/btn_drop"
         android:scaleType="fitXY"
        android:layout_gravity="center"
-        android:src="@drawable/img_drop_btn"
+        android:src="@drawable/icon_drop_down"
         android:layout_width="40dp"
         android:layout_height="25dp"/>
 
