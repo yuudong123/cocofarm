@@ -57,55 +57,12 @@
         android:text="주문상품"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_margin="10dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_product1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
-
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_cart_order_name"
-                    android:text="로즈마리"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"/>
-
-                <TextView
-                    android:layout_marginRight="20dp"
-                    android:text="중형"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:layout_marginRight="20dp"
-                    android:text="/1개"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_weight="1"
+        android:id="@+id/recv_order_product"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
 
     <TextView
         android:text="결제금액"

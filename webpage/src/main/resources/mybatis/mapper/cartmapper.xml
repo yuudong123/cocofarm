@@ -13,4 +13,16 @@ insert into tbl_cart values (seq_board_no.nextval, #{member_no},#{product_id}, #
                 group by p.product_id, p.name, p.price) pp on c.product_id = pp.product_id
     where member_no = #{member_no}
     </select>
+
+    <!-- 장바구니 상품 한개 삭제 -->
+    <delete id="deleteCartProductOne">
+    delete tbl_cart where cart_id = #{cart_id} and member_no = #{member_no}
+    </delete>
+
+    <!-- 장바구니 전체 삭제 -->
+    <delete id="deleteCartList" parameterType="com.cocofarm.webpage.domain.CartDTO">
+    delete tbl_cart
+    where member_no=#{member_no}
+    </delete>
+
 </mapper>

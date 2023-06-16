@@ -12,6 +12,10 @@ public interface CartMapper {
     public ArrayList<CartDTO> selectCartList(int member_no);
 
     public int insert(CartDTO dto);
+
+    public int deleteCartProductOne(CartDTO dto);
+
+    public int deleteCartList(int member_no);
        
 
     

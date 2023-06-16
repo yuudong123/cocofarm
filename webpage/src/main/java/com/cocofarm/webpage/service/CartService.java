@@ -22,5 +22,14 @@ public class CartService {
     public int insert(CartDTO dto){
         return cartmapper.insert(dto);
     }
+
+    public int deleteCartProductOne(CartDTO dto){
+        return cartmapper.deleteCartProductOne(dto);
+    }
+
+    public int deleteCartList(int member_no){
+        return cartmapper.deleteCartList(member_no);
+    }
+
     
 }
