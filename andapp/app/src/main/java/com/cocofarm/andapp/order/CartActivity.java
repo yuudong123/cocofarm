@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,15 +46,21 @@ public class CartActivity extends AppCompatActivity {
         //디비에서 리스트 불러오는 메소드
         load();
 
-        binding.checkCartAll.setOnClickListener(v->{
+        //전체상품 선택 , 해제 , 금액
+        binding.checkCartAll.setOnClickListener(v -> {
+            boolean isChecked = binding.checkCartAll.isChecked();
 
-           // binding.checkCartAll.setChecked(!binding.checkCartAll.isChecked());
+            int total = 0;
 
-            int cnt = CommonVal.cart.size();
-            for(int i=0; i<cnt; i++){
-                CommonVal.cart.get(i).setChecked(binding.checkCartAll.isChecked());
+            for (int i = 0; i < CommonVal.cart.size(); i++) {
+                CommonVal.cart.get(i).setChecked(isChecked);
+
+                int intCartOrderPrice = CommonVal.cart.get(i).getProduct_price();
+                total += intCartOrderPrice;
             }
-            //장바구니에 상태 바뀐거 알려주기.
+
+            allPrice.setText("￦" + (isChecked ? total : 0) + "원");
+
             adapter.notifyDataSetChanged();
         });
 
@@ -97,7 +104,7 @@ public class CartActivity extends AppCompatActivity {
                 CommonVal.cart = new Gson().fromJson(data, new TypeToken<ArrayList<CartDTO>>() {
                 }.getType());
                 adapter = new CartAdapter();
-                LinearLayoutManager manager = new LinearLayoutManager(this);
+                LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 binding.recvCart.setAdapter(adapter);
                 binding.recvCart.setLayoutManager(manager);
 
@@ -119,5 +126,11 @@ public class CartActivity extends AppCompatActivity {
         super.onStart();
         allPrice = binding.tvCartAllPrice;
         allDelete = binding.btnCartAlldelete;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding=null;
     }
 }
