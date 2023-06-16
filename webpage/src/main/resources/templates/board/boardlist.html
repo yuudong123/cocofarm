@@ -2,66 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
-    <link rel="stylesheet" th:href="@{/css/board/boardlist.css}" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
-        <table>
-          <thead>
-            <tr>
-              <th>작성일</th>
-              <th>제목</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="board : ${boardlist}">
-              <td th:text="${#dates.format(board.regdate, (board.regdate.time < #calendars.createNow().timeInMillis - 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
-              <td th:switch="${board.board_category_cd}">
-                <a th:case="202" th:text="${board.title}" th:href="@{/board/notice/{board_no}(board_no = ${board.board_no})}"></a>
-                <a th:case="204" th:text="${board.title}" th:href="@{/board/event/{board_no}(board_no = ${board.board_no})}"></a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <a th:href="@{/board/write}" role="button">글 쓰기</a>
-        <div class="grid" id="page">
-          <th:block th:with="isdisable=(${pager.prev}?'disabled':'')"></th:block>
-          <button id="btnPagePrev" role="button" th:disabled="${isdisable}">&laquo;</button>
-          <th:block th:if="${not #lists.isEmpty(boardlist)}" class="border" th:each="num: ${#numbers.sequence(pager.startPage, pager.endPage)}">
-            <a class="btnPageNum" role="button" th:text="${num}" href="#"></a>
-          </th:block>
-          <button id="btnPageNext" role="button" disabled="${(pager.next)?'':'disabled'}">&raquo;</button>
-        </div>
-        <form id="pageForm" th:action="@{/board/}" method="get">
-          <input id="pagenum" type="text" name="pagenum" th:value="${pager.cri.page}" />
-          <input type="hidden" name="boardPerPage" th:value="${pager.cri.boardPerPage}" />
-          <input type="text" name="keyword" th:value="${pager.cri.keyword}" placeholder="검색어를 입력하세요" />
-          <button id="btnSearch" type="button"></button>
-        </form>
+        <div class="container"></div>
+        <div class="container"></div>
+        <form th:action="@{board/}" method="get"></form>
       </div>
     </main>
-    <script th:src="@{/js/board/boardlist.js}"></script>
-    <script>
-      let btnPagePrev = document.querySelector("#btnPagePrev");
-      let btnPageNext = document.querySelector("#btnPageNext");
-      let btnPageNum = document.querySelector(".btnPageNum");
-      let pagenum = document.querySelector("#pagenum");
-      let btnSearch = document.querySelector("#btnSearch");
-      let pageForm = document.querySelector("#pageForm");
-
-      btnPagePrev.addEventListener("click", (e) => {
-        e.preventDefault();
-        var temp = pagenum.textContent;
-        pagenum.textContent = temp - 1;
-      });
-
-      btnPageNum.addEventListener("click", (e) => {
-        e.preventDefault();
-        pagenum.value = btnPageNext.innerText;
-      });
-    </script>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>
 </html>

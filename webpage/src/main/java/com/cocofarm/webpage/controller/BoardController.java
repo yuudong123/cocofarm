@@ -1,9 +1,6 @@
 package com.cocofarm.webpage.controller;
 
-import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_EVENT;
-import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_NOTICE;
 import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_QNA;
-import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_REVIEW;
 
 import java.util.ArrayList;
 
@@ -44,32 +41,18 @@ public class BoardController {
     @GetMapping(value = "/board/{category}")
     public ModelAndView selectBoardList(@PathVariable String category, CriteriaDTO cri) {
         ModelAndView mav = new ModelAndView();
-        int code = 0;
         if (category.equals("qna")) {
-            cri.setCode(BOARD_CATEGORY_QNA);
-            cri.setKeyword("");
             ArrayList<QnaDTO> qnalist = boardService.selectQnaList(cri);
             mav.addObject("boardlist", qnalist);
             mav.setViewName("board/qnalist");
-            return mav;
-        } else if (category.equals("notice")) {
-            code = BOARD_CATEGORY_NOTICE;
-        } else if (category.equals("event")) {
-            code = BOARD_CATEGORY_EVENT;
-        } else if (category.equals("review")) {
-            code = BOARD_CATEGORY_REVIEW;
+        } else {
+            ArrayList<BoardVO> boardlist = boardService.selectList(category, cri);
+            mav.addObject("boardlist", boardlist);
+            mav.setViewName("board/boardlist");
         }
-        cri.setPage(1);
-        cri.setCode(code);
-        cri.setKeyword("");
-        cri.setBoardPerPage(10);
-        ArrayList<BoardVO> boardlist = boardService.selectList(cri);
         int total = boardService.getTotal(cri);
         PageDTO pagedto = new PageDTO(cri, total);
         mav.addObject("pager", pagedto);
-        mav.addObject("boardlist", boardlist);
-        System.out.println(pagedto);
-        mav.setViewName("board/boardlist");
         return mav;
     }
 
@@ -159,7 +142,7 @@ public class BoardController {
         if (cri.getKeyword() == null) {
             cri.setKeyword("");
         }
-        ArrayList<BoardVO> list = boardService.selectList(cri);
+        ArrayList<BoardVO> list = boardService.selectListAnd(cri);
         return new Gson().toJson(list);
     }
 

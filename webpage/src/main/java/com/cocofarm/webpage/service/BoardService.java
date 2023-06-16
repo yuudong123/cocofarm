@@ -1,5 +1,9 @@
 package com.cocofarm.webpage.service;
 
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_EVENT;
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_NOTICE;
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_REVIEW;
+
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,42 +18,58 @@ import com.cocofarm.webpage.mapper.BoardMapper;
 public class BoardService {
 
     @Autowired
-    BoardMapper boardMapper;
+    BoardMapper mapper;
 
     public int getTotal(CriteriaDTO cri) {
-        return boardMapper.getTotal(cri);
+        return mapper.getTotal(cri);
     }
 
-    public ArrayList<BoardVO> selectList(CriteriaDTO cri) {
-        ArrayList<BoardVO> list = boardMapper.selectList(cri);
+    public ArrayList<BoardVO> selectList(String category, CriteriaDTO cri) {
+        int code = 0;
+        if (category.equals("notice")) {
+            code = BOARD_CATEGORY_NOTICE;
+        } else if (category.equals("event")) {
+            code = BOARD_CATEGORY_EVENT;
+        } else if (category.equals("review")) {
+            code = BOARD_CATEGORY_REVIEW;
+        }
+        cri.setCode(code);
+        cri.setKeyword("");
+        cri.setBoardPerPage(10);
+        ArrayList<BoardVO> list = mapper.selectList(cri);
+        return list;
+    }
+
+    public ArrayList<BoardVO> selectListAnd(CriteriaDTO cri) {
+        ArrayList<BoardVO> list = mapper.selectList(cri);
         return list;
     }
 
     public ArrayList<QnaDTO> selectQnaList(CriteriaDTO cri) {
-        ArrayList<QnaDTO> list = boardMapper.selectQnaList(cri);
+        ArrayList<QnaDTO> list = mapper.selectQnaList(cri);
         return list;
     }
 
     public BoardVO selectboard(int board_no) {
-        BoardVO vo = boardMapper.selectboard(board_no);
+        BoardVO vo = mapper.selectboard(board_no);
         return vo;
     }
 
     public QnaDTO selectqna(int board_no) {
-        QnaDTO dto = boardMapper.selectqna(board_no);
+        QnaDTO dto = mapper.selectqna(board_no);
         return dto;
     }
 
     public int insert(BoardVO vo) {
-        return boardMapper.insert(vo);
+        return mapper.insert(vo);
     }
 
     public int update(BoardVO vo) {
-        return boardMapper.update(vo);
+        return mapper.update(vo);
     }
 
     public int delete(int board_no) {
-        return boardMapper.delete(board_no);
+        return mapper.delete(board_no);
     }
 
 }
