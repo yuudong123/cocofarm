@@ -38,7 +38,8 @@ public class JoinInfoActivity extends AppCompatActivity {
             String password = binding.edtPw.getText().toString();
             String nickname= binding.edtName.getText().toString();
             String phone = binding.edtPhone.getText().toString();
-            String address = binding.tvAddress.getText().toString() + ", " + binding.edtAddress.getText().toString();
+            String address_road = binding.tvAddress.getText().toString() + ", ";
+            String address = address_road + binding.edtAddress.getText().toString();
 
 
             if (nickname.isEmpty() || password.isEmpty()) {
@@ -48,14 +49,15 @@ public class JoinInfoActivity extends AppCompatActivity {
                     phone = "";
                 }
 
-                if (address == null) {
+                if (address.equals(", ")) {
                     address = "";
                 }
+
                 vo.setPassword(password);
                 vo.setNickname(nickname);
                 vo.setPhonenumber(phone);
                 vo.setAddress(address);
-            }
+
 
                 CommonConn conn = new CommonConn(this, "join");
                 conn.addParam("email", vo.getEmail());
@@ -63,9 +65,10 @@ public class JoinInfoActivity extends AppCompatActivity {
                 conn.addParam("nickname", vo.getNickname());
                 conn.addParam("phonenumber", vo.getPhonenumber());
                 conn.addParam("address", vo.getAddress());
+                conn.addParam("sns", vo.getSns());
 
                 conn.onExcute((isResult, data) -> {
-                    if(isResult) {
+                    if (isResult) {
                         Log.d("회원가입 정보", "onCreate: " + data);
                         Intent intent = new Intent(JoinInfoActivity.this, JoinCompleteActivity.class);
                         startActivity(intent);
@@ -75,6 +78,7 @@ public class JoinInfoActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+            }
         });
     }
 

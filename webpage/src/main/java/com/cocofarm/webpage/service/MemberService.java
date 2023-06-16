@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.mapper.MemberMapper;
 
 @Service
@@ -23,6 +24,14 @@ public class MemberService {
     return mapper.join(vo);
   }
 
+  public String email_search(String email){
+    return mapper.email_search(email);
+  }
+
+  public MemberVO sns_login(MemberVO vo) {
+    return mapper.sns_login(vo);
+  }
+
   public MemberVO am_modify(MemberVO vo) {
     mapper.am_modify(vo);
     return mapper.login(vo);
@@ -32,8 +41,8 @@ public class MemberService {
     return mapper.away(email);
   }
 
-  public ArrayList<BoardVO> myboard(BoardVO vo) {
-    ArrayList<BoardVO> result = mapper.myboard(vo);
+  public ArrayList<QnaDTO> myboard(QnaDTO dto) {
+    ArrayList<QnaDTO> result = mapper.myboard(dto);
 
     return result;
   }

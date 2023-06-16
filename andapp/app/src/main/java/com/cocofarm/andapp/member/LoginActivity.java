@@ -31,11 +31,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        if(CommonVal.isCheckLogout){
+            nonSaveLoginInfo();
+        }
 
         // 로그인 정보
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         boolean isChecked = preferences.getBoolean("checked", false);
         binding.chkLogin.setChecked(isChecked);
+
 
         if (binding.chkLogin.isChecked()) {
             String email = preferences.getString("email", "");

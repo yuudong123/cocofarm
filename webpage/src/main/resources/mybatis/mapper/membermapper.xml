@@ -7,9 +7,21 @@ select * from TBL_MEMBER where EMAIL = #{email} and PASSWORD = #{password}
 </select>
 
 <insert id="join">
-insert into TBL_MEMBER (member_no, member_type_cd, email, password, nickname, phonenumber, address, joindate, isactivated)
-values (seq_member_no.nextval, 102, #{email}, #{password}, #{nickname}, #{phonenumber}, #{address}, sysdate, 'Y')
+insert into TBL_MEMBER (member_no, member_type_cd, email, password, nickname, phonenumber, address, joindate, isactivated, sns)
+values (seq_member_no.nextval, 102, #{email}, #{password}, #{nickname}, #{phonenumber}, #{address}, sysdate, 'Y', #{sns})
 </insert>
+
+<select id="email_search">
+select count(*)
+from TBL_MEMBER
+where EMAIL = #{email}
+</select>
+
+<select id="sns_login" resultType="com.cocofarm.webpage.domain.MemberVO">
+select *
+from TBL_MEMBER
+where EMAil = #{email}
+</select>
 
 <update id="am_modify">
 update tbl_member
@@ -22,7 +34,7 @@ delete from tbl_member
 where email = #{email}
 </delete>
 
-<select id="myboard" resultType="com.cocofarm.webpage.domain.BoardVO">
+<select id="myboard" resultType="com.cocofarm.webpage.domain.QnaDTO">
 select *
 from tbl_board
 where member_no = #{member_no}

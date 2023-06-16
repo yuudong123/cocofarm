@@ -3,12 +3,14 @@ package com.cocofarm.andapp.mypage;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.cocofarm.andapp.board.BoardVO;
+import com.cocofarm.andapp.board.QnAReadActivity;
 import com.cocofarm.andapp.board.QnaDTO;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
@@ -37,7 +39,7 @@ public class MyBoardActivity extends AppCompatActivity {
                     return;
             } else {
                 Log.d("내가쓴글", "onCreate: " + data);
-                ArrayList<BoardVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>(){}.getType());
+                ArrayList<QnaDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>(){}.getType());
                 if (list.size() <= 0) {
                     binding.layoutEmpty.setVisibility(View.VISIBLE);
                 } else {
@@ -45,6 +47,7 @@ public class MyBoardActivity extends AppCompatActivity {
 
                     binding.recvMyboard.setAdapter(new MyBoardAdapter(list));
                     binding.recvMyboard.setLayoutManager(new LinearLayoutManager(this));
+
                 }
             }
         });

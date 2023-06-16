@@ -24,7 +24,7 @@ public class PhoneHyphen {
 					mobTelNo = mobTelNo.substring(0, 2) + "-" + mobTelNo.substring(2, 5) + "-" + mobTelNo.substring(5);
 				} else { // 그외는 012-123-1345
 					mobTelNo = mobTelNo.substring(0, 3) + "-" + mobTelNo.substring(3, 6) + "-" + mobTelNo.substring(6);
-				}
+				} 
 			}
 		}
 

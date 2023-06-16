@@ -1,6 +1,7 @@
 package com.cocofarm.andapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,27 +10,41 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
+import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityFirstBinding;
 import com.cocofarm.andapp.databinding.BtmSheetSnsBinding;
+import com.cocofarm.andapp.member.BannedActivity;
 import com.cocofarm.andapp.member.JoinEmailActivity;
+import com.cocofarm.andapp.member.JoinInfoActivity;
 import com.cocofarm.andapp.member.LoginActivity;
 import com.cocofarm.andapp.member.MemberVO;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.common.KakaoSdk;
 import com.kakao.sdk.user.UserApiClient;
+import com.navercorp.nid.NaverIdLoginSDK;
 import com.navercorp.nid.oauth.NidOAuthLogin;
+import com.navercorp.nid.oauth.OAuthLoginCallback;
 import com.navercorp.nid.profile.NidProfileCallback;
 import com.navercorp.nid.profile.data.NidProfileResponse;
 
@@ -68,7 +83,7 @@ public class FirstActivity extends AppCompatActivity {
         function_text.setText(spannableString);
 
 
-        // 로그인
+        // 일반 로그인 (시작하기)
         binding.btnLogin.setOnClickListener(v->{
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
@@ -85,23 +100,28 @@ public class FirstActivity extends AppCompatActivity {
             toggleBottomSheet();
         });
 
+
+
         // 카카오 로그인
         Function2 callback = new Function2<OAuthToken, Throwable, Unit>() {
             @Override
             public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
+                Log.e("callback", "CallBack Method");
                 if(oAuthToken != null) {
                     kakaoProfile();
                     Log.d("카카오톡", "invoke: " + oAuthToken);
                 }
                 if (throwable != null) {
-                    Log.d("카카오톡", "invoke: " + throwable.getMessage());
+                    Log.d("카카오톡", "로그인 실패: " + throwable.getMessage());
                 }
                 return null;
             }
         };
         KakaoSdk.init(this, "73eaa0878647dc013752cd7b307750b3");
+
+
         bindingSheet.tvKakao.setOnClickListener(v->{
-            if(UserApiClient.getInstance().isKakaoTalkLoginAvailable(this)){
+            if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(this)) {
                 Log.d("카카오톡", "onCreate: true");
                 UserApiClient.getInstance().loginWithKakaoTalk(this, callback); // KakaoTalk 앱 이용
             } else {
@@ -110,18 +130,45 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
 
-        // 네이버 로그인
-        bindingSheet.tvNaver.setOnClickListener(v->{
 
+        // 네이버 로그인
+        NaverIdLoginSDK.INSTANCE.initialize(this, "mhQYny1CjQCSHvaCAkND","GPDbK27wHv", "Cocofarm");
+        bindingSheet.tvNaver.setOnClickListener(v->{
+            bindingSheet.buttonOAuthLoginImg.setOAuthLogin(new OAuthLoginCallback() {
+                @Override
+                public void onSuccess() {
+                    naverProfile();
+                    Log.d("네이버 로그인", "onSuccess: " + NaverIdLoginSDK.INSTANCE.getAccessToken());
+                }
+
+                @Override
+                public void onFailure(int i, @NonNull String s) {
+
+                }
+
+                @Override
+                public void onError(int i, @NonNull String s) {
+
+                }
+            });
+            bindingSheet.buttonOAuthLoginImg.performClick();
         });
+
 
         // 구글 로그인
-        bindingSheet.tvGoogle.setOnClickListener(v->{
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+
+        bindingSheet.tvGoogle.setOnClickListener(v->{
+            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, RC_SIGN_IN);
         });
 
 
-
+        // 이메일로 회원가입
         binding.tvJoin.setOnClickListener(v->{
             Intent intent = new Intent(this, JoinEmailActivity.class);
             startActivity(intent);
@@ -129,11 +176,15 @@ public class FirstActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    final int RC_SIGN_IN = 1000;
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            googleProfile(account);
+        } catch (ApiException e) {
+            Log.w("TAG", "signInResult:failed code=" + e.getStatusCode());
+        }
     }
-
 
     private void toggleBottomSheet() {
         if (isSheetVisible) {
@@ -149,10 +200,48 @@ public class FirstActivity extends AppCompatActivity {
     private void kakaoProfile() {
         UserApiClient.getInstance().me((user, throwable) -> {
             if(throwable != null) {
-                Log.d("카카오", "kakaoProfile: " + throwable.getMessage());
+                Log.d("요청 실패", "실패: " + throwable.getMessage());
             } else {
-                Log.d("카카오프로필", "kakaoProfile: " + user.getKakaoAccount().getEmail());
-                Log.d("카카오프로필", "kakaoProfile: " + user.getKakaoAccount().getProfile().getNickname());
+                Log.d("카카오프로필", "email: " + user.getKakaoAccount().getEmail());
+                CommonConn conn = new CommonConn(this, "email_search");
+                conn.addParam("email", user.getKakaoAccount().getEmail());
+                conn.onExcute((isResult, data) -> {
+                    if (isResult) {
+                        Log.d("카카오로그인", "onCreate: " + data);
+                        // 정보 없으면 > 회원가입
+                        if (data.equals("0")) {
+                            MemberVO vo = new MemberVO();
+                            vo.setEmail(user.getKakaoAccount().getEmail());
+                            vo.setSns("KAKAO");
+                            Intent intent = new Intent(this, JoinInfoActivity.class);
+                            intent.putExtra("join", vo);
+                            startActivity(intent);
+                            // 있으면 > 로그인 처리
+                        } else if (data.equals("1")) {
+                            CommonConn login_conn = new CommonConn(this, "sns_login");
+                            login_conn.addParam("email", user.getKakaoAccount().getEmail());
+                            login_conn.onExcute((isResult1, data1) -> {
+                                CommonVal.loginMember = new Gson().fromJson(data1, MemberVO.class);
+                                if(CommonVal.loginMember != null) {
+                                    if (CommonVal.loginMember.getIsactivated().equals("Y")) {
+                                        Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
+                                        Intent intent = new Intent(this, MainActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(this, BannedActivity.class);
+                                        CommonVal.loginMember = null;
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+                        } else {
+                            finish();
+                        }
+                    } else {
+                        finish();
+                    }
+                });
+
             }
             return null;
         });
@@ -164,8 +253,42 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onSuccess(NidProfileResponse nidProfileResponse) {
                 Log.d("네이버", "onSuccess: " + nidProfileResponse.getProfile().getEmail());
-                Log.d("네이버", "onSuccess: " + nidProfileResponse.getProfile().getMobile());
-                Log.d("네이버", "onSuccess: " + nidProfileResponse.getProfile().getName());
+                CommonConn conn = new CommonConn(FirstActivity.this, "email_search");
+                conn.addParam("email", nidProfileResponse.getProfile().getEmail());
+
+                conn.onExcute((isResult, data) -> {
+                    if (isResult) {
+                        Log.d("카카오로그인", "onCreate: " + data);
+                        // 정보 없으면 > 회원가입
+                        if (data.equals("0")) {
+                            MemberVO vo = new MemberVO();
+                            vo.setEmail(nidProfileResponse.getProfile().getEmail());
+                            vo.setSns("NAVER");
+                            Intent intent = new Intent(FirstActivity.this, JoinInfoActivity.class);
+                            intent.putExtra("join", vo);
+                            startActivity(intent);
+                            // 있으면 > 로그인 처리
+                        } else if (data.equals("1")) {
+                            CommonConn login_conn = new CommonConn(FirstActivity.this, "sns_login");
+                            login_conn.addParam("email", nidProfileResponse.getProfile().getEmail());
+
+                            login_conn.onExcute((isResult1, data1) -> {
+                                CommonVal.loginMember = new Gson().fromJson(data1, MemberVO.class);
+                                if (CommonVal.loginMember != null) {
+                                    if (CommonVal.loginMember.getIsactivated().equals("Y")) {
+                                        Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
+                                        Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        Intent intent = new Intent(FirstActivity.this, BannedActivity.class);
+                                        CommonVal.loginMember = null;
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
             }
 
             @Override
@@ -179,6 +302,50 @@ public class FirstActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void googleProfile(GoogleSignInAccount account) {
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        if (acct != null) {
+            String personEmail = acct.getEmail();
+            CommonConn conn = new CommonConn(FirstActivity.this, "email_search");
+            conn.addParam("email", personEmail);
+            conn.onExcute((isResult, data) -> {
+                if (isResult) {
+                    Log.d("구글로그인", "onCreate: " + data);
+                    // 정보 없으면 > 회원가입
+                    if (data.equals("0")) {
+                        MemberVO vo = new MemberVO();
+                        vo.setEmail(personEmail);
+                        vo.setSns("GOOGLE");
+                        Intent intent = new Intent(FirstActivity.this, JoinInfoActivity.class);
+                        intent.putExtra("join", vo);
+                        startActivity(intent);
+                        // 있으면 > 로그인 처리
+                    } else if (data.equals("1")) {
+                        CommonConn login_conn = new CommonConn(FirstActivity.this, "sns_login");
+                        login_conn.addParam("email", personEmail);
+
+                        login_conn.onExcute((isResult1, data1) -> {
+                            CommonVal.loginMember = new Gson().fromJson(data1, MemberVO.class);
+                            if (CommonVal.loginMember != null) {
+                                if (CommonVal.loginMember.getIsactivated().equals("Y")) {
+                                    Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
+                                    Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                } else {
+                                    Intent intent = new Intent(FirstActivity.this, BannedActivity.class);
+                                    CommonVal.loginMember = null;
+                                    startActivity(intent);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+
 
     // HashKey
     private void getHashKey(){
@@ -199,6 +366,15 @@ public class FirstActivity extends AppCompatActivity {
             } catch (NoSuchAlgorithmException e) {
                 Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
         }
     }
 }

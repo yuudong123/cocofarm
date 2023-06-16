@@ -17,4 +17,5 @@ public class MemberVO implements Serializable {
     private String address;
     private Date joindate;
     private String isactivated;
+    private String sns;
 }

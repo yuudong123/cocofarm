@@ -21,6 +21,7 @@ public class MemberVO implements Serializable {
     @JsonAdapter(DateJsonAdapter.class)
     private Date joindate;
     private String isactivated;
+    private String sns;
 
     public MemberVO() {
 
