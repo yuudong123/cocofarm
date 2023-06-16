@@ -24,8 +24,10 @@ import java.util.List;
 
 public class CartActivity extends AppCompatActivity {
 
+
     ActivityCartBinding binding;
 
+    CartAdapter adapter;
 
     public static TextView allPrice;
     public static Button allDelete;
@@ -40,33 +42,36 @@ public class CartActivity extends AppCompatActivity {
         //프로덕트 vo받는 코드
         // ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
 
-        //디비에서 리스트 불러오는 코드 필요.
-        CommonConn conn = new CommonConn(this, "selectCartList.and");
-        conn.addParam("member_no", CommonVal.loginMember.getMember_no());
-        conn.onExcute((isResult, data) -> {
-            if (isResult) {
-                ArrayList<CartDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<CartDTO>>() {
-                }.getType());
-                CartAdapter adapter = new CartAdapter(list);
-                LinearLayoutManager manager = new LinearLayoutManager(this);
-                binding.recvCart.setAdapter(adapter);
-                binding.recvCart.setLayoutManager(manager);
+        //디비에서 리스트 불러오는 메소드
+        load();
 
-                load(list);
-                //상품 전체 삭제 후 비어있는 페이지 보여주게 하기..
-                binding.btnCartAlldelete.setOnClickListener(v -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("").setMessage("상품 전체를 삭제하시겠습니까?").setCancelable(false)
-                            .setPositiveButton("확인", (dialogInterface, i1) -> {
+        binding.checkCartAll.setOnClickListener(v->{
 
-                            })
-                            .setNegativeButton("취소", (dialogInterface, i1) -> {
+           // binding.checkCartAll.setChecked(!binding.checkCartAll.isChecked());
 
-                            }).create().show();
-                });
+            int cnt = CommonVal.cart.size();
+            for(int i=0; i<cnt; i++){
+                CommonVal.cart.get(i).setChecked(binding.checkCartAll.isChecked());
             }
-
+            //장바구니에 상태 바뀐거 알려주기.
+            adapter.notifyDataSetChanged();
         });
+
+        //상품 전체 삭제 후 비어있는 페이지 보여주게 하기..
+        binding.btnCartAlldelete.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("").setMessage("상품 전체를 삭제하시겠습니까?").setCancelable(false)
+                    .setPositiveButton("확인", (dialogInterface, i1) -> {
+
+
+                    })
+                    .setNegativeButton("취소", (dialogInterface, i1) -> {
+
+                    }).create().show();
+        });
+
+
+
 
 
         //삭제 버튼누르는게 db처리하고 남은것들도 db로 다시 불러오기. 불러오는 과정 여러번 이면..
@@ -84,14 +89,29 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
-    protected void load(ArrayList<CartDTO> list) {
-        if (list.size() > 0) {
-            binding.layoutCart.setVisibility(View.VISIBLE);
-            binding.layoutCartEmpty.setVisibility(View.GONE);
-        } else {
-            binding.layoutCart.setVisibility(View.GONE);
-            binding.layoutCartEmpty.setVisibility(View.VISIBLE);
-        }
+    protected void load() {
+        CommonConn conn = new CommonConn(this, "selectCartList.and");
+        conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+        conn.onExcute((isResult, data) -> {
+            if (isResult) {
+                CommonVal.cart = new Gson().fromJson(data, new TypeToken<ArrayList<CartDTO>>() {
+                }.getType());
+                adapter = new CartAdapter();
+                LinearLayoutManager manager = new LinearLayoutManager(this);
+                binding.recvCart.setAdapter(adapter);
+                binding.recvCart.setLayoutManager(manager);
+
+                if (CommonVal.cart.size() > 0) {
+                    binding.layoutCart.setVisibility(View.VISIBLE);
+                    binding.layoutCartEmpty.setVisibility(View.GONE);
+                } else {
+                    binding.layoutCart.setVisibility(View.GONE);
+                    binding.layoutCartEmpty.setVisibility(View.VISIBLE);
+                }
+            }
+
+        });
+
     }
 
     @Override
