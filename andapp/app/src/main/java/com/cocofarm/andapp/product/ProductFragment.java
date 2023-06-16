@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.product;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.databinding.FragmentProductBinding;
+import com.cocofarm.andapp.order.CartActivity;
 import com.google.android.material.tabs.TabLayout;
 
 public class ProductFragment extends Fragment {
@@ -50,6 +52,13 @@ public class ProductFragment extends Fragment {
             }
 
         });
+
+        //마지막에 지워야 함. 장바구니로 바로 이동 버튼
+        binding.btnGOCART.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), CartActivity.class);
+            startActivity(intent);
+        });
+
         return binding.getRoot();
     }
 
