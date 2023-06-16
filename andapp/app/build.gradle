@@ -48,7 +48,9 @@ dependencies {
     implementation "com.kakao.sdk:v2-user:2.13.0" // 카카오 로그인
     implementation 'com.navercorp.nid:oauth:5.5.0'
     implementation 'androidx.navigation:navigation-fragment:2.4.1'
-    implementation 'androidx.navigation:navigation-ui:2.4.1'// 네이버 로그인
+    implementation 'androidx.navigation:navigation-ui:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'// 네이버 로그인
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.26'

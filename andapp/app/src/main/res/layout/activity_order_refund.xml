@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:src="@drawable/img_close_btn" />
+            android:src="@drawable/icon_close" />
     </LinearLayout>
 
     <ScrollView

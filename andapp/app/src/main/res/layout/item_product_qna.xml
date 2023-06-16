@@ -5,20 +5,27 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/layoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="5dp"
         android:gravity="center_vertical"
-        android:paddingHorizontal="10dp"
-        android:paddingVertical="5dp">
+        android:paddingVertical="5dp"
+        android:paddingEnd="10dp">
+
+        <ImageView
+            android:id="@+id/ivDropBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_drop_down" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:text="이런 질문 해도 되나요?"
             android:textStyle="bold" />
 
@@ -48,10 +55,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#eee"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tvContentQ"
@@ -62,10 +71,10 @@
 
         <LinearLayout
             android:id="@+id/layoutAnswer"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -105,6 +114,6 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="#ddd" />
 </LinearLayout>
