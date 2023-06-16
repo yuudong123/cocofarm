@@ -30,8 +30,15 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="5dp"
-        android:background="#E0E0E0" />
-
+        android:layout_gravity="center"
+        android:background="#E0E0E0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <com.navercorp.nid.oauth.view.NidOAuthLoginButton
+        android:visibility="gone"
+        android:id="@+id/buttonOAuthLoginImg"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp" />
     <TextView
         android:id="@+id/tv_naver"
         android:layout_width="match_parent"
@@ -41,8 +48,9 @@
         android:gravity="center"
         android:paddingHorizontal="110dp"
         android:text="네이버 계정 로그인"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        android:drawableLeft="@drawable/customize_naver_logo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 
     <View
         android:layout_width="match_parent"
@@ -50,7 +58,10 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="5dp"
-        android:background="#E0E0E0" />
+        android:layout_gravity="center"
+        android:background="#E0E0E0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
 
     <TextView
         android:id="@+id/tv_google"

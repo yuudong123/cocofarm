@@ -22,19 +22,24 @@ import com.cocofarm.andapp.databinding.ActivityQnaReadBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
 import com.cocofarm.andapp.product.ProductVO;
+import com.cocofarm.andapp.util.DateJsonAdapter;
 import com.google.gson.Gson;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.reflect.TypeToken;
+
+import java.util.Date;
 
 public class QnAReadActivity extends AppCompatActivity {
 
     ActivityQnaReadBinding binding;
     ProductVO productVO;
-
+    QnaDTO dto = null ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityQnaReadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         QnaDTO dto = (QnaDTO) getIntent().getSerializableExtra("QnaDTO");
 
         if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {

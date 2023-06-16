@@ -15,6 +15,7 @@ public class CommonVal {
 
     public static ArrayList<CartDTO>cart = new ArrayList<>();
 
+    public static boolean isCheckLogout = false;
     public static SimpleDateFormat Md = new SimpleDateFormat("M월 d일");
     public static SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static SimpleDateFormat HHmmss = new SimpleDateFormat("HH:mm:ss");

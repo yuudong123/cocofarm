@@ -32,4 +32,9 @@ public class JoinCompleteActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+    }
 }

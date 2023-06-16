@@ -42,30 +42,46 @@ public class JoinEmailActivity extends AppCompatActivity {
             if (email.isEmpty()) {
                 Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
-                vo.setEmail(email);
-                binding.tvSend.setVisibility(View.GONE);
-                binding.tvComplete.setVisibility(View.VISIBLE);
-                binding.layoutConfirm.setVisibility(View.VISIBLE);
+                CommonConn email_conn = new CommonConn(this, "email_search");
+                email_conn.addParam("email", email);
 
-                String confirm_text = random_email();
-                CommonConn conn = new CommonConn(this, "email");
-                conn.addParam("confirm_text", confirm_text);
-                conn.addParam("email", email);
+                email_conn.onExcute((isResult, data) -> {
+                    if(isResult) {
+                        if (data.equals("1")) {
+                            Toast.makeText(this, "이미 등록된 이메일입니다.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            vo.setEmail(email);
+                            vo.setSns("N");
+                            binding.tvSend.setVisibility(View.GONE);
+                            binding.tvComplete.setVisibility(View.VISIBLE);
+                            binding.layoutConfirm.setVisibility(View.VISIBLE);
 
-                conn.onExcute((isResult, data) -> {
-                    Log.d("인증번호", "onCreate: " + data);
-                });
+                            String confirm_text = random_email();
 
+                            CommonConn conn = new CommonConn(this, "email");
+                            conn.addParam("confirm_text", confirm_text);
+                            conn.addParam("email", email);
 
-                binding.tvOk.setOnClickListener(v->{
-                    if (binding.edtConfirm.getText().toString().equals(confirm_text)) {
-                        Intent intent = new Intent(JoinEmailActivity.this, JoinInfoActivity.class);
-                        intent.putExtra("join", vo);
-                        startActivity(intent);
+                            conn.onExcute((isResult1, data1) -> {
+                                Log.d("인증번호", "onCreate: " + data1);
+                            });
+
+                            binding.tvOk.setOnClickListener(v->{
+                                if (binding.edtConfirm.getText().toString().equals(confirm_text)) {
+                                    Intent intent = new Intent(JoinEmailActivity.this, JoinInfoActivity.class);
+                                    intent.putExtra("join", vo);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(this, "잘못된 인증번호입니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
                     } else {
-                        Toast.makeText(this, "잘못된 인증번호입니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
+
 
             }
         });

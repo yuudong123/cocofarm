@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cocofarm.webpage.PhoneHyphen;
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.MemberService;
 import com.google.gson.Gson;
 
@@ -30,18 +31,32 @@ public class MemberController {
     }
 
     @RequestMapping(value = "join")
-    public int join(String email, String password, String nickname, String phonenumber, String address) {
+    public int join(String email, String password, String nickname, String phonenumber, String address, String sns) {
         MemberVO join_vo = new MemberVO();
         join_vo.setEmail(email);
         join_vo.setPassword(password);
         join_vo.setNickname(nickname);
-        String hypen_phone = PhoneHyphen.convertTelNo(phonenumber);
-        join_vo.setPhonenumber(hypen_phone);
-        // join_vo.setPhonenumber(phonenumber);
+        // String hypen_phone = PhoneHyphen.convertTelNo(phonenumber);
+        // join_vo.setPhonenumber(hypen_phone);
+        join_vo.setPhonenumber(phonenumber);
         join_vo.setAddress(address);
+        join_vo.setSns(sns);
 
         return service.join(join_vo);
     }
+
+    @PostMapping(value = "email_search")
+    public String email_search(String email) {
+        return service.email_search(email);
+    }
+
+    @PostMapping(value = "sns_login")
+    public String sns_login(String email) {
+        MemberVO vo = new MemberVO();
+        vo.setEmail(email);
+     return new Gson().toJson(service.sns_login(vo));
+    }
+
 
     @RequestMapping(value = "am.modify")
     public String am_modify(String password, String nickname, String phonenumber, String email, String address) {
@@ -67,12 +82,13 @@ public class MemberController {
 
     @PostMapping(value = "/myboard", produces = "text/html;charset=utf-8")
     public String myboard(int member_no) {
-        BoardVO vo = new BoardVO();
-        vo.setMember_no(member_no);
+        QnaDTO dto = new QnaDTO();
+        dto.setMember_no(member_no);
         System.out.println(member_no);
 
-        return new Gson().toJson(service.myboard(vo));
+        return new Gson().toJson(service.myboard(dto));
     }
+
 
     @RequestMapping(value = "email")
     public String sendEmail(String confirm_text, String email) {
