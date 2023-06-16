@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,7 +27,6 @@ import com.cocofarm.webpage.service.ReplyService;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping("board/*")
 @SessionAttributes("userinfo")
 public class BoardController {
 
@@ -127,7 +125,7 @@ public class BoardController {
         return boardService.delete(board_no);
     }
 
-    @PostMapping(value = "/getTotal.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/getTotal.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String getTotalAnd(CriteriaDTO cri) {
         if (cri.getKeyword() == null) {
@@ -136,7 +134,7 @@ public class BoardController {
         return boardService.getTotal(cri) + "";
     }
 
-    @PostMapping(value = "/selectboardlist.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/selectboardlist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardListAnd(CriteriaDTO cri) {
         if (cri.getKeyword() == null) {
@@ -146,7 +144,7 @@ public class BoardController {
         return new Gson().toJson(list);
     }
 
-    @PostMapping(value = "/selectqnalist.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/selectqnalist.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectQnaListAnd(CriteriaDTO cri) {
         if (cri.getKeyword() == null) {
@@ -156,33 +154,33 @@ public class BoardController {
         return new Gson().toJson(list);
     }
 
-    @PostMapping(value = "/selectboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/selectboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectBoardAnd(int board_no) {
         BoardVO vo = boardService.selectboard(board_no);
         return new Gson().toJson(vo);
     }
 
-    @PostMapping(value = "/selectqna.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/selectqna.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public String selectQnaAnd(int board_no) {
         QnaDTO dto = boardService.selectqna(board_no);
         return new Gson().toJson(dto);
     }
 
-    @PostMapping(value = "/insertboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/insertboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void insertBoardAnd(BoardVO vo) {
         boardService.insert(vo);
     }
 
-    @PostMapping(value = "/updateboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/updateboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void updateBoardAnd(BoardVO vo) {
         boardService.update(vo);
     }
 
-    @PostMapping(value = "/deleteboard.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/board/deleteboard.and", produces = "text/html;charset=utf-8")
     @ResponseBody
     public void deleteBoardAnd(int board_no) {
         boardService.delete(board_no);

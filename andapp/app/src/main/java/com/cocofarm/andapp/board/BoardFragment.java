@@ -78,6 +78,5 @@ public class BoardFragment extends Fragment {
         if(fragment!=null) {
             getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
         }
-
     }
 }
