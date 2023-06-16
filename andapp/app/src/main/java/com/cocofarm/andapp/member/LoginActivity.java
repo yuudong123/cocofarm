@@ -66,13 +66,6 @@ public class LoginActivity extends AppCompatActivity {
         // 비밀번호 찾기
 
 
-
-        // 회원가입
-        binding.tvJoin.setOnClickListener(v->{
-            Intent intent = new Intent(LoginActivity.this, FirstActivity.class);
-            startActivity(intent);
-        });
-
         // 비회원
         binding.tvNonmember.setOnClickListener(v->{
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);

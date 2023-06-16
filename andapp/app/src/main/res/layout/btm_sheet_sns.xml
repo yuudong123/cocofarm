@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/btn_drop"
+        android:scaleType="fitXY"
+        android:layout_gravity="center"
+        android:src="@drawable/img_drop_btn"
+        android:layout_width="40dp"
+        android:layout_height="25dp"/>
+
+    <TextView
+        android:id="@+id/tv_kakao"
+        android:clickable="true"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:paddingHorizontal="110dp"
+        android:text="카카오 계정 로그인"
+        android:drawableLeft="@drawable/customize_kakao_logo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <View
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="5dp"
+        android:layout_gravity="center"
+        android:background="#E0E0E0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:id="@+id/tv_naver"
+        android:clickable="true"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:paddingHorizontal="110dp"
+        android:text="네이버 계정 로그인"
+        android:drawableLeft="@drawable/customize_naver_logo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <View
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="5dp"
+        android:layout_gravity="center"
+        android:background="#E0E0E0"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <TextView
+        android:id="@+id/tv_google"
+        android:clickable="true"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:paddingHorizontal="110dp"
+        android:text="구글 계정 로그인"
+        android:drawableLeft="@drawable/customize_google_logo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"/>
+</LinearLayout>
