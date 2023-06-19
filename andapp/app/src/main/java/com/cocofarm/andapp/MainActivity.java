@@ -19,6 +19,7 @@ import com.cocofarm.andapp.databinding.ActivityMainBinding;
 import com.cocofarm.andapp.home.HomeFragment;
 import com.cocofarm.andapp.member.LoginActivity;
 import com.cocofarm.andapp.mydevice.MyDeviceFragment;
+import com.cocofarm.andapp.mypage.CsCenterActivity;
 import com.cocofarm.andapp.mypage.MypageFragment;
 import com.cocofarm.andapp.mypage.NonMemberFragment;
 import com.cocofarm.andapp.order.CartActivity;
@@ -36,11 +37,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mContext = this;
-        // DrawerLayout.LayoutParams params = (DrawerLayout.LayoutParams)
-        // binding.navView.getLayoutParams();
-        // params.topMargin =
-        // mContext.getResources().getDimensionPixelSize(mContext.getResources().getIdentifier("status_bar_height",
-        // "dimen", "android"));
+        
         binding.bottomNav.setOnItemSelectedListener(menu -> {
             Fragment fragment = null;
             if (menu.getItemId() == R.id.home) {
@@ -101,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
                     binding.bottomNav.setSelectedItemId(R.id.mydevice);
                     break;
                 case R.id.right_nav_cs:
-                    // 뭐 들어갈지 몰라서 남겨둠
+                    Intent intentCs = new Intent(mContext, CsCenterActivity.class);
+                    startActivity(intentCs);
                     break;
             }
             return true;
