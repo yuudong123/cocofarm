@@ -188,4 +188,9 @@ public class BoardController {
         boardService.delete(board_no);
     }
 
+    @PostMapping(value = "/eventbanner.and")
+    @ResponseBody
+    public String eventBanner (int board_category_cd) {
+        return new Gson().toJson(boardService.eventBanner(board_category_cd));
+    }
 }

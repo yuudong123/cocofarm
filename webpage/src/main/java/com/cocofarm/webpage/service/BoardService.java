@@ -72,4 +72,7 @@ public class BoardService {
         return mapper.delete(board_no);
     }
 
+    public ArrayList<BoardVO> eventBanner (int board_category_cd) {
+        return mapper.eventBanner(board_category_cd);
+    }
 }
