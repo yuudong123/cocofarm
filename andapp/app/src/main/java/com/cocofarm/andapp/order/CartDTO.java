@@ -17,4 +17,6 @@ public class CartDTO implements Serializable {
     private String product_image;
     private boolean isChecked;
 
+
+
 }

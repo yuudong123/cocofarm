@@ -43,7 +43,7 @@
     
 
     <TextView
-        android:id="@+id/tv_order_name"
+        android:id="@+id/tv_order_Personname"
         android:text="홍길동"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -65,6 +65,8 @@
         android:layout_height="0dp"/>
 
     <TextView
+        android:textStyle="bold"
+        android:textSize="20dp"
         android:text="결제금액"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -85,25 +87,21 @@
             android:layout_height="match_parent"/>
 
         <TextView
+            android:id="@+id/tv_order_allPrice"
             android:text="33,000"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
     </LinearLayout>
 
-    <TextView
-        android:text="결제금액"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
+    <!--<TextView
         android:text="결제 수단"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <TextView
         android:text="무통장 입금"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"/>-->
 
     <Button
         android:id="@+id/btn_order_finish"

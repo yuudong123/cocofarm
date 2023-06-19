@@ -7,11 +7,20 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemOrderBinding;
+import com.cocofarm.andapp.image.ImageUtil;
+
+import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     ItemOrderBinding binding;
+    ArrayList<CartDTO>list;
+
+    public OrderAdapter(ArrayList<CartDTO> list) {
+        this.list = list;
+    }
 
     @NonNull
     @Override
@@ -22,12 +31,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ImageUtil.load(holder.binding.ivOrderProduct, list.get(position).getProduct_image());
+        holder.binding.tvOrderName.setText(list.get(position).getProduct_name());
+        holder.binding.tvOrderAmount.setText(list.get(position).getAmount()+"개");
+        holder.binding.tvOrderPrice.setText(list.get(position).getProduct_price()+"");
 
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
