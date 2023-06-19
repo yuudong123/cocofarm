@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, "로그인 서버가 응답하지 않습니다.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (data == null || data.equals("")) {
+            if (data == null || data.equals("null")) {
                 Toast.makeText(this, "이메일 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }

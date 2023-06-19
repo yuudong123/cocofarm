@@ -41,6 +41,15 @@ public class BoardModifyActivity extends AppCompatActivity {
             binding.mainImageSelect.setVisibility(View.VISIBLE);
         }
 
+        binding.mainImageSelect.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BoardImageSelectActivity.class);
+            startActivity(intent);
+        });
+        binding.btnImageChange.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BoardImageSelectActivity.class);
+            startActivity(intent);
+        });
+
         binding.btnConfirm.setOnClickListener(v -> {
             if (binding.edtTitle.getText().toString().equals("") || binding.edtContent.getText().toString().equals("")) {
                 Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
@@ -79,6 +88,7 @@ public class BoardModifyActivity extends AppCompatActivity {
         conn.addParam("board_no", boardVO.getBoard_no());
         conn.addParam("product_id", 0);
         conn.addParam("title", binding.edtTitle.getText().toString());
+        conn.addParam("mainimage", boardselectedImage);
         conn.addParam("content", binding.edtContent.getText().toString());
         conn.onExcute((isResult, data) -> {
             Log.d("글 작성", "onCreate: " + isResult);
