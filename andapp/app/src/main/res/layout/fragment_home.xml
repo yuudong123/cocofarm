@@ -1,14 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:clipToPadding="false"
+            android:clipChildren="false"
+            android:layout_width="match_parent"
+            android:layout_height="180dp" />
+        <View
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"
+            android:background="#E0E0E0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="#111111"
+            android:textSize="20dp"
+            android:text="인기 제품"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+            <View
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
+                android:background="#E0E0E0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recv_contents"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+            <View
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:background="#E0E0E0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <TextView
+                android:id="@+id/tv_cocomall"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:text="코코몰 바로가기 >>"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:textColor="#111111"
+                android:textSize="20dp"
+                android:text="공지사항"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+            <View
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center"
+                android:background="#E0E0E0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recvBoardList"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <View
+                android:layout_marginTop="8dp"
+                android:layout_gravity="center"
+                android:background="#E0E0E0"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_notice"
+                android:clickable="true"
+                android:layout_gravity="right"
+                android:textStyle="bold"
+                android:textColor="@color/primary"
+                android:text="공지사항 바로가기 >>"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</androidx.core.widget.NestedScrollView>

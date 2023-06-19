@@ -57,4 +57,11 @@
         product_id = #{product_id}, title = #{title}, content = #{content}, upddate = sysdate,
         mainimage = #{mainimage} where board_no = #{board_no} </update>
     <delete id="delete"> delete from tbl_board where board_no = #{board_no} </delete>
+
+    <select id="eventBanner" resultType="com.cocofarm.webpage.domain.BoardVO">
+        select *
+        from tbl_board
+        where board_category_cd = #{board_category_cd}
+        order by board_no desc
+    </select>
 </mapper>

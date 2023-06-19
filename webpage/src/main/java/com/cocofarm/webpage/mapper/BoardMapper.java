@@ -26,4 +26,6 @@ public interface BoardMapper {
     public int update(BoardVO vo);
 
     public int delete(int board_no);
+
+    public ArrayList<BoardVO> eventBanner(int board_category_cd);
 }
