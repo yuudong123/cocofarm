@@ -160,7 +160,11 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
+            intent.putExtra("number",number);
+            intent.putExtra("productVO",productVO);
+            intent.putExtra("value", 1);
             startActivity(intent);
         });
         allPrice();

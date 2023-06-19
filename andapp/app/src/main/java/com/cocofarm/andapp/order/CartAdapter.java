@@ -53,6 +53,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
                         int productQuantity = cartDTO.getAmount();
                         totalPrice += productPrice * productQuantity;
                     }
+
                 }
                CartActivity.allPrice.setText("￦" + totalPrice + "원");
             });
