@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
+import com.cocofarm.andapp.databinding.ActivityCartBinding;
 import com.cocofarm.andapp.databinding.ItemCartBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
@@ -43,9 +44,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
         holder.binding.tvCartOrderPrice.setText("￦"+totalAmount+"원");
 
 
-        holder.binding.checkCartSelect.setOnClickListener(v->{
-            CommonVal.cart.get(position).setChecked(holder.binding.checkCartSelect.isChecked());
-        });
+        holder.binding.checkCartSelect.setOnCheckedChangeListener((compoundButton, isChecked) ->{
+            CommonVal.cart.get(position).setChecked(isChecked);
+                int totalPrice = 0;
+                for(CartDTO cartDTO : CommonVal.cart) {
+                    if (cartDTO.isChecked()) {
+                        int productPrice = cartDTO.getProduct_price();
+                        int productQuantity = cartDTO.getAmount();
+                        totalPrice += productPrice * productQuantity;
+                    }
+                }
+               CartActivity.allPrice.setText("￦" + totalPrice + "원");
+            });
 
         holder.binding.tvOrderCancel.setOnClickListener(v->{
             int cartId = CommonVal.cart.get(position).getCart_id();
