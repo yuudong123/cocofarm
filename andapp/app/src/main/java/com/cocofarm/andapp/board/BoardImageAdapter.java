@@ -38,7 +38,7 @@ public class BoardImageAdapter extends RecyclerView.Adapter<BoardImageAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ImageDTO imageDTO = list.get(i);
         holder.binding.filename.setText(imageDTO.getFilename());
-        holder.binding.thumbnail.setImageBitmap(ImageUtil.load(imageDTO.getFilename()));
+        ImageUtil.load(holder.binding.thumbnail,imageDTO.getFilename());
         holder.binding.itemImageSelect.setOnClickListener(v -> {
             boardselectedImage = imageDTO.getFilename();
             Toast.makeText(context, imageDTO.getFilename() + " 로 변경", Toast.LENGTH_SHORT).show();

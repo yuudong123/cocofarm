@@ -54,7 +54,7 @@ public class QnAReadActivity extends AppCompatActivity {
 
             binding.tvProductName.setText(dto.getProduct_name());
             binding.tvProductContent.setText(dto.getProduct_content());
-            binding.ivProductImage.setImageBitmap(ImageUtil.load(dto.getMainimage()));
+            ImageUtil.load(binding.ivProductImage,dto.getMainimage());
             binding.qnaProduct.setVisibility(View.VISIBLE);
             binding.qnaProduct.setOnClickListener(v -> {
                 Intent intent = new Intent(QnAReadActivity.this, ProductActivity.class);

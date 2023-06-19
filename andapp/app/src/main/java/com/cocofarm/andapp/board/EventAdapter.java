@@ -38,7 +38,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         BoardVO boardVO = list.get(i);
         holder.binding.tvTitle.setText(boardVO.getTitle());
         holder.binding.tvRegdate.setText(yyyyMMddHHmmss.format(boardVO.getRegdate()));
-        holder.binding.ivMainimage.setImageBitmap(ImageUtil.load(boardVO.getMainimage()));
+       ImageUtil.load( holder.binding.ivMainimage,boardVO.getMainimage());
         holder.binding.itemEventBoard.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
             intent.putExtra("BoardVO", boardVO);

@@ -50,7 +50,7 @@ public class BoardWriteActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (boardselectedImage != "") {
-            binding.ivMainImage.setImageBitmap(ImageUtil.load(boardselectedImage));
+            ImageUtil.load( binding.ivMainImage,boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
             binding.mainImageSelect.setVisibility(View.GONE);
             binding.mainImageSelected.setVisibility(View.VISIBLE);

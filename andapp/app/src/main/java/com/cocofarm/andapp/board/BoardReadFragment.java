@@ -20,7 +20,7 @@ public class BoardReadFragment extends Fragment {
         binding = FragmentBoardReadBinding.inflate(inflater, container, false);
         boardVO = (BoardVO) getArguments().getSerializable("BoardVO");
         if (boardVO.getMainimage() != null) {
-            binding.ivMainImage.setImageBitmap(ImageUtil.load(boardVO.getMainimage()));
+            ImageUtil.load(binding.ivMainImage,boardVO.getMainimage());
         }
         binding.tvContent.setText(boardVO.getContent());
 

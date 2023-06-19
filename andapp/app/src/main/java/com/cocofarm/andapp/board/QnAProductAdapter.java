@@ -38,7 +38,7 @@ public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ProductVO productVO = list.get(i);
         holder.binding.filename.setText(productVO.getName());
-        holder.binding.thumbnail.setImageBitmap(ImageUtil.load(productVO.getFilename()));
+        ImageUtil.load(holder.binding.thumbnail,productVO.getFilename());
         holder.binding.itemImageSelect.setOnClickListener(v -> {
             qnaselectedproduct = productVO;
             Toast.makeText(context, productVO.getName() + " 로 변경", Toast.LENGTH_SHORT).show();

@@ -27,7 +27,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.ivCartOrder1.setImageBitmap(ImageUtil.load(cart.get(i).getProduct_image()));
+        ImageUtil.load(holder.binding.ivCartOrder1,cart.get(i).getProduct_image());
         holder.binding.tvCartOrderName.setText(cart.get(i).getProduct_name());
         holder.binding.tvCartProductPrice.setText(cart.get(i).getProduct_price() + "");
         holder.binding.tvProductBuyAmount.setText(cart.get(i).getAmount() + "");

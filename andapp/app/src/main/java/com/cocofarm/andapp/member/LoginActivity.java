@@ -1,24 +1,17 @@
 package com.cocofarm.andapp.member;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cocofarm.andapp.FirstActivity;
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityLoginBinding;
-import com.cocofarm.andapp.R;
 import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity {
@@ -31,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        if(CommonVal.isCheckLogout){
+        if (CommonVal.isCheckLogout) {
             nonSaveLoginInfo();
         }
 
@@ -52,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 로그인
-        binding.btnLogin.setOnClickListener(v-> {
+        binding.btnLogin.setOnClickListener(v -> {
             login(binding.edtId.getText().toString(), binding.edtPw.getText().toString());
 
             if (binding.chkLogin.isChecked()) {
@@ -63,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
         // 아이디 찾기
 
 
@@ -71,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         // 비회원
-        binding.tvNonmember.setOnClickListener(v->{
+        binding.tvNonmember.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         });
@@ -105,19 +97,25 @@ public class LoginActivity extends AppCompatActivity {
 
         conn.onExcute((isResult, data) -> {
             Log.d("로그인", "onCreate: " + data);
-            CommonVal.loginMember = new Gson().fromJson(data, MemberVO.class);
-            if(CommonVal.loginMember != null) {
-                if(CommonVal.loginMember.getIsactivated().equals("Y")) {
-                    Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(LoginActivity.this, BannedActivity.class);
-                    CommonVal.loginMember = null;
-                    startActivity(intent);
-                }
-            } else {
+
+            if (!isResult) {
+                Toast.makeText(this, "로그인 서버가 응답하지 않습니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (data == null || data.equals("")) {
                 Toast.makeText(this, "이메일 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            CommonVal.loginMember = new Gson().fromJson(data, MemberVO.class);
+            if (CommonVal.loginMember.getIsactivated().equals("Y")) {
+                Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(LoginActivity.this, BannedActivity.class);
+                CommonVal.loginMember = null;
+                startActivity(intent);
             }
         });
     }

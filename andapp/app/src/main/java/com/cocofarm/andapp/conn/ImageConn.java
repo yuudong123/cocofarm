@@ -2,6 +2,7 @@ package com.cocofarm.andapp.conn;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -60,6 +61,6 @@ public class ImageConn {
     }
 
     public interface ConnCallback {
-        public void onResult(boolean isResult, ResponseBody data);
+        void onResult(boolean isResult, ResponseBody data);
     }
 }

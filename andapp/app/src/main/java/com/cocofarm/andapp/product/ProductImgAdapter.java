@@ -30,7 +30,7 @@ public class ProductImgAdapter extends RecyclerView.Adapter<ProductImgAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.binding.ivProductA1.setImageBitmap(ImageUtil.load(list.get(position).getFilename()));
+        ImageUtil.load(holder.binding.ivProductA1,list.get(position).getFilename());
     }
 
     @Override

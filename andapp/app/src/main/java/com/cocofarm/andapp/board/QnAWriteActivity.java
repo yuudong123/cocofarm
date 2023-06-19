@@ -64,9 +64,9 @@ public class QnAWriteActivity extends AppCompatActivity {
         super.onStart();
         if (qnaselectedproduct != null) {
             if (qnaselectedproduct.getFilename() == null) {
-                binding.ivProductImage.setImageBitmap(ImageUtil.load(qnaselectedproduct.getImg().get(0).getFilename()));
+                ImageUtil.load(binding.ivProductImage,qnaselectedproduct.getImg().get(0).getFilename());
             } else {
-                binding.ivProductImage.setImageBitmap(ImageUtil.load(qnaselectedproduct.getFilename()));
+                ImageUtil.load(binding.ivProductImage,qnaselectedproduct.getFilename());
             }
             binding.tvProductName.setText(qnaselectedproduct.getName());
             binding.tvProductContent.setText(qnaselectedproduct.getContent());
