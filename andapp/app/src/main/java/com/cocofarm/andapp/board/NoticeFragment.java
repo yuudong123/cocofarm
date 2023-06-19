@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeFragment extends Fragment {
-
     FragmentNoticeBinding binding;
     ArrayList<BoardVO> list;
     private int endPage;
