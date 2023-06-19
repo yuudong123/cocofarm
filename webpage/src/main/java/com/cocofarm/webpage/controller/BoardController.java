@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -186,7 +187,7 @@ public class BoardController {
         boardService.delete(board_no);
     }
 
-    @PostMapping(value = "/eventbanner.and")
+    @PostMapping(value = "/board/eventbanner.and")
     @ResponseBody
     public String eventBanner (int board_category_cd) {
         return new Gson().toJson(boardService.eventBanner(board_category_cd));

@@ -56,7 +56,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.tvCocomall.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
         binding.tvNotice.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);

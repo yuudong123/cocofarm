@@ -37,7 +37,7 @@ where email = #{email}
 <select id="myboard" resultType="com.cocofarm.webpage.domain.QnaDTO">
 select *
 from tbl_board
-where member_no = #{member_no}
+where member_no = #{member_no} and board_category_cd = 201
 order by board_no desc
 </select>
 
