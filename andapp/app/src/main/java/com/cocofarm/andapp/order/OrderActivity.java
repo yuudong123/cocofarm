@@ -72,7 +72,7 @@ public class OrderActivity extends AppCompatActivity {
         });
         }
 
-        
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
