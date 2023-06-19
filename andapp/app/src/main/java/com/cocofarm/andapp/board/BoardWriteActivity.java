@@ -39,19 +39,7 @@ public class BoardWriteActivity extends AppCompatActivity {
                 Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
                 return;
             }
-            CommonConn conn = new CommonConn(this, "board/insertboard.and");
-            conn.addParam("member_no", loginMember.getMember_no());
-            conn.addParam("nickname", loginMember.getNickname());
-            conn.addParam("board_category_cd", getIntent().getIntExtra("category", 0));
-            conn.addParam("title", binding.edtTitle.getText().toString());
-            conn.addParam("content", binding.edtContent.getText().toString());
-            conn.addParam("mainimage", boardselectedImage);
-            conn.onExcute((isResult, data) -> {
-                Log.d("글 작성", "onCreate: " + isResult);
-                if (isResult) {
-                    finish();
-                }
-            });
+            writeBoard();
         });
         binding.btnCancel.setOnClickListener(v -> {
             finish();
@@ -62,7 +50,7 @@ public class BoardWriteActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (boardselectedImage != "") {
-            ImageUtil.load(binding.ivMainImage, boardselectedImage);
+            binding.ivMainImage.setImageBitmap(ImageUtil.load(boardselectedImage));
             binding.tvFileName.setText(boardselectedImage);
             binding.mainImageSelect.setVisibility(View.GONE);
             binding.mainImageSelected.setVisibility(View.VISIBLE);
@@ -76,5 +64,21 @@ public class BoardWriteActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         boardselectedImage = "";
+    }
+
+    private void writeBoard() {
+        CommonConn conn = new CommonConn(this, "board/insertboard.and");
+        conn.addParam("member_no", loginMember.getMember_no());
+        conn.addParam("nickname", loginMember.getNickname());
+        conn.addParam("board_category_cd", getIntent().getIntExtra("category", 0));
+        conn.addParam("title", binding.edtTitle.getText().toString());
+        conn.addParam("content", binding.edtContent.getText().toString());
+        conn.addParam("mainimage", boardselectedImage);
+        conn.onExcute((isResult, data) -> {
+            Log.d("글 작성", "onCreate: " + isResult);
+            if (isResult) {
+                finish();
+            }
+        });
     }
 }

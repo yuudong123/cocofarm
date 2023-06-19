@@ -29,40 +29,42 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> {
-
     ItemReplyBinding binding;
-    int board_no;
-    ArrayList<ReplyVO> list;
+
     Context context;
     Activity activity;
     FragmentManager manager;
 
-    public ReplyAdapter(int board_no, ArrayList<ReplyVO> list, Context context, Activity activity, FragmentManager manager) {
-        this.board_no = board_no;
-        this.list = list;
+    int board_no;
+    ArrayList<ReplyVO> list;
+
+    public ReplyAdapter(Context context, Activity activity, FragmentManager manager, int board_no, ArrayList<ReplyVO> list) {
         this.context = context;
         this.activity = activity;
         this.manager = manager;
+        this.board_no = board_no;
+        this.list = list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemReplyBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        binding = ItemReplyBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.tvNickname.setText(list.get(i).getNickname());
-        holder.binding.tvContent.setText(list.get(i).getContent());
+        ReplyVO replyVO = list.get(i);
+        holder.binding.tvNickname.setText(replyVO.getNickname());
+        holder.binding.tvContent.setText(replyVO.getContent());
         SimpleDateFormat sdf;
-        if (new Date().getTime() - list.get(i).getRegdate().getTime() < 86400000) {
+        if (new Date().getTime() - replyVO.getRegdate().getTime() < 86400000) {
             sdf = HHmmss;
         } else {
             sdf = Md;
         }
-        holder.binding.tvRegdate.setText(sdf.format(list.get(i).getRegdate()));
+        holder.binding.tvRegdate.setText(sdf.format(replyVO.getRegdate()));
         holder.binding.btnSeemore.setOnClickListener(v -> {
             PopupMenu menu = new PopupMenu(v.getContext(), v);
             menu.getMenuInflater().inflate(R.menu.reply_seemore, menu.getMenu());
@@ -100,7 +102,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("댓글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
                                 .setPositiveButton("확인", (dialogInterface, i1) -> {
-                                    deleteReply(list.get(i).getReply_no());
+                                    deleteReply(replyVO.getReply_no());
                                 })
                                 .setNegativeButton("취소", (dialogInterface, i1) -> {
                                 }).create().show();

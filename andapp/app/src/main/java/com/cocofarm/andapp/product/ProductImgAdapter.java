@@ -1,7 +1,6 @@
 package com.cocofarm.andapp.product;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class ProductImgAdapter extends RecyclerView.Adapter<ProductImgAdapter.ViewHolder> {
 
     ItemProductImgBinding binding;
-    ArrayList<ImageDTO>list;
+    ArrayList<ImageDTO> list;
 
     public ProductImgAdapter(ArrayList<ImageDTO> list) {
         this.list = list;
@@ -25,15 +24,13 @@ public class ProductImgAdapter extends RecyclerView.Adapter<ProductImgAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding=ItemProductImgBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        binding = ItemProductImgBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position){
-
-        ImageUtil.load(holder.binding.ivProductA1,list.get(position).getFilename());
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.binding.ivProductA1.setImageBitmap(ImageUtil.load(list.get(position).getFilename()));
     }
 
     @Override
@@ -42,11 +39,11 @@ public class ProductImgAdapter extends RecyclerView.Adapter<ProductImgAdapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         ItemProductImgBinding binding;
-        public ViewHolder(@NonNull  ItemProductImgBinding binding) {
+
+        public ViewHolder(@NonNull ItemProductImgBinding binding) {
             super(binding.getRoot());
-            this.binding=binding;
+            this.binding = binding;
         }
     }
 }

@@ -13,33 +13,35 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cocofarm.andapp.databinding.ItemEventBoardBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> {
     ItemEventBoardBinding binding;
-    List<BoardVO> list;
-    Context context;
 
-    public EventAdapter(List<BoardVO> list, Context context) {
-        this.list = list;
+    Context context;
+    ArrayList<BoardVO> list;
+
+    public EventAdapter(ArrayList<BoardVO> list, Context context) {
         this.context = context;
+        this.list = list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemEventBoardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        binding = ItemEventBoardBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.tvTitle.setText(list.get(i).getTitle());
-        holder.binding.tvRegdate.setText(yyyyMMddHHmmss.format(list.get(i).getRegdate()));
-        ImageUtil.load(holder.binding.ivMainimage, list.get(i).getMainimage());
+        BoardVO boardVO = list.get(i);
+        holder.binding.tvTitle.setText(boardVO.getTitle());
+        holder.binding.tvRegdate.setText(yyyyMMddHHmmss.format(boardVO.getRegdate()));
+        holder.binding.ivMainimage.setImageBitmap(ImageUtil.load(boardVO.getMainimage()));
         holder.binding.itemEventBoard.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
-            intent.putExtra("BoardVO", list.get(i));
+            intent.putExtra("BoardVO", boardVO);
             context.startActivity(intent);
         });
     }

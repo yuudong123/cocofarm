@@ -27,6 +27,7 @@ public class BoardReadActivity extends AppCompatActivity {
 
     ActivityBoardReadBinding binding;
     private static BoardReadActivity instance;
+    private BoardVO boardVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +36,21 @@ public class BoardReadActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         instance = this;
 
-        BoardVO vo = (BoardVO) getIntent().getSerializableExtra("BoardVO");
-        binding.title.setText(vo.getTitle());
+        boardVO = (BoardVO) getIntent().getSerializableExtra("BoardVO");
+        binding.title.setText(boardVO.getTitle());
         String category = "";
-        if (vo.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_QNA) {
+        if (boardVO.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_QNA) {
             category = "QnA";
-        } else if (vo.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_NOTICE) {
+        } else if (boardVO.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_NOTICE) {
             category = "공지사항";
-        } else if (vo.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_EVENT) {
+        } else if (boardVO.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_EVENT) {
             category = "이벤트";
         }
         binding.tvCategory.setText(category);
-        binding.regdate.setText(yyyyMMddHHmmss.format(vo.getRegdate()));
+        binding.regdate.setText(yyyyMMddHHmmss.format(boardVO.getRegdate()));
         Fragment readFragment = new BoardReadFragment();
         Bundle readBundle = new Bundle();
-        readBundle.putSerializable("BoardVO", vo);
+        readBundle.putSerializable("BoardVO", boardVO);
         readFragment.setArguments(readBundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.containerBoardRead, readFragment).commit();
         binding.btnReply.setOnClickListener(v -> {
@@ -59,7 +60,7 @@ public class BoardReadActivity extends AppCompatActivity {
                 binding.btnReply.setText("댓글 닫기");
                 fragment = new BoardReadReplyFragment();
                 Bundle bundle = new Bundle();
-                bundle.putInt("board_no", vo.getBoard_no());
+                bundle.putInt("board_no", boardVO.getBoard_no());
                 fragment.setArguments(bundle);
             } else {
                 binding.btnReply.setIcon(getDrawable(R.drawable.icon_reply));
@@ -85,10 +86,10 @@ public class BoardReadActivity extends AppCompatActivity {
                 Toast.makeText(this, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            writeReply(vo.getBoard_no());
+            writeReply(boardVO.getBoard_no());
             Fragment fragment = new BoardReadReplyFragment();
             Bundle bundle = new Bundle();
-            bundle.putInt("board_no", vo.getBoard_no());
+            bundle.putInt("board_no", boardVO.getBoard_no());
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction().replace(R.id.containerBoardRead, fragment).commit();
         });
@@ -101,16 +102,16 @@ public class BoardReadActivity extends AppCompatActivity {
         });
         binding.btnSeemore.setOnClickListener(v -> {
             PopupMenu menu = new PopupMenu(v.getContext(), v);
-            if (loginMember.getMember_no() != vo.getMember_no() && loginMember.getMember_type_cd() != MEMBER_TYPE_ADMIN) {
+            if (loginMember.getMember_no() != boardVO.getMember_no() && loginMember.getMember_type_cd() != MEMBER_TYPE_ADMIN) {
                 menu.getMenuInflater().inflate(R.menu.seemore_no_perm, menu.getMenu());
             } else {
-                menu.getMenuInflater().inflate(R.menu.board_seemore,menu.getMenu());
+                menu.getMenuInflater().inflate(R.menu.board_seemore, menu.getMenu());
             }
             menu.setOnMenuItemClickListener(item -> {
                 switch (item.getItemId()) {
                     case R.id.menuBoardSeemoreModify:
                         Intent intent = new Intent(this, BoardModifyActivity.class);
-                        intent.putExtra("BoardVO", vo);
+                        intent.putExtra("BoardVO", boardVO);
                         startActivity(intent);
                         break;
                     case R.id.menuBoardSeemoreDelete:
@@ -118,7 +119,7 @@ public class BoardReadActivity extends AppCompatActivity {
                         builder.setTitle("게시글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
                                 .setPositiveButton("확인", (dialogInterface, i1) -> {
                                     CommonConn conn = new CommonConn(this, "board/deleteboard.and");
-                                    conn.addParam("board_no", vo.getBoard_no());
+                                    conn.addParam("board_no", boardVO.getBoard_no());
                                     conn.onExcute((isResult, data) -> {
                                         if (isResult) {
                                             Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
@@ -132,12 +133,12 @@ public class BoardReadActivity extends AppCompatActivity {
                     case R.id.menuBoardSeemoreShare:
                         Intent intentShare = new Intent(Intent.ACTION_SEND);
                         intentShare.setType("text/plain");
-                        intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/" + vo.getBoard_no());
+                        intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/" + boardVO.getBoard_no());
                         startActivity(Intent.createChooser(intentShare, "공유하기"));
                         break;
                     case R.id.menuBoardSeemoreBrowser:
                         Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
-                        intentBrowser.setData(Uri.parse("http://localhost:9090/board/" + vo.getBoard_no()));
+                        intentBrowser.setData(Uri.parse("http://localhost:9090/board/" + boardVO.getBoard_no()));
                         startActivity(intentBrowser);
                         break;
                     default:

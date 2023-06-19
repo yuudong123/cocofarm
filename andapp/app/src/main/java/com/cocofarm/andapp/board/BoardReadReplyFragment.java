@@ -23,16 +23,18 @@ public class BoardReadReplyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBoardReadReplyBinding.inflate(inflater, container, false);
         int board_no = getArguments().getInt("board_no");
+
         CommonConn conn = new CommonConn(null, "board/selectreplylist.and");
         conn.addParam("board_no", board_no);
         conn.onExcute((isResult, data) -> {
             ArrayList<ReplyVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ReplyVO>>() {
             }.getType());
-            ReplyAdapter adapter = new ReplyAdapter(board_no, list, getContext(), getActivity(), getActivity().getSupportFragmentManager());
+            ReplyAdapter adapter = new ReplyAdapter(getContext(), getActivity(), getActivity().getSupportFragmentManager(), board_no, list);
             LinearLayoutManager manager = new LinearLayoutManager(getContext());
             binding.recvReply.setAdapter(adapter);
             binding.recvReply.setLayoutManager(manager);
         });
+
         return binding.getRoot();
     }
 

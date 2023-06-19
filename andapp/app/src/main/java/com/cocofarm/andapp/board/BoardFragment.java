@@ -19,7 +19,7 @@ public class BoardFragment extends Fragment {
 
     FragmentBoardBinding binding;
     private int selected = 0;
-    public static CriteriaDTO cri = new CriteriaDTO();
+    protected static CriteriaDTO cri = new CriteriaDTO();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class BoardFragment extends Fragment {
         binding = null;
     }
 
-    protected void loadTab() {
+    private void loadTab() {
         Fragment fragment = null;
         if (selected == 0) {
             cri.setCode(BOARD_CATEGORY_NOTICE);
@@ -75,7 +75,7 @@ public class BoardFragment extends Fragment {
             cri.setCode(BOARD_CATEGORY_QNA);
             fragment = new QnAFragment();
         }
-        if(fragment!=null) {
+        if (fragment != null) {
             getChildFragmentManager().beginTransaction().replace(R.id.containerBoard, fragment).commit();
         }
     }

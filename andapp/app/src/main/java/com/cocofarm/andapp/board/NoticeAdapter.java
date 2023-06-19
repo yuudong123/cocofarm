@@ -12,33 +12,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.databinding.ItemNoticeBoardBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
-
     ItemNoticeBoardBinding binding;
-    List<BoardVO> list;
-    Context context;
 
-    public NoticeAdapter(List<BoardVO> list, Context context) {
-        this.list = list;
+    Context context;
+    ArrayList<BoardVO> list;
+
+    public NoticeAdapter(ArrayList<BoardVO> list, Context context) {
         this.context = context;
+        this.list = list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemNoticeBoardBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        binding = ItemNoticeBoardBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.title.setText(list.get(i).getTitle());
-        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
+        BoardVO boardVO = list.get(i);
+        holder.binding.title.setText(boardVO.getTitle());
+        holder.binding.regdate.setText(Md.format(boardVO.getRegdate()));
         holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
-            intent.putExtra("BoardVO", list.get(i));
+            intent.putExtra("BoardVO", boardVO);
             context.startActivity(intent);
         });
     }

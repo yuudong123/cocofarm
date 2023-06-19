@@ -7,7 +7,6 @@ import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -22,18 +21,15 @@ import com.cocofarm.andapp.databinding.ActivityQnaReadBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
 import com.cocofarm.andapp.product.ProductVO;
-import com.cocofarm.andapp.util.DateJsonAdapter;
 import com.google.gson.Gson;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.reflect.TypeToken;
-
-import java.util.Date;
 
 public class QnAReadActivity extends AppCompatActivity {
 
     ActivityQnaReadBinding binding;
     ProductVO productVO;
-    QnaDTO dto = null ;
+    QnaDTO dto = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +54,15 @@ public class QnAReadActivity extends AppCompatActivity {
 
             binding.tvProductName.setText(dto.getProduct_name());
             binding.tvProductContent.setText(dto.getProduct_content());
-            ImageUtil.load(binding.ivProductImage,dto.getMainimage());
+            binding.ivProductImage.setImageBitmap(ImageUtil.load(dto.getMainimage()));
             binding.qnaProduct.setVisibility(View.VISIBLE);
-            binding.qnaProduct.setOnClickListener(v->{
+            binding.qnaProduct.setOnClickListener(v -> {
                 Intent intent = new Intent(QnAReadActivity.this, ProductActivity.class);
                 CommonConn conn = new CommonConn(this, "selectProductContent.and");
                 conn.addParam("product_id", dto.getProduct_id());
                 conn.onExcute((isResult, data) -> {
-                    productVO = new Gson().fromJson(data, new TypeToken<ProductVO>(){}.getType());
+                    productVO = new Gson().fromJson(data, new TypeToken<ProductVO>() {
+                    }.getType());
                     intent.putExtra("productVO", productVO);
                     startActivity(intent);
                 });

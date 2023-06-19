@@ -1,7 +1,5 @@
 package com.cocofarm.andapp.product;
 
-import static com.cocofarm.andapp.board.BoardFragment.cri;
-
 import android.content.Intent;
 import android.os.Bundle;
 

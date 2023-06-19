@@ -36,7 +36,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
 
-        ImageUtil.load(holder.binding.imgvProduct,list.get(i).getFilename());
+        holder.binding.imgvProduct.setImageBitmap(ImageUtil.load(list.get(i).getFilename()));
         holder.binding.tvProductName.setText(list.get(i).getName()+"");
         holder.binding.tvProductPrice.setText(list.get(i).getPrice()+"");
 

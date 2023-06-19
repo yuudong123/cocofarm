@@ -109,7 +109,7 @@ public class ProductActivity extends AppCompatActivity {
         binding.btnProductBuy.setOnClickListener(v -> toggleBottomSheet());
         bindingSheet.btnDrop.setOnClickListener(v -> toggleBottomSheet());
 
-        ImageUtil.load(bindingSheet.ivSheetProduct1, productVO.getFilename());
+        bindingSheet.ivSheetProduct1.setImageBitmap(ImageUtil.load(productVO.getFilename()));
         bindingSheet.tvSheetProductName.setText(productVO.getName());
         bindingSheet.tvSheetOrderPrice.setText(productVO.getPrice() + "");
 

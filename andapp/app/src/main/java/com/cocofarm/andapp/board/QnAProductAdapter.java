@@ -18,8 +18,9 @@ import java.util.ArrayList;
 
 public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.ViewHolder> {
     ItemImageSelectBinding binding;
-    ArrayList<ProductVO> list;
+
     Context context;
+    ArrayList<ProductVO> list;
 
     public QnAProductAdapter(Context context, ArrayList<ProductVO> list) {
         this.context = context;
@@ -29,17 +30,18 @@ public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemImageSelectBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        binding = ItemImageSelectBinding.inflate(LayoutInflater.from(context), parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.binding.filename.setText(list.get(i).getName());
-        ImageUtil.load(holder.binding.thumbnail, list.get(i).getFilename());
+        ProductVO productVO = list.get(i);
+        holder.binding.filename.setText(productVO.getName());
+        holder.binding.thumbnail.setImageBitmap(ImageUtil.load(productVO.getFilename()));
         holder.binding.itemImageSelect.setOnClickListener(v -> {
-            qnaselectedproduct = list.get(i);
-            Toast.makeText(context, list.get(i).getName() + " 로 변경", Toast.LENGTH_SHORT).show();
+            qnaselectedproduct = productVO;
+            Toast.makeText(context, productVO.getName() + " 로 변경", Toast.LENGTH_SHORT).show();
         });
     }
 

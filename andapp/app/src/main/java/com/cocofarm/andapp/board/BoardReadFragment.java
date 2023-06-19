@@ -13,16 +13,17 @@ import com.cocofarm.andapp.image.ImageUtil;
 public class BoardReadFragment extends Fragment {
 
     FragmentBoardReadBinding binding;
+    private BoardVO boardVO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBoardReadBinding.inflate(inflater, container, false);
-        BoardVO vo = (BoardVO) getArguments().getSerializable("BoardVO");
-
-        if (vo.getMainimage()!=null) {
-            ImageUtil.load(binding.ivMainImage, vo.getMainimage());
+        boardVO = (BoardVO) getArguments().getSerializable("BoardVO");
+        if (boardVO.getMainimage() != null) {
+            binding.ivMainImage.setImageBitmap(ImageUtil.load(boardVO.getMainimage()));
         }
-        binding.tvContent.setText(vo.getContent());
+        binding.tvContent.setText(boardVO.getContent());
+
         return binding.getRoot();
     }
 

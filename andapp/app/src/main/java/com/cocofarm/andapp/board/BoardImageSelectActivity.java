@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityBoardImageSelectBinding;
 import com.cocofarm.andapp.image.ImageDTO;
@@ -30,16 +29,17 @@ public class BoardImageSelectActivity extends AppCompatActivity {
         conn.onExcute((isResult, data) -> {
             ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
             }.getType());
-            BoardImageAdapter adapter = new BoardImageAdapter(this,list);
+            BoardImageAdapter adapter = new BoardImageAdapter(this, list);
             LinearLayoutManager manager = new LinearLayoutManager(this);
             binding.recvBoardImageSelect.setAdapter(adapter);
             binding.recvBoardImageSelect.setLayoutManager(manager);
         });
 
-        binding.btnConfirm.setOnClickListener(v->{
+        binding.btnConfirm.setOnClickListener(v -> {
             finish();
         });
-        binding.btnCancel.setOnClickListener(v->{
+
+        binding.btnCancel.setOnClickListener(v -> {
             boardselectedImage = null;
             finish();
         });
