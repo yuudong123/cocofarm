@@ -160,11 +160,12 @@ public class ProductActivity extends AppCompatActivity {
                 Toast.makeText(this, "수량을 추가해주세요.", Toast.LENGTH_SHORT).show();
                 return;
             }
-
+            //바로 구매에서 주문 결제로 보내기 위함.
             Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
             intent.putExtra("number",number);
             intent.putExtra("productVO",productVO);
             intent.putExtra("value", 1);
+            //value로 주문activity로 보냄.
             startActivity(intent);
         });
         allPrice();

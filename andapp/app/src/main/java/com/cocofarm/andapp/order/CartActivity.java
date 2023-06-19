@@ -103,8 +103,20 @@ public class CartActivity extends AppCompatActivity {
         });
 
         binding.btnOrder.setOnClickListener(v -> {
-            Intent intent = new Intent(CartActivity.this, OrderActivity.class);
-            startActivity(intent);
+            boolean isChecked = false;
+            for (int i = 0; i < CommonVal.cart.size() ; i++) {
+                if(CommonVal.cart.get(i).isChecked()){
+                    isChecked = true;
+                    break;
+                }
+            }
+            if (binding.checkCartAll.isChecked()||isChecked){
+                Intent intent = new Intent(CartActivity.this, OrderActivity.class);
+                startActivity(intent);
+            }else {
+                Toast.makeText(this,"구매하실 상품을 선택해주세요.",Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 
