@@ -63,7 +63,7 @@ public class EventFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
 
                 LinearLayoutManager manager = (LinearLayoutManager) binding.recvBoardList.getLayoutManager();
-                if (manager != null && manager.findLastCompletelyVisibleItemPosition() == boardList.size() - 1 && total > page*10) {
+                if (manager != null && manager.findLastCompletelyVisibleItemPosition() == boardList.size() - 1 && total > page * 10) {
                     page++;
                     loadBoard();
                 }
@@ -80,12 +80,16 @@ public class EventFragment extends Fragment {
     }
 
     protected void loadBoard() {
-        CommonConn conn = new CommonConn(null, "board/getTotal.and");
+        CommonConn conn = new CommonConn(getContext(), "board/getTotal.and");
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", cri.getKeyword());
-        conn.onExcute((isResult, data) -> this.total = Integer.parseInt(data));
+        conn.onExcute((isResult, data) -> {
+            if (isResult) {
+                this.total = Integer.parseInt(data);
+            }
+        });
 
-        conn = new CommonConn(null, "board/selectboardlist.and");
+        conn = new CommonConn(getContext(), "board/selectboardlist.and");
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", "");
         conn.addParam("page", cri.getPage());
