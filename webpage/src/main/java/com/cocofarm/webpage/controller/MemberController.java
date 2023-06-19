@@ -20,17 +20,20 @@ public class MemberController {
     @Autowired
     MemberService service;
 
-    @RequestMapping(value = "login")
+    // 로그인, 회원가입 페이지로 이동을 GetMapping(login or join) 으로 하기 위해
+    // RequestMapping을 PostMapping으로 바꿈.
+    @PostMapping(value = "login")
     public String login(String email, String password) {
         MemberVO vo = new MemberVO();
         vo.setEmail(email);
         vo.setPassword(password);
+
         System.out.println(email);
 
         return new Gson().toJson(service.login(vo));
     }
 
-    @RequestMapping(value = "join")
+    @PostMapping(value = "join")
     public int join(String email, String password, String nickname, String phonenumber, String address, String sns) {
         MemberVO join_vo = new MemberVO();
         join_vo.setEmail(email);
@@ -54,9 +57,8 @@ public class MemberController {
     public String sns_login(String email) {
         MemberVO vo = new MemberVO();
         vo.setEmail(email);
-     return new Gson().toJson(service.sns_login(vo));
+        return new Gson().toJson(service.sns_login(vo));
     }
-
 
     @RequestMapping(value = "am.modify")
     public String am_modify(String password, String nickname, String phonenumber, String email, String address) {
@@ -88,7 +90,6 @@ public class MemberController {
 
         return new Gson().toJson(service.myboard(dto));
     }
-
 
     @RequestMapping(value = "email")
     public String sendEmail(String confirm_text, String email) {
