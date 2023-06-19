@@ -1,17 +1,14 @@
 package com.cocofarm.andapp.product;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cocofarm.andapp.R;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.cocofarm.andapp.board.BoardVO;
-import com.cocofarm.andapp.board.QnaDTO;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentProductReviewBinding;
 import com.google.gson.Gson;
@@ -43,17 +40,10 @@ public class ProductReviewFragment extends Fragment {
         binding.recvProductReview.setLayoutManager(manager);
 
         binding.btnLoadMore.setOnClickListener(v -> {
-            if (page * 10 < total) {
-                page++;
-                loadReview();
-            }
-            if (page * 10 >= total) {
-                binding.btnLoadMore.setVisibility(View.GONE);
-            }
+            page++;
+            loadReview();
         });
         return binding.getRoot();
-
-
     }
 
     @Override
@@ -74,7 +64,14 @@ public class ProductReviewFragment extends Fragment {
         CommonConn conn = new CommonConn(null, "selectproductreviewtotal.and");
         conn.addParam("product_id", product_id);
         conn.addParam("page", page);
-        conn.onExcute((isResult, data) -> total = Integer.parseInt(data));
+        conn.onExcute((isResult, data) -> {
+            total = Integer.parseInt(data);
+            if (page * 10 >= total) {
+                binding.btnLoadMore.setVisibility(View.GONE);
+            } else {
+                binding.btnLoadMore.setVisibility(View.VISIBLE);
+            }
+        });
 
         conn = new CommonConn(null, "selectproductreviewlist.and");
         conn.addParam("product_id", product_id);

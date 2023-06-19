@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     tools:context=".product.ProductReviewFragment">
 
     <TextView
-        android:textStyle="bold"
-        android:textSize="20dp"
         android:id="@+id/tv_product_reviewall"
-        android:text=""
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recvProductReview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/btnLoadMore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
         android:background="#e8e8e8"
         android:gravity="center"
+        android:padding="15dp"
         android:text="+ 더 불러오기"
-        android:textAlignment="center" />
-
-
+        android:textAlignment="center"
+        android:visibility="gone" />
 
 </LinearLayout>

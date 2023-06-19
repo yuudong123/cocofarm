@@ -47,5 +47,6 @@
         android:background="#e8e8e8"
         android:gravity="center"
         android:text="+ 더 불러오기"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:visibility="gone" />
 </LinearLayout>

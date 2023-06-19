@@ -46,13 +46,8 @@ public class ProductQnAFragment extends Fragment {
         binding.recvProductQna.setLayoutManager(manager);
 
         binding.btnLoadMore.setOnClickListener(v -> {
-            if (page * 10 < total) {
-                page++;
-                loadQna();
-            }
-            if (page * 10 >= total) {
-                binding.btnLoadMore.setVisibility(View.GONE);
-            }
+            page++;
+            loadQna();
         });
 
         return binding.getRoot();
@@ -74,7 +69,14 @@ public class ProductQnAFragment extends Fragment {
         CommonConn conn = new CommonConn(null, "selectproductqnatotal.and");
         conn.addParam("product_id", productVO.getProduct_id());
         conn.addParam("page", page);
-        conn.onExcute((isResult, data) -> total = Integer.parseInt(data));
+        conn.onExcute((isResult, data) -> {
+            total = Integer.parseInt(data);
+            if (page * 10 >= total) {
+                binding.btnLoadMore.setVisibility(View.GONE);
+            } else {
+                binding.btnLoadMore.setVisibility(View.VISIBLE);
+            }
+        });
 
         conn = new CommonConn(null, "selectproductqnalist.and");
         conn.addParam("product_id", productVO.getProduct_id());
