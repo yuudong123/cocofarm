@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
         binding.bottomNav.setSelectedItemId(R.id.home);
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+    //    getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
 
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 

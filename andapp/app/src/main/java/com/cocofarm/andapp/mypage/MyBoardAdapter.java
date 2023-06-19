@@ -44,10 +44,12 @@ public class MyBoardAdapter extends RecyclerView.Adapter<MyBoardAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SimpleDateFormat sdf;
+        QnaDTO qnaDTO = list.get(position);
+        holder.binding.title.setText(list.get(position).getTitle());
         if (list.get(position).getReplycnt() == 0) {
             holder.binding.answer.setText("");
         }
+        SimpleDateFormat sdf;
         if (new Date().getTime() - list.get(position).getRegdate().getTime() < 86400000) {
             sdf = HHmmss;
         } else {
