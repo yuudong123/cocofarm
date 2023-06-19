@@ -82,9 +82,6 @@
             android:name=".board.BoardImageSelectActivity"
             android:exported="false" />
         <activity
-            android:name=".board.QnAModifyActivity"
-            android:exported="false" />
-        <activity
             android:name=".board.QnAReadActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" /> <!-- <activity -->
