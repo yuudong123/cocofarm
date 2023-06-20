@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.databinding.ActivityOrderFinishBinding;
+import com.cocofarm.andapp.product.ProductActivity;
 
 public class OrderFinishActivity extends AppCompatActivity {
     ActivityOrderFinishBinding binding;
@@ -16,11 +19,30 @@ public class OrderFinishActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityOrderFinishBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        onBackPressed();
+
 
         binding.btnGoOrderContentA.setOnClickListener(v->{
             Intent intent = new Intent(OrderFinishActivity.this, OrderContentActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
+        binding.btnGoCart.setOnClickListener(v->{
+            Intent intent = new Intent(OrderFinishActivity.this, CartActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
+        binding.btnGoMain.setOnClickListener(v->{
+            Intent intent = new Intent(OrderFinishActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finishAffinity();
+        });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this,"버튼을 눌러 이동해주세요",Toast.LENGTH_SHORT).show();
     }
 }

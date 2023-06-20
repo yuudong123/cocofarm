@@ -28,8 +28,24 @@
         android:textColor="@color/white"
         android:id="@+id/btn_go_order_contentA"
         android:backgroundTint="@color/primary"
-        android:text="주문목록으로"
+        android:text="주문목록으로 이동"
         android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:textColor="@color/white"
+        android:id="@+id/btn_go_cart"
+        android:backgroundTint="@color/primary"
+        android:text="장바구니로 이동"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:textColor="@color/white"
+        android:id="@+id/btn_go_main"
+        android:backgroundTint="@color/primary"
+        android:text="메인으로 이동"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
