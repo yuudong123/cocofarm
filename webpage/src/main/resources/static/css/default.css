@@ -12,6 +12,13 @@ main {
   flex: 1;
 }
 
+#headerNav {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 20%;
+}
+
 footer {
   flex-shrink: 0;
+  margin-top: 10px;
 }

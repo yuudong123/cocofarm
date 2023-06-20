@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.mapper.MemberMapper;
@@ -24,7 +23,7 @@ public class MemberService {
     return mapper.join(vo);
   }
 
-  public String email_search(String email){
+  public String email_search(String email) {
     return mapper.email_search(email);
   }
 

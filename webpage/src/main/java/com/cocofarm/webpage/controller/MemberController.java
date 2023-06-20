@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cocofarm.webpage.PhoneHyphen;
-import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.MemberService;

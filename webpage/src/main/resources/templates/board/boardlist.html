@@ -20,29 +20,40 @@
           <tbody>
             <tr th:each="board : ${boardlist}">
               <td th:text="${board.title}"></td>
-              <td th:text="${board.regdate}"></td>
+              <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
             </tr>
           </tbody>
         </table>
-        <div class="center-align">
-          <a id="pagePrev" class="material-icons" href="#" th:if="${pager.prev}">first_page</a>
+        <div id="boxBtnPage" class="center-align">
+          <a id="pageFirst" class="material-icons">first_page</a>
           <th:block th:each="num : ${#numbers.sequence(pager.startPage,pager.endPage)}">
             <a class="pageNum" th:text="${num}"></a>
           </th:block>
-          <a id="pageNext" class="material-icons" href="#" th:if="${pager.next}">last_page</a>
+          <a id="pageLast" class="material-icons">last_page</a>
         </div>
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
+    <script th:inline="javascript">
       const pageNums = document.querySelectorAll(".pageNum");
+      const pageFirst = document.querySelector("#pageFirst");
+      const pageLast = document.querySelector("#pageLast");
+
       pageNums.forEach((pageNum) => {
         pageNum.addEventListener("click", () => {
           const page = pageNum.textContent;
           const url = "?page=" + page;
           window.location.href = url;
         });
+      });
+
+      pageFirst.addEventListener("click", () => {
+        window.location.href = "?page=1";
+      });
+
+      pageLast.addEventListener("click", () => {
+        window.location.href = "?page=" + /*[[${pager.lastPage}]]*/ "";
       });
     </script>
   </body>
