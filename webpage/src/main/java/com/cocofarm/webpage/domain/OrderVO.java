@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class OrderVO implements Serializable {
-    private int order_id;
+    private String order_id;
     private int member_no;
 
     private Date orderdate;

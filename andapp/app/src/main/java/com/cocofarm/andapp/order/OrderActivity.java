@@ -75,20 +75,14 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.btnOrderFinish.setOnClickListener(v->{
+            //완료되면 뒤로가기 못하게 하기.
             orderFinish(); //결제하기 메소드
-
-
             Intent intent1 = new Intent(OrderActivity.this, OrderFinishActivity.class);
             startActivity(intent1);
+           //결제하기로 넘어가면서 cart에 있던것들 삭제
         });
         }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        binding=null;
-    }
 
     private int getAllPrice(List<CartDTO> list){
         int allPrice = 0;
@@ -103,13 +97,13 @@ public class OrderActivity extends AppCompatActivity {
         Date date = new Date();
         String orderId=makeOrderId(date);
         //결제 메소드
-        conn = new CommonConn(this, ".and");
-        conn.addParam("order_id", orderId);
+        conn = new CommonConn(this, "orderinsert.and");
+        //conn.addParam("order_id", orderId);
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());
-        conn.addParam("orderdate", date);
+        //conn.addParam("orderdate", date);
         conn.addParam("price", getAllPrice(list));
         conn.addParam("address", CommonVal.loginMember.getAddress());
-        conn.addParam("order_status_cd", CodeTable.ORDER_STATUS_ONREADY);
+        //conn.addParam("order_status_cd", CodeTable.ORDER_STATUS_ONREADY);
         conn.onExcute((isResult, data) -> {
             Log.d("성공 번호", "orderFinish: "+orderId);
             if (!isResult){
@@ -117,6 +111,11 @@ public class OrderActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void orderProduct(){
+        conn = new CommonConn(this, ".and");
+        conn.addParam("orderproduct_id", );
     }
 
     private String makeOrderId(Date date){
@@ -131,4 +130,5 @@ public class OrderActivity extends AppCompatActivity {
         Random random = new Random();
         return random.nextInt(max - min + 1) + min;
     }
+
 }

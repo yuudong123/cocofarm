@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cocofarm.webpage.mapper.OrderMapper">
+    <insert id="OrderInsert">
+insert into tbl_order values (#{order_id},#{member_no},#{orderdate},#{price},#{address},301)
+    </insert>
+</mapper>
