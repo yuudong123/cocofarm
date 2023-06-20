@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class CartActivity extends AppCompatActivity {
     public static TextView allPrice;
     public static Button allDelete;
 
+    public static CheckBox allSelect;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,10 @@ public class CartActivity extends AppCompatActivity {
         //디비에서 리스트 불러오는 메소드
         load();
 
+        allSelect = binding.checkCartAll;
         //전체상품 선택 , 해제 , 금액.
-        binding.checkCartAll.setOnClickListener(v -> {
-            boolean isChecked = binding.checkCartAll.isChecked();
+        allSelect .setOnClickListener(v -> {
+            boolean isChecked = allSelect.isChecked();
 
             int total = 0;
 
