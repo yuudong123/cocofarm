@@ -41,10 +41,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         holder.binding.tvCartOrderPrice.setText("￦" + totalAmount + "원");
 
-        holder.binding.checkCartSelect.setOnClickListener(v -> cart.get(i).setChecked(holder.binding.checkCartSelect.isChecked()));
+        holder.binding.checkCartSelect.setOnClickListener(v ->{
+            cart.get(i).setChecked(holder.binding.checkCartSelect.isChecked());
+                    if(CartActivity.allSelect.isChecked()){
+                        CartActivity.allSelect.setChecked(false);
+                    }
+        });
 
         holder.binding.checkCartSelect.setOnCheckedChangeListener((compoundButton, isChecked) ->{
-            CommonVal.cart.get(position).setChecked(isChecked);
+            cart.get(i).setChecked(isChecked);
                 int totalPrice = 0;
                 for(CartDTO cartDTO : CommonVal.cart) {
                     if (cartDTO.isChecked()) {
@@ -58,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             });
 
         holder.binding.tvOrderCancel.setOnClickListener(v->{
-            int cartId = CommonVal.cart.get(position).getCart_id();
+            int cartId = cart.get(i).getCart_id();
             CommonConn conn = new CommonConn(v.getContext(),"deletecartone.and");
             conn.addParam("cart_id", cartId+"");
             conn.addParam("member_no", CommonVal.loginMember.getMember_no());

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cocofarm.webpage.mapper.OrderMapper">
+    <insert id="OrderInsert" parameterType="com.cocofarm.webpage.domain.OrderVO">
+
+
+        <!-- insert into tbl_order values (#{order_id},#{member_no},#{orderdate},#{price},#{address},301) -->
+        insert into TBL_ORDERPRODUCT(orderproduct_id, order_id, product_id, member_no, amount, price)
+        select seq_orderproduct_id.nextval, order_id, product_id, member_no, amount, product_price
+        from (
+        <foreach collection="orderProductVOList" item="item" separator="union all" close=""> 
+        select  #{order_id} as order_id, #{item.product_id} as product_id, #{item.member_no} as member_no, #{item.amount} as amount, #{item.product_price} as product_price
+        from dual
+        </foreach>
+        )
+        
+    </insert>
+</mapper>
