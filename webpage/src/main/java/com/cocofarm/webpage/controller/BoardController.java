@@ -1,7 +1,5 @@
 package com.cocofarm.webpage.controller;
 
-import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_QNA;
-
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -76,12 +73,12 @@ public class BoardController {
         return mav;
     }
 
-    @GetMapping(value = "/write")
-    public ModelAndView insertBoard() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("board/boardwrite");
-        return mav;
-    }
+    // @GetMapping(value = "/write")
+    // public ModelAndView insertBoard() {
+    // ModelAndView mav = new ModelAndView();
+    // mav.setViewName("board/boardwrite");
+    // return mav;
+    // }
 
     @GetMapping(value = "/qnawrite")
     public ModelAndView insertQna() {
@@ -90,34 +87,34 @@ public class BoardController {
         return mav;
     }
 
-    @PostMapping(value = "/write")
-    public int insertBoard(BoardVO vo) {
-        return boardService.insert(vo);
-    }
+    // @PostMapping(value = "/write")
+    // public int insertBoard(BoardVO vo) {
+    // return boardService.insert(vo);
+    // }
 
     @PostMapping(value = "/qnawrite")
     public int insertQna(BoardVO vo) {
         return boardService.insert(vo);
     }
 
-    @GetMapping(value = "/{board_no}/modify")
-    public ModelAndView updateBoard(@PathVariable int board_no) {
-        ModelAndView mav = new ModelAndView();
-        BoardVO boardvo = boardService.selectboard(board_no);
-        if (boardvo.getBoard_category_cd() == BOARD_CATEGORY_QNA) {
-            mav.setViewName("board/qnamodify");
-        } else {
-            mav.setViewName("board/boardmodify");
-        }
-        mav.addObject("boardvo", boardvo);
-        return mav;
-    }
+    // @GetMapping(value = "/{board_no}/modify")
+    // public ModelAndView updateBoard(@PathVariable int board_no) {
+    // ModelAndView mav = new ModelAndView();
+    // BoardVO boardvo = boardService.selectboard(board_no);
+    // if (boardvo.getBoard_category_cd() == BOARD_CATEGORY_QNA) {
+    // mav.setViewName("board/qnamodify");
+    // } else {
+    // mav.setViewName("board/boardmodify");
+    // }
+    // mav.addObject("boardvo", boardvo);
+    // return mav;
+    // }
 
-    @PostMapping(value = "/{board_no}/modify")
-    public int updateBoard(@PathVariable int board_no, BoardVO vo) {
-        vo.setBoard_no(board_no);
-        return boardService.update(vo);
-    }
+    // @PostMapping(value = "/{board_no}/modify")
+    // public int updateBoard(@PathVariable int board_no, BoardVO vo) {
+    // vo.setBoard_no(board_no);
+    // return boardService.update(vo);
+    // }
 
     @Transactional
     @PostMapping(value = "/{board_no}/delete")
@@ -189,7 +186,7 @@ public class BoardController {
 
     @PostMapping(value = "/board/eventbanner.and")
     @ResponseBody
-    public String eventBanner (int board_category_cd) {
+    public String eventBanner(int board_category_cd) {
         return new Gson().toJson(boardService.eventBanner(board_category_cd));
     }
 }
