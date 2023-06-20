@@ -13,4 +13,18 @@ public class MainController {
         mav.setViewName("index");
         return mav;
     }
+
+    @GetMapping("/termsofuse")
+    public ModelAndView termsofuse() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("etc/termsofuse");
+        return mav;
+    }
+
+    @GetMapping("/privacypolicy")
+    public ModelAndView privacypolicy() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("etc/privacypolicy");
+        return mav;
+    }
 }

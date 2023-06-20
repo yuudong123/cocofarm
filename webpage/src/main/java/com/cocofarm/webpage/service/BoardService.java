@@ -34,8 +34,6 @@ public class BoardService {
             code = BOARD_CATEGORY_REVIEW;
         }
         cri.setCode(code);
-        cri.setKeyword("");
-        cri.setBoardPerPage(10);
         ArrayList<BoardVO> list = mapper.selectList(cri);
         return list;
     }
@@ -47,6 +45,7 @@ public class BoardService {
 
     public ArrayList<QnaDTO> selectQnaList(CriteriaDTO cri) {
         ArrayList<QnaDTO> list = mapper.selectQnaList(cri);
+        cri.setCode(201);
         return list;
     }
 
@@ -72,7 +71,7 @@ public class BoardService {
         return mapper.delete(board_no);
     }
 
-    public ArrayList<BoardVO> eventBanner (int board_category_cd) {
+    public ArrayList<BoardVO> eventBanner(int board_category_cd) {
         return mapper.eventBanner(board_category_cd);
     }
 }

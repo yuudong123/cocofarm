@@ -7,14 +7,13 @@
       </div>
       <nav class="green container-fluid" id="headerNav">
         <div>
-          <a>홈</a>
-          <a>제품</a>
-          <a>공지사항</a>
-          <a>QnA</a>
+          <a th:href="@{/}">홈</a>
+          <a th:href="@{/product}">제품</a>
+          <a th:href="@{/board/notice}">게시판</a>
         </div>
         <div>
-          <a>마이페이지</a>
-          <a>로그아웃</a>
+          <a th:href="@{/mypage}">마이페이지</a>
+          <a id="btnHeaderLogout">로그아웃</a>
         </div>
       </nav>
     </header>

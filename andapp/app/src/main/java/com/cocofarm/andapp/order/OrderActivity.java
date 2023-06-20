@@ -62,8 +62,6 @@ public class OrderActivity extends AppCompatActivity {
         }
         binding.tvOrderAllPrice.setText(getAllPrice(list)+"");
 
-
-
         binding.etOrderAddress.setText(CommonVal.loginMember.getAddress());
         binding.tvOrderPersonname.setText(CommonVal.loginMember.getNickname());
 

@@ -6,7 +6,35 @@
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <div class="container">기본 페이지, 새 html 생성시 복붙</div>
+      <div class="container">
+        <div id="boardCategory">
+          <a th:href="@{/board/notice}">공지사항</a>
+          <a th:href="@{/board/event}">이벤트</a>
+          <a th:href="@{/board/qna}">Qna</a>
+          <a th:href="@{/board/review}">리뷰</a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>질문</th>
+              <th>작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="board : ${boardlist}">
+              <td th:text="${board.title}"></td>
+              <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="boxBtnPage" class="center-align">
+          <a id="pageFirst" class="material-icons">first_page</a>
+          <th:block th:each="num : ${#numbers.sequence(pager.startPage,pager.endPage)}">
+            <a th:href="@{?(page=${num})}" th:text="${num}"></a>
+          </th:block>
+          <a id="pageLast" class="material-icons">last_page</a>
+        </div>
+      </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>

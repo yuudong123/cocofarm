@@ -6,11 +6,9 @@
         <div class="row">
           <div class="col s12 m4 l4 xl4">
             <div class="container-fluid">
-              <a href="#">이용약관</a>
+              <a th:href="@{/termsofuse}">이용약관</a>
               |
-              <a href="#">개인정보취급방침</a>
-              |
-              <a href="#">이용안내</a>
+              <a th:href="@{/privacypolicy}">개인정보취급방침</a>
               <br /><br />
               <span>
                 (주)코코팜&nbsp;&nbsp;대표 김영문&nbsp;&nbsp;TEL. 042-8282
@@ -29,17 +27,17 @@
             <div class="col s3 m1 l1 xl1">
               <span>QUICK</span>
               <br /><br />
-              <a href="#">공지사항</a>
+              <a th:href="@{/board/notice}">공지사항</a>
               <br />
-              <a href="#">이벤트</a>
+              <a th:href="@{/board/event}">이벤트</a>
               <br />
-              <a href="#">마이페이지</a>
+              <a th:href="@{/mypage}">마이페이지</a>
               <br />
-              <a href="#">질문하기</a>
+              <a th:href="@{/board/qna}">질문하기</a>
               <br />
               <a href="#">주문조회</a>
               <br />
-              <a href="#">리뷰/후기</a>
+              <a th:href="@{/board/review}">리뷰/후기</a>
             </div>
           </div>
           <div class="col s9 m3 l3 xl3">
@@ -73,5 +71,6 @@
         </div>
       </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </th:block>
 </html>

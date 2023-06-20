@@ -40,12 +40,11 @@ public class BoardController {
         if (category.equals("qna")) {
             ArrayList<QnaDTO> qnalist = boardService.selectQnaList(cri);
             mav.addObject("boardlist", qnalist);
-            mav.setViewName("board/qnalist");
         } else {
             ArrayList<BoardVO> boardlist = boardService.selectList(category, cri);
             mav.addObject("boardlist", boardlist);
-            mav.setViewName("board/boardlist");
         }
+        mav.setViewName("board/boardlist");
         int total = boardService.getTotal(cri);
         PageDTO pagedto = new PageDTO(cri, total);
         mav.addObject("pager", pagedto);
