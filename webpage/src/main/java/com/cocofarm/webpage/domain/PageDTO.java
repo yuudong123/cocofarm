@@ -6,7 +6,7 @@ import lombok.Data;
 public class PageDTO {
     private int startPage;
     private int endPage;
-    private boolean prev, next;
+    private int lastPage;
     private int total;
     private CriteriaDTO cri;
 
@@ -21,7 +21,6 @@ public class PageDTO {
         if (realEnd < this.endPage) {
             this.endPage = realEnd;
         }
-        this.prev = this.startPage > 1;
-        this.next = this.endPage < realEnd;
+        this.lastPage = (total - 1) / cri.getBoardPerPage() + 1;
     }
 }
