@@ -35,15 +35,18 @@ public class OrderActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         binding=ActivityOrderBinding.inflate(getLayoutInflater());
 
         Intent intent = getIntent();
         int value = intent.getIntExtra("value",0);
         if(value==1){
+            ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
             //바로 구매에서 주문 결제로 보내기 위함.
             int number = intent.getIntExtra("number",0);
-            ProductVO productVO = (ProductVO) intent.getSerializableExtra("productVO");
+            //ProductVO productVO = (ProductVO) intent.getSerializableExtra("productVO");
             CartDTO cartDTO = new CartDTO();
             cartDTO.setCart_id(1);
             cartDTO.setChecked(true);
@@ -75,7 +78,6 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.btnOrderFinish.setOnClickListener(v->{
-            //완료되면 뒤로가기 못하게 하기.
             orderFinish(); //결제하기 메소드
             Intent intent1 = new Intent(OrderActivity.this, OrderFinishActivity.class);
             startActivity(intent1);
@@ -99,11 +101,18 @@ public class OrderActivity extends AppCompatActivity {
         //결제 메소드
         conn = new CommonConn(this, "orderinsert.and");
         //conn.addParam("order_id", orderId);
-        conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+      //  conn.addParam("member_no", );
         //conn.addParam("orderdate", date);
-        conn.addParam("price", getAllPrice(list));
-        conn.addParam("address", CommonVal.loginMember.getAddress());
+     //   ;
+       // conn.addParam("price", getAllPrice(list));
+       //
+        OrderVO vo = new OrderVO();
+        vo.setMember_no(CommonVal.loginMember.getMember_no());
+        vo.setPrice(getAllPrice(list));
+        vo.setOrderProductVOList(list);
+        vo.setAddress(CommonVal.loginMember.getAddress());
         //conn.addParam("order_status_cd", CodeTable.ORDER_STATUS_ONREADY);
+        conn.addParam("vo", new Gson().toJson( vo )); //장바구니 리스트로 amount
         conn.onExcute((isResult, data) -> {
             Log.d("성공 번호", "orderFinish: "+orderId);
             if (!isResult){
@@ -113,10 +122,6 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
-    private void orderProduct(){
-        conn = new CommonConn(this, ".and");
-        conn.addParam("orderproduct_id", );
-    }
 
     private String makeOrderId(Date date){
         //주문번호(문자열) 만드는 메소드

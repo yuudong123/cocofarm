@@ -24,7 +24,7 @@ public class MemberService {
     return mapper.join(vo);
   }
 
-  public String email_search(String email){
+  public String email_search(String email) {
     return mapper.email_search(email);
   }
 

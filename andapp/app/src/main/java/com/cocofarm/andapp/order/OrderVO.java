@@ -4,6 +4,7 @@ import com.cocofarm.andapp.util.DateJsonAdapter;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 import lombok.Data;
@@ -18,5 +19,6 @@ public class OrderVO implements Serializable {
     private int price;
     private String address;
     private int order_status_cd;
+    private ArrayList<CartDTO> orderProductVOList;
 
 }
