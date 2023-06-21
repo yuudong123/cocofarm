@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.cocofarm.andapp.MainActivity;
+import com.cocofarm.andapp.databinding.ActivityOrderFinishBinding;
 
 public class OrderFinishActivity extends AppCompatActivity {
     ActivityOrderFinishBinding binding;
@@ -17,11 +18,15 @@ public class OrderFinishActivity extends AppCompatActivity {
         binding=ActivityOrderFinishBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         onBackPressed();
+        Intent intent1 = getIntent();
+        String value = intent1.getStringExtra("order_id");
 
 
         binding.btnGoOrderContentA.setOnClickListener(v->{
+
             Intent intent = new Intent(OrderFinishActivity.this, OrderProductActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("order_id", value);
             startActivity(intent);
         });
         binding.btnGoCart.setOnClickListener(v->{

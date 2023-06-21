@@ -3,18 +3,20 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_margin="5dp"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/tv_order_day"
                 android:textStyle="bold"
                 android:text="05.30결제"
                 android:layout_width="wrap_content"
@@ -31,6 +33,8 @@
         </LinearLayout>
 
         <TextView
+            android:layout_margin="5dp"
+            android:id="@+id/tv_order_ready"
             android:text="상품 준비중"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -62,7 +66,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_cart_order_name"
+                        android:id="@+id/tv_orderproduct_name"
                         android:text="로즈마리"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -75,8 +79,14 @@
 
                     <TextView
                         android:layout_gravity="center"
-                        android:id="@+id/tv_cart_order_size"
-                        android:text="￦ 34,000 · 1개"
+                        android:id="@+id/tv_orderproduct_price"
+                        android:text="￦ 34,000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/tv_orderproduct_amount"
+                        android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -91,8 +101,8 @@
                     android:layout_height="wrap_content">
 
                     <Button
-                        android:id="@+id/btn_change"
-                        android:text="교환·반품"
+                        android:id="@+id/btn_cancel"
+                        android:text="취소"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_width="0dp"/>
@@ -105,7 +115,24 @@
                         android:id="@+id/btn_delivery_check"
                         android:text="배송조회"
                         />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:id="@+id/btns_ondelivery"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/btn_ondelivery_check"
+                        android:text="배송조회"
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:visibility="gone"
@@ -119,16 +146,16 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_review"
-                        android:text="리뷰쓰기"
+                        android:id="@+id/btn_change"
+                        android:text="교환·반품신청"
                         />
 
                     <Button
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_marginLeft="10dp"
-                        android:id="@+id/btn_rebuy"
-                        android:text="재구매"
+                        android:id="@+id/btn_realbuy"
+                        android:text="구매확정"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -136,7 +163,7 @@
                 <LinearLayout
                     android:visibility="gone"
                     android:layout_margin="10dp"
-                    android:id="@+id/btns_cancel"
+                    android:id="@+id/btns_arrivedNOK"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -145,13 +172,29 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_cancel"
-                        android:text="취소"
+                        android:id="@+id/btn_review"
+                        android:text="리뷰쓰기"
                         />
 
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    android:id="@+id/btns_changeNRefund"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_ChangeRefundcancel"
+                        android:text="취소"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
 

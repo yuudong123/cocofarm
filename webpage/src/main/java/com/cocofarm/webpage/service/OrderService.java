@@ -42,4 +42,9 @@ public class OrderService {
         return random.nextInt(max - min + 1) + min;
     }
 
+    public ArrayList<OrderProductVO> OrderProductList(OrderVO vo){
+        
+        return ordermapper.OrderProductList(vo);
+    }
+
 }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.common.ResultVO;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityOrderBinding;
 import com.cocofarm.andapp.product.ProductActivity;
@@ -55,6 +56,9 @@ public class OrderActivity extends AppCompatActivity {
             cartDTO.setProduct_name(productVO.getName());
             cartDTO.setProduct_price(productVO.getPrice());
             cartDTO.setProduct_image(productVO.getFilename());
+            cartDTO.setProduct_id(productVO.getProduct_id());
+
+
             list.add(cartDTO);
         }else {
             for (CartDTO cartDTO : CommonVal.cart) {
@@ -76,9 +80,11 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.btnOrderFinish.setOnClickListener(v->{
-            orderFinish(); //결제하기 메소드
+            String order_id = orderFinish(); //결제하기 메소드
             Intent intent1 = new Intent(OrderActivity.this, OrderFinishActivity.class);
+            intent1.putExtra("order_id", order_id);
             startActivity(intent1);
+
            //결제하기로 넘어가면서 cart에 있던것들 삭제
         });
         }
@@ -93,7 +99,7 @@ public class OrderActivity extends AppCompatActivity {
         return allPrice;
     }
 
-    private void orderFinish(){
+    private String orderFinish(){
         Date date = new Date();
         String orderId=makeOrderId(date);
         //결제 메소드
@@ -109,15 +115,21 @@ public class OrderActivity extends AppCompatActivity {
         vo.setPrice(getAllPrice(list));
         vo.setOrderProductVOList(list);
         vo.setAddress(CommonVal.loginMember.getAddress());
+
         //conn.addParam("order_status_cd", CodeTable.ORDER_STATUS_ONREADY);
         conn.addParam("vo", new Gson().toJson( vo )); //장바구니 리스트로 amount
         conn.onExcute((isResult, data) -> {
-            Log.d("성공 번호", "orderFinish: "+orderId);
+            ResultVO resultvo = new Gson().fromJson(data,
+                    new TypeToken<ResultVO>(){}.getType());
+            Log.d("성공 번호", "orderFinish: "+resultvo.getResult());
             if (!isResult){
                 Toast.makeText(this, "결제에 실패했습니다.",Toast.LENGTH_SHORT).show();
             }
 
         });
+        return orderId;
+
+        //boolean conn.getResult;
     }
 
 

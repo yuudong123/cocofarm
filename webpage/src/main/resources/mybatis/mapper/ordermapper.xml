@@ -5,14 +5,36 @@
          insert into tbl_order values (#{order_id},#{member_no},#{orderdate},#{price},#{address},301)        
     </insert>
     <insert id="OrderProductInsert" parameterType="com.cocofarm.webpage.domain.OrderVO">
-        insert into TBL_ORDERPRODUCT(orderproduct_id, order_id, product_id, member_no, amount, price)
-        select seq_orderproduct_id.nextval, order_id, product_id, member_no, amount, product_price
+        insert into TBL_ORDERPRODUCT(orderproduct_id, order_id, product_id, member_no, amount, price, order_status_cd)
+        select seq_orderproduct_id.nextval, order_id, product_id, member_no, amount, product_price , order_status_cd
         from (
         <foreach collection="orderProductVOList" item="item" separator="union all" close=""> 
-        select  #{order_id} as order_id, #{item.product_id} as product_id, #{item.member_no} as member_no, #{item.amount} as amount, #{item.product_price} as product_price
+        select  #{order_id} as order_id, #{item.product_id} as product_id, #{item.member_no} as member_no, #{item.amount} as amount, #{item.product_price} as product_price,
+        301 as order_status_cd
         from dual
         </foreach>
         )
-        
     </insert>
+
+    <select id="OrderProductOne" parameterType="com.cocofarm.webpage.domain.OrderVO">
+    select op.product_id, op.order_id, o.member_no, o.orderdate, o.order_status_cd, op.price, op.amount, op.order_status_cd, cd.value, im.filename, p.name 
+from tbl_orderproduct op
+join tbl_order o on op.order_id = o.order_id
+join (select code, value from tbl_code where codetype='ORDER_STATUS')cd on op.order_status_cd = cd.code
+left outer join (select product_id, min(filename)as filename from tbl_image group by product_id )im on op.product_id = im.product_id
+join (select name, product_id from tbl_product)p on op.product_id = p.product_id
+where o.order_id = #{order_id}
+    </select>
+
+    <select id="OrderProductList" parameterType="com.cocofarm.webpage.domain.OrderVO">
+    select op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount,  cd.value, im.filename, p.name 
+from tbl_orderproduct op
+join tbl_order o on op.order_id = o.order_id
+join (select code, value from tbl_code where codetype='ORDER_STATUS')cd on op.order_status_cd = cd.code
+left outer join (select product_id, min(filename)as filename from tbl_image group by product_id )im on op.product_id = im.product_id
+join (select name, product_id from tbl_product)p on op.product_id = p.product_id
+where o.member_no = #{member_no}
+ORDER BY op.orderproduct_id DESC
+    </select>
+
 </mapper>
