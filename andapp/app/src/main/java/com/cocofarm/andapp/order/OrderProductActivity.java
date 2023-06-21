@@ -4,16 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.cocofarm.andapp.databinding.ActivityOrderContentBinding;
+import com.cocofarm.andapp.databinding.ActivityOrderProductBinding;
 
 public class OrderProductActivity extends AppCompatActivity {
 
-    ActivityOrderContentBinding binding;
+    ActivityOrderProductBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      binding=ActivityOrderContentBinding.inflate(getLayoutInflater());
+      binding=ActivityOrderProductBinding.inflate(getLayoutInflater());
       setContentView(binding.getRoot());
 
 
