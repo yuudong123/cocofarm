@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
@@ -18,10 +19,13 @@ public class OrderService {
     @Autowired
     OrderMapper ordermapper;
 
+    @Transactional
     public int OrderInsert(OrderVO vo) {
         vo.setOrderdate(new Date());
         vo.setOrder_id(makeOrderId(vo));
-        return ordermapper.OrderInsert(vo);
+        int orderresult = ordermapper.OrderInsert(vo);
+        int orderProresult = ordermapper.OrderProductInsert(vo);
+        return orderresult+orderProresult;
     }
 
     private String makeOrderId(OrderVO vo) {

@@ -9,5 +9,7 @@ import com.cocofarm.webpage.domain.OrderVO;
 public interface OrderMapper {
 
     public int OrderInsert(OrderVO vo);
+
+    public int OrderProductInsert(OrderVO vo);
     
 }

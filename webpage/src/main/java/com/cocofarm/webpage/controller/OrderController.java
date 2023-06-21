@@ -21,9 +21,9 @@ public class OrderController {
     @ResponseBody
     public void OrderInsert(String vo) {
         System.out.println(vo);
-        OrderVO vo2 = new Gson().fromJson(vo, OrderVO.class);
+        OrderVO ordervo = new Gson().fromJson(vo, OrderVO.class);
 
-        orderservice.OrderInsert(vo2);
+        orderservice.OrderInsert(ordervo);
 
     }
 }
