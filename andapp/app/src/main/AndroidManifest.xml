@@ -108,7 +108,7 @@
             android:name=".mypage.AboutMeActivity"
             android:exported="false" />
         <activity
-            android:name=".order.OrderContentActivity"
+            android:name=".order.OrderProductActivity"
             android:exported="false" />
         <activity
             android:name=".board.QnAWriteActivity"

@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.cocofarm.andapp.MainActivity;
-import com.cocofarm.andapp.R;
-import com.cocofarm.andapp.databinding.ActivityOrderFinishBinding;
-import com.cocofarm.andapp.product.ProductActivity;
 
 public class OrderFinishActivity extends AppCompatActivity {
     ActivityOrderFinishBinding binding;
@@ -23,7 +20,7 @@ public class OrderFinishActivity extends AppCompatActivity {
 
 
         binding.btnGoOrderContentA.setOnClickListener(v->{
-            Intent intent = new Intent(OrderFinishActivity.this, OrderContentActivity.class);
+            Intent intent = new Intent(OrderFinishActivity.this, OrderProductActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         });
