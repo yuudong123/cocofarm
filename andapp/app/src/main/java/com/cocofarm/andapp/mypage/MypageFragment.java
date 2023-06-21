@@ -26,6 +26,7 @@ import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.FragmentMypageBinding;
 import com.cocofarm.andapp.member.LoginActivity;
 import com.cocofarm.andapp.member.MemberVO;
+import com.cocofarm.andapp.order.OrderProductActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -150,7 +151,8 @@ public class MypageFragment extends Fragment {
 //            Intent intent = new Intent(getActivity(), AlertListActivity.class);
         });
         binding.tvMyorder.setOnClickListener(v-> {
-//            Intent intent = new Intent(getActivity(), MyOrderListActivity.class);
+            Intent intent = new Intent(getActivity(), OrderProductActivity.class);
+            startActivity(intent);
         });
         binding.tvMyboard.setOnClickListener(v-> {
             Intent intent = new Intent(getActivity(), MyBoardActivity.class);
