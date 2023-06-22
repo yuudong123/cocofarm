@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.board.BoardReadActivity;
 import com.cocofarm.andapp.board.BoardVO;
-import com.cocofarm.andapp.board.NoticeAdapter;
-import com.cocofarm.andapp.databinding.FragmentHomeBinding;
 import com.cocofarm.andapp.databinding.ItemNoticeBoardBinding;
 
 import java.util.List;
@@ -41,6 +39,11 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<HomeNoticeAdapter.Vi
     public void onBindViewHolder(@NonNull HomeNoticeAdapter.ViewHolder holder, int i) {
         holder.binding.title.setText(list.get(i).getTitle());
         holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
+        if (list.get(i).getRegdate().getTime() != list.get(i).getUpddate().getTime()) {
+            holder.binding.tvUpdated.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.tvUpdated.setVisibility(View.GONE);
+        }
         holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
             intent.putExtra("BoardVO", list.get(i));

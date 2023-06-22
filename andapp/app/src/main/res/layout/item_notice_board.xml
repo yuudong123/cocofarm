@@ -14,14 +14,17 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:text="안녕하세요" />
-
+    <TextView
+        android:id="@+id/tvUpdated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="[수정됨]"/>
     <TextView
         android:id="@+id/regdate"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:layout_marginStart="10dp"
-        android:text="6월 1일"
         android:textAlignment="center" />
 
 </LinearLayout>

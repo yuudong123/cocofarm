@@ -5,6 +5,7 @@ import static com.cocofarm.andapp.common.CommonVal.Md;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cocofarm.andapp.databinding.ItemNoticeBoardBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder> {
     ItemNoticeBoardBinding binding;
@@ -38,6 +38,11 @@ public class NoticeAdapter extends RecyclerView.Adapter<NoticeAdapter.ViewHolder
         BoardVO boardVO = list.get(i);
         holder.binding.title.setText(boardVO.getTitle());
         holder.binding.regdate.setText(Md.format(boardVO.getRegdate()));
+        if (boardVO.getRegdate().getTime() != boardVO.getUpddate().getTime()) {
+            holder.binding.tvUpdated.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.tvUpdated.setVisibility(View.GONE);
+        }
         holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
             intent.putExtra("BoardVO", boardVO);

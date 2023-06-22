@@ -21,7 +21,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NoticeFragment extends Fragment {
     FragmentNoticeBinding binding;
@@ -52,7 +51,7 @@ public class NoticeFragment extends Fragment {
             if (!prev) {
                 Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                cri.setPage(cri.getPage()-1);
+                cri.setPage(cri.getPage() - 1);
                 loadBoard();
             }
         });
@@ -61,7 +60,7 @@ public class NoticeFragment extends Fragment {
             if (!next) {
                 Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                cri.setPage(cri.getPage()+1);
+                cri.setPage(cri.getPage() + 1);
                 loadBoard();
             }
         });
@@ -79,7 +78,7 @@ public class NoticeFragment extends Fragment {
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", cri.getKeyword());
         conn.onExcute((isResult, data) -> {
-            if(isResult) {
+            if (isResult) {
                 this.total = Integer.parseInt(data);
             }
         });
@@ -103,8 +102,8 @@ public class NoticeFragment extends Fragment {
     }
 
     protected void pager() {
-        endPage = (total-1)/10 +1;
-        prev = cri.getPage()>1;
-        next = cri.getPage()<endPage;
+        endPage = (total - 1) / 10 + 1;
+        prev = cri.getPage() > 1;
+        next = cri.getPage() < endPage;
     }
 }

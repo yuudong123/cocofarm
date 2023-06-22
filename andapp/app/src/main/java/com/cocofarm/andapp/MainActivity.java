@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -14,18 +13,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.board.BoardFragment;
-import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ActivityMainBinding;
 import com.cocofarm.andapp.home.HomeFragment;
-import com.cocofarm.andapp.member.LoginActivity;
 import com.cocofarm.andapp.mydevice.MyDeviceFragment;
 import com.cocofarm.andapp.mypage.CsCenterActivity;
 import com.cocofarm.andapp.mypage.MypageFragment;
 import com.cocofarm.andapp.mypage.NonMemberFragment;
 import com.cocofarm.andapp.order.CartActivity;
 import com.cocofarm.andapp.product.ProductFragment;
-
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     public static Context mContext;
@@ -37,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mContext = this;
-        
+
         binding.bottomNav.setOnItemSelectedListener(menu -> {
             Fragment fragment = null;
             if (menu.getItemId() == R.id.home) {
@@ -105,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
         binding.bottomNav.setSelectedItemId(R.id.home);
-    //    getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
+        //    getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
 
         binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
@@ -147,5 +142,4 @@ public class MainActivity extends AppCompatActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.END);
         }
     }
-
 }
