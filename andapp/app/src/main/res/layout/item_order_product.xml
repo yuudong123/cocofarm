@@ -93,15 +93,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="visible"
                     android:layout_margin="10dp"
-                    android:id="@+id/btns_onready"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <Button
-                        android:id="@+id/btn_cancel"
+                        android:id="@+id/btn_1"
                         android:text="취소"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -112,87 +110,8 @@
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_marginLeft="10dp"
-                        android:id="@+id/btn_delivery_check"
+                        android:id="@+id/btn_2"
                         android:text="배송조회"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_margin="10dp"
-                    android:id="@+id/btns_ondelivery"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_marginLeft="10dp"
-                        android:id="@+id/btn_ondelivery_check"
-                        android:text="배송조회"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_margin="10dp"
-                    android:id="@+id/btns_arrived"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btn_change"
-                        android:text="교환·반품신청"
-                        />
-
-                    <Button
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_marginLeft="10dp"
-                        android:id="@+id/btn_realbuy"
-                        android:text="구매확정"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_margin="10dp"
-                    android:id="@+id/btns_arrivedNOK"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btn_review"
-                        android:text="리뷰쓰기"
-                        />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_margin="10dp"
-                    android:id="@+id/btns_changeNRefund"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/btn_ChangeRefundcancel"
-                        android:text="취소"
                         />
                 </LinearLayout>
 

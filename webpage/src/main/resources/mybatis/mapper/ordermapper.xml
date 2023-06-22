@@ -37,10 +37,9 @@ where o.member_no = #{member_no}
 ORDER BY op.orderproduct_id DESC
     </select>
 
-    <!-- orderproduct주문목록에서 삭제 -->
-    <delete id = "delete">
-    delete tbl_orderproduct 
-    where orderproduct_id=#{orderproduct_id} and member_no=#{member_no}
-    </delete>
+    <!-- orderproduct주문목록 상태변경 -->
+    <update id = "OrderProductStatusUpdate">
+   update tbl_orderproduct set order_status_cd = #{order_status_cd} where orderproduct_id = #{orderproduct_id} and member_no = #{member_no}
+    </update>
 
 </mapper>

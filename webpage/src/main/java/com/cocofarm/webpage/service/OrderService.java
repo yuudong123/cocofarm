@@ -25,7 +25,7 @@ public class OrderService {
         vo.setOrder_id(makeOrderId(vo));
         int orderresult = ordermapper.OrderInsert(vo);
         int orderProresult = ordermapper.OrderProductInsert(vo);
-        return orderresult+orderProresult;
+        return orderresult + orderProresult;
     }
 
     private String makeOrderId(OrderVO vo) {
@@ -42,12 +42,12 @@ public class OrderService {
         return random.nextInt(max - min + 1) + min;
     }
 
-    public ArrayList<OrderProductVO> OrderProductList(OrderVO vo){
+    public ArrayList<OrderProductVO> OrderProductList(OrderVO vo) {
         return ordermapper.OrderProductList(vo);
     }
 
-    public int delete(OrderProductVO vo){
-        return ordermapper.delete(vo);
+    public int OrderProductStatusUpdate(OrderProductVO vo) {
+        return ordermapper.OrderProductStatusUpdate(vo);
     }
 
 }

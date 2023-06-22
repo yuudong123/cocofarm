@@ -46,11 +46,11 @@ public class OrderController {
         return new Gson().toJson(list);
     }
 
-    @PostMapping(value = "orderproductdelete.and", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "orderproductupdate.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public void delete(String vo) {
+    public void OrderProductStatusUpdate(String vo) {
         OrderProductVO tempVo = new Gson().fromJson(vo, OrderProductVO.class);
-        orderservice.delete(tempVo);
+        orderservice.OrderProductStatusUpdate(tempVo);
     }
 
 }
