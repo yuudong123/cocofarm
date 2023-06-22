@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -12,21 +13,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ItemOrderProductBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
+import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapter.ViewHolder> {
     Context context;
-
     ItemOrderProductBinding binding;
     ArrayList<OrderProductVO>list;
 
-    public OrderProductAdapter(ArrayList<OrderProductVO> list) {
+
+    public OrderProductAdapter(ArrayList<OrderProductVO> list , Context context) {
         this.list = list;
+        this.context=context;
     }
 
     @NonNull
@@ -50,6 +54,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         holder.binding.tvOrderproductAmount.setText(list.get(position).getAmount()+"개");
 
         OrderProductVO orderProduct = list.get(position);
+
         int orderStatus = orderProduct.getOrder_status_cd();
 
         if (orderStatus ==CodeTable.ORDER_STATUS_ONREADY) {
@@ -62,6 +67,26 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
 
             holder.binding.btnCancel.setOnClickListener(v->{
                 //취소 버튼 눌렀을 경우 주문목록에서 삭제.
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("").setMessage("취소신청을 원하시면 취소신청 버튼을 눌러주시고(함께 주문하신것들이 취소가 됩니다.) 취소를 원하시지 않으시면 아니오를 눌러주세요.").setCancelable(false)
+                        .setPositiveButton("취소신청", (dialogInterface, i1) -> {
+
+                            CommonConn conn= new CommonConn(context,"orderproductdelete.and");
+                            conn.addParam("vo",new Gson().toJson( list.get(position)));
+                            conn.onExcute((isResult, data) -> {
+                                if(isResult){
+                                    list.remove(position);
+                                    notifyDataSetChanged();
+
+                                }else {
+                                    Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            });
+                        })
+                        .setNegativeButton("아니오", (dialogInterface, i1) -> {
+
+                        }).create().show();
             });
             holder.binding.btnDeliveryCheck.setOnClickListener(v->{
                 //배송조회 눌렀을 경우 배송조회 페이지로 이동 배송시작 글자만 뜨게.

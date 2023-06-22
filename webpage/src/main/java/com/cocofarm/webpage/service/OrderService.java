@@ -43,8 +43,11 @@ public class OrderService {
     }
 
     public ArrayList<OrderProductVO> OrderProductList(OrderVO vo){
-        
         return ordermapper.OrderProductList(vo);
+    }
+
+    public int delete(OrderProductVO vo){
+        return ordermapper.delete(vo);
     }
 
 }
