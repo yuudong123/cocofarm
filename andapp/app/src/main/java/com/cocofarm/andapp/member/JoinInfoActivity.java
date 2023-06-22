@@ -45,10 +45,6 @@ public class JoinInfoActivity extends AppCompatActivity {
             if (nickname.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "필수 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
-                if (phone == null) {
-                    phone = "";
-                }
-
                 if (address.equals(", ")) {
                     address = "";
                 }
@@ -59,7 +55,7 @@ public class JoinInfoActivity extends AppCompatActivity {
                 vo.setAddress(address);
 
 
-                CommonConn conn = new CommonConn(this, "join");
+                CommonConn conn = new CommonConn(this, "/member/join");
                 conn.addParam("email", vo.getEmail());
                 conn.addParam("password", vo.getPassword());
                 conn.addParam("nickname", vo.getNickname());
@@ -71,6 +67,10 @@ public class JoinInfoActivity extends AppCompatActivity {
                     if (isResult) {
                         Log.d("회원가입 정보", "onCreate: " + data);
                         Intent intent = new Intent(JoinInfoActivity.this, JoinCompleteActivity.class);
+                        MemberVO loginVo = new MemberVO();
+                        loginVo.setEmail(vo.getEmail());
+                        loginVo.setPassword(vo.getPassword());
+                        intent.putExtra("login", loginVo);
                         startActivity(intent);
                     } else {
                         Log.d("오류 발생", "onfalse: ");

@@ -88,7 +88,9 @@ public class MypageFragment extends Fragment {
                         });
             } else if (CommonVal.loginMember.getSns().equals("N")) {
                 CommonVal.loginMember = null;
+                Intent intent = getActivity().getIntent();
                 getActivity().finish();
+                startActivity(intent);
                 CommonVal.isCheckLogout = true;
                 Toast.makeText(getActivity(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             } else {
@@ -181,88 +183,4 @@ public class MypageFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-
-//    public class Kakao {
-//        // 카카오 로그아웃
-//        private void signOut() {
-//            UserApiClient.getInstance().logout(throwable -> {
-//                if (throwable != null) {
-//                    Log.e("카카오 로그아웃", "로그아웃 실패. SDK에서 토큰 삭제됨", throwable);
-//                } else {
-//                    Log.i("카카오 로그아웃", "로그아웃 성공. SDK에서 토큰 삭제됨");
-//                }
-//                return null;
-//            });
-//        }
-//
-//        // 카카오 연동해제
-//        private void revokeAccess() {
-//            UserApiClient.getInstance().unlink(throwable -> {
-//                if (throwable != null) {
-//                    Log.e("카카오 연동해제", "연결 끊기 실패", throwable);
-//                } else {
-//                    Log.i("카카오 연동해제", "연결 끊기 성공. SDK에서 토큰 삭제 됨");
-//                }
-//                return null;
-//            });
-//        }
-//    }
-//
-//    public class Naver {
-//        // 네이버 로그아웃
-//        private void signOut() {
-//            NaverIdLoginSDK.INSTANCE.logout();
-//        }
-//
-//        // 네이버 연동해제
-//        private void revokeAccess() {
-//            new NidOAuthLogin().callDeleteTokenApi(getActivity(), new OAuthLoginCallback() {
-//                @Override
-//                public void onSuccess() {
-//                    //서버에서 토큰 삭제에 성공한 상태입니다
-//                }
-//                @Override
-//                public void onFailure(int i, @NonNull String s) {
-//                    Log.d("네이버 연동해제", "errorCode: ${NaverIdLoginSDK.getLastErrorCode().code}");
-//                    Log.d("네이버 연동해제", "errorDesc: ${NaverIdLoginSDK.getLastErrorDescription()}");
-//                    getActivity().finish();
-//                }
-//                @Override
-//                public void onError(int i, @NonNull String s) {
-//                    onFailure(i, "Error Message: "+ s);
-//                }
-//            });
-//        }
-//    }
-//
-//    public class Google {
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-//        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
-//
-//        // 구글 로그아웃
-//        private void signOut() {
-//            mGoogleSignInClient.signOut()
-//                    .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            getActivity().finish();
-//                        }
-//                    });
-//        }
-//
-//        //구글 연동해제
-//        private void revokeAccess() {
-//            mGoogleSignInClient.revokeAccess()
-//                    .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            getActivity().finish();
-//                            Toast.makeText(getActivity(), "Google 계정의 연동이 해제되었습니다.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//        }
-//    }
 }

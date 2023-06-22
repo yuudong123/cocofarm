@@ -110,7 +110,7 @@ public class AmModifyActivity extends AppCompatActivity {
 
         // 완료
         binding.btnOk.setOnClickListener(v->{
-            CommonConn conn = new CommonConn(this, "am.modify");
+            CommonConn conn = new CommonConn(this, "/member/modify");
 
             if (binding.edtPw.getVisibility() == View.VISIBLE) {
                 conn.addParam("password", binding.edtPw.getText().toString());

@@ -67,7 +67,7 @@ public class FirstActivity extends AppCompatActivity {
         getHashKey();
         binding = ActivityFirstBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        YoYo.with(Techniques.FadeInUp).duration(1800).repeat(0).playOn(binding.layoutFirst);
+        YoYo.with(Techniques.FadeInUp).duration(1300).repeat(0).playOn(binding.layoutFirst);
 
 
         TextView function_text = binding.tvJoinInfo;
@@ -203,7 +203,7 @@ public class FirstActivity extends AppCompatActivity {
                 Log.d("요청 실패", "실패: " + throwable.getMessage());
             } else {
                 Log.d("카카오프로필", "email: " + user.getKakaoAccount().getEmail());
-                CommonConn conn = new CommonConn(this, "email_search");
+                CommonConn conn = new CommonConn(this, "/member/email_search");
                 conn.addParam("email", user.getKakaoAccount().getEmail());
                 conn.onExcute((isResult, data) -> {
                     if (isResult) {
@@ -218,7 +218,7 @@ public class FirstActivity extends AppCompatActivity {
                             startActivity(intent);
                             // 있으면 > 로그인 처리
                         } else if (data.equals("1")) {
-                            CommonConn login_conn = new CommonConn(this, "sns_login");
+                            CommonConn login_conn = new CommonConn(this, "/member/sns_login");
                             login_conn.addParam("email", user.getKakaoAccount().getEmail());
                             login_conn.onExcute((isResult1, data1) -> {
                                 CommonVal.loginMember = new Gson().fromJson(data1, MemberVO.class);
@@ -253,7 +253,7 @@ public class FirstActivity extends AppCompatActivity {
             @Override
             public void onSuccess(NidProfileResponse nidProfileResponse) {
                 Log.d("네이버", "onSuccess: " + nidProfileResponse.getProfile().getEmail());
-                CommonConn conn = new CommonConn(FirstActivity.this, "email_search");
+                CommonConn conn = new CommonConn(FirstActivity.this, "/member/email_search");
                 conn.addParam("email", nidProfileResponse.getProfile().getEmail());
 
                 conn.onExcute((isResult, data) -> {
@@ -269,7 +269,7 @@ public class FirstActivity extends AppCompatActivity {
                             startActivity(intent);
                             // 있으면 > 로그인 처리
                         } else if (data.equals("1")) {
-                            CommonConn login_conn = new CommonConn(FirstActivity.this, "sns_login");
+                            CommonConn login_conn = new CommonConn(FirstActivity.this, "/member/sns_login");
                             login_conn.addParam("email", nidProfileResponse.getProfile().getEmail());
 
                             login_conn.onExcute((isResult1, data1) -> {
@@ -307,7 +307,7 @@ public class FirstActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personEmail = acct.getEmail();
-            CommonConn conn = new CommonConn(FirstActivity.this, "email_search");
+            CommonConn conn = new CommonConn(FirstActivity.this, "/member/email_search");
             conn.addParam("email", personEmail);
             conn.onExcute((isResult, data) -> {
                 if (isResult) {
@@ -322,7 +322,7 @@ public class FirstActivity extends AppCompatActivity {
                         startActivity(intent);
                         // 있으면 > 로그인 처리
                     } else if (data.equals("1")) {
-                        CommonConn login_conn = new CommonConn(FirstActivity.this, "sns_login");
+                        CommonConn login_conn = new CommonConn(FirstActivity.this, "/member/sns_login");
                         login_conn.addParam("email", personEmail);
 
                         login_conn.onExcute((isResult1, data1) -> {

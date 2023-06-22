@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 public class PhoneHyphen {
 
 	public static String convertTelNo(String src) {
-
+		
 		String mobTelNo = src;
 
 		if (mobTelNo != null) {
@@ -27,7 +27,6 @@ public class PhoneHyphen {
 				} 
 			}
 		}
-
 		return mobTelNo;
 	}
 }

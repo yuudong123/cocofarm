@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "566802682316",
+    "project_id": "cocofarm",
+    "storage_bucket": "cocofarm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566802682316:android:243b3bbff0a9a64004cd69",
+        "android_client_info": {
+          "package_name": "com.cocofarm.andapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566802682316-elmmi3ppfnbcflmp60gkjd0osdl04duu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLNcXmDH-5prnP3uc5ydSWkbPm72zdras"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566802682316-elmmi3ppfnbcflmp60gkjd0osdl04duu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
