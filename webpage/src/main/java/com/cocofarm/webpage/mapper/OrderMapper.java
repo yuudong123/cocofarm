@@ -16,5 +16,7 @@ public interface OrderMapper {
     public int OrderProductInsert(OrderVO vo);
 
     public ArrayList<OrderProductVO> OrderProductList(OrderVO vo);
+
+    public int OrderProductStatusUpdate(OrderProductVO vo);
     
 }
