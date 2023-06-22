@@ -2,71 +2,69 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <th:block th:fragment="footerFragment">
     <footer class="container-fluid green accent-1 z-depth-4">
-      <div class="container">
-        <div class="row">
-          <div class="col s12 m4 l4 xl4">
-            <div class="container-fluid">
-              <a th:href="@{/termsofuse}">이용약관</a>
-              |
-              <a th:href="@{/privacypolicy}">개인정보취급방침</a>
-              <br /><br />
-              <span>
-                (주)코코팜&nbsp;&nbsp;대표 김영문&nbsp;&nbsp;TEL. 042-8282
-                <br />
-                사업자등록번호. 123-45-67890
-                <br />
-                주소. 광주광역시 서구 경열로 3 (농성동) 한울직업전문학교
-                <br /><br />
-                &copy;&nbsp;2023 코코팜 all rights reserved.
-                <br /><br />
-                '코코팜'은 등록상표가 아닙니다.
-              </span>
-            </div>
-          </div>
+      <div class="container row">
+        <div class="col s12 m12 l12 xl4">
           <div class="container-fluid">
-            <div class="col s3 m1 l1 xl1">
-              <span>QUICK</span>
+            <a th:href="@{/termsofuse}">이용약관</a>
+            |
+            <a th:href="@{/privacypolicy}">개인정보취급방침</a>
+            <br /><br />
+            <span>
+              (주)코코팜&nbsp;&nbsp;대표 김영문&nbsp;&nbsp;TEL. 042-8282
+              <br />
+              사업자등록번호. 123-45-67890
+              <br />
+              주소. 광주광역시 서구 경열로 3 (농성동) 한울직업전문학교
               <br /><br />
-              <a th:href="@{/board/notice}">공지사항</a>
-              <br />
-              <a th:href="@{/board/event}">이벤트</a>
-              <br />
-              <a th:href="@{/mypage}">마이페이지</a>
-              <br />
-              <a th:href="@{/board/qna}">질문하기</a>
-              <br />
-              <a href="#">주문조회</a>
-              <br />
-              <a th:href="@{/board/review}">리뷰/후기</a>
-            </div>
-          </div>
-          <div class="col s9 m3 l3 xl3">
-            <div class="container-fluid">
-              <span>CONNECT</span>
+              &copy;&nbsp;2023 코코팜 all rights reserved.
               <br /><br />
-              <span>
-                제품구매 문의 042-8282
-                <br />
-                A/S문의 1577-1577
-                <br /><br />
-                평일 오전 10:00 - 오후 5:00
-                <br />
-                점심시간 오후 12:00 - 오후:1:00
-                <br />
-                토.일.공휴일 휴무
-              </span>
-            </div>
+              '코코팜'은 등록상표가 아닙니다.
+            </span>
           </div>
-          <div class="col s12 m4 l4 xl4">
-            <div class="container-fluid">
-              <span>
-                BANK INFO
-                <br /><br />
-                한울은행 123-456789-01234
-                <br />
-                예금주 : (주)코코팜
-              </span>
-            </div>
+        </div>
+        <div class="container-fluid">
+          <div class="col s12 m4 l4 xl1">
+            <span class="footerTitle">QUICK</span>
+            <br /><br />
+            <a th:href="@{/board/notice}">공지사항</a>
+            <br />
+            <a th:href="@{/board/event}">이벤트</a>
+            <br />
+            <a th:href="@{/mypage}">마이페이지</a>
+            <br />
+            <a th:href="@{/board/qna}">질문하기</a>
+            <br />
+            <a href="#">주문조회</a>
+            <br />
+            <a th:href="@{/board/review}">리뷰/후기</a>
+          </div>
+        </div>
+        <div class="col s6 m4 l4 xl3">
+          <div class="container-fluid">
+            <span class="footerTitle">CONNECT</span>
+            <br /><br />
+            <span>
+              제품구매 문의 042-8282
+              <br />
+              A/S문의 1577-1577
+              <br /><br />
+              평일 오전 10:00 - 오후 5:00
+              <br />
+              점심시간 오후 12:00 - 오후:1:00
+              <br />
+              토.일.공휴일 휴무
+            </span>
+          </div>
+        </div>
+        <div class="col s6 m4 l4 xl4">
+          <div class="container-fluid">
+            <span class="footerTitle"> BANK INFO </span>
+            <br /><br />
+            <span>
+              한울은행 123-456789-01234
+              <br />
+              예금주 : (주)코코팜
+            </span>
           </div>
         </div>
       </div>
