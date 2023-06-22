@@ -22,6 +22,8 @@ public class MemberVO implements Serializable {
     private Date joindate;
     private String isactivated;
     private String sns;
+    private String m_question;
+    private String m_answer;
 
     public MemberVO() {
 

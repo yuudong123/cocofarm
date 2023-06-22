@@ -36,7 +36,8 @@ public class NoticeFragment extends Fragment {
 
         loadBoard();
 
-        if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
+
+        if (loginMember != null && loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), BoardWriteActivity.class);

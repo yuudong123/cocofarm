@@ -2,28 +2,33 @@ package com.cocofarm.andapp.member;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cocofarm.andapp.FirstActivity;
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
+import com.cocofarm.andapp.databinding.ActivityLogin2Binding;
 import com.cocofarm.andapp.databinding.ActivityLoginBinding;
 import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity {
-    ActivityLoginBinding binding;
+    ActivityLogin2Binding binding;
     Boolean isfirst_flag = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityLogin2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.tvFirst.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+
         if (CommonVal.isCheckLogout) {
             nonSaveLoginInfo();
         }
@@ -55,16 +60,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-        // 아이디 찾기
-
-
         // 비밀번호 찾기
-
+        binding.tvFindpw.setOnClickListener(v->{
+            Intent intent = new Intent(LoginActivity.this, FindPwActivity.class);
+            startActivity(intent);
+        });
 
         // 비회원
         binding.tvNonmember.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        // 첫화면
+        binding.tvFirst.setOnClickListener(v-> {
+            Intent intent = new Intent(this, FirstActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
     }
@@ -90,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login(String email, String pw) {
 
-        CommonConn conn = new CommonConn(this, "login");
+        CommonConn conn = new CommonConn(this, "/member/login");
         conn.addParam("email", email);
         conn.addParam("password", pw);
 

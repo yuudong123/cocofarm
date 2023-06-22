@@ -29,7 +29,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     public static Context mContext;
-    ActivityMainBinding binding;
+    public ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,10 +134,12 @@ public class MainActivity extends AppCompatActivity {
             binding.navView.getMenu().findItem(R.id.right_nav_logout).setVisible(true);
         }
 
-        ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.tv_right_nav_email))
-                .setText(loginMember.getEmail());
-        ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.tv_right_nav_nickname))
-                .setText(loginMember.getNickname());
+        if (loginMember != null) {
+            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.tv_right_nav_email))
+                    .setText(loginMember.getEmail());
+            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.tv_right_nav_nickname))
+                    .setText(loginMember.getNickname());
+        }
     }
 
     @Override

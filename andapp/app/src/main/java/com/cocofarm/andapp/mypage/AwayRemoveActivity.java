@@ -35,7 +35,7 @@ public class AwayRemoveActivity extends AppCompatActivity {
         });
 
         binding.btnRemove.setOnClickListener(v->{
-            CommonConn conn = new CommonConn(this, "away");
+            CommonConn conn = new CommonConn(this, "/member/away");
             conn.addParam("email", CommonVal.loginMember.getEmail().toString());
 
             conn.onExcute((isResult, data) -> {

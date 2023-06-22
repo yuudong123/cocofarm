@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -44,29 +45,32 @@ dependencies {
     implementation group: 'com.squareup.retrofit2', name: 'converter-scalars', version: '2.9.0'
     // Glide
     implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.8.0'
-
-    implementation "com.kakao.sdk:v2-user:2.13.0" // 카카오 로그인
-    implementation 'com.navercorp.nid:oauth:5.6.0' // 네이버 로그인
-    implementation 'com.google.android.gms:play-services-auth:20.5.0' // 구글 로그인
-    implementation 'androidx.navigation:navigation-fragment:2.4.1'
-    implementation 'androidx.navigation:navigation-ui:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'// 네이버 로그인
-
+    // Sns Join & Login
+    implementation "com.kakao.sdk:v2-user:2.13.0" //Kakao
+    implementation 'com.navercorp.nid:oauth:5.6.0' //Naver
+    implementation 'com.google.android.gms:play-services-auth:20.5.0' //Google
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.26'
     annotationProcessor 'org.projectlombok:lombok:1.18.26'
-
-    implementation 'com.daimajia.androidanimations:library:2.4@aar'
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
+    implementation 'com.google.firebase:firebase-analytics'
+    // Lottie
     implementation 'com.airbnb.android:lottie:5.0.2'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    // Material
     implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    // JUnit Test
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-email
+    // Commons-Email mavenRepository
     implementation group: 'org.apache.commons', name: 'commons-email', version: '1.5'
 
+    implementation 'androidx.navigation:navigation-fragment:2.4.1'
+    implementation 'androidx.navigation:navigation-ui:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'com.daimajia.androidanimations:library:2.4@aar'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

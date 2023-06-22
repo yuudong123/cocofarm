@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:paddingHorizontal="45dp"
+    android:gravity="center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/coco_background">
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        android:src="@drawable/logo_login"
+        android:layout_width="250dp"
+        android:layout_height="200dp"/>
+
+
+        <EditText
+            android:id="@+id/edt_id"
+            android:layout_marginVertical="5dp"
+            android:drawableLeft="@drawable/customise_left_image_mail"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:textColorHint="#FFFFFF"
+            android:hint="이메일"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_text"/>
+
+
+        <EditText
+            android:inputType="textPassword"
+            android:id="@+id/edt_pw"
+            android:layout_marginVertical="5dp"
+            android:drawableLeft="@drawable/customise_left_image_pw"
+            android:textStyle="bold"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:textColorHint="#FFFFFF"
+            android:hint="비밀번호"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_text"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <CheckBox
+            android:buttonTint="#FFEB3B"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:checked="false"
+            android:id="@+id/chk_login"
+            android:text="자동 로그인"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:id="@+id/btn_login"
+            android:textColor="@color/primary"
+            android:backgroundTint="@color/white"
+            android:text="로그인"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"/>
+        </LinearLayout>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tv_findpw"
+            android:clickable="true"
+            android:layout_marginHorizontal="15dp"
+            android:text="비밀번호 찾기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tv_nonmember"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="비회원으로 이용하기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:textStyle="italic|bold"
+        android:layout_marginTop="30dp"
+        android:id="@+id/tv_first"
+        android:clickable="true"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:text="첫 화면으로 이동"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
