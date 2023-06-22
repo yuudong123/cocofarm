@@ -2,13 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href=/css/board/qnawrite.css />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
-        <form th:action="@{/qnawrite}" method="post">
-          <textarea name="content" id="content" cols="30" rows="10"></textarea>
+        <form th:action="@{/board/qnawrite}" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="title" name="title" type="text" class="validate" />
+              <label for="title">제목</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="content" name="content" class="materialize-textarea"></textarea>
+              <label for="content">내용</label>
+            </div>
+          </div>
+          <button id="cancel" class="btn red right">취소</button>
+          <button id="submit" class="btn green right">작성완료</button>
         </form>
       </div>
     </main>

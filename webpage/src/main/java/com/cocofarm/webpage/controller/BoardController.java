@@ -40,11 +40,13 @@ public class BoardController {
         if (category.equals("qna")) {
             ArrayList<QnaDTO> qnalist = boardService.selectQnaList(cri);
             mav.addObject("boardlist", qnalist);
+            mav.setViewName("board/qnalist");
+            System.out.println("qna");
         } else {
             ArrayList<BoardVO> boardlist = boardService.selectList(category, cri);
             mav.addObject("boardlist", boardlist);
+            mav.setViewName("board/boardlist");
         }
-        mav.setViewName("board/boardlist");
         int total = boardService.getTotal(cri);
         PageDTO pagedto = new PageDTO(cri, total);
         mav.addObject("pager", pagedto);
@@ -79,7 +81,7 @@ public class BoardController {
     // return mav;
     // }
 
-    @GetMapping(value = "/qnawrite")
+    @GetMapping(value = "/board/qnawrite")
     public ModelAndView insertQna() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("board/qnawrite");
@@ -91,7 +93,7 @@ public class BoardController {
     // return boardService.insert(vo);
     // }
 
-    @PostMapping(value = "/qnawrite")
+    @PostMapping(value = "/board/qnawrite")
     public int insertQna(BoardVO vo) {
         return boardService.insert(vo);
     }

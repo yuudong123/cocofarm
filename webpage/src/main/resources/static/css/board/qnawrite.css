@@ -1,0 +1,44 @@
+#content {
+  min-height: 300px;
+}
+
+/* label color */
+.input-field label {
+  color: #429f5d;
+}
+/* label focus color */
+.input-field input[type="text"]:focus + label {
+  color: #429f5d;
+}
+/* label underline focus color */
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid #429f5d;
+  box-shadow: 0 1px 0 0 #429f5d;
+}
+/* valid color */
+.input-field input[type="text"].valid {
+  border-bottom: 1px solid #429f5d;
+  box-shadow: 0 1px 0 0 #429f5d;
+}
+/* invalid color */
+.input-field input[type="text"].invalid {
+  border-bottom: 1px solid #429f5d;
+  box-shadow: 0 1px 0 0 #429f5d;
+}
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #429f5d;
+}
+
+.row,
+.input-field {
+  margin-bottom: 0;
+}
+
+.btn {
+  margin-bottom: 10px;
+}
+
+#submit {
+  margin-right: 5px;
+}

@@ -41,13 +41,17 @@
             </tr>
           </tbody>
         </table>
-        <div id="boxBtnPage" class="center-align">
-          <a id="pageFirst" class="material-icons">first_page</a>
+        <ul class="pagination">
+          <li class="waves-effect">
+            <a id="pageFirst"><i class="material-icons">chevron_left</i></a>
+          </li>
           <th:block th:each="num : ${#numbers.sequence(pager.startPage,pager.endPage)}">
-            <a class="pageNum" th:text="${num}"></a>
+            <li class="waves-effect"><a class="pageNum" th:text="${num}"></a></li>
           </th:block>
-          <a id="pageLast" class="material-icons">last_page</a>
-        </div>
+          <li class="waves-effect">
+            <a id="pageLast"><i class="material-icons">chevron_right</i></a>
+          </li>
+        </ul>
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
@@ -78,6 +82,7 @@
       categorys.forEach((category) => {
         category.addEventListener("click", () => {
           reqDiv.setAttribute("action", "/board/" + category.dataset.category);
+          inputPage.setAttribute("value", "1");
           reqDiv.submit();
         });
 
@@ -107,6 +112,10 @@
           inputPage.setAttribute("value", page.textContent);
           reqDiv.submit();
         });
+        if (page.textContent == inputPage.getAttribute("value")) {
+          page.parentElement.classList.add("active");
+          page.parentElement.classList.add("green");
+        }
       });
     </script>
   </body>

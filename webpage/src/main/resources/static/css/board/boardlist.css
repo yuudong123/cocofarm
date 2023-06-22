@@ -7,17 +7,6 @@
   cursor: pointer;
 }
 
-#boxBtnPage {
-  height: fit-content;
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-}
-
-#boxBtnPage * {
-  margin-inline: 5px;
-}
-
 #reqDiv {
   position: relative;
   display: flex;
@@ -83,4 +72,9 @@ tr {
   height: 2rem;
   align-items: center;
   justify-content: center;
+}
+
+.pagination {
+  width: fit-content;
+  margin: 15px auto;
 }

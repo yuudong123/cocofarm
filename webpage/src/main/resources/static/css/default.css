@@ -13,9 +13,7 @@ main {
 }
 
 #headerNav {
-  display: flex;
-  justify-content: space-between;
-  padding-inline: 20%;
+  padding-inline: 15%;
 }
 
 footer {

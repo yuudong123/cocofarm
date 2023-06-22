@@ -2,17 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardlist.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
-        <div id="boardCategory">
-          <a th:href="@{/board/notice}">공지사항</a>
-          <a th:href="@{/board/event}">이벤트</a>
-          <a th:href="@{/board/qna}">Qna</a>
-          <a th:href="@{/board/review}">리뷰</a>
-        </div>
+        <form id="reqDiv" method="get">
+          <div id="category">
+            <a data-category="notice">공지사항</a>
+            <a data-category="event">이벤트</a>
+            <a data-category="qna">Qna</a>
+            <a data-category="review">리뷰</a>
+          </div>
+          <div id="categorySelectBar"></div>
+          <div id="reqDivInner">
+            <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
+            <select name="boardPerPage" id="selectBoardPerPage">
+              <option value="10" selected>10개씩 보기</option>
+              <option value="30">30개씩 보기</option>
+              <option value="50">50개씩 보기</option>
+            </select>
+            <input type="text" id="inputKeyword" name="keyword" th:value="${pager.cri.keyword}" />
+            <button id="btnSearch" class="btn green" type="submit">검색</button>
+          </div>
+        </form>
         <table>
           <thead>
             <tr>
@@ -22,20 +36,90 @@
           </thead>
           <tbody>
             <tr th:each="board : ${boardlist}">
-              <td th:text="${board.title}"></td>
+              <td>
+                <th:block th:if="${board.replycnt != 0}"><small>[답변완료]&nbsp;&nbsp;</small></th:block>
+                [[${board.title}]]
+              </td>
               <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
             </tr>
           </tbody>
         </table>
-        <div id="boxBtnPage" class="center-align">
-          <a id="pageFirst" class="material-icons">first_page</a>
+        <ul class="pagination">
+          <li class="waves-effect">
+            <a id="pageFirst"><i class="material-icons">chevron_left</i></a>
+          </li>
           <th:block th:each="num : ${#numbers.sequence(pager.startPage,pager.endPage)}">
-            <a th:href="@{?(page=${num})}" th:text="${num}"></a>
+            <li class="waves-effect"><a class="pageNum" th:text="${num}"></a></li>
           </th:block>
-          <a id="pageLast" class="material-icons">last_page</a>
-        </div>
+          <li class="waves-effect">
+            <a id="pageLast"><i class="material-icons">chevron_right</i></a>
+          </li>
+        </ul>
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script th:inline="javascript">
+      const reqDiv = document.querySelector("#reqDiv");
+      const categorys = document.querySelectorAll("#category a");
+      const selectBar = document.getElementById("categorySelectBar");
+      const selectBoardPerPage = document.querySelector("#selectBoardPerPage");
+      const inputPage = document.querySelector("#inputPage");
+      const inputKeyword = document.querySelector("#inputKeyword");
+      const btnSearch = document.querySelector("#btnSearch");
+      const pageFirst = document.querySelector("#pageFirst");
+      const pageLast = document.querySelector("#pageLast");
+      const pageNum = document.querySelectorAll(".pageNum");
+
+      switch (/*[[${pager.cri.boardPerPage}]]*/ "") {
+        case 10:
+          selectBoardPerPage.selectedIndex = 0;
+          break;
+        case 30:
+          selectBoardPerPage.selectedIndex = 1;
+          break;
+        case 50:
+          selectBoardPerPage.selectedIndex = 2;
+          break;
+      }
+
+      categorys.forEach((category) => {
+        category.addEventListener("click", () => {
+          reqDiv.setAttribute("action", "/board/" + category.dataset.category);
+          inputPage.setAttribute("value", "1");
+          reqDiv.submit();
+        });
+
+        var width = category.offsetWidth;
+        var offsetLeft = category.offsetLeft;
+        category.addEventListener("mouseenter", function () {
+          selectBar.style.width = width + "px";
+          selectBar.style.transform = "translateX(" + offsetLeft + "px)";
+        });
+
+        category.addEventListener("mouseleave", function () {
+          selectBar.style.width = "0";
+          selectBar.style.transform = "translateX(" + (offsetLeft + width / 2) + "px)";
+        });
+      });
+
+      pageFirst.addEventListener("click", () => {
+        inputPage.setAttribute("value", "1");
+        reqDiv.submit();
+      });
+      pageLast.addEventListener("click", () => {
+        inputPage.setAttribute("value", /*[[${pager.lastPage}]]*/ "");
+        reqDiv.submit();
+      });
+      pageNum.forEach((page) => {
+        page.addEventListener("click", () => {
+          inputPage.setAttribute("value", page.textContent);
+          reqDiv.submit();
+        });
+        if (page.textContent == inputPage.getAttribute("value")) {
+          page.parentElement.classList.add("active");
+          page.parentElement.classList.add("green");
+        }
+      });
+    </script>
   </body>
 </html>

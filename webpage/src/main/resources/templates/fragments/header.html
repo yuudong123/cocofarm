@@ -5,15 +5,20 @@
       <div class="container-fluid center-align" id="headerBanner">
         <img class="respons" src="/images/main-logo.png" />
       </div>
-      <nav class="green container-fluid" id="headerNav">
-        <div>
-          <a th:href="@{/}">홈</a>
-          <a th:href="@{/product}">제품</a>
-          <a th:href="@{/board/notice}">게시판</a>
-        </div>
-        <div>
-          <a th:href="@{/mypage}">마이페이지</a>
-          <a id="btnHeaderLogout">로그아웃</a>
+      <nav>
+        <div class="green nav-wrapper" id="headerNav">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a th:href="@{/}">홈</a></li>
+            <li><a th:href="@{/product}">제품</a></li>
+            <li><a th:href="@{/board/notice}">게시판</a></li>
+          </ul>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a th:href="@{/mypage}">마이페이지</a></li>
+            <th:block>
+              <li th:if="${userinfo == null}"><a id="btnHeaderLogin">로그인</a></li>
+              <li th:if="${userinfo != null}"><a id="btnHeaderLogout">로그아웃</a></li>
+            </th:block>
+          </ul>
         </div>
       </nav>
     </header>
