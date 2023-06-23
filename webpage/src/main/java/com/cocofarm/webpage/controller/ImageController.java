@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 @Controller
 public class ImageController {
 
-    private static final String IMAGE_DIRECTORY = "D:/cocofarm/webpage/src/main/resources/static/images/product";
+    private static final String IMAGE_DIRECTORY = "D:/cocofarm/webpage/src/main/resources/static/images";
 
     @Autowired
     ImageService service;

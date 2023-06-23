@@ -30,14 +30,12 @@ public class BoardModifyActivity extends AppCompatActivity {
         binding.edtTitle.setText(boardVO.getTitle());
         binding.edtContent.setText(boardVO.getContent());
 
-        if (boardVO.getMainimage() != null || boardVO.getMainimage().equals("")) {
+        if (!"".equals(boardVO.getMainimage())) {
             boardselectedImage = boardVO.getMainimage();
             ImageUtil.load(binding.ivMainImage,boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
-            binding.mainImageSelect.setVisibility(View.GONE);
             binding.mainImageSelected.setVisibility(View.VISIBLE);
         } else {
-            binding.mainImageSelected.setVisibility(View.GONE);
             binding.mainImageSelect.setVisibility(View.VISIBLE);
         }
 
@@ -66,7 +64,7 @@ public class BoardModifyActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (boardselectedImage != null) {
+        if (!"".equals(boardselectedImage)) {
             ImageUtil.load(binding.ivMainImage,boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
             binding.mainImageSelect.setVisibility(View.GONE);
@@ -80,7 +78,7 @@ public class BoardModifyActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        boardselectedImage = null;
+        boardselectedImage = "";
     }
 
     private void updateBoard() {

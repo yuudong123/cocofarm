@@ -2,6 +2,7 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +19,13 @@ import java.util.ArrayList;
 public class BoardImageSelectActivity extends AppCompatActivity {
 
     ActivityBoardImageSelectBinding binding;
+    private static BoardImageSelectActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityBoardImageSelectBinding.inflate(getLayoutInflater());
+        activity = this;
         setContentView(binding.getRoot());
 
         CommonConn conn = new CommonConn(null, "selectimagelist.and");
@@ -40,8 +43,12 @@ public class BoardImageSelectActivity extends AppCompatActivity {
         });
 
         binding.btnCancel.setOnClickListener(v -> {
-            boardselectedImage = null;
+            boardselectedImage = "";
             finish();
         });
+    }
+
+    public static void finishActivity(){
+        activity.finish();
     }
 }

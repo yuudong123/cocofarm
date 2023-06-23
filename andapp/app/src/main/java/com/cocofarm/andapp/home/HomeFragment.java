@@ -2,33 +2,25 @@ package com.cocofarm.andapp.home;
 
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
-import com.cocofarm.andapp.board.BoardFragment;
 import com.cocofarm.andapp.board.BoardVO;
-import com.cocofarm.andapp.board.NoticeFragment;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentHomeBinding;
-import com.cocofarm.andapp.product.ProductFragment;
 import com.cocofarm.andapp.product.ProductVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import lombok.val;
 
 public class HomeFragment extends Fragment {
 
@@ -37,14 +29,7 @@ public class HomeFragment extends Fragment {
     HomeNoticeAdapter n_adapter;
     HomePdAdapter p_adapter;
     HomeEventAdapter e_adapter;
-    FragmentTransaction transaction;
     ArrayList<BoardVO> e_list, n_list;
-    int currentPage = 0;
-
-    Timer timer;
-    final long DELAY_MS = 3000;
-    final long PERIOD_MS = 3000;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,13 +43,14 @@ public class HomeFragment extends Fragment {
         CommonConn e_conn = new CommonConn(getContext(), "/board/eventbanner.and");
         e_conn.addParam("board_category_cd", 204);
         e_conn.onExcute((isResult, data) -> {
-                if (!isResult) {
-                    return;
-                } else {
-                    e_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>(){}.getType());
-                    e_adapter = new HomeEventAdapter(e_list, getContext());
-                    binding.viewPager.setAdapter(e_adapter);
-                    binding.viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+            if (!isResult) {
+                return;
+            } else {
+                e_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+                }.getType());
+                e_adapter = new HomeEventAdapter(e_list, getContext());
+                binding.viewPager.setAdapter(e_adapter);
+                binding.viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
 
 
 //                    binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -92,8 +78,8 @@ public class HomeFragment extends Fragment {
 //                        }
 //
 //                    });
-                }
-            });
+            }
+        });
         // timer = new Timer();
 
         // timer.schedule(new TimerTask() {
@@ -141,9 +127,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.tvCocomall.setOnClickListener(v->{
-          MainActivity activity =  (MainActivity) getActivity();
-          activity.binding.bottomNav.setSelectedItemId(R.id.shop);
+        binding.tvCocomall.setOnClickListener(v -> {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.binding.bottomNav.setSelectedItemId(R.id.shop);
         });
 
 
@@ -162,11 +148,10 @@ public class HomeFragment extends Fragment {
                 binding.recvBoardList.setLayoutManager(manager);
             }
         });
-        binding.tvNotice.setOnClickListener(v->{
-            MainActivity activity =  (MainActivity) getActivity();
+        binding.tvNotice.setOnClickListener(v -> {
+            MainActivity activity = (MainActivity) getActivity();
             activity.binding.bottomNav.setSelectedItemId(R.id.board);
         });
-
 
         return binding.getRoot();
     }
@@ -174,9 +159,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        timer.cancel();
-        Log.d("test", "onDestroyView: " + timer.purge());
-        timer = null;
         binding = null;
     }
 }
