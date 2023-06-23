@@ -20,6 +20,9 @@ public class CodeTable {
     public static final int ORDER_STATUS_RETURN_OK = 306;   //반품완료
     public static final int ORDER_STATUS_REFUND_OK = 307;   //환불완료
 
+    public static final int ORDER_STATUS_SUCCESS = 310; //구매확정
+
+
     public static final int PRODUCT_CATEGORY_PLANT = 401;   //식물류
     public static final int PRODUCT_CATEGORY_DEVICE = 402;  //기기류
 }
