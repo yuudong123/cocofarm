@@ -27,4 +27,12 @@ public class MainController {
         mav.setViewName("etc/privacypolicy");
         return mav;
     }
+
+    @GetMapping("/access-denied")
+    public ModelAndView accessDenied() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("etc/access-denied");
+        return mav;
+    }
+
 }
