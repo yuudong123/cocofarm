@@ -99,7 +99,7 @@ public class HomeFragment extends Fragment {
 
         // 인기 제품
         CommonConn p_conn = new CommonConn(getContext(), "/selectProductList.and");
-        p_conn.addParam("category_cd", 401);
+        p_conn.addParam("category_cd", 402);
         p_conn.onExcute((isResult, data) -> {
             if (!isResult) {
                 return;

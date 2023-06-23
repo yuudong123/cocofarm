@@ -2,7 +2,7 @@
 <LinearLayout
     android:id="@+id/layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="145dp"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -16,13 +16,13 @@
     <TextView
         android:textColor="@color/black"
         android:text="로즈마리"
-        android:layout_marginLeft="8dp"
+        android:layout_marginHorizontal="8dp"
         android:id="@+id/tv_name"
         android:textStyle="bold"
         android:layout_gravity="left"
         android:textSize="13dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="match_parent"
+        android:layout_height="36dp"/>
 
     <TextView
         android:textColor="#323131"
