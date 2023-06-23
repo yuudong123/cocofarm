@@ -1,11 +1,12 @@
 package com.cocofarm.webpage.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class ChangeAndRefundDTO {
+public class ChangeAndRefundDTO implements Serializable {
     private int changeandrefund_id;
     private int orderproduct_id;
     private Date candrdate;
