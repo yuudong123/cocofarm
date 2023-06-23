@@ -1,11 +1,12 @@
 package com.cocofarm.webpage.controller;
 
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.SimpleEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cocofarm.webpage.PhoneHyphen;
 import com.cocofarm.webpage.domain.MemberVO;
@@ -13,14 +14,22 @@ import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.MemberService;
 import com.google.gson.Gson;
 
-@RestController
+@Controller
+@SessionAttributes("userinfo")
 public class MemberController {
 
     @Autowired
     MemberService service;
 
+    @GetMapping(value = "/member/connect")
+    public String memberConnect() {
+
+        return "member/connect";
+    }
+
     // 로그인, 회원가입 페이지로 이동을 GetMapping(login or join) 으로 하기 위해
     // RequestMapping을 PostMapping으로 바꿈.
+    @ResponseBody
     @PostMapping(value = "/member/login")
     public String login(String email, String password) {
         MemberVO vo = new MemberVO();

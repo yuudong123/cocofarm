@@ -38,7 +38,7 @@ public class HomeEventAdapter extends RecyclerView.Adapter<HomeEventAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             holder.binding.ivMain.setClipToOutline(true);
-            ImageUtil.load(holder.binding.ivMain, list.get(position % list.size()).getMainimage());
+            ImageUtil.load(holder.binding.ivMain, list.get(position).getMainimage());
             holder.binding.ivMain.setOnClickListener(v -> {
                 Intent intent = new Intent(context, BoardReadActivity.class);
                 intent.putExtra("BoardVO", list.get(position));
@@ -49,7 +49,7 @@ public class HomeEventAdapter extends RecyclerView.Adapter<HomeEventAdapter.View
     @Override
     public int getItemCount() {
 
-        return Integer.MAX_VALUE;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

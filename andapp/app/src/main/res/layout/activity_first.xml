@@ -46,7 +46,8 @@
             android:layout_height="190dp"
             app:lottie_autoPlay="true"
             app:lottie_fileName="fields-growth.json"
-            app:lottie_loop="true" />
+            app:lottie_loop="true"
+            app:lottie_speed="3"/>
     </LinearLayout>
 
     <Button

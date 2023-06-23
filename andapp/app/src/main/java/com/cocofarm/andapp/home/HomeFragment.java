@@ -2,6 +2,9 @@ package com.cocofarm.andapp.home;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.board.BoardFragment;
 import com.cocofarm.andapp.board.BoardVO;
@@ -28,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import kotlinx.coroutines.Job;
 import lombok.val;
 
 public class HomeFragment extends Fragment {
@@ -40,10 +45,9 @@ public class HomeFragment extends Fragment {
     FragmentTransaction transaction;
     ArrayList<BoardVO> e_list, n_list;
     int currentPage = 0;
-
-    Timer timer;
     final long DELAY_MS = 3000;
     final long PERIOD_MS = 3000;
+    Thread thread = new Thread(new PagerRunnable());
 
 
     @Override
@@ -58,71 +62,44 @@ public class HomeFragment extends Fragment {
         CommonConn e_conn = new CommonConn(getContext(), "/board/eventbanner.and");
         e_conn.addParam("board_category_cd", 204);
         e_conn.onExcute((isResult, data) -> {
-                if (!isResult) {
-                    return;
-                } else {
-                    e_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>(){}.getType());
-                    e_adapter = new HomeEventAdapter(e_list, getContext());
-                    binding.viewPager.setAdapter(e_adapter);
-                    binding.viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+            if (!isResult) {
+                return;
+            } else {
+                e_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+                }.getType());
+                e_adapter = new HomeEventAdapter(e_list, getContext());
+                binding.viewPager.setAdapter(e_adapter);
+                binding.viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+                binding.viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
+                binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        //Log.d("포지션", "onPageSelected: " + position);
+                        currentPage = position;
 
+                        binding.tvNumber.setText(getString(R.string.viewpager2_banner, (currentPage % e_list.size()) + 1, e_list.size()));
+                    }
 
-//                    binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-//                        @Override
-//                        public void onPageSelected(int position) {
-//                            super.onPageSelected(position);
-//
-//                        }
-//                    });
-//                    binding.viewPager.setOffscreenPageLimit(3);
-//                    float pageMargin = getResources().getDimensionPixelOffset(R.dimen.pageMargin);
-//                    float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
-//                    binding.viewPager.setPageTransformer((page, position) -> {
-//                        float myOffset = position * -(2 * pageOffset + pageMargin);
-//                        if (position < -1) {
-//                            page.setTranslationX(-myOffset);
-//                        } else if (position <= 1) {
-//                            float scaleFactor = Math.max(0.85f, 1 - Math.abs(position));
-//                            page.setAlpha(scaleFactor);
-//                            page.setScaleY(scaleFactor);
-//                            page.setTranslationX(myOffset);
-//                        } else {
-//                            page.setAlpha(0);
-//                            page.setTranslationX(myOffset);
-//                        }
-//
-//                    });
-                }
-            });
-        // timer = new Timer();
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+                        super.onPageScrollStateChanged(state);
+                        switch (state) {
+                            case ViewPager2.SCROLL_STATE_IDLE:
+                                break;
 
-        // timer.schedule(new TimerTask() {
-        //     @Override
-        //     public void run() {
-        //         try {
-        //             if (currentPage == e_list.size()) {
-        //                 currentPage = 0;
-        //             }
-        //             binding.viewPager.setCurrentItem(currentPage, true);
-        //             currentPage++;
+                            case ViewPager2.SCROLL_STATE_DRAGGING:
+                                break;
 
-        //         } catch (Exception e) {
-        //             Log.e("오류", "run: ", e);
-        //             Log.e("오류", "run: " + e.getMessage(), e);
-        //         }
-        //     }
-        // }, DELAY_MS, PERIOD_MS);
+                            case ViewPager2.SCROLL_STATE_SETTLING:
+                                break;
+                        }
+                    }
+                });
 
-//        ViewPager2.OnPageChangeCallback onPageChangeCallback = new ViewPager2.OnPageChangeCallback() {
-//            @Override
-//            public void onPageSelected(int position) {
-//                super.onPageSelected(position);
-//                // 사용자가 수동으로 슬라이드를 넘길 때마다 현재 아이템의 인덱스를 업데이트합니다.
-//                currentPage = position;
-//                binding.tvNumber.setText("aaaaa" + getString(R.string.viewpager2_banner,position + 1, e_list.size()));
-//            }
-//        };
-//        binding.viewPager.registerOnPageChangeCallback(onPageChangeCallback);
+                thread.start();
+            }
+        });
 
 
         // 인기 제품
@@ -141,9 +118,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        binding.tvCocomall.setOnClickListener(v->{
-          MainActivity activity =  (MainActivity) getActivity();
-          activity.binding.bottomNav.setSelectedItemId(R.id.shop);
+        binding.tvCocomall.setOnClickListener(v -> {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.binding.bottomNav.setSelectedItemId(R.id.shop);
         });
 
 
@@ -162,22 +139,51 @@ public class HomeFragment extends Fragment {
                 binding.recvBoardList.setLayoutManager(manager);
             }
         });
-        binding.tvNotice.setOnClickListener(v->{
-            MainActivity activity =  (MainActivity) getActivity();
+        binding.tvNotice.setOnClickListener(v -> {
+            MainActivity activity = (MainActivity) getActivity();
             activity.binding.bottomNav.setSelectedItemId(R.id.board);
         });
-
 
         return binding.getRoot();
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        timer.cancel();
-        Log.d("test", "onDestroyView: " + timer.purge());
-        timer = null;
         binding = null;
+        thread.interrupt();
+    }
+
+    class PagerRunnable implements Runnable {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(2500);
+                    handler.sendEmptyMessage(0);
+                } catch (InterruptedException e) {
+                    Log.d("interupt", "interupt발생");
+                    return;
+                }
+            }
+        }
+
+        Handler handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                setPage();
+                super.handleMessage(msg);
+            }
+        };
+
+        public void setPage() {
+            if (currentPage == e_list.size()) {
+                currentPage = 0;
+            }
+            binding.viewPager.setCurrentItem(currentPage, true);
+            currentPage++;
+        }
     }
 }
                         
