@@ -49,7 +49,7 @@ public class BoardReadActivity extends AppCompatActivity {
         binding.tvCategory.setText(category);
         binding.regdate.setText(yyyyMMddHHmmss.format(boardVO.getRegdate()));
         if (boardVO.getRegdate().getTime() != boardVO.getUpddate().getTime()) {
-            binding.tvUpdated.setText(yyyyMMddHHmmss.format(boardVO.getUpddate()) + "에 수정됨");
+            binding.tvUpdated.setText(yyyyMMddHHmmss.format(boardVO.getUpddate()) + " 에 수정됨");
         }
         Fragment readFragment = new BoardReadFragment();
         Bundle readBundle = new Bundle();

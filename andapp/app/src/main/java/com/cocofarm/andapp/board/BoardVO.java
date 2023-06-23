@@ -21,6 +21,6 @@ public class BoardVO implements Serializable {
     private Date regdate;
     @JsonAdapter(DateJsonAdapter.class)
     private Date upddate;
-    private String mainimage;
+    private String mainimage = "";
     private int replycnt;
 }

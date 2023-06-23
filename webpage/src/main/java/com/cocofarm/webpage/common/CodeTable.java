@@ -10,6 +10,7 @@ public class CodeTable {
     public static final int BOARD_CATEGORY_REVIEW = 203;
     public static final int BOARD_CATEGORY_EVENT = 204;
     
+    public static final int ORDER_STATUS_CANCEL = 300; //결제취소
     public static final int ORDER_STATUS_ONREADY = 301; // 배송준비
     public static final int ORDER_STATUS_ONDELIVERY = 302; // 배송중
     public static final int ORDER_STATUS_ARRIVED = 303; // 배송완료

@@ -42,8 +42,15 @@ public class OrderController {
         OrderVO vo = new OrderVO();
         vo.setMember_no(member_no);
         ArrayList<OrderProductVO> list = orderservice.OrderProductList(vo);
-    
+
         return new Gson().toJson(list);
+    }
+
+    @PostMapping(value = "orderproductupdate.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public void OrderProductStatusUpdate(String vo) {
+        OrderProductVO tempVo = new Gson().fromJson(vo, OrderProductVO.class);
+        orderservice.OrderProductStatusUpdate(tempVo);
     }
 
 }

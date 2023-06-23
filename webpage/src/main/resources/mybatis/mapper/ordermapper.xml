@@ -27,7 +27,7 @@ where o.order_id = #{order_id}
     </select>
 
     <select id="OrderProductList" parameterType="com.cocofarm.webpage.domain.OrderVO">
-    select op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount,  cd.value, im.filename, p.name 
+    select op.orderproduct_id, op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount,  cd.value, im.filename, p.name 
 from tbl_orderproduct op
 join tbl_order o on op.order_id = o.order_id
 join (select code, value from tbl_code where codetype='ORDER_STATUS')cd on op.order_status_cd = cd.code
@@ -36,5 +36,10 @@ join (select name, product_id from tbl_product)p on op.product_id = p.product_id
 where o.member_no = #{member_no}
 ORDER BY op.orderproduct_id DESC
     </select>
+
+    <!-- orderproduct주문목록 상태변경 -->
+    <update id = "OrderProductStatusUpdate">
+   update tbl_orderproduct set order_status_cd = #{order_status_cd} where orderproduct_id = #{orderproduct_id} and member_no = #{member_no}
+    </update>
 
 </mapper>

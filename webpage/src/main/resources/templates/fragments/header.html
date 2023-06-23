@@ -2,9 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <th:block th:fragment="headerFragment">
     <header>
-      <div class="container-fluid center-align" id="headerBanner">
-        <img class="respons" src="/images/main-logo.png" />
-      </div>
+      <th:block th:if="${userinfo == null || userinfo.member_type_cd == 102}">
+        <th:block th:replace="~{fragments/adminmenu :: adminmenuFragment}"></th:block>
+      </th:block>
+      <th:block th:if="${userinfo != null && userinfo.member_type_cd == 101}">
+        <div class="container-fluid center-align" id="headerBanner">
+          <img class="respons" src="/images/main-logo.png" />
+        </div>
+      </th:block>
       <nav>
         <div class="green nav-wrapper" id="headerNav">
           <ul id="nav-mobile" class="left hide-on-med-and-down">

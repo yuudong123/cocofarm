@@ -5,20 +5,26 @@ body {
 
 body {
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
 }
 
 main {
-  flex: 1;
+  flex: 1 0 auto;
 }
 
 #headerNav {
   padding-inline: 15%;
 }
 
-footer {
-  flex-shrink: 0;
-  margin-top: 10px;
+footer p,
+footer span,
+footer a {
+  color: black;
+}
+
+footer a:hover {
+  font-weight: bold;
 }
 
 .footerTitle {

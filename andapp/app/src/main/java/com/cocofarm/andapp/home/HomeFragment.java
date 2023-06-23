@@ -11,19 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
-import com.cocofarm.andapp.board.BoardFragment;
 import com.cocofarm.andapp.board.BoardVO;
-import com.cocofarm.andapp.board.NoticeFragment;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentHomeBinding;
-import com.cocofarm.andapp.product.ProductFragment;
 import com.cocofarm.andapp.product.ProductVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,7 +38,6 @@ public class HomeFragment extends Fragment {
     HomeNoticeAdapter n_adapter;
     HomePdAdapter p_adapter;
     HomeEventAdapter e_adapter;
-    FragmentTransaction transaction;
     ArrayList<BoardVO> e_list, n_list;
     int currentPage = 0;
     final long DELAY_MS = 3000;

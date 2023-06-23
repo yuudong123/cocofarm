@@ -81,13 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
-                            android:text="중형" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="20dp"
-                            android:text="/1개" />
+                            android:text="1개" />
                     </LinearLayout>
 
                 </LinearLayout>

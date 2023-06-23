@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.order;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.common.CommonVal;
@@ -21,6 +23,8 @@ import java.util.ArrayList;
 
 public class OrderProductActivity extends AppCompatActivity {
 
+    CommonConn conn;
+
     ActivityOrderProductBinding binding;
 
     @Override
@@ -33,21 +37,20 @@ public class OrderProductActivity extends AppCompatActivity {
 
         String value = intent1.getStringExtra("order_id");
 
-        CommonConn conn = new CommonConn(this, "orderproductlist.and");
+        conn = new CommonConn(this, "orderproductlist.and");
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());
 
         conn.onExcute((isResult, data) -> {
             ArrayList<OrderProductVO> list = new Gson().fromJson(data,
                     new TypeToken<ArrayList<OrderProductVO>>(){}.getType());
             Log.d("데이터emp", "onCreateView: "+list.size());
-            OrderProductAdapter adapter = new OrderProductAdapter(list);
+            OrderProductAdapter adapter = new OrderProductAdapter(list, this);
             LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
             binding.recvOrderFinish.setAdapter(adapter);
             binding.recvOrderFinish.setLayoutManager(manager);
 
             setContentView(binding.getRoot());
         });
-
     }
 
 

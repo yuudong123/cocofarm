@@ -42,6 +42,7 @@ public class BoardImageAdapter extends RecyclerView.Adapter<BoardImageAdapter.Vi
         holder.binding.itemImageSelect.setOnClickListener(v -> {
             boardselectedImage = imageDTO.getFilename();
             Toast.makeText(context, imageDTO.getFilename() + " 로 변경", Toast.LENGTH_SHORT).show();
+            BoardImageSelectActivity.finishActivity();
         });
     }
 
