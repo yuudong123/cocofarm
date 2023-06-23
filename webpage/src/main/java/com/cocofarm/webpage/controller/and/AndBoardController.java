@@ -1,4 +1,4 @@
-package com.cocofarm.webpage.controller;
+package com.cocofarm.webpage.controller.and;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ import com.google.gson.Gson;
 
 @Controller
 @SessionAttributes("userinfo")
-public class BoardController {
+public class AndBoardController {
 
     @Autowired
     BoardService boardService;

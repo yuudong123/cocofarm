@@ -1,4 +1,4 @@
-package com.cocofarm.webpage.controller;
+package com.cocofarm.webpage.controller.and;
 
 import java.util.ArrayList;
 
@@ -14,25 +14,10 @@ import com.google.gson.Gson;
 
 @Controller
 @RequestMapping("reply/*")
-public class ReplyController {
+public class AndReplyController {
 
     @Autowired
     ReplyService service;
-
-    @PostMapping(value = "insertreply")
-    public int insertReply(ReplyVO vo) {
-        return service.insert(vo);
-    }
-
-    @PostMapping(value = "updatereply")
-    public int updateReply(ReplyVO vo) {
-        return service.update(vo);
-    }
-
-    @PostMapping(value = "deletereply")
-    public int deleteReply(int reply_no) {
-        return service.delete(reply_no);
-    }
 
     @PostMapping(value = "selectreplylist.and", produces = "text/html;charset=utf-8")
     @ResponseBody

@@ -1,8 +1,7 @@
-package com.cocofarm.webpage.controller;
+package com.cocofarm.webpage.controller.and;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,4 +1,4 @@
-package com.cocofarm.webpage.controller;
+package com.cocofarm.webpage.controller.and;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +23,9 @@ public class MemberController {
 
     @GetMapping(value = "/member/connect")
     public String memberConnect() {
-
         return "member/connect";
     }
 
-    // 로그인, 회원가입 페이지로 이동을 GetMapping(login or join) 으로 하기 위해
-    // RequestMapping을 PostMapping으로 바꿈.
     @ResponseBody
     @PostMapping(value = "/member/login")
     public String login(String email, String password) {

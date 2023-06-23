@@ -1,4 +1,4 @@
-package com.cocofarm.webpage.controller;
+package com.cocofarm.webpage.controller.and;
 
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -21,14 +21,14 @@ import com.cocofarm.webpage.service.ImageService;
 import com.google.gson.Gson;
 
 @Controller
-public class ImageController {
+public class AndImageController {
 
     private static final String IMAGE_DIRECTORY = "D:/cocofarm/webpage/src/main/resources/static/images";
 
     @Autowired
     ImageService service;
 
-    @GetMapping("image/{filename}")
+    @GetMapping("image/{filename}") // 안드에서만 씀
     public ResponseEntity<Resource> getImage(@PathVariable String filename) {
         Path imagePath = Paths.get(IMAGE_DIRECTORY).resolve(filename);
         Resource imageResource;

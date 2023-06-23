@@ -1,4 +1,4 @@
-package com.cocofarm.webpage.controller;
+package com.cocofarm.webpage.controller.and;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import com.cocofarm.webpage.service.OrderService;
 import com.google.gson.Gson;
 
 @Controller
-public class OrderController {
+public class AndOrderController {
     @Autowired
     OrderService orderservice;
 
@@ -29,7 +29,6 @@ public class OrderController {
         if (result > 1) {
             str = "성공";
         }
-        // String resultStr ="{\"result\":\""+str+"\",\"resultCode\":\""+result+"\"}";
         ResultVO rVO = new ResultVO();
         rVO.setResult(str);
         rVO.setResultCode(result);

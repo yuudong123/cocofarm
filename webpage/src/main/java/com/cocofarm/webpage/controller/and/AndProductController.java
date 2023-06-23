@@ -1,4 +1,4 @@
-package com.cocofarm.webpage.controller;
+package com.cocofarm.webpage.controller.and;
 
 import java.util.ArrayList;
 
@@ -14,19 +14,10 @@ import com.cocofarm.webpage.service.ProductService;
 import com.google.gson.Gson;
 
 @Controller
-public class ProductController {
+public class AndProductController {
 
     @Autowired
     ProductService productService;
-
-    /*
-     * @GetMapping(value = {"/product/plant", "/product/device"})
-     * public ArrayList<ProductVO> getProductList(int product_id){
-     * ArrayList<ProductVO> products =
-     * productService.selectProductPlant(product_id);
-     * return products;
-     * }
-     */
 
     @PostMapping(value = "/selectProductList.and", produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -77,20 +68,3 @@ public class ProductController {
         return new Gson().toJson(productService.selectProductReviewTotal(product_id, page));
     }
 }
-
-/*
- * @Autowired
- * BoardService boardService;
- * 
- * @Autowired
- * ReplyService replyService;
- * 
- * @GetMapping(value = { "/board/notice", "/board/qna", "/board/event" })
- * public ModelAndView selectBoardList(int code) {
- * ModelAndView mav = new ModelAndView();
- * ArrayList<BoardVO> boardlist = boardService.selectList(code);
- * mav.addObject("boardlist", boardlist);
- * mav.setViewName("/");
- * return mav;
- * }
- */
