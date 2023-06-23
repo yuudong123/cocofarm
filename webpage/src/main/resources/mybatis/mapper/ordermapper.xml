@@ -42,4 +42,9 @@ ORDER BY op.orderproduct_id DESC
    update tbl_orderproduct set order_status_cd = #{order_status_cd} where orderproduct_id = #{orderproduct_id} and member_no = #{member_no}
     </update>
 
+    <!-- 교환환불 처리 -->
+    <insert id="ChangeAndRefundInsert">
+insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, reasoncode,textreason, order_status_cd,member_no) values
+(seq_changeandrefund_id.nextval,#{orderproduct_id},sysdate,#{reasoncode},#{textreason},#{order_status_cd},#{member_no})
+    </insert>
 </mapper>

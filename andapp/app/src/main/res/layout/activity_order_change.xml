@@ -101,6 +101,7 @@
                 android:orientation="vertical">
 
                 <RadioGroup
+                    android:id="@+id/radio_order_change"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -110,6 +111,7 @@
                         android:text="단순변심" />
 
                     <RadioButton
+                        android:id="@+id/radio_btn_just"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="상품이 마음에 들지 않음" />
@@ -126,6 +128,7 @@
                         android:text="배송문제" />
 
                     <RadioButton
+                        android:id="@+id/radio_btn_notdelivery"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="상품을 받지 못함" />
@@ -142,6 +145,7 @@
                         android:text="상품문제" />
 
                     <RadioButton
+                        android:id="@+id/radio_btn_lackproduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="상품의 구성품/부속품이 들어있지 않음" />
@@ -153,6 +157,7 @@
                         android:background="#90595959" />
 
                     <RadioButton
+                        android:id="@+id/radio_btn_differ"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="상품이 설명과 다름" />
@@ -164,6 +169,7 @@
                         android:background="#90595959" />
 
                     <RadioButton
+                        android:id="@+id/radio_btn_onother"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="다른 상품이 배송됨" />
@@ -175,10 +181,10 @@
                         android:background="#90595959" />
 
                     <RadioButton
+                        android:id="@+id/radio_btn_broken"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="상품이 파손됨/기능 오동작" />
-
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -192,6 +198,7 @@
                     android:text="상세 사유 입력" />
 
                 <EditText
+                    android:id="@+id/et_change_detailed_reason"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="상세사유를 입력해주세요." />

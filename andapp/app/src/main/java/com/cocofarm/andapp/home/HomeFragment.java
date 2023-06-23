@@ -42,7 +42,6 @@ public class HomeFragment extends Fragment {
     ArrayList<BoardVO> e_list, n_list;
     int currentPage = 0;
 
-    Timer timer;
     final long DELAY_MS = 3000;
     final long PERIOD_MS = 3000;
 
@@ -175,9 +174,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        timer.cancel();
-        Log.d("test", "onDestroyView: " + timer.purge());
-        timer = null;
         binding = null;
     }
 }
