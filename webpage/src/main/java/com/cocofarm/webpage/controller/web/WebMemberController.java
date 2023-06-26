@@ -57,9 +57,10 @@ public class WebMemberController {
         return "member/test";
     }
 
+    @ResponseBody
     @PostMapping(value = "/member/email_search")
-    public String email_search(String email) {
-        return memberService.email_search(email);
+    public String email_search(@RequestBody MemberVO vo) {
+        System.out.println(vo.getEmail());
+        return memberService.email_search(vo.getEmail());
     }
-
 }
