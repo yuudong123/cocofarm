@@ -22,6 +22,21 @@ public class CodeTable {
 
     public static final int ORDER_STATUS_SUCCESS = 310; //구매확정
 
+    public static final int ORDER_STATUS_CHANGE_JUST = 341; //환불이유 마음에 들지 않음.
+    public static final int ORDER_STATUS_CHANGE_NOTYET = 342; // 환불 : 상품을 받지 못함
+    public static final int ORDER_STATUS_CHANGE_LACK = 343; //환불 : 상품의 구성품/부속품이 들어있지 않음
+    public static final int ORDER_STATUS_CHANGE_ONOTHER=344;//환불 : 다른 상품이 배송
+    public static final int ORDER_STATUS_CHANGE_BROKEN=345; //환불 : 상품이 파손됨
+    public static final int ORDER_STATUS_CHANGE_DETAIL=346; //환불 : 상세사유 TEXT
+
+    public static final int ORDER_STATUS_REFUND_JUST = 351; //반품 : 마음에 들지 않음.
+    public static final int ORDER_STATUS_REFUND_NOTYET = 352; //반품 : 상품을 받지 못함
+    public static final int ORDER_STATUS_REFUND_LACK = 353; //반품 : 상품의 구성품/부속품이 들어있지 않음
+    public static final int ORDER_STATUS_REFUND_ONOTHER=354;//반품 : 다른 상품이 배송
+    public static final int ORDER_STATUS_REFUND_BROKEN=355; //반품 : 상품이 파손됨
+    public static final int ORDER_STATUS_REFUND_DETAIL=356; //반품 : 상세사유 TEXT
+
+
 
     public static final int PRODUCT_CATEGORY_PLANT = 401;   //식물류
     public static final int PRODUCT_CATEGORY_DEVICE = 402;  //기기류
