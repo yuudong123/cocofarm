@@ -37,4 +37,10 @@ public class MainController {
         return mav;
     }
 
+    @GetMapping(value = "/admin/home")
+    public ModelAndView adminHome() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("adminhome");
+        return mav;
+    }
 }

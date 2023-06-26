@@ -1,0 +1,57 @@
+section {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin: 10px;
+  padding: 15px;
+  flex: 1 0;
+  border-radius: 10px;
+  border: 2px solid #eee;
+}
+h5 {
+  margin: 0;
+  max-lines: 1;
+  font-weight: bold;
+}
+
+h6 {
+  margin: 0;
+  font-weight: bold;
+}
+#titlebox {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#hr {
+  margin-block: 10px;
+  width: 100%;
+  background-color: #eee;
+  height: 2px;
+}
+
+#mainimage {
+  width: 250px;
+}
+
+#btnBox {
+  padding: 10px;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.btn {
+  width: fit-content;
+  margin-right: 5px;
+}
+
+tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+#btnReply {
+  position: absolute;
+  right: 10px;
+}

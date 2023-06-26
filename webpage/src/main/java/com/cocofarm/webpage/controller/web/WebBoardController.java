@@ -57,7 +57,7 @@ public class WebBoardController {
         return mav;
     }
 
-    @GetMapping(value = { "notice/{board_no}", "event/{board_no}" })
+    @GetMapping(value = { "/board/notice/{board_no}", "/board/event/{board_no}" })
     public ModelAndView selectBoard(@PathVariable int board_no,
             @SessionAttribute("userinfo") @Nullable MemberVO memberVO) {
         ModelAndView mav = new ModelAndView();
