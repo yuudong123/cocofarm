@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -22,9 +23,9 @@ import com.cocofarm.webpage.service.ProductService;
 import com.google.gson.Gson;
 
 @Controller
-@RequestMapping("admin/*")
+@RequestMapping(value = "/admin/board/*")
 @SessionAttributes("userinfo")
-public class AdminMainController {
+public class AdminBoardController {
 
     @Autowired
     BoardService boardService;
@@ -32,29 +33,8 @@ public class AdminMainController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(value = "/home")
-    public ModelAndView adminHome() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("adminhome");
-        return mav;
-    }
-
-    @GetMapping(value = "/product")
-    public ModelAndView adminProduct() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/");
-        return mav;
-    }
-
-    @GetMapping(value = "/order")
-    public ModelAndView adminOrder() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("/");
-        return mav;
-    }
-
     @GetMapping(value = "/board")
-    public ModelAndView adminBoard() {
+    public ModelAndView boardMain() {
         ModelAndView mav = new ModelAndView();
         ArrayList<ProductVO> productlist = productService.selectProductListWithImage();
         mav.setViewName("board/admin/main");
@@ -64,13 +44,13 @@ public class AdminMainController {
 
     @ResponseBody
     @PostMapping(value = "/board")
-    public String adminQnaList() {
+    public String qnaList() {
         ArrayList<QnaDTO> qnalist = boardService.selectNoAnsweredQnaList();
         return new Gson().toJson(qnalist);
     }
 
     @GetMapping(value = "/board/write")
-    public ModelAndView adminBoardWriteGET() {
+    public ModelAndView writeGET() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("board/admin/write");
         return mav;
@@ -78,22 +58,41 @@ public class AdminMainController {
 
     @ResponseBody
     @PostMapping(value = "/board/write")
-    public String adminBoardWritePOST(BoardVO boardVO, HttpSession session) {
+    public String writePOST(@RequestBody BoardVO boardVO, HttpSession session) {
         MemberVO memberVO = (MemberVO) session.getAttribute("userinfo");
         boardVO.setMember_no(memberVO.getMember_no());
         boardVO.setNickname(memberVO.getNickname());
+        if (boardVO.getMainimage() == null) {
+            boardVO.setMainimage("main-logo.png");
+        }
         int result = boardService.insert(boardVO);
         if (result == 1) {
-            return "등록되었습니다.";
+            return "success";
         } else {
-            return "작성에 실패했습니다.";
+            return "failure";
         }
     }
 
-    @GetMapping(value = "/member")
-    public ModelAndView adminMember() {
+    @GetMapping(value = "/board/modify")
+    public ModelAndView modifyGET(int board_no) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/");
+        BoardVO boardVO = boardService.selectboard(board_no);
+        mav.addObject("board", boardVO);
+        mav.setViewName("board/admin/modify");
         return mav;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/board/modify")
+    public String writePOST(@RequestBody BoardVO boardVO) {
+        if (boardVO.getMainimage() == null) {
+            boardVO.setMainimage("main-logo.png");
+        }
+        int result = boardService.update(boardVO);
+        if (result == 1) {
+            return "success";
+        } else {
+            return "failure";
+        }
     }
 }

@@ -79,3 +79,7 @@ tr {
   width: fit-content;
   margin: 15px auto;
 }
+
+.boardtitle {
+  cursor: pointer;
+}

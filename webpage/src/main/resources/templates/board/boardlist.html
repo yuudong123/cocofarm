@@ -37,7 +37,7 @@
           </thead>
           <tbody>
             <tr th:each="board : ${boardlist}">
-              <td><a class="boardtitle" th:data-no="board.board_no" th:text="${board.title}"></a></td>
+              <td><a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a></td>
               <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
             </tr>
           </tbody>
@@ -67,6 +67,7 @@
       const pageFirst = document.querySelector("#pageFirst");
       const pageLast = document.querySelector("#pageLast");
       const pageNum = document.querySelectorAll(".pageNum");
+      const boardtitle = document.querySelectorAll(".boardtitle");
 
       switch (/*[[${pager.cri.boardPerPage}]]*/ "") {
         case 10:
@@ -117,6 +118,11 @@
           page.parentElement.classList.add("active");
           page.parentElement.classList.add("green");
         }
+      });
+      boardtitle.forEach((board) => {
+        board.addEventListener("click", () => {
+          location.href = location.href.substring(0, location.href.indexOf("?")) + "/" + board.dataset.no;
+        });
       });
     </script>
   </body>

@@ -2,12 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardread.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <div class="container">기본 페이지, 새 html 생성시 복붙</div>
+      <div class="container">
+        <div id="btnBox">
+          <button id="btnList" class="btn">목록으로</button>
+          <th:block th:if="${userinfo != null && userinfo.member_type_cd == 101}">
+            <button id="btnModify" class="btn blue">수정</button>
+            <button id="btnDelete" class="btn red">삭제</button>
+          </th:block>
+        </div>
+        <section class="z-depth-1">
+          <div id="titlebox">
+            <h5 th:text="${boardvo.title}"></h5>
+            <span th:text="${#dates.format(boardvo.regdate,'yyyy/MM/dd HH:mm:ss')}"></span>
+          </div>
+          <div id="hr"></div>
+          <img id="mainimage" class="responsive-img" th:src="'/images/'+${boardvo.mainimage}" alt="메인 이미지" />
+          <p th:text="${boardvo.content}"></p>
+        </section>
+        <section class="z-depth-1">
+          <h6>댓글</h6>
+          <button id="btnReply" class="btn">댓글 쓰기</button>
+          <p class="grey-text" th:if="${replylist == null || replylist.size == 0}">댓글이 없습니다.</p>
+          <table th:each="reply : ${replylist}" th:if="${replylist.size != 0}">
+            <thead>
+              <tr>
+                <th th:text="${reply.nickname}"></th>
+                <th th:text="${#dates.format(reply.regdate,'yyyy/MM/dd HH:mm:ss')}"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <td><a class="reply" th:data-no="${reply.reply_no}" th:text="${reply.content}"></a></td>
+            </tbody>
+          </table>
+        </section>
+      </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>
+  <script>
+    const btnList = document.querySelector("#btnList");
+    const btnModify = document.querySelector("#btnModify");
+    const btnDelete = document.querySelector("#btnDelete");
+    const btnReply = document.querySelector("#btnReply");
+  </script>
 </html>

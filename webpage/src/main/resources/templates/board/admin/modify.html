@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
-    <link rel="stylesheet" href="/css/board/boardadminwrite.css" />
+    <link rel="stylesheet" href="/css/board/boardadminmodify.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
@@ -13,8 +13,8 @@
             <option value="202">공지사항</option>
             <option value="204">이벤트</option>
           </select>
-          <input id="title" name="title" type="text" placeholder="제목" />
-          <textarea id="content" class="materialize-textarea" name="content" placeholder="내용..."></textarea>
+          <input id="title" name="title" type="text" placeholder="제목" th:value="${board.title}" />
+          <textarea id="content" class="materialize-textarea" name="content" placeholder="내용..." th:value="${board.content}"></textarea>
           <button id="btnFinish" class="btn">작성완료</button>
           <button id="btnCancel" class="btn red">취소</button>
         </div>
