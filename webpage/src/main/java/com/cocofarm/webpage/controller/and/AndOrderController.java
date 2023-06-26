@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cocofarm.webpage.common.ResultVO;
+import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
 import com.cocofarm.webpage.service.OrderService;
@@ -50,6 +51,13 @@ public class AndOrderController {
     public void OrderProductStatusUpdate(String vo) {
         OrderProductVO tempVo = new Gson().fromJson(vo, OrderProductVO.class);
         orderservice.OrderProductStatusUpdate(tempVo);
+    }
+
+    @PostMapping(value = "changeandrefundinsert.and")
+    @ResponseBody
+    public void ChangeAndRefundInsert(String dto) {
+        ChangeAndRefundDTO tempDto = new Gson().fromJson(dto, ChangeAndRefundDTO.class);
+        orderservice.ChangeAndRefundInsert(tempDto);
     }
 
 }

@@ -59,4 +59,27 @@ public class OrderProductActivity extends AppCompatActivity {
         super.onDestroy();
         binding=null;
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Intent intent1 = getIntent();
+
+        String value = intent1.getStringExtra("order_id");
+
+        conn = new CommonConn(this, "orderproductlist.and");
+        conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+        conn.onExcute((isResult, data) -> {
+            ArrayList<OrderProductVO> list = new Gson().fromJson(data,
+                    new TypeToken<ArrayList<OrderProductVO>>() {
+                    }.getType());
+            Log.d("데이터emp", "onCreateView: " + list.size());
+            OrderProductAdapter adapter = new OrderProductAdapter(list, this);
+            LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+            binding.recvOrderFinish.setAdapter(adapter);
+            binding.recvOrderFinish.setLayoutManager(manager);
+
+            setContentView(binding.getRoot());
+        });
+    }
 }

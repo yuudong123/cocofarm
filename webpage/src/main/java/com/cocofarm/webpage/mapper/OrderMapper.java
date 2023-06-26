@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
 
@@ -19,5 +20,6 @@ public interface OrderMapper {
 
     public int OrderProductStatusUpdate(OrderProductVO vo);
     
+    public int ChangeAndRefundInsert(ChangeAndRefundDTO dto);
     
 }

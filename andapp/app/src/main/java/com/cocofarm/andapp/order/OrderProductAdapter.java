@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,12 +16,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.R;
+import com.cocofarm.andapp.board.BoardWriteActivity;
 import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ItemOrderProductBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
+import com.cocofarm.andapp.product.ReviewWriteActivity;
 import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
@@ -93,7 +96,6 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                                         holder.binding.btn1.setClickable(false);
                                         status("결제취소 되었습니다.", "", holder);
                                         holder.binding.btn2.setVisibility(View.GONE);
-                                        notifyDataSetChanged();
 
                                     } else {
                                         Toast.makeText(context, "오류가 발생했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
@@ -115,6 +117,12 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                 holder.binding.btn2.setVisibility(View.GONE);
                 break;
 
+            case CodeTable.ORDER_STATUS_ONDELIVERY:
+                status("","배송조회", holder);
+                holder.binding.btn2.setOnClickListener(v->{
+                    //배송조회 눌렀을 경우 배송조회 페이지로 이동
+
+                });
             case CodeTable.ORDER_STATUS_ARRIVED:
                 status("교환·반품신청", "구매확정", holder);
                 holder.binding.btn1.setOnClickListener(v1 -> {
@@ -123,12 +131,13 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                     builder.setTitle("").setMessage("교환신청을 원하시면 교환, 반품신청을 원하시면 반품을 눌러주세요.").setCancelable(false)
                             .setPositiveButton("교환", (dialogInterface, i1) -> {
                                 Intent intent = new Intent(context, OrderChangeActivity.class);
+                                intent.putExtra("orderProductVO", list.get(position));
                                 context.startActivity(intent);
                             })
                             .setNegativeButton("반품", (dialogInterface, i1) -> {
                                 Intent intent = new Intent(context, OrderRefundActivity.class);
+                                intent.putExtra("orderProductVO", list.get(position));
                                 context.startActivity(intent);
-
                             })
                             .setNeutralButton("아니오", (dialogInterface, i1) -> {
                                 status("교환·반품신청", "구매확정", holder);
@@ -136,7 +145,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                 });
                 holder.binding.btn2.setOnClickListener(v -> {
                             orderProduct.setOrder_status_cd(CodeTable.ORDER_STATUS_SUCCESS);
-                            //상태코드 300으로 세팅
+                            //상태코드 310으로 세팅
                             orderProduct.setValue("구매확정");
                     CommonConn conn = new CommonConn(context, "orderproductupdate.and");
                     conn.addParam("vo", new Gson().toJson(orderProduct));
@@ -144,27 +153,24 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                         if (isResult) {
                             //구매확정이 완료되면
                             status("리뷰쓰기", "배송조회", holder);
-                            notifyDataSetChanged();
                         }
-                        status("리뷰쓰기", "배송조회", holder);
-                    holder.binding.btn1.setOnClickListener(v1 -> {
-                        //리뷰쓰기 페이지로 이동 -> 리뷰쓰거나 시간 지나면 리뷰쓰기 버튼도 삭제?
-                    });
-                    holder.binding.btn2.setOnClickListener(v2 -> {
-                        //배송조회 눌렀을 경우 배송조회 페이지로 이동
-                    });
                 });
                 });
                 break;
             case CodeTable.ORDER_STATUS_SUCCESS:
                 status("리뷰쓰기", "배송조회", holder);
                 holder.binding.btn1.setOnClickListener(v1 -> {
-                    //리뷰쓰기 페이지로 이동 -> 리뷰쓰거나 시간 지나면 리뷰쓰기 버튼도 삭제?
+                    //리뷰쓰기 페이지로 이동 -> 리뷰쓰거나 시간 지나면 리뷰쓰기완료로 만들거나..흠..
+                    Intent intent = new Intent(context, ReviewWriteActivity.class);
+                    intent.putExtra("orderProductVO", list.get(position));
+                    context.startActivity(intent);
                 });
                 holder.binding.btn2.setOnClickListener(v2 -> {
                     //배송조회 눌렀을 경우 배송조회 페이지로 이동
                 });
                 break;
+
+                //교환반품 취소시를 어떻게 할수있게 할지.. 고민.
             case CodeTable.ORDER_STATUS_RETURN_REQ:
             case CodeTable.ORDER_STATUS_REFUND_REQ:
                 //교환반품 신청 하고 난후에 304.305상태면 교환반품 취소할수있음.
@@ -176,19 +182,24 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                     builder.setTitle("").setMessage("교환반품을 취소하시겠습니까? 취소를 원하시면 취소를 눌러주시고 원래 화면으로 돌아가시려면 아니오를 눌러주세요.").setCancelable(false)
                             .setPositiveButton("취소", ((dialogInterface, i1) -> {
                                 status("교환, 반품 신청", "배송조회", holder);
-                                holder.binding.btn2.setVisibility(View.VISIBLE);
                             }))
                             .setNegativeButton("아니오", (dialogInterface, i1) -> {
-                                status("취소", "", holder);
-                                holder.binding.btn2.setVisibility(View.GONE);
+                                status("취소", "배송조회", holder);
                             }).create().show();
-                    holder.binding.btn2.setVisibility(View.VISIBLE);
                     status("교환, 반품 신청", "배송조회", holder);
                 });
                 break;
             case CodeTable.ORDER_STATUS_RETURN_OK:
             case CodeTable.ORDER_STATUS_REFUND_OK:
-                status("", "", holder);
+                orderProduct.setOrder_status_cd(CodeTable.ORDER_STATUS_SUCCESS);
+                //상태코드 310으로 세팅
+                orderProduct.setValue("교환.반품 완료");
+                CommonConn conn = new CommonConn(context, "orderproductupdate.and");
+                conn.addParam("vo", new Gson().toJson(orderProduct));
+                conn.onExcute((isResult, data) -> {
+                    Log.d("교환, 반품완료", "onBindViewHolder: "+isResult);
+                            status("", "", holder);
+                        });
                 holder.binding.btn1.setVisibility(View.GONE);
                 holder.binding.btn2.setVisibility(View.GONE);
                 break;

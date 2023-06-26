@@ -6,7 +6,7 @@
             test="productId != 0"> and product_id = #{productId} </if>
     </select>
     <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO">
-    <![CDATA[ 
+        <![CDATA[ 
     select * from (
         select rownum as rn, a.* from (
             select b.*, coalesce(r.replycnt, 0) as replycnt
@@ -27,7 +27,7 @@
     ]]>
     </select>
     <select id="selectQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
-    <![CDATA[
+        <![CDATA[
     select * from (
         select rownum as rn, a.* from (   
             select b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
