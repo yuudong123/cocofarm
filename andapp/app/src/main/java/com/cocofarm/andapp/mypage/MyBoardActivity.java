@@ -31,7 +31,7 @@ public class MyBoardActivity extends AppCompatActivity {
         binding = ActivityMyBoardBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        CommonConn conn = new CommonConn(this, "/member/myboard");
+        CommonConn conn = new CommonConn(this, "/member/myboard.and");
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());
 
         conn.onExcute((isResult, data) -> {

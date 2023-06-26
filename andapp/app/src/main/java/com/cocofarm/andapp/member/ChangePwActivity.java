@@ -28,7 +28,7 @@ public class ChangePwActivity extends AppCompatActivity {
             if (!binding.edtInfo.getText().toString().equals(binding.edtInfo2.getText().toString())) {
                 Toast.makeText(this, "비밀번호를 동일하게 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
-                CommonConn conn = new CommonConn(this, "/member/modifypw");
+                CommonConn conn = new CommonConn(this, "/member/modifypw.and");
                 conn.addParam("email", email);
                 conn.addParam("password", binding.edtInfo.getText().toString());
                 conn.onExcute((isResult, data) -> {

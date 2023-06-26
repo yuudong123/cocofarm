@@ -37,7 +37,7 @@ public class FindPwActivity extends AppCompatActivity {
             if (email.isEmpty()) {
                 Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
-                CommonConn email_conn = new CommonConn(this, "/member/email_search");
+                CommonConn email_conn = new CommonConn(this, "/member/email_search.and");
                 email_conn.addParam("email", email);
 
                 email_conn.onExcute((isResult, data) -> {
@@ -48,7 +48,7 @@ public class FindPwActivity extends AppCompatActivity {
 
                             String confirm_text = JoinEmailActivity.random_email();
 
-                            CommonConn conn = new CommonConn(this, "/member/findpw");
+                            CommonConn conn = new CommonConn(this, "/email/findpw");
                             conn.addParam("confirm_text", confirm_text);
                             conn.addParam("email", email);
 

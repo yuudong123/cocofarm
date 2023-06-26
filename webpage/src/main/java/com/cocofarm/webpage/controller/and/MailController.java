@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MailController {
 
-    @RequestMapping(value = "/member/email")
+    @RequestMapping(value = "/email/send")
     public String sendEmail(String confirm_text, String email) {
         SimpleEmail mail = new SimpleEmail();
         mail.setHostName("smtp.naver.com");
@@ -34,7 +34,7 @@ public class MailController {
         return "ok";
     }
 
-    @RequestMapping(value = "/member/findpw")
+    @RequestMapping(value = "/email/findpw")
     public String findPw(String confirm_text, String email) {
         SimpleEmail mail = new SimpleEmail();
         mail.setHostName("smtp.naver.com");
