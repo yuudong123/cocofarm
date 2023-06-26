@@ -4,118 +4,138 @@
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/member/join.css">
+    <!-- <link rel="stylesheet" href="/css/member/join.css"> -->
 </head>
 <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
-        <div class="join">
-            <h2>코코팜 회원가입</h2>
-            <div class="email">
-                <label>필수 입력사항 *</label>
-                <div class="inputinfo">
-                    <h6>이메일</h6>
-                    <input type="email" id="input_email" placeholder="email">@
-                    <select class="select" id="select_email" title="이메일 도메인 주소 선택">
-                        <option value="">-선택-</option>
-                        <option value="self">직접 입력</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="hanmail.net">hanmail.net</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                    </select>
-                    <input type="text" id="selboxDirect" name="selboxDirect"/>
-                    <button type="submit" id="btnEmail">중복 확인</button>
-                    <a class="waves-effect waves-light btn"><i class="material-icons left">mail</i>인증메일 전송</a>
-                </div>
-                <div class="inputinfo">
-                    <h6>인증번호</h6>
-                    <input type="text" name="emailconfirm" id="emailconfim" placeholder="인증번호">
-                    <a class="waves-effect waves-light btn">인증번호 확인</a>
-                </div>
-            </div>
-            <div class="info">
-                <div class="inputinfo">
-                    <h6>비밀번호</h6>
-                    <input type="password" name="password" id="password" placeholder="비밀번호">           
-                    <h6 style="margin-left: 15px;">비밀번호 확인</h6>
-                    <input type="password" name="password2" id="password2" placeholder="비밀번호 확인">
-                    </div>
-                <div class="inputinfo">
-                    <h6>닉네임</h6>
-                    <input type="text" name="nickname" id="nickname" placeholder="닉네임">
-                </div>
-            </div>
+    <h2>회원가입</h2>
 
-            <hr class="dividingLine">
+    <div id="email">
+        <strong>이메일</strong>
+        <input type="text" name="id">@<input type="text" name="address">
+        <select name="select">
+            <option value="">-선택-</option>
+            <option value="">직접 입력</option>
+            <option value="naver.com">naver.com</option>
+            <option value="gmail.com">gmail.com</option>
+            <option value="hanmail.net">hanmail.net</option>
+            <option value="hotmail.com">hotmail.com</option>
+        </select>
+        <input type="button" name="btnEmail" value="확인">
+    </div>
 
-            <div class="selectinfo">
-                <label>선택 입력사항</label>
-                <div class="inputinfo">
-                    <h6>전화번호</h6>
-                    <input type='tel' name='phone1' />-
-                    <input type='tel' name='phone2' />-
-                    <input type='tel' name='phone3' />
-                </div>
-                <div class="address">
-                    <div class="inputinfo">
-                        <h6>주소</h6>
-                        <input type="text" id="road" placeholder="도로명">
-                        <a class="waves-effect waves-light btn">도로명주소 검색</a>
-                    </div>
-                    </div>
-                    <div class="inputinfo">
-                        <h6>상세주소</h6>
-                        <input type="text" id="details" placeholder="상세주소">
-                    </div>
-            </div>
+    <div id="password">
+        <strong>비밀번호</strong>
+        <input type="password" name="pw">
+        <strong>비밀번호 확인</strong>
+        <input type="password" name="confirm">
+        <input type="button" name="btnPw" value="확인">
+        <a name="message" style="color: red;">비밀번호를 확인하세요</a>
+    </div>
 
-            <div class="submit">
-                <input type="submit" id="btnLogin" value="회원가입">
-            </div>
-        </div>
-        <script>
-            const email_name = document.querySelector('#input_email');
-            const email_address = document.querySelector('#select_email');
-            const selboxDirect = document.querySelector('#selboxDirect');
+    <strong>닉네임</strong>
+    <input type="text" id="nickname">
 
-            const emailAddress = () => {
-                selboxDirect.style.display = 'none';
-                email_address.addEventListener('change', () => {
-                    if (email_address.value == "self") {
-                        selboxDirect.style.display = 'block';
-                    } else {
-                        selboxDirect.style.display = 'none';
-                    }
-                });
-            };
+    <div id="phonenumber">
+        <strong>전화번호</strong>
+        <input type="tel" name="no1" value="010" disabled> -
+        <input type="tel" name="no2" maxlength="4"> -
+        <input type="tel" name="no3" maxlength="4">
+        <input type="button" name="ok" value="ok">
+    </div>
 
-            emailAddress();
-
-            const btnEmail = document.querySelector('#btnEmail');
-            const myEmail = '@' + email_address.value;
-            btnEmail.addEventListener('click', email_search);
-
-            function email_search() {
-                // document.querySelector('#select_email');
-              console.log(email_name + '@' + email_address.value);
+    <div id="address">
+        <strong>주소</strong>
+        <input type="text" name="road" disabled>
+        <input type="button" name="search" value="검색"><br/>
+        <strong>상세주소</strong>
+        <input type="text" name="details">
+    </div>
 
 
-            fetch("/member/email_search", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' },
-                body: 'email= myEmail'
-            })
-            .then((data) => {
-                if (data >= 1) {
-                    alert(myEmail + "중복됨");
-                } else {
-                    alert(myEmail + "가입 가능");
-                }
-            })
-            .catch(err => console.log(err));
+
+
+    <!-- javaScript -->
+<script src="/js/default.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    var btnEmail = document.querySelector("#email [name='btnEmail']");
+    var inputId = document.querySelector("#email [name='id']");
+    var inputAddress = document.querySelector("#email [name='address']");
+    var selectAddress = document.querySelector("#email [name='select']");
+
+    selectAddress.addEventListener("change", () => {
+        inputAddress.value = selectAddress.value;
+    });
+    btnEmail.addEventListener("click", () => {
+        var email = inputId.value + "@" + inputAddress.value;
+        fetchTEXT(
+        "/member/email_search",
+        {
+          email: email
+        },
+        (data) => {
+            console.log(data);
+            if (data >= 1) {
+                alert("이미 등록된 이메일입니다.");
+            } else {
+                alert("가입 가능합니다.");
+            }
         }
-            
+      );
+    });
 
-        </script>
+
+    var message = document.querySelector("#password [name='message']");
+    var btnPw = document.querySelector("#password [name='btnPw']");
+    var pw = document.querySelector("#password [name='pw']");
+    var confirm = document.querySelector("#password [name='confirm']");
+    message.style.display = 'none';
+
+    btnPw.addEventListener("click", () => {
+        if (pw.value == confirm.value) {
+            message.style.display = 'block';
+            message.style.color = 'blue';
+            message.text = "비밀번호가 동일합니다";
+        } else {
+            message.style.display = 'block';
+        }
+    });
+
+    var no1 = document.querySelector("#phonenumber [name='no1']");
+    var no2 = document.querySelector("#phonenumber [name='no2']");
+    var no3 = document.querySelector("#phonenumber [name='no3']");
+    var ok = document.querySelector("#phonenumber [name='ok']");
+
+    ok.addEventListener("click", () => {
+        const phonenumber = no1.value + "-" + no2.value + "-" + no3.value;
+        console.log(phonenumber);
+    });
+
+    var search = document.querySelector("#address [name='search']");
+    search.addEventListener("click",  () => {
+        // let openWin = window.open('/roadSearch', 'pop','width=430,height=500,location=no,status=no,scrollbars=yes');
+        // openWin.document.sample2_execDaumPostcode();
+        new daum.Postcode({
+        oncomplete: function(data) {
+        	console.log(data);
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+            if(roadAddr !== ''){
+                document.querySelector("#address [name='road']").value = roadAddr;
+            } 
+            else if(jibunAddr !== ''){
+                document.querySelector("#address [name='road']").value = jibunAddr;
+            }
+        }
+    }).open();
+});
+
+
+
+
+    
+</script>
+
 </body>
 </html>
