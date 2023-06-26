@@ -16,13 +16,17 @@ public class ChangeAndRefundDTO implements Serializable {
     private int amount;
     private int price;
     private int product_id;
+    private int member_no;
+    private int order_status_cd;
 }
 
-/*create table tbl_changeandrefund(
-changeandrefund_id number,
-orderproduct_id number(30),
-candrdate date,
-reasoncode number,
-textreason varchar2(1000),
-constraint pk_tbl_changeandrefund primary key (changeandrefund_id)
-); */
+/*
+ * create table tbl_changeandrefund(
+ * changeandrefund_id number,
+ * orderproduct_id number(30),
+ * candrdate date,
+ * reasoncode number,
+ * textreason varchar2(1000),
+ * constraint pk_tbl_changeandrefund primary key (changeandrefund_id)
+ * );
+ */

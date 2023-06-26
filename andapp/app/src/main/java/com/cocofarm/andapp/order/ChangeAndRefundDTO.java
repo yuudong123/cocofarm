@@ -20,4 +20,6 @@ public class ChangeAndRefundDTO implements Serializable {
     private int amount;
     private int price;
     private int product_id;
+    private int member_no;
+    private int order_status_cd;
 }

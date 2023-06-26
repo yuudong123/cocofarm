@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
 import com.cocofarm.webpage.mapper.OrderMapper;
@@ -48,6 +49,10 @@ public class OrderService {
 
     public int OrderProductStatusUpdate(OrderProductVO vo) {
         return ordermapper.OrderProductStatusUpdate(vo);
+    }
+
+    public int ChangeAndRefundInsert(ChangeAndRefundDTO dto){
+        return ordermapper.ChangeAndRefundInsert(dto);
     }
 
 }

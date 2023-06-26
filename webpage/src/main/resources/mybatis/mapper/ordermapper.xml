@@ -16,6 +16,7 @@
         )
     </insert>
 
+    <!-- 주문목록중에 하나만 -->
     <select id="OrderProductOne" parameterType="com.cocofarm.webpage.domain.OrderVO">
     select op.product_id, op.order_id, o.member_no, o.orderdate, o.order_status_cd, op.price, op.amount, op.order_status_cd, cd.value, im.filename, p.name 
 from tbl_orderproduct op
@@ -26,6 +27,7 @@ join (select name, product_id from tbl_product)p on op.product_id = p.product_id
 where o.order_id = #{order_id}
     </select>
 
+    <!-- 주문 목록 리스트 -->
     <select id="OrderProductList" parameterType="com.cocofarm.webpage.domain.OrderVO">
     select op.orderproduct_id, op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount,  cd.value, im.filename, p.name 
 from tbl_orderproduct op
@@ -44,7 +46,7 @@ ORDER BY op.orderproduct_id DESC
 
     <!-- 교환환불 처리 -->
     <insert id="ChangeAndRefundInsert">
-insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, reasoncode,textreason, order_status_cd,member_no) values
-(seq_changeandrefund_id.nextval,#{orderproduct_id},sysdate,#{reasoncode},#{textreason},#{order_status_cd},#{member_no})
+insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, reasoncode, textreason, order_status_cd, member_no) values
+(seq_changeandrefund_id.nextval,#{orderproduct_id},sysdate,#{reasoncode}, #{textreason, jdbcType=VARCHAR},#{order_status_cd},#{member_no})
     </insert>
 </mapper>

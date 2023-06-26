@@ -14,10 +14,10 @@ public class CodeTable {
     public static final int ORDER_STATUS_ONREADY = 301; // 배송준비
     public static final int ORDER_STATUS_ONDELIVERY = 302; // 배송중
     public static final int ORDER_STATUS_ARRIVED = 303; // 배송완료
-    public static final int ORDER_STATUS_RETURN_REQ = 304; // 반품신청
-    public static final int ORDER_STATUS_REFUND_REQ = 305; // 환불신청
-    public static final int ORDER_STATUS_RETURN_OK = 306; // 반품완료
-    public static final int ORDER_STATUS_REFUND_OK = 307; // 환불완료
+    public static final int ORDER_STATUS_RETURN_REQ = 304; // 교환신청
+    public static final int ORDER_STATUS_REFUND_REQ = 305; // 반품신청
+    public static final int ORDER_STATUS_RETURN_OK = 306; // 교환완료
+    public static final int ORDER_STATUS_REFUND_OK = 307; // 반품완료
     public static final int ORDER_STATUS_SUCCESS = 310; // 구매확정
 
     public static final int ORDER_STATUS_CHANGE_JUST = 341; // 환불이유 마음에 들지 않음.
