@@ -17,6 +17,8 @@ public interface BoardMapper {
 
     public ArrayList<QnaDTO> selectQnaList(CriteriaDTO cri);
 
+    public ArrayList<QnaDTO> selectNoAnsweredQnaList();
+
     public BoardVO selectboard(int board_no);
 
     public QnaDTO selectqna(int board_no);
@@ -28,4 +30,5 @@ public interface BoardMapper {
     public int delete(int board_no);
 
     public ArrayList<BoardVO> eventBanner(int board_category_cd);
+
 }

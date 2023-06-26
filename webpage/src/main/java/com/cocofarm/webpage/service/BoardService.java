@@ -2,6 +2,7 @@ package com.cocofarm.webpage.service;
 
 import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_EVENT;
 import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_NOTICE;
+import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_QNA;
 import static com.cocofarm.webpage.common.CodeTable.BOARD_CATEGORY_REVIEW;
 
 import java.util.ArrayList;
@@ -44,8 +45,13 @@ public class BoardService {
     }
 
     public ArrayList<QnaDTO> selectQnaList(CriteriaDTO cri) {
+        cri.setCode(BOARD_CATEGORY_QNA);
         ArrayList<QnaDTO> list = mapper.selectQnaList(cri);
-        cri.setCode(201);
+        return list;
+    }
+
+    public ArrayList<QnaDTO> selectNoAnsweredQnaList() {
+        ArrayList<QnaDTO> list = mapper.selectNoAnsweredQnaList();
         return list;
     }
 

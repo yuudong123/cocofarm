@@ -27,7 +27,8 @@
             <button id="btnSearch" class="btn green" type="submit">검색</button>
           </div>
         </form>
-        <table>
+        <p id="noresultmsg" th:if="${boardlist.size == 0}">조건에 맞는 게시글이 없습니다.</p>
+        <table th:if="${boardlist.size != 0}">
           <thead>
             <tr>
               <th>제목</th>

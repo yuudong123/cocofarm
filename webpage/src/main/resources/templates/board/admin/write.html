@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardadminwrite.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <div id="form">
+          <input id="title" name="title" type="text" placeholder="제목" />
+          <textarea id="content" class="materialize-textarea" name="content" placeholder="내용..."></textarea>
+          <button id="btnFinish" class="btn">작성완료</button>
+          <button id="btnCancel" class="btn red">취소</button>
+        </div>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+  </body>
+  <script>
+    const btnFinish = document.querySelector("#btnFinish");
+    const btnCancel = document.querySelector("#btnCancel");
+    const title = document.querySelector("#title");
+    const content = document.querySelector("#content");
+
+    btnFinish.addEventListener("click", () => {
+      fetchTEXT(
+        "/admin/board/write",
+        {
+          title: title.value,
+          content: content.value,
+        },
+        (data) => {}
+      );
+    });
+    btnCancel.addEventListener("click", () => {
+      if (confirm("작성한 내용은 저장되지 않습니다. 취소하시겠습니까?")) {
+        location.href = "/admin/board";
+      }
+    });
+  </script>
+</html>

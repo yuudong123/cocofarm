@@ -2,9 +2,11 @@ package com.cocofarm.webpage.controller.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@SessionAttributes("userinfo")
 public class MainController {
 
     @GetMapping("/")

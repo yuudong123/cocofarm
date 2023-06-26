@@ -7,8 +7,46 @@
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <div class="container"></div>
+      <div class="container">
+        <section class="z-depth-1">
+          <button id="btnNewBoard" class="btn"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></button>
+        </section>
+
+        <section class="z-depth-1">
+          <h6>새 QnA</h6>
+          <button id="btnRefresh" class="btn material-icons">refresh</button>
+          <div id="qnalist" class="collection"></div>
+        </section>
+      </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+      const qnalist = document.querySelector("#qnalist");
+      const btnRefresh = document.querySelector("#btnRefresh");
+      const btnNewBoard = document.querySelector("#btnNewBoard");
+
+      onload = loadQna();
+      btnRefresh.addEventListener("click", loadQna);
+      btnNewBoard.addEventListener("click", () => {
+        location.href = "/admin/board/write";
+      });
+
+      function loadQna() {
+        qnalist.innerHTML = "";
+        fetchJSON("/admin/board", null, (data) => {
+          console.log(data);
+          data.forEach((item) => {
+            let title = item.title;
+            let regdate = moment(item.regdate).format("YYYY/MM/DD HH:mm:ss");
+            let div = document.createElement("div");
+            let link = document.createElement("a");
+            link.classList.add("collection-item");
+            link.innerText = regdate + " " + title;
+            qnalist.appendChild(link);
+          });
+        });
+      }
+    </script>
   </body>
 </html>

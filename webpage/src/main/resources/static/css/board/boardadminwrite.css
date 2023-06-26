@@ -1,0 +1,10 @@
+#form {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#btnCancel,
+#btnFinish {
+  margin-right: 5px;
+}

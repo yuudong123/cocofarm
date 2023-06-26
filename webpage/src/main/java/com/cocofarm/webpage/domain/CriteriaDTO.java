@@ -9,6 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class CriteriaDTO {
     private int code = BOARD_CATEGORY_NOTICE;
+    private int productId;
     private int page = 1;
     private int boardPerPage = 10;
     private String keyword = "";
