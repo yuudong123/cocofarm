@@ -16,18 +16,14 @@ import com.google.gson.Gson;
 
 @Controller
 @SessionAttributes("userinfo")
-public class MemberController {
+public class AndMemberController {
 
     @Autowired
     MemberService service;
 
-    @GetMapping(value = "/member/connect")
-    public String memberConnect() {
-        return "member/connect";
-    }
 
     @ResponseBody
-    @PostMapping(value = "/member/login")
+    @PostMapping(value = "/member/login.and")
     public String login(String email, String password) {
         MemberVO vo = new MemberVO();
         vo.setEmail(email);
@@ -38,7 +34,7 @@ public class MemberController {
         return new Gson().toJson(service.login(vo));
     }
 
-    @PostMapping(value = "/member/join")
+    @PostMapping(value = "/member/join.and")
     public int join(String email, String password, String nickname, String phonenumber, String address, String sns) {
         MemberVO join_vo = new MemberVO();
         join_vo.setEmail(email);
@@ -56,19 +52,19 @@ public class MemberController {
         return service.join(join_vo);
     }
 
-    @PostMapping(value = "/member/email_search")
+    @PostMapping(value = "/member/email_search.and")
     public String email_search(String email) {
         return service.email_search(email);
     }
 
-    @PostMapping(value = "/member/sns_login")
+    @PostMapping(value = "/member/sns_login.and")
     public String sns_login(String email) {
         MemberVO vo = new MemberVO();
         vo.setEmail(email);
         return new Gson().toJson(service.sns_login(vo));
     }
 
-    @RequestMapping(value = "/member/modify")
+    @RequestMapping(value = "/member/modify.and")
     public String am_modify(String password, String nickname, String phonenumber, String email, String address) {
 
         MemberVO vo = new MemberVO();
@@ -82,12 +78,12 @@ public class MemberController {
         return new Gson().toJson(service.login(vo));
     }
 
-    @PostMapping(value = "/member/modifypw")
+    @PostMapping(value = "/member/modifypw.and")
     public void pw_modify(String email, String password) {
         service.pw_modify(email, password);
     }
 
-    @RequestMapping(value = "/member/away")
+    @RequestMapping(value = "/member/away.and")
     public int away(String email) {
         MemberVO vo = new MemberVO();
         vo.setEmail(email);
@@ -95,7 +91,7 @@ public class MemberController {
         return service.away(email);
     }
 
-    @PostMapping(value = "/member/myboard", produces = "text/html;charset=utf-8")
+    @PostMapping(value = "/member/myboard.and", produces = "text/html;charset=utf-8")
     public String myboard(int member_no) {
         QnaDTO dto = new QnaDTO();
         dto.setMember_no(member_no);

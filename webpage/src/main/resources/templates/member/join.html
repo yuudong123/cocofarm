@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/member/join.css">
+</head>
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+        <div class="join">
+            <h2>코코팜 회원가입</h2>
+            <div class="email">
+                <label>필수 입력사항 *</label>
+                <div class="inputinfo">
+                    <h6>이메일</h6>
+                    <input type="email" id="input_email" placeholder="email">@
+                    <select class="select" id="select_email" title="이메일 도메인 주소 선택">
+                        <option value="">-선택-</option>
+                        <option value="self">직접 입력</option>
+                        <option value="naver.com">naver.com</option>
+                        <option value="gmail.com">gmail.com</option>
+                        <option value="hanmail.net">hanmail.net</option>
+                        <option value="hotmail.com">hotmail.com</option>
+                    </select>
+                    <input type="text" id="selboxDirect" name="selboxDirect"/>
+                    <button type="submit" id="btnEmail">중복 확인</button>
+                    <a class="waves-effect waves-light btn"><i class="material-icons left">mail</i>인증메일 전송</a>
+                </div>
+                <div class="inputinfo">
+                    <h6>인증번호</h6>
+                    <input type="text" name="emailconfirm" id="emailconfim" placeholder="인증번호">
+                    <a class="waves-effect waves-light btn">인증번호 확인</a>
+                </div>
+            </div>
+            <div class="info">
+                <div class="inputinfo">
+                    <h6>비밀번호</h6>
+                    <input type="password" name="password" id="password" placeholder="비밀번호">           
+                    <h6 style="margin-left: 15px;">비밀번호 확인</h6>
+                    <input type="password" name="password2" id="password2" placeholder="비밀번호 확인">
+                    </div>
+                <div class="inputinfo">
+                    <h6>닉네임</h6>
+                    <input type="text" name="nickname" id="nickname" placeholder="닉네임">
+                </div>
+            </div>
+
+            <hr class="dividingLine">
+
+            <div class="selectinfo">
+                <label>선택 입력사항</label>
+                <div class="inputinfo">
+                    <h6>전화번호</h6>
+                    <input type='tel' name='phone1' />-
+                    <input type='tel' name='phone2' />-
+                    <input type='tel' name='phone3' />
+                </div>
+                <div class="address">
+                    <div class="inputinfo">
+                        <h6>주소</h6>
+                        <input type="text" id="road" placeholder="도로명">
+                        <a class="waves-effect waves-light btn">도로명주소 검색</a>
+                    </div>
+                    </div>
+                    <div class="inputinfo">
+                        <h6>상세주소</h6>
+                        <input type="text" id="details" placeholder="상세주소">
+                    </div>
+            </div>
+
+            <div class="submit">
+                <input type="submit" id="btnLogin" value="회원가입">
+            </div>
+        </div>
+        <script>
+            const email_name = document.querySelector('#input_email');
+            const email_address = document.querySelector('#select_email');
+            const selboxDirect = document.querySelector('#selboxDirect');
+
+            const emailAddress = () => {
+                selboxDirect.style.display = 'none';
+                email_address.addEventListener('change', () => {
+                    if (email_address.value == "self") {
+                        selboxDirect.style.display = 'block';
+                    } else {
+                        selboxDirect.style.display = 'none';
+                    }
+                });
+            };
+
+            emailAddress();
+
+            const btnEmail = document.querySelector('#btnEmail');
+            const myEmail = '@' + email_address.value;
+            btnEmail.addEventListener('click', email_search);
+
+            function email_search() {
+                // document.querySelector('#select_email');
+              console.log(email_name + '@' + email_address.value);
+
+
+            fetch("/member/email_search", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8' },
+                body: 'email= myEmail'
+            })
+            .then((data) => {
+                if (data >= 1) {
+                    alert(myEmail + "중복됨");
+                } else {
+                    alert(myEmail + "가입 가능");
+                }
+            })
+            .catch(err => console.log(err));
+        }
+            
+
+        </script>
+</body>
+</html>

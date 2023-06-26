@@ -29,7 +29,7 @@ public class JoinCompleteActivity extends AppCompatActivity {
         binding.btnOk.setText("로그인하기");
 
         binding.btnOk.setOnClickListener(v->{
-            CommonConn conn = new CommonConn(this, "/member/login");
+            CommonConn conn = new CommonConn(this, "/member/login.and");
             conn.addParam("email", vo.getEmail());
             conn.addParam("password", vo.getPassword());
             conn.onExcute((isResult, data) ->  {

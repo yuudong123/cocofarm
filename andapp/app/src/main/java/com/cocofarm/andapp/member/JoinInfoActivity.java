@@ -55,7 +55,7 @@ public class JoinInfoActivity extends AppCompatActivity {
                 vo.setAddress(address);
 
 
-                CommonConn conn = new CommonConn(this, "/member/join");
+                CommonConn conn = new CommonConn(this, "/member/join.and");
                 conn.addParam("email", vo.getEmail());
                 conn.addParam("password", vo.getPassword());
                 conn.addParam("nickname", vo.getNickname());

@@ -42,7 +42,7 @@ public class JoinEmailActivity extends AppCompatActivity {
             if (email.isEmpty()) {
                 Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
             } else {
-                CommonConn email_conn = new CommonConn(this, "/member/email_search");
+                CommonConn email_conn = new CommonConn(this, "/member/email_search.and");
                 email_conn.addParam("email", email);
 
                 email_conn.onExcute((isResult, data) -> {
@@ -58,7 +58,7 @@ public class JoinEmailActivity extends AppCompatActivity {
 
                             String confirm_text = random_email();
 
-                            CommonConn conn = new CommonConn(this, "/member/email");
+                            CommonConn conn = new CommonConn(this, "/email/send");
                             conn.addParam("confirm_text", confirm_text);
                             conn.addParam("email", email);
 

@@ -20,7 +20,7 @@
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a th:href="@{/mypage}">마이페이지</a></li>
             <th:block>
-              <li th:if="${userinfo == null}"><a id="btnHeaderLogin">로그인</a></li>
+              <li th:if="${userinfo == null}"><a id="btnHeaderLogin" th:href="@{/member/login}">로그인</a></li>
               <li th:if="${userinfo != null}"><a id="btnHeaderLogout">로그아웃</a></li>
             </th:block>
           </ul>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Sign In</title>
+</head>
+
+<body>
+    <form action="/hello">
+        <p>
+            <label for="first">First name:</label>
+            <br>
+            <input type="text" name="fist" id="first" required>
+            <br>
+            <label for="last">Last name:</label>
+            <br>
+            <input type="text" name="last" id="last" required>
+            <br>
+            <label for="email">Email:</label>
+            <br>
+            <div id="email">
+                <input type="email" name="email_input" required>@
+                <select class="select" id="email_select" title="이메일 도메인 주소 선택">
+                    <option value="">-선택-</option>
+                    <option value="self">직접 입력</option>
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="hanmail.net">hanmail.net</option>
+                    <option value="hotmail.com">hotmail.com</option>
+                </select>
+                <input type="text" id="email_textbox"/>
+                <button type="submit" id="btnEmail">입력</button>
+            </div>
+        </p>
+        <p>
+            Gender:
+            <input type="radio" name="gender" id="male" value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" name="gender" id="female" value="female">
+            <label for="female">Female</label>
+        </p>
+        <p>
+            Favorite:
+            <input type="checkbox" name="favorite" id="html" value="html" required>
+            <label for="html">HTML</label>
+            <input type="checkbox" name="favorite" id="css" value="css">
+            <label for="css">CSS</label>
+            <input type="checkbox" name="favorite" id="python" value="python">
+            <label for="python">Python</label>
+        </p>
+        <p>
+            University:
+            <select name="university" id="univ" required>
+                <option value="konkuk">Konkuk</option>
+                <option value="chonnam">Chonnam</option>
+                <option value="seoul">Seoul</option>
+            </select>
+        </p>
+        <p>
+            <label for="">Date:</label>
+            <input type="date" name="date" id="date" required>
+        </p>
+        <p>
+            <textarea name="request" id="request"
+            rows="5" cols="25" placeholder="Text Anything!"></textarea>
+        </p>
+        <p>
+            <button>Registration</button>
+        </p>
+    </form>
+
+    <script>
+        let email1 = document.querySelector('#email_input');
+        let email2 = document.querySelector('#email_select');
+        let selboxDirect = document.querySelector('#email_textbox');
+        const btnEmail = document.querySelector('#btnEmail');
+
+        const emailAddress = () => {
+            selboxDirect.style.display = 'none';
+            email2.addEventListener('change', () => {
+                if (email2.value == "self") {
+                    selboxDirect.style.display = 'block';
+                } else {
+                    selboxDirect.style.display = 'none';
+                }
+            });
+        };
+
+            emailAddress();
+
+            btnEmail.onClick = () => {
+                console.log(email2.value);
+            }
+
+
+    </script>
+
+</body>
+
+</html>

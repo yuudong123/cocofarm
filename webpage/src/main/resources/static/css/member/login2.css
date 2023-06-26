@@ -1,0 +1,32 @@
+main {
+  display: flex;
+}
+
+main .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#loginform {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.input-field {
+  margin: 5px;
+  min-width: 200px;
+}
+
+h5 {
+  margin: 0;
+  margin-bottom: 10px;
+}
