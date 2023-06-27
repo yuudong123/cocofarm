@@ -20,6 +20,7 @@ import com.cocofarm.andapp.board.BoardWriteActivity;
 import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
+import com.cocofarm.andapp.databinding.ActivityDeliveryStatusBinding;
 import com.cocofarm.andapp.databinding.ItemOrderProductBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
@@ -33,6 +34,8 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
     Context context;
     ItemOrderProductBinding binding;
     ArrayList<OrderProductVO>list;
+
+    CommonConn conn;
 
 
     public OrderProductAdapter(ArrayList<OrderProductVO> list , Context context) {
@@ -79,7 +82,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                 //보여줄 버튼은 두개 취소, 배송조회
 
                 holder.binding.btn2.setOnClickListener(v -> {
-                    //배송조회 눌렀을 경우 배송조회 페이지로 이동 일단은 배송시작 글자만 뜨게.
+                    deliveryActivity(orderProduct);
                 });
                 holder.binding.btn1.setOnClickListener(v -> {
                     //취소 버튼 눌렀을 경우 주문목록에서 삭제가 아니라 업데이트해서 결제 취소 뜨게 하기.
@@ -120,7 +123,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             case CodeTable.ORDER_STATUS_ONDELIVERY:
                 status("","배송조회", holder);
                 holder.binding.btn2.setOnClickListener(v->{
-                    //배송조회 눌렀을 경우 배송조회 페이지로 이동
+                    deliveryActivity(orderProduct);
 
                 });
             case CodeTable.ORDER_STATUS_ARRIVED:
@@ -147,7 +150,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                             orderProduct.setOrder_status_cd(CodeTable.ORDER_STATUS_SUCCESS);
                             //상태코드 310으로 세팅
                             orderProduct.setValue("구매확정");
-                    CommonConn conn = new CommonConn(context, "orderproductupdate.and");
+                    conn = new CommonConn(context, "orderproductupdate.and");
                     conn.addParam("vo", new Gson().toJson(orderProduct));
                     conn.onExcute((isResult, data) -> {
                         if (isResult) {
@@ -159,14 +162,27 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                 break;
             case CodeTable.ORDER_STATUS_SUCCESS:
                 status("리뷰쓰기", "배송조회", holder);
-                holder.binding.btn1.setOnClickListener(v1 -> {
-                    //리뷰쓰기 페이지로 이동 -> 리뷰쓰거나 시간 지나면 리뷰쓰기완료로 만들거나..흠..
-                    Intent intent = new Intent(context, ReviewWriteActivity.class);
-                    intent.putExtra("orderProductVO", list.get(position));
-                    context.startActivity(intent);
-                });
+                int reviewTo = list.get(position).getReview_board_no();
+                if(reviewTo > 0){
+                    holder.binding.btn1.setText("리뷰읽기");
+                    //리뷰페이지로 이동.
+                    holder.binding.btn1.setOnClickListener(v1 -> {
+                        Intent intent = new Intent(context, ReviewViewActivity.class);
+                        intent.putExtra("orderProductVO", list.get(position));
+                        context.startActivity(intent);
+                    });
+                }else {
+                    holder.binding.btn1.setOnClickListener(v1 -> {
+                        //리뷰쓰기 페이지로 이동 -> 리뷰쓰거나 시간 지나면 리뷰쓰기완료로 만들거나..흠..
+                        Intent intent = new Intent(context, ReviewWriteActivity.class);
+                        intent.putExtra("orderProductVO", list.get(position));
+                        context.startActivity(intent);
+                    });
+                }
+
+
                 holder.binding.btn2.setOnClickListener(v2 -> {
-                    //배송조회 눌렀을 경우 배송조회 페이지로 이동
+                    deliveryActivity(orderProduct);
                 });
                 break;
 
@@ -187,6 +203,9 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                                 status("취소", "배송조회", holder);
                             }).create().show();
                     status("교환, 반품 신청", "배송조회", holder);
+                });
+                holder.binding.btn2.setOnClickListener(v->{
+                    deliveryActivity(orderProduct);
                 });
                 break;
             case CodeTable.ORDER_STATUS_RETURN_OK:
@@ -236,6 +255,11 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             super(binding.getRoot());
             this.binding=binding;
         }
+    }
+    private void deliveryActivity(OrderProductVO orderProductVO){
+        Intent intent = new Intent(context, DeliveryStatusActivity.class);
+        intent.putExtra("orderProductVO", orderProductVO);
+        context.startActivity(intent);
     }
 }
 

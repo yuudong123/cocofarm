@@ -18,4 +18,5 @@ public class OrderProductVO implements Serializable {
     private Date orderdate;
     private String name;
     private String value;
+    private int review_board_no;
 }

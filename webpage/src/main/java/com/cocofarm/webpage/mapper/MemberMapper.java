@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 
@@ -24,4 +25,7 @@ public interface MemberMapper {
     public int away(String email);
 
     public ArrayList<QnaDTO> myboard(QnaDTO dto);
+
+    //내가 쓴 리뷰 보기
+    public ArrayList<BoardVO> myreviewboard(MemberVO vo);
 }

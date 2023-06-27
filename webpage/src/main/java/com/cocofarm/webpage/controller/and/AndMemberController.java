@@ -99,4 +99,11 @@ public class AndMemberController {
 
         return new Gson().toJson(service.myboard(dto));
     }
+
+    // 내가 쓴 리뷰 보기.
+    @PostMapping(value = "/member/myreviewboard.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String myreviewboard(MemberVO vo) {
+        return new Gson().toJson(service.myreviewboard(vo));
+    }
 }

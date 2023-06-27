@@ -11,6 +11,7 @@ import com.cocofarm.webpage.common.ResultVO;
 import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
+import com.cocofarm.webpage.service.CartService;
 import com.cocofarm.webpage.service.OrderService;
 import com.google.gson.Gson;
 
@@ -18,6 +19,8 @@ import com.google.gson.Gson;
 public class AndOrderController {
     @Autowired
     OrderService orderservice;
+    @Autowired
+    CartService cartService;
 
     @PostMapping(value = "orderinsert.and", produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -27,8 +30,11 @@ public class AndOrderController {
 
         int result = orderservice.OrderInsert(ordervo);
         String str = "";
+
         if (result > 1) {
             str = "성공";
+            cartService.deleteCartProducts(ordervo.getOrderProductVOList());
+
         }
         ResultVO rVO = new ResultVO();
         rVO.setResult(str);
@@ -58,6 +64,13 @@ public class AndOrderController {
     public void ChangeAndRefundInsert(String dto) {
         ChangeAndRefundDTO tempDto = new Gson().fromJson(dto, ChangeAndRefundDTO.class);
         orderservice.ChangeAndRefundInsert(tempDto);
+    }
+
+    @PostMapping(value = "orderproductreviewwritepage.and", produces = "text/html;charset=utf-8")
+    @ResponseBody
+    public String OrderProductReviewWritePage(int orderproduct_id) {
+        OrderProductVO vo = orderservice.OrderProductReviewWritePage(orderproduct_id);
+        return new Gson().toJson(vo);
     }
 
 }

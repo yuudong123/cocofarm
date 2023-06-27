@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.mapper.MemberMapper;
@@ -49,4 +50,10 @@ public class MemberService {
 
     return result;
   }
+
+  // 내가 쓴 리뷰 보기
+  public ArrayList<BoardVO> myreviewboard(MemberVO vo) {
+    return mapper.myreviewboard(vo);
+  }
+
 }
