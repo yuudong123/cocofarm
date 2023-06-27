@@ -36,6 +36,7 @@ public class CartActivity extends AppCompatActivity {
     public static Button allDelete;
 
     public static CheckBox allSelect;
+    int total = 0;
 
 
     @Override
@@ -52,11 +53,10 @@ public class CartActivity extends AppCompatActivity {
 
         allSelect = binding.checkCartAll;
         //전체상품 선택 , 해제 , 금액.
-        allSelect .setOnClickListener(v -> {
+        allSelect.setOnClickListener(v -> {
             boolean isChecked = allSelect.isChecked();
 
-            int total = 0;
-
+            total = 0;
             for (int i = 0; i < CommonVal.cart.size(); i++) {
                 CommonVal.cart.get(i).setChecked(isChecked);
 
@@ -157,6 +157,13 @@ public class CartActivity extends AppCompatActivity {
         super.onStart();
         allPrice = binding.tvCartAllPrice;
         allDelete = binding.btnCartAlldelete;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        CartActivity.allPrice.setText("￦" + 0 + "원");
+        load();
     }
 
     @Override

@@ -55,4 +55,9 @@ public class OrderService {
         return ordermapper.ChangeAndRefundInsert(dto);
     }
 
+    public OrderProductVO OrderProductReviewWritePage(int orderproduct_id){
+        OrderProductVO vo = ordermapper.OrderProductReviewWritePage(orderproduct_id);
+        return vo;
+    }
+ 
 }

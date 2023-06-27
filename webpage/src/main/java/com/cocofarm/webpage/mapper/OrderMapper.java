@@ -21,5 +21,7 @@ public interface OrderMapper {
     public int OrderProductStatusUpdate(OrderProductVO vo);
     
     public int ChangeAndRefundInsert(ChangeAndRefundDTO dto);
+
+    public OrderProductVO OrderProductReviewWritePage(int orderproduct_id);
     
 }

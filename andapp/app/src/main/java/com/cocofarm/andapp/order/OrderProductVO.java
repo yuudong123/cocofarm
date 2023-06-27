@@ -24,4 +24,5 @@ public class OrderProductVO implements Serializable {
     @JsonAdapter(DateJsonAdapter.class)
     private Date orderdate;
     private String name;
+    private int review_board_no;
 }

@@ -51,7 +51,12 @@
         android:theme="@style/Theme.Cocofarm"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".order.DeliveryStatusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".order.ReviewViewActivity"
+            android:exported="false" />
         <activity
             android:name=".product.ReviewWriteActivity"
             android:exported="false" />

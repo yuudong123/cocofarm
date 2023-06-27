@@ -29,12 +29,14 @@ where o.order_id = #{order_id}
 
     <!-- 주문 목록 리스트 -->
     <select id="OrderProductList" parameterType="com.cocofarm.webpage.domain.OrderVO">
-    select op.orderproduct_id, op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount,  cd.value, im.filename, p.name 
+    select op.orderproduct_id, op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount,  cd.value, im.filename, p.name
+, nvl(b.review_board_no, 0)as review_board_no
 from tbl_orderproduct op
 join tbl_order o on op.order_id = o.order_id
 join (select code, value from tbl_code where codetype='ORDER_STATUS')cd on op.order_status_cd = cd.code
 left outer join (select product_id, min(filename)as filename from tbl_image group by product_id )im on op.product_id = im.product_id
 join (select name, product_id from tbl_product)p on op.product_id = p.product_id
+left outer join (select rownum, board_no as review_board_no, product_id from tbl_board where board_category_cd =203 and member_no =#{member_no} and rownum =1) b on op.product_id = b.product_id 
 where o.member_no = #{member_no}
 ORDER BY op.orderproduct_id DESC
     </select>
@@ -49,4 +51,14 @@ ORDER BY op.orderproduct_id DESC
 insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, reasoncode, textreason, order_status_cd, member_no) values
 (seq_changeandrefund_id.nextval,#{orderproduct_id},sysdate,#{reasoncode}, #{textreason, jdbcType=VARCHAR},#{order_status_cd},#{member_no})
     </insert>
+
+    <!-- 리뷰쓰기페이지 상품이미지, 이름 보여주기. -->
+    <select id="OrderProductReviewWritePage" parameterType="com.cocofarm.webpage.domain.OrderProductVO">
+    select o.orderproduct_id, p.name, i.filename
+from tbl_orderproduct o 
+join tbl_product p on o.product_id = p.product_id
+join(select product_id, min(filename)as filename from tbl_image group by product_id)i on o.product_id = i.product_id
+where o.orderproduct_id = #{orderproduct_id}
+    </select>
+
 </mapper>
