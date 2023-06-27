@@ -32,6 +32,7 @@ public class AndMemberController {
         return new Gson().toJson(service.login(vo));
     }
 
+    @ResponseBody
     @PostMapping(value = "/member/join.and")
     public int join(String email, String password, String nickname, String phonenumber, String address, String sns) {
         MemberVO join_vo = new MemberVO();
@@ -50,6 +51,7 @@ public class AndMemberController {
         return service.join(join_vo);
     }
 
+    @ResponseBody
     @PostMapping(value = "/member/email_search.and")
     public String email_search(String email) {
         return service.email_search(email);

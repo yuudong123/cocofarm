@@ -1,5 +1,7 @@
 package com.cocofarm.webpage.controller.web;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -44,15 +46,29 @@ public class WebMemberController {
 
      @GetMapping(value = "/member/connect")
      public String memberConnect() {
-            return "member/connect";
+        return "member/connect";
     }
 
     @GetMapping(value="/member/join")
-    public String join() {
+    public String join(MemberVO vo) {
         return "member/join";
     }
 
-        @GetMapping(value="/member/test")
+    @ResponseBody
+    @PostMapping(value = "/member/createMember")
+    public int createMember(@RequestBody HashMap<String, String> param) {
+        MemberVO vo = new MemberVO();
+        vo.setEmail(param.get("email"));
+        vo.setPassword(param.get("password"));
+        vo.setNickname(param.get("nickname"));
+        vo.setPhonenumber(param.get("phonenumber"));
+        vo.setAddress(param.get("address"));
+        vo.setSns(param.get("sns"));
+
+        return memberService.join(vo);
+    }
+
+    @GetMapping(value="/member/test")
     public String test() {
         return "member/test";
     }
