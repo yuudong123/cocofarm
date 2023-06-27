@@ -27,7 +27,7 @@
         </section>
         <section class="z-depth-1">
           <h6>댓글</h6>
-          <div th:if="${userinfo!=null}" id="replyForm" data-isopen="false" class="z-depth-1">
+          <div th:if="${userinfo!=null}" data-method="write" id="replyForm" data-isopen="false" class="z-depth-1">
             <textarea id="replyContent" class="materialize-textarea" type="text" placeholder="여기에 댓글 입력"></textarea>
           </div>
           <button th:if="${userinfo!=null}" id="btnReplyConfirm" class="btn">확인</button>
@@ -58,9 +58,12 @@
     const btnReply = document.querySelector("#btnReply");
     const btnReplyConfirm = document.querySelector("#btnReplyConfirm");
     const replyForm = document.querySelector("#replyForm");
+    const replyModifyForm = document.querySelector("#replyModifyForm");
     const replyList = document.querySelector("#replyList");
     const board_no = /*[[${boardvo.board_no}]]*/ "";
     const replyContent = document.querySelector("#replyContent");
+    let modReplyNo = 0;
+    let modReplyContent = "";
 
     onload = loadReply();
 
@@ -88,27 +91,69 @@
         }
       });
     }
-    btnReply.addEventListener("click", toggleReplyBtn);
-    btnReplyConfirm.addEventListener("click", () => {
-      let content = replyContent.value;
-      fetchJSON("/reply/write", { content: content, board_no: board_no }, (data) => {
-        if (data == 1) {
-          replyContent.value = "";
-          toggleReplyBtn();
-          loadReply();
-        } else {
-          M.toast({ html: "댓글 등록에 실패했습니다." });
-        }
+    if (btnReply != null) {
+      btnReply.addEventListener("click", () => {
+        toggleReplyBtn();
+        replyForm.dataset.method = "write";
+        replyContent.textContent = "";
       });
-    });
+    }
+    if (btnReplyConfirm != null) {
+      btnReplyConfirm.addEventListener("click", () => {
+        if (replyContent.value == "") {
+          M.toast({ html: "댓글 내용을 입력해주세요.." });
+          return;
+        }
+        let content = replyContent.value;
+        let mapping = "";
+        let data = {};
+        let msg = "";
+        if (replyForm.dataset.method == "write") {
+          mapping = "/reply/write";
+          data = { content: content, board_no: board_no };
+          msg = "댓글 등록";
+        } else if (replyForm.dataset.method == "modify") {
+          mapping = "/reply/modify";
+          data = { content: content, reply_no: modReplyNo };
+          msg = "수정";
+        }
+        fetchTEXT(mapping, data, (data) => {
+          if (data == 1) {
+            replyContent.value = "";
+            toggleReplyBtn();
+            loadReply();
+            M.toast({ html: msg + " 완료!" });
+          } else {
+            M.toast({ html: msg + "에 실패했습니다." });
+          }
+        });
+      });
+    }
+    function modifyReply(reply_no, content) {
+      modReplyNo = reply_no;
+      modReplyContent = content;
+      replyForm.dataset.method = "modify";
+      replyContent.textContent = modReplyContent;
+      toggleReplyBtn();
+    }
+
+    function deleteReply(reply_no) {
+      if (confirm("삭제 후 되돌릴 수 없습니다. 삭제하시겠습니까?")) {
+        fetchTEXT("/reply/delete", { reply_no: reply_no }, (data) => {
+          if (data == 1) {
+            loadReply();
+            M.toast({ html: "삭제되었습니다." });
+          }
+        });
+      }
+    }
 
     function loadReply() {
       replyList.innerHTML = "";
       fetchJSON("/reply/getlist", { board_no: board_no }, (data) => {
         if (data.length != 0) {
           data.forEach((item) => {
-            const reply = "<table><thead><tr><th>" + item.nickname + "</th><th>" + moment(item.regdate).format("YYYY/MM/DD HH:mm:ss") + "</th></tr></thead><tbody><td><span class='reply' th:data-no='" + item.reply_no + "'>" + item.content + "</span></td></tbody></table>";
-            replyList.innerHTML += reply;
+            replyList.innerHTML += item;
           });
         } else {
           replyList.innerHTML = "<p class='grey-text'>댓글이 없습니다.</p>";

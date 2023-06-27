@@ -9,7 +9,7 @@
         values (seq_reply_no.nextval, #{member_no}, #{nickname}, #{board_no}, #{content}, sysdate,
         sysdate) </insert>
     <update id="update" parameterType="com.cocofarm.webpage.domain.ReplyVO"> update tbl_reply set
-        content = #{content}, upddate = sysdate where board_no = #{board_no} </update>
+        content = #{content}, upddate = sysdate where reply_no = #{reply_no} </update>
     <delete id="delete"> delete from tbl_reply where reply_no = #{reply_no} </delete>
     <delete id="deleteAll"> delete from tbl_reply where board_no = #{board_no} </delete>
 </mapper>

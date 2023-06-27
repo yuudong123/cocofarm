@@ -26,8 +26,9 @@ public class WebReplyController {
     ReplyService replyService;
 
     @PostMapping(value = "/getlist", produces = "text/html;charset=utf-8")
-    public String getList(@RequestBody HashMap<String, Integer> param) {
-        ArrayList<ReplyVO> replylist = replyService.selectList(param.get("board_no"));
+    public String getList(@RequestBody HashMap<String, Integer> param, HttpSession session) {
+        MemberVO viewer = (MemberVO) session.getAttribute("userinfo");
+        ArrayList<String> replylist = replyService.selectListWeb(param.get("board_no"), viewer);
         return new Gson().toJson(replylist);
     }
 
@@ -43,5 +44,16 @@ public class WebReplyController {
         replyVO.setMember_no(memberVO.getMember_no());
         replyVO.setNickname(memberVO.getNickname());
         return replyService.insert(replyVO) + "";
+    }
+
+    @PostMapping(value = "/modify", produces = "text/html;charset=utf-8")
+    public String modify(@RequestBody ReplyVO replyVO) {
+        System.out.println(replyVO);
+        return replyService.update(replyVO) + "";
+    }
+
+    @PostMapping(value = "/delete", produces = "text/html;charset=utf-8")
+    public String delete(@RequestBody HashMap<String, Integer> param) {
+        return replyService.delete(param.get("reply_no")) + "";
     }
 }
