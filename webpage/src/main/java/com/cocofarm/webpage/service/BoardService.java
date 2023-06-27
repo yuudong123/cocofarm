@@ -14,15 +14,19 @@ import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.mapper.BoardMapper;
+import com.cocofarm.webpage.mapper.ReplyMapper;
 
 @Service
 public class BoardService {
 
     @Autowired
-    BoardMapper mapper;
+    BoardMapper boardMapper;
+
+    @Autowired
+    ReplyMapper replyMapper;
 
     public int getTotal(CriteriaDTO cri) {
-        return mapper.getTotal(cri);
+        return boardMapper.getTotal(cri);
     }
 
     public ArrayList<BoardVO> selectList(String category, CriteriaDTO cri) {
@@ -35,49 +39,50 @@ public class BoardService {
             code = BOARD_CATEGORY_REVIEW;
         }
         cri.setCode(code);
-        ArrayList<BoardVO> list = mapper.selectList(cri);
+        ArrayList<BoardVO> list = boardMapper.selectList(cri);
         return list;
     }
 
     public ArrayList<BoardVO> selectListAnd(CriteriaDTO cri) {
-        ArrayList<BoardVO> list = mapper.selectList(cri);
+        ArrayList<BoardVO> list = boardMapper.selectList(cri);
         return list;
     }
 
     public ArrayList<QnaDTO> selectQnaList(CriteriaDTO cri) {
         cri.setCode(BOARD_CATEGORY_QNA);
-        ArrayList<QnaDTO> list = mapper.selectQnaList(cri);
+        ArrayList<QnaDTO> list = boardMapper.selectQnaList(cri);
         return list;
     }
 
     public ArrayList<QnaDTO> selectNoAnsweredQnaList() {
-        ArrayList<QnaDTO> list = mapper.selectNoAnsweredQnaList();
+        ArrayList<QnaDTO> list = boardMapper.selectNoAnsweredQnaList();
         return list;
     }
 
     public BoardVO selectboard(int board_no) {
-        BoardVO vo = mapper.selectboard(board_no);
+        BoardVO vo = boardMapper.selectboard(board_no);
         return vo;
     }
 
     public QnaDTO selectqna(int board_no) {
-        QnaDTO dto = mapper.selectqna(board_no);
+        QnaDTO dto = boardMapper.selectqna(board_no);
+        dto.setAnswer(replyMapper.selectAnswer(board_no));
         return dto;
     }
 
     public int insert(BoardVO vo) {
-        return mapper.insert(vo);
+        return boardMapper.insert(vo);
     }
 
     public int update(BoardVO vo) {
-        return mapper.update(vo);
+        return boardMapper.update(vo);
     }
 
     public int delete(int board_no) {
-        return mapper.delete(board_no);
+        return boardMapper.delete(board_no);
     }
 
     public ArrayList<BoardVO> eventBanner(int board_category_cd) {
-        return mapper.eventBanner(board_category_cd);
+        return boardMapper.eventBanner(board_category_cd);
     }
 }

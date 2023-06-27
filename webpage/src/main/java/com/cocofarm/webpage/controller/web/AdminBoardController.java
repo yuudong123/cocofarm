@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class AdminBoardController {
     @Autowired
     ProductService productService;
 
-    @GetMapping(value = "/board")
+    @GetMapping(value = "/")
     public ModelAndView boardMain() {
         ModelAndView mav = new ModelAndView();
         ArrayList<ProductVO> productlist = productService.selectProductListWithImage();
@@ -43,13 +44,13 @@ public class AdminBoardController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/board")
+    @PostMapping(value = "/")
     public String qnaList() {
         ArrayList<QnaDTO> qnalist = boardService.selectNoAnsweredQnaList();
         return new Gson().toJson(qnalist);
     }
 
-    @GetMapping(value = "/board/write")
+    @GetMapping(value = "/write")
     public ModelAndView writeGET() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("board/admin/write");
@@ -57,7 +58,7 @@ public class AdminBoardController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/board/write")
+    @PostMapping(value = "/write")
     public String writePOST(@RequestBody BoardVO boardVO, HttpSession session) {
         MemberVO memberVO = (MemberVO) session.getAttribute("userinfo");
         boardVO.setMember_no(memberVO.getMember_no());
@@ -73,8 +74,8 @@ public class AdminBoardController {
         }
     }
 
-    @GetMapping(value = "/board/modify")
-    public ModelAndView modifyGET(int board_no) {
+    @GetMapping(value = "/{board_no}/modify")
+    public ModelAndView modifyGET(@PathVariable int board_no) {
         ModelAndView mav = new ModelAndView();
         BoardVO boardVO = boardService.selectboard(board_no);
         mav.addObject("board", boardVO);
@@ -83,11 +84,12 @@ public class AdminBoardController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/board/modify")
-    public String writePOST(@RequestBody BoardVO boardVO) {
+    @PostMapping(value = "/{board_no}/modify")
+    public String writePOST(@RequestBody BoardVO boardVO, @PathVariable int board_no) {
         if (boardVO.getMainimage() == null) {
             boardVO.setMainimage("main-logo.png");
         }
+        boardVO.setBoard_no(board_no);
         int result = boardService.update(boardVO);
         if (result == 1) {
             return "success";

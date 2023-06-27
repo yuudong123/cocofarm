@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.ReplyMapper">
     <select id="selectList" resultType="com.cocofarm.webpage.domain.ReplyVO"> select * from
-        tbl_reply where board_no = #{board_no} </select>
+        tbl_reply where board_no = #{board_no} order by reply_no desc </select>
     <select id="selectAnswer" resultType="com.cocofarm.webpage.domain.ReplyVO"> select * from
         tbl_reply where board_no = #{board_no} </select>
     <insert id="insert" parameterType="com.cocofarm.webpage.domain.ReplyVO"> insert into tbl_reply

@@ -2,12 +2,113 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardread.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <div class="container">기본 페이지, 새 html 생성시 복붙</div>
+      <div class="container">
+        <div id="btnBox">
+          <button id="btnList" class="btn">목록으로</button>
+          <button th:if="${userinfo != null && (userinfo.member_type_cd == 101 || userinfo.member_no == qnadto.member_no)}" id="btnDelete" class="btn red">삭제</button>
+        </div>
+        <section class="z-depth-1">
+          <h5 th:text="${qnadto.title}"></h5>
+          <div id="titlebox">
+            <span style="margin: 0; margin-right: 10px; font-weight: bold" th:text="${qnadto.nickname}"></span>
+            <span th:text="${#dates.format(qnadto.regdate,'yyyy/MM/dd HH:mm:ss')}"></span>
+          </div>
+          <div id="hr"></div>
+          <div id="productBox">
+            <img id="productImage" class="responsive-img" th:src="'/images/'+${qnadto.mainimage}" alt="메인 이미지" />
+            <div>
+              <h6 th:text="${qnadto.product_name}"></h6>
+              <p id="productContent" th:text="${qnadto.product_content}"></p>
+            </div>
+          </div>
+          <p th:text="${qnadto.content}"></p>
+        </section>
+        <section class="z-depth-1">
+          <h6>답변</h6>
+          <div th:if="${userinfo!=null && userinfo.member_type_cd==101}" id="answerForm" data-isopen="false" class="z-depth-1">
+            <textarea id="answerContent" class="materialize-textarea" type="text" placeholder="여기에 답변 입력"></textarea>
+          </div>
+          <button th:if="${userinfo!=null && userinfo.member_type_cd==101 && qnadto.answer==null}" id="btnAnswerConfirm" class="btn">확인</button>
+          <button th:if="${userinfo!=null && userinfo.member_type_cd==101 && qnadto.answer==null}" id="btnAnswer" class="btn">답변 쓰기</button>
+          <p id="answer" class="grey-text">답변이 없습니다.</p>
+        </section>
+      </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>
+  <script th:inline="javascript">
+    const btnList = document.querySelector("#btnList");
+    const btnDelete = document.querySelector("#btnDelete");
+    const btnAnswer = document.querySelector("#btnAnswer");
+    const btnAnswerConfirm = document.querySelector("#btnAnswerConfirm");
+    const answerContent = document.querySelector("#answerContent");
+    const answer = document.querySelector("#answer");
+    const board_no = /*[[${qnadto.board_no}]]*/ "";
+
+    onload = loadAnswer();
+    btnList.addEventListener("click", () => {
+      location.href = location.href.split("/").slice(0, 5).join("/");
+    });
+    if (btnDelete != null) {
+      btnDelete.addEventListener("click", () => {
+        if (confirm("삭제 후 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
+          fetchJSON("/" + board_no + "/delete", null, (data) => {
+            if (data == 1) {
+              alert("삭제되었습니다.");
+              history.back();
+            } else {
+              M.toast({ html: "삭제에 실패했습니다..." });
+            }
+          });
+        }
+      });
+    }
+    if (btnAnswer != null) {
+      btnAnswer.addEventListener("click", toggleReplyBtn);
+    }
+    if (btnAnswerConfirm != null) {
+      btnAnswerConfirm.addEventListener("click", () => {
+        let content = answerContent.value;
+        fetchJSON("/reply/write", { content: content, board_no: board_no }, (data) => {
+          if (data == 1) {
+            answerContent.value = "";
+            toggleReplyBtn();
+            loadAnswer();
+          } else {
+            M.toast({ html: "댓글 등록에 실패했습니다." });
+          }
+        });
+      });
+    }
+    function toggleReplyBtn() {
+      if (answerForm.dataset.isopen == "false") {
+        answerForm.style.display = "block";
+        answerForm.dataset.isopen = "true";
+        btnAnswerConfirm.style.display = "block";
+        btnAnswer.classList.add("red");
+        btnAnswer.innerHTML = "취소";
+      } else {
+        answerForm.style.display = "none";
+        answerForm.dataset.isopen = "false";
+        btnAnswerConfirm.style.display = "none";
+        btnAnswer.classList.remove("red");
+        btnAnswer.innerHTML = "답변 쓰기";
+      }
+    }
+    function loadAnswer() {
+      answer.innerHTML = "";
+      fetchJSON("/reply/getanswer", { board_no: board_no }, (data) => {
+        if (data) {
+          answer.innerHTML = data.content;
+        } else {
+          answer.innerHTML = "답변이 없습니다.";
+        }
+      });
+    }
+  </script>
 </html>

@@ -30,6 +30,14 @@
     const content = document.querySelector("#content");
 
     btnFinish.addEventListener("click", () => {
+      if (title.value == null || title.value == "") {
+        M.toast({ html: "제목을 입력해주세요." });
+        return;
+      }
+      if (content.value == null || content.value == "") {
+        M.toast({ html: "내용을 입력해주세요." });
+        return;
+      }
       fetchTEXT(
         "/admin/board/write",
         {
@@ -40,7 +48,7 @@
         (data) => {
           if (data == "success") {
             alert("등록되었습니다.");
-            location.href = "/admin/board";
+            location.href = "/admin/board/";
           } else {
             alert("작성에 실패했습니다.");
           }
@@ -49,7 +57,7 @@
     });
     btnCancel.addEventListener("click", () => {
       if (confirm("작성한 내용은 저장되지 않습니다. 취소하시겠습니까?")) {
-        location.href = "/admin/board";
+        location.href = "/admin/board/";
       }
     });
   </script>

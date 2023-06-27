@@ -19,8 +19,11 @@ h6 {
   font-weight: bold;
 }
 #titlebox {
+  position: absolute;
+  right: 10px;
+  top: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: baseline;
 }
 
@@ -49,9 +52,60 @@ h6 {
 tr {
   display: flex;
   justify-content: space-between;
+  border-bottom: 0;
+}
+th {
+  padding: 5px;
+}
+td {
+  padding: 5px;
+  padding-top: 0px;
+}
+table {
+  background-color: #eee;
+  margin-bottom: 5px;
 }
 
+#productBox {
+  display: flex;
+  background-color: #eee;
+  padding: 10px;
+}
+#productImage {
+  width: 100px;
+  margin-right: 10px;
+}
+#productContent {
+  font-size: 0.8rem;
+  max-lines: 3;
+}
+
+#replyList {
+  margin-top: 20px;
+}
+
+#answerForm,
+#replyForm {
+  display: none;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding-inline: 10px;
+  padding-top: 10px;
+}
+
+#btnAnswer,
 #btnReply {
   position: absolute;
   right: 10px;
+}
+
+#btnAnswerConfirm,
+#btnReplyConfirm {
+  display: none;
+  position: absolute;
+  right: 76px;
+}
+
+small {
+  margin-left: 10px;
 }

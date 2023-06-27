@@ -44,8 +44,8 @@
           <tbody>
             <tr th:each="board : ${boardlist}">
               <td>
-                <th:block th:if="${board.replycnt != 0}"><small style="color: #aaa">[답변완료]</small></th:block>
-                [[${board.title}]]
+                <small th:if="${board.replycnt != 0}" style="color: #aaa">[답변완료]</small>
+                <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
               </td>
               <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
             </tr>
@@ -77,6 +77,7 @@
       const pageFirst = document.querySelector("#pageFirst");
       const pageLast = document.querySelector("#pageLast");
       const pageNum = document.querySelectorAll(".pageNum");
+      const boardtitle = document.querySelectorAll(".boardtitle");
 
       switch (/*[[${pager.cri.boardPerPage}]]*/ "") {
         case 10:
@@ -97,10 +98,15 @@
         }
       }
 
+      selectProduct.addEventListener("change", () => {
+        inputPage.value = 1;
+        reqDiv.submit();
+      });
+
       categorys.forEach((category) => {
         category.addEventListener("click", () => {
           reqDiv.setAttribute("action", "/board/" + category.dataset.category);
-          inputPage.setAttribute("value", "1");
+          inputPage.value = 1;
           reqDiv.submit();
         });
 
@@ -118,22 +124,31 @@
       });
 
       pageFirst.addEventListener("click", () => {
-        inputPage.setAttribute("value", "1");
+        inputPage.value = 1;
         reqDiv.submit();
       });
       pageLast.addEventListener("click", () => {
-        inputPage.setAttribute("value", /*[[${pager.lastPage}]]*/ "");
+        inputPage.value = /*[[${pager.lastPage}]]*/ "";
         reqDiv.submit();
       });
       pageNum.forEach((page) => {
         page.addEventListener("click", () => {
-          inputPage.setAttribute("value", page.textContent);
+          inputPage.value = page.textContent;
           reqDiv.submit();
         });
-        if (page.textContent == inputPage.getAttribute("value")) {
+        if (page.textContent == inputPage.value) {
           page.parentElement.classList.add("active");
           page.parentElement.classList.add("green");
         }
+      });
+      boardtitle.forEach((board) => {
+        board.addEventListener("click", () => {
+          if (location.href.includes("?")) {
+            location.href = location.href.substring(0, location.href.indexOf("?")) + "/" + board.dataset.no;
+          } else {
+            location.href = location.href + "/" + board.dataset.no;
+          }
+        });
       });
     </script>
   </body>

@@ -34,7 +34,7 @@
 
       function loadQna() {
         qnalist.innerHTML = "";
-        fetchJSON("/admin/board", null, (data) => {
+        fetchJSON("/admin/board/", null, (data) => {
           console.log(data);
           data.forEach((item) => {
             let title = item.title;

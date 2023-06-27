@@ -16,9 +16,10 @@
           </th:block>
         </div>
         <section class="z-depth-1">
+          <h5 th:text="${boardvo.title}"></h5>
           <div id="titlebox">
-            <h5 th:text="${boardvo.title}"></h5>
             <span th:text="${#dates.format(boardvo.regdate,'yyyy/MM/dd HH:mm:ss')}"></span>
+            <small th:if="${boardvo.regdate != boardvo.upddate}" style="color: #aaa" th:text="${#dates.format(boardvo.upddate,'yyyy/MM/dd HH:mm:ss')}+' 에 수정됨'"></small>
           </div>
           <div id="hr"></div>
           <img id="mainimage" class="responsive-img" th:src="'/images/'+${boardvo.mainimage}" alt="메인 이미지" />
@@ -26,28 +27,109 @@
         </section>
         <section class="z-depth-1">
           <h6>댓글</h6>
-          <button id="btnReply" class="btn">댓글 쓰기</button>
-          <p class="grey-text" th:if="${replylist == null || replylist.size == 0}">댓글이 없습니다.</p>
-          <table th:each="reply : ${replylist}" th:if="${replylist.size != 0}">
-            <thead>
-              <tr>
-                <th th:text="${reply.nickname}"></th>
-                <th th:text="${#dates.format(reply.regdate,'yyyy/MM/dd HH:mm:ss')}"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <td><a class="reply" th:data-no="${reply.reply_no}" th:text="${reply.content}"></a></td>
-            </tbody>
-          </table>
+          <div th:if="${userinfo!=null}" id="replyForm" data-isopen="false" class="z-depth-1">
+            <textarea id="replyContent" class="materialize-textarea" type="text" placeholder="여기에 댓글 입력"></textarea>
+          </div>
+          <button th:if="${userinfo!=null}" id="btnReplyConfirm" class="btn">확인</button>
+          <button th:if="${userinfo!=null}" id="btnReply" class="btn">댓글 쓰기</button>
+          <div id="replyList">
+            <table th:each="reply : ${replylist}" th:if="${replylist.size != 0}">
+              <thead>
+                <tr>
+                  <th th:text="${reply.nickname}"></th>
+                  <th th:text="${#dates.format(reply.regdate,'yyyy/MM/dd HH:mm:ss')}"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <td><span class="reply" th:data-no="${reply.reply_no}" th:text="${reply.content}"></span></td>
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>
-  <script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script th:inline="javascript">
     const btnList = document.querySelector("#btnList");
     const btnModify = document.querySelector("#btnModify");
     const btnDelete = document.querySelector("#btnDelete");
     const btnReply = document.querySelector("#btnReply");
+    const btnReplyConfirm = document.querySelector("#btnReplyConfirm");
+    const replyForm = document.querySelector("#replyForm");
+    const replyList = document.querySelector("#replyList");
+    const board_no = /*[[${boardvo.board_no}]]*/ "";
+    const replyContent = document.querySelector("#replyContent");
+
+    onload = loadReply();
+
+    btnList.addEventListener("click", () => {
+      location.href = location.href.split("/").slice(0, 5).join("/");
+    });
+    if (btnModify != null) {
+      btnModify.addEventListener("click", () => {
+        if (confirm("관리자 페이지로 이동하시겠습니까?")) {
+          location.href = location.href.split("/").slice(0, 3).join("/") + "/admin/board/" + board_no + "/modify";
+        }
+      });
+    }
+    if (btnDelete != null) {
+      btnDelete.addEventListener("click", () => {
+        if (confirm("삭제 후 되돌릴 수 없습니다. 정말 삭제하시겠습니까?")) {
+          fetchJSON("/" + board_no + "/delete", null, (data) => {
+            if (data == 1) {
+              alert("삭제되었습니다.");
+              history.back();
+            } else {
+              M.toast({ html: "삭제에 실패했습니다..." });
+            }
+          });
+        }
+      });
+    }
+    btnReply.addEventListener("click", toggleReplyBtn);
+    btnReplyConfirm.addEventListener("click", () => {
+      let content = replyContent.value;
+      fetchJSON("/reply/write", { content: content, board_no: board_no }, (data) => {
+        if (data == 1) {
+          replyContent.value = "";
+          toggleReplyBtn();
+          loadReply();
+        } else {
+          M.toast({ html: "댓글 등록에 실패했습니다." });
+        }
+      });
+    });
+
+    function loadReply() {
+      replyList.innerHTML = "";
+      fetchJSON("/reply/getlist", { board_no: board_no }, (data) => {
+        if (data.length != 0) {
+          data.forEach((item) => {
+            const reply = "<table><thead><tr><th>" + item.nickname + "</th><th>" + moment(item.regdate).format("YYYY/MM/DD HH:mm:ss") + "</th></tr></thead><tbody><td><span class='reply' th:data-no='" + item.reply_no + "'>" + item.content + "</span></td></tbody></table>";
+            replyList.innerHTML += reply;
+          });
+        } else {
+          replyList.innerHTML = "<p class='grey-text'>댓글이 없습니다.</p>";
+        }
+      });
+    }
+
+    function toggleReplyBtn() {
+      if (replyForm.dataset.isopen == "false") {
+        replyForm.style.display = "block";
+        replyForm.dataset.isopen = "true";
+        btnReplyConfirm.style.display = "block";
+        btnReply.classList.add("red");
+        btnReply.innerHTML = "취소";
+      } else {
+        replyForm.style.display = "none";
+        replyForm.dataset.isopen = "false";
+        btnReplyConfirm.style.display = "none";
+        btnReply.classList.remove("red");
+        btnReply.innerHTML = "댓글 쓰기";
+      }
+    }
   </script>
 </html>

@@ -37,7 +37,10 @@
           </thead>
           <tbody>
             <tr th:each="board : ${boardlist}">
-              <td><a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a></td>
+              <td>
+                <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
+                <small th:if="${board.regdate != board.upddate}" style="color: #aaa">수정됨</small>
+              </td>
               <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
             </tr>
           </tbody>
@@ -121,7 +124,11 @@
       });
       boardtitle.forEach((board) => {
         board.addEventListener("click", () => {
-          location.href = location.href.substring(0, location.href.indexOf("?")) + "/" + board.dataset.no;
+          if (location.href.includes("?")) {
+            location.href = location.href.substring(0, location.href.indexOf("?")) + "/" + board.dataset.no;
+          } else {
+            location.href = location.href + "/" + board.dataset.no;
+          }
         });
       });
     </script>
