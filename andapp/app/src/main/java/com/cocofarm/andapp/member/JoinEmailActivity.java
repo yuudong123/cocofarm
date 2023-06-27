@@ -58,7 +58,7 @@ public class JoinEmailActivity extends AppCompatActivity {
 
                             String confirm_text = random_email();
 
-                            CommonConn conn = new CommonConn(this, "/email/send");
+                            CommonConn conn = new CommonConn(this, "/email/send.and");
                             conn.addParam("confirm_text", confirm_text);
                             conn.addParam("email", email);
 

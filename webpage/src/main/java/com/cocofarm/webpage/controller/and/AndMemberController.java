@@ -2,7 +2,6 @@ package com.cocofarm.webpage.controller.and;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +33,7 @@ public class AndMemberController {
         return new Gson().toJson(service.login(vo));
     }
 
+    @ResponseBody
     @PostMapping(value = "/member/join.and")
     public int join(String email, String password, String nickname, String phonenumber, String address, String sns) {
         MemberVO join_vo = new MemberVO();
@@ -52,6 +52,7 @@ public class AndMemberController {
         return service.join(join_vo);
     }
 
+    @ResponseBody
     @PostMapping(value = "/member/email_search.and")
     public String email_search(String email) {
         return service.email_search(email);
