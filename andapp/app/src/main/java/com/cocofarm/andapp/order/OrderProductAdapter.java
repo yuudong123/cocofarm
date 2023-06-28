@@ -190,20 +190,20 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             case CodeTable.ORDER_STATUS_RETURN_REQ:
             case CodeTable.ORDER_STATUS_REFUND_REQ:
                 //교환반품 신청 하고 난후에 304.305상태면 교환반품 취소할수있음.
-                status("취소", "배송조회", holder);
+                status("교환,반품신청중", "배송조회", holder);
                 //취소 누르고 나서는 다시 교환반품 신청, 배송조회 버튼 등장
-                holder.binding.btn1.setOnClickListener(v -> {
-                    //교환반품 신청 취소 후 다시 신청 할수 있는지는 생각중.
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("").setMessage("교환반품을 취소하시겠습니까? 취소를 원하시면 취소를 눌러주시고 원래 화면으로 돌아가시려면 아니오를 눌러주세요.").setCancelable(false)
-                            .setPositiveButton("취소", ((dialogInterface, i1) -> {
-                                status("교환, 반품 신청", "배송조회", holder);
-                            }))
-                            .setNegativeButton("아니오", (dialogInterface, i1) -> {
-                                status("취소", "배송조회", holder);
-                            }).create().show();
-                    status("교환, 반품 신청", "배송조회", holder);
-                });
+//                holder.binding.btn1.setOnClickListener(v -> {
+//                    //교환반품 신청 취소 후 다시 신청 할수 있는지는 생각중.
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                    builder.setTitle("").setMessage("교환반품을 취소하시겠습니까? 취소를 원하시면 취소를 눌러주시고 원래 화면으로 돌아가시려면 아니오를 눌러주세요.").setCancelable(false)
+//                            .setPositiveButton("취소", ((dialogInterface, i1) -> {
+//                                status("교환, 반품 신청", "배송조회", holder);
+//                            }))
+//                            .setNegativeButton("아니오", (dialogInterface, i1) -> {
+//                                status("취소", "배송조회", holder);
+//                            }).create().show();
+//                    status("교환, 반품 신청", "배송조회", holder);
+//                });
                 holder.binding.btn2.setOnClickListener(v->{
                     deliveryActivity(orderProduct);
                 });
