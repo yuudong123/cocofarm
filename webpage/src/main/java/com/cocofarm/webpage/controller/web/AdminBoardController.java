@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.domain.QnaDTO;
@@ -44,10 +45,18 @@ public class AdminBoardController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/")
+    @PostMapping(value = "/newqnalist")
     public String qnaList() {
         ArrayList<QnaDTO> qnalist = boardService.selectNoAnsweredQnaList();
         return new Gson().toJson(qnalist);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/managelist")
+    public String manageList(@RequestBody String category) {
+        CriteriaDTO cri = new CriteriaDTO(1, 50);
+        ArrayList<BoardVO> managelist = boardService.selectList(category, cri);
+        return new Gson().toJson(managelist);
     }
 
     @GetMapping(value = "/write")

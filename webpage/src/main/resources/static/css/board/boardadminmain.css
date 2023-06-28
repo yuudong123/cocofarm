@@ -27,13 +27,39 @@ h6 {
 #btnRefresh {
   width: fit-content;
   position: absolute;
-  right: 10px;
+  height: 30px;
+  right: 1rem;
   top: 10px;
 }
 
+#toolMenu {
+  flex-direction: row;
+  margin: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
 #btnNewBoard {
   display: flex;
   align-items: center;
   justify-content: center;
   width: fit-content;
+  margin-right: 5px;
+}
+.tabs {
+  flex-grow: 0;
+  margin: 0;
+  width: fit-content;
+}
+
+.tabs a {
+  color: green !important;
+}
+
+.tabs .indicator {
+  background-color: green;
+}
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+  background-color: rgba(156, 255, 147, 0.2);
+  outline: none;
 }

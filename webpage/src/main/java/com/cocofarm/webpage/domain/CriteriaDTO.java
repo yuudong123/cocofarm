@@ -19,6 +19,11 @@ public class CriteriaDTO {
         this.keyword = keyword;
     }
 
+    public CriteriaDTO(int page, int boardPerPage) {
+        this.page = page;
+        this.boardPerPage = boardPerPage;
+    }
+
     public CriteriaDTO() {
     }
 }
