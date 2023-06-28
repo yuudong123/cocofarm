@@ -39,13 +39,13 @@ public class DeliveryStatusActivity extends AppCompatActivity {
     private void setButtons(int order_status_cd, TextView ment){
 
         if(order_status_cd == CodeTable.ORDER_STATUS_ONREADY){
-            binding.tvDeliveryOnready.setTextColor(Color.parseColor("#880088"));
+            binding.tvDeliveryOnready.setTextColor(Color.parseColor("#FFA500"));
             ment.setText("배송준비중입니다.");
         }else if (order_status_cd == CodeTable.ORDER_STATUS_ONDELIVERY) {
-            binding.tvDeliveryOn.setTextColor(Color.parseColor("#f0f0f0"));
+            binding.tvDeliveryOn.setTextColor(Color.parseColor("#FFFF00"));
             ment.setText("배송중입니다.");
         }else if (order_status_cd == CodeTable.ORDER_STATUS_ARRIVED || order_status_cd == CodeTable.ORDER_STATUS_SUCCESS) {
-            binding.tvDeliveryFinish.setTextColor(Color.parseColor("#880088"));
+            binding.tvDeliveryFinish.setTextColor(Color.parseColor("#00FA9A"));
             ment.setText("배송완료");
         }else{
 

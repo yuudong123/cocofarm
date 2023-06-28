@@ -7,6 +7,7 @@
     tools:context=".product.ProductDetailFragment">
 
     <TextView
+        android:padding="10dp"
         android:id="@+id/tv_product_detail"
         android:text=""
         android:layout_width="wrap_content"

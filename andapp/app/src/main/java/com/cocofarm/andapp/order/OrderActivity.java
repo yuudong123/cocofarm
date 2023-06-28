@@ -32,24 +32,20 @@ public class OrderActivity extends AppCompatActivity {
     CommonConn conn;
 
     ActivityOrderBinding binding;
-    ArrayList<CartDTO> list = new ArrayList<>();
+    ArrayList<CartDTO> list = new ArrayList<>(); //받아온 상품 목록
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         binding=ActivityOrderBinding.inflate(getLayoutInflater());
 
-        Intent intent = getIntent();
+        Intent intent = getIntent(); //value 받아옴 바로 구매, 장바구니 구별.
         int value = intent.getIntExtra("value",0);
         if(value==1){
             ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
             //바로 구매에서 주문 결제로 보내기 위함.
             int number = intent.getIntExtra("number",0);
-            //ProductVO productVO = (ProductVO) intent.getSerializableExtra("productVO");
             CartDTO cartDTO = new CartDTO();
-            cartDTO.setCart_id(1);
             cartDTO.setChecked(true);
             cartDTO.setMember_no(CommonVal.loginMember.getMember_no());
             cartDTO.setAmount(number);
@@ -57,8 +53,6 @@ public class OrderActivity extends AppCompatActivity {
             cartDTO.setProduct_price(productVO.getPrice());
             cartDTO.setProduct_image(productVO.getFilename());
             cartDTO.setProduct_id(productVO.getProduct_id());
-
-
             list.add(cartDTO);
         }else {
             for (CartDTO cartDTO : CommonVal.cart) {
@@ -67,7 +61,7 @@ public class OrderActivity extends AppCompatActivity {
                 }
             }
         }
-        binding.tvOrderAllPrice.setText(getAllPrice(list)+"");
+        binding.tvOrderAllPrice.setText(getAllPrice(list)+""); //전체 값이 나옴.
 
         binding.etOrderAddress.setText(CommonVal.loginMember.getAddress());
         binding.tvOrderPersonname.setText(CommonVal.loginMember.getNickname());
@@ -86,6 +80,10 @@ public class OrderActivity extends AppCompatActivity {
             startActivity(intent1);
 
            //결제하기로 넘어가면서 cart에 있던것들 삭제
+        });
+
+        binding.btnClose.setOnClickListener(v->{
+            finish();
         });
         }
 
