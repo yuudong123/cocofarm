@@ -44,7 +44,6 @@ public class AndProductController {
     @ResponseBody
     public String selectProductQnaListAnd(int product_id, int page) {
         ArrayList<QnaDTO> list = productService.selectProductQnaList(product_id, page);
-        System.out.println(list.size());
         return new Gson().toJson(list);
     }
 
@@ -58,7 +57,6 @@ public class AndProductController {
     @ResponseBody
     public String selectProductReviewListAnd(int product_id, int page) {
         ArrayList<BoardVO> list = productService.selectProductReviewList(product_id, page);
-        System.out.println(list.size());
         return new Gson().toJson(list);
     }
 

@@ -13,6 +13,7 @@ import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemProductQnaBinding;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.ViewHolder> {
     ItemProductQnaBinding binding;
@@ -33,7 +34,11 @@ public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
 
         holder.binding.tvNickname.setText(list.get(i).getNickname());
-        holder.binding.tvRegdate.setText(CommonVal.yyyyMMddHHmmss.format(list.get(i).getRegdate()));
+        if (new Date().getTime() - list.get(i).getRegdate().getTime() > 86400000) {
+            holder.binding.tvRegdate.setText(CommonVal.Md.format(list.get(i).getRegdate()));
+        } else {
+            holder.binding.tvRegdate.setText(CommonVal.HHmmss.format(list.get(i).getRegdate()));
+        }
         holder.binding.tvContentQ.setText(list.get(i).getContent());
         if (list.get(i).getAnswer() != null) {
             holder.binding.tvTitle.setText("[답변완료] " + list.get(i).getTitle());

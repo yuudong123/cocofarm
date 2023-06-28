@@ -65,6 +65,31 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
             sdf = Md;
         }
         holder.binding.tvRegdate.setText(sdf.format(replyVO.getRegdate()));
+        holder.binding.btnReplyModifyConfirm.setOnClickListener(btn -> {
+            if (binding.edtReplyModify.getText().toString().equals("")) {
+                Toast.makeText(context, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            CommonConn conn = new CommonConn(null, "reply/updatereply.and");
+            conn.addParam("reply_no", replyVO.getReply_no());
+            conn.addParam("content", holder.binding.edtReplyModify.getText().toString());
+            conn.onExcute((isResult, data) -> {
+                if (isResult) {
+                    Toast.makeText(context, "수정되었습니다.", Toast.LENGTH_SHORT).show();
+                    Fragment fragment = new BoardReadReplyFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("board_no", board_no);
+                    fragment.setArguments(bundle);
+                    manager.beginTransaction().replace(R.id.containerBoardRead, fragment).commit();
+                }
+            });
+        });
+        binding.btnReplyModifyCancel.setOnClickListener(btn -> {
+            binding.itemReplyModifyBar.setVisibility(View.GONE);
+            InputMethodManager imm = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(binding.edtReplyModify.getWindowToken(), 0);
+            binding.edtReplyModify.setText("");
+        });
         holder.binding.btnSeemore.setOnClickListener(v -> {
             PopupMenu menu = new PopupMenu(v.getContext(), v);
             menu.getMenuInflater().inflate(R.menu.reply_seemore, menu.getMenu());
@@ -72,31 +97,6 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
                 switch (item.getItemId()) {
                     case R.id.menuReplySeemoreModify:
                         holder.binding.itemReplyModifyBar.setVisibility(View.VISIBLE);
-                        holder.binding.btnReplyModifyConfirm.setOnClickListener(btn -> {
-                            if (binding.edtReplyModify.getText().toString().equals("")) {
-                                Toast.makeText(context, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            CommonConn conn = new CommonConn(null, "reply/updatereply.and");
-                            conn.addParam("board_no", board_no);
-                            conn.addParam("content", holder.binding.edtReplyModify.getText().toString());
-                            conn.onExcute((isResult, data) -> {
-                                if (isResult) {
-                                    Toast.makeText(context, "수정되었습니다.", Toast.LENGTH_SHORT).show();
-                                    Fragment fragment = new BoardReadReplyFragment();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("board_no", board_no);
-                                    fragment.setArguments(bundle);
-                                    manager.beginTransaction().replace(R.id.containerBoardRead, fragment).commit();
-                                }
-                            });
-                        });
-                        binding.btnReplyModifyCancel.setOnClickListener(btn -> {
-                            binding.itemReplyModifyBar.setVisibility(View.GONE);
-                            InputMethodManager imm = (InputMethodManager) activity.getSystemService(INPUT_METHOD_SERVICE);
-                            imm.hideSoftInputFromWindow(binding.edtReplyModify.getWindowToken(), 0);
-                            binding.edtReplyModify.setText("");
-                        });
                         break;
                     case R.id.menuReplySeemoreDelete:
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);

@@ -42,6 +42,7 @@
             let div = document.createElement("div");
             let link = document.createElement("a");
             link.classList.add("collection-item");
+            link.setAttribute("href", "/board/qna/" + item.board_no);
             link.innerText = regdate + " " + title;
             qnalist.appendChild(link);
           });

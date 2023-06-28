@@ -2,7 +2,6 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,7 +47,7 @@ public class BoardImageSelectActivity extends AppCompatActivity {
         });
     }
 
-    public static void finishActivity(){
+    public static void finishActivity() {
         activity.finish();
     }
 }

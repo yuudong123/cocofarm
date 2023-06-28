@@ -42,6 +42,7 @@ public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.Vi
         holder.binding.itemImageSelect.setOnClickListener(v -> {
             qnaselectedproduct = productVO;
             Toast.makeText(context, productVO.getName() + " 로 변경", Toast.LENGTH_SHORT).show();
+            QnAProductSelectActivity.finishActivity();
         });
     }
 

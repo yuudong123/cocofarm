@@ -52,7 +52,6 @@ public class ProductService {
 
     public ArrayList<BoardVO> selectProductReviewList(int product_id, int page) {
         ArrayList<BoardVO> list = productMapper.selectProductReviewList(product_id, page);
-        System.out.println("서비스" + list);
         return list;
     }
 

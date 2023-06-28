@@ -76,11 +76,9 @@
         let content = answerContent.value;
         fetchJSON("/reply/write", { content: content, board_no: board_no }, (data) => {
           if (data == 1) {
-            answerContent.value = "";
-            toggleReplyBtn();
-            loadAnswer();
+            location.reload();
           } else {
-            M.toast({ html: "댓글 등록에 실패했습니다." });
+            M.toast({ html: "답글 등록에에 실패했습니다." });
           }
         });
       });

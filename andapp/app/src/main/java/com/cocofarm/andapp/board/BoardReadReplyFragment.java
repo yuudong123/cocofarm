@@ -24,9 +24,10 @@ public class BoardReadReplyFragment extends Fragment {
         binding = FragmentBoardReadReplyBinding.inflate(inflater, container, false);
         int board_no = getArguments().getInt("board_no");
 
-        CommonConn conn = new CommonConn(null, "board/selectreplylist.and");
+        CommonConn conn = new CommonConn(null, "reply/selectreplylist.and");
         conn.addParam("board_no", board_no);
-        conn.onExcute((isResult, data) -> {
+        conn.onExcute((
+                isResult, data) -> {
             ArrayList<ReplyVO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ReplyVO>>() {
             }.getType());
             ReplyAdapter adapter = new ReplyAdapter(getContext(), getActivity(), getActivity().getSupportFragmentManager(), board_no, list);
