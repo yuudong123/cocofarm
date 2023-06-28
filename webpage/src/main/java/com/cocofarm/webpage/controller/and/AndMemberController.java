@@ -1,10 +1,9 @@
 package com.cocofarm.webpage.controller.and;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cocofarm.webpage.PhoneHyphen;
@@ -13,14 +12,13 @@ import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.MemberService;
 import com.google.gson.Gson;
 
-@Controller
+@RestController
 @SessionAttributes("userinfo")
 public class AndMemberController {
 
     @Autowired
     MemberService service;
 
-    @ResponseBody
     @PostMapping(value = "/member/login.and")
     public String login(String email, String password) {
         MemberVO vo = new MemberVO();
@@ -32,7 +30,6 @@ public class AndMemberController {
         return new Gson().toJson(service.login(vo));
     }
 
-    @ResponseBody
     @PostMapping(value = "/member/join.and")
     public int join(String email, String password, String nickname, String phonenumber, String address, String sns) {
         MemberVO join_vo = new MemberVO();
@@ -51,7 +48,6 @@ public class AndMemberController {
         return service.join(join_vo);
     }
 
-    @ResponseBody
     @PostMapping(value = "/member/email_search.and")
     public String email_search(String email) {
         return service.email_search(email);
@@ -102,7 +98,7 @@ public class AndMemberController {
 
     // 내가 쓴 리뷰 보기.
     @PostMapping(value = "/member/myreviewboard.and", produces = "text/html;charset=utf-8")
-    @ResponseBody
+
     public String myreviewboard(MemberVO vo) {
         return new Gson().toJson(service.myreviewboard(vo));
     }
