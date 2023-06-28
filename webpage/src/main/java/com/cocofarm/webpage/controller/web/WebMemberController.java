@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,9 +45,27 @@ public class WebMemberController {
         }
     }
 
-     @GetMapping(value = "/member/connect")
-     public String memberConnect() {
-        return "member/connect";
+
+    @GetMapping(value = "/member/logout")
+    public ModelAndView logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        request.getSession().setAttribute("userinfo", null);
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("userinfo", null);
+        mav.setViewName("/index");
+        return mav;
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/member/pwconfirm")
+    public String pwconfirm(@RequestBody HashMap<String,String> param, HttpSession session) {
+        
+        MemberVO vo = (MemberVO) session.getAttribute("userinfo");
+        if (param.get("password").equals(vo.getPassword().toString())) {
+            return "success";
+        } else {
+            return "failure";
+        }
     }
 
     @GetMapping(value="/member/join")
@@ -74,7 +93,7 @@ public class WebMemberController {
     }
 
     @GetMapping(value="/member/myinfo")
-    public String mypage() {
+    public String myinfo() {
         return "member/myinfo";
     }
 

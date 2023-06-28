@@ -4,16 +4,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" id="viewport-meta" />
     <title>코코팜</title>
 
-    <div id="away">
+    <div id="pwconfirm">
       <table>
         <tbody>
           <tr>
             <th>이메일</th>
-            <td>email@cocofarm.com</td>
+            <td th:text="${userinfo.email}"></td>
           </tr>
           <tr>
             <th>닉네임</th>
-            <td><input type="password" placeholder="비밀번호를 입력해주세요."></td>
+            <td><input id="password" type="password" placeholder="비밀번호를 입력해주세요."></td>
           </tr>
         </tbody>
       </table>

@@ -41,13 +41,13 @@
     color: rgb(207, 243, 219);
 }
 
-#myinfo, #away {
+#myinfo, #pwconfirm {
     border-radius: 20px;
     border: 1px solid rgb(206, 206, 206);
     padding: 30px;
 }
 
-#myinfo th {
+#myinfo th, #pwconfirm th {
     width: 25%;
     font-size: 18px;
 }

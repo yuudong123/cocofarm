@@ -143,7 +143,7 @@ public class AmModifyActivity extends AppCompatActivity {
                     Log.d("정보수정", "onCreate: " + data);
                     CommonVal.loginMember = new Gson().fromJson(data, new TypeToken<MemberVO>(){}.getType());
                     Intent intent = new Intent(AmModifyActivity.this, MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     Toast.makeText(this, "정보 수정이 완료되었습니다.", Toast.LENGTH_SHORT).show();
                 } else {
