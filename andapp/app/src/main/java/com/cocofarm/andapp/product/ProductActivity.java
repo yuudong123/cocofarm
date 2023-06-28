@@ -26,6 +26,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProductActivity extends AppCompatActivity {
@@ -36,6 +37,8 @@ public class ProductActivity extends AppCompatActivity {
     BottomSheetDialog bottomSheetDialog;
     boolean isSheetVisible = false;
     int number = 0;
+    DecimalFormat decimalFormat;
+    ProductVO productVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +46,11 @@ public class ProductActivity extends AppCompatActivity {
         binding = ActivityProductBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
+        productVO= (ProductVO) getIntent().getSerializableExtra("productVO");
+        decimalFormat = new DecimalFormat("###,###");
+        String price = decimalFormat.format(productVO.getPrice());
         binding.tvProductAName.setText(productVO.getName());
-        binding.tvProductAPrice.setText("￦" + productVO.getPrice());
+        binding.tvProductAPrice.setText("￦" +price+"원");
 
         CommonConn conn = new CommonConn(this, "selectproductimagelist.and");
         conn.addParam("product_id", productVO.getProduct_id());
@@ -113,9 +118,12 @@ public class ProductActivity extends AppCompatActivity {
         binding.btnProductBuy.setOnClickListener(v -> toggleBottomSheet());
         bindingSheet.btnDrop.setOnClickListener(v -> toggleBottomSheet());
 
+        decimalFormat = new DecimalFormat("###,###");
+        String bindingPrice = decimalFormat.format(productVO.getPrice());
+
         ImageUtil.load(bindingSheet.ivSheetProduct1, productVO.getFilename());
         bindingSheet.tvSheetProductName.setText(productVO.getName());
-        bindingSheet.tvSheetOrderPrice.setText("각 "+ productVO.getPrice()+"원");
+        bindingSheet.tvSheetOrderPrice.setText("각 "+bindingPrice+"원");
 
         bindingSheet.btnMinus.setOnClickListener(view -> {
             if (number > 0) {
@@ -190,13 +198,24 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     public void allPrice() {
+       // decimalFormat = new DecimalFormat("###,###");
+       // String bindingPrice = decimalFormat.format();
+
         //상품 가격 앞뒤에 글자 넣기위해서 priceString.replaceAll("[^0-9]",""); 추가.
-        String priceString = bindingSheet.tvSheetOrderPrice.getText().toString();
-        String numString = priceString.replaceAll("[^0-9]","");
-        int value1 = number;
-        int value2 = Integer.parseInt(numString);
-        int result = value1 * value2;
-        bindingSheet.tvAllPrice.setText(String.valueOf(result));
+       // String priceString = bindingSheet.tvSheetOrderPrice.getText().toString();
+       // String numString = priceString.replaceAll("[^0-9]","");
+       // int value1 = number;
+      //  int value2 = Integer.parseInt(numString);
+      //  int result = value1 * value2;
+        decimalFormat = new DecimalFormat("###,###");
+        String price = decimalFormat.format(productVO.getPrice()*number);
+        Log.d("가격", "allPrice: " + price);
+
+
+        bindingSheet.tvAllPrice.setText("￦ "+price+"원");
+
+
+
     }
 
     @Override

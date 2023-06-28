@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cocofarm.andapp.databinding.ItemProductBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> {
@@ -37,9 +38,11 @@ public class PlantAdapter extends RecyclerView.Adapter<PlantAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        String price = decimalFormat.format(list.get(i).getPrice());
         ImageUtil.load(holder.binding.imgvProduct,list.get(i).getFilename());
         holder.binding.tvProductName.setText(list.get(i).getName()+"");
-        holder.binding.tvProductPrice.setText(list.get(i).getPrice()+"");
+        holder.binding.tvProductPrice.setText("￦"+price+"원");
 
         holder.binding.layoutProductItem.setOnClickListener(view -> {
             Intent intent = new Intent(context , ProductActivity.class);

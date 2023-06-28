@@ -20,7 +20,7 @@ import java.text.DecimalFormat;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     ItemCartBinding binding;
     DecimalFormat decimalFormat;
-
+    DecimalFormat decimalFormat1;
     CartActivity activity;
 
     public CartAdapter(CartActivity activity) {
@@ -47,15 +47,26 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.binding.tvCartProductPrice.setText(cart.get(i).getProduct_price() + "");
         holder.binding.tvProductBuyAmount.setText(cart.get(i).getAmount() + "");
         holder.binding.checkCartSelect.setChecked(cart.get(i).isChecked());
+
         String cartProductPrice = holder.binding.tvCartProductPrice.getText().toString();
-        int intProductPrice = Integer.parseInt(cartProductPrice);
+        String numericString = cartProductPrice.replaceAll("[^0-9]", "");
+        int intProductPrice = Integer.parseInt(numericString);
+        decimalFormat1 = new DecimalFormat("###,###");
+        String adapterPrice = decimalFormat1.format(intProductPrice);
+        String formattedPrice = "￦ " + adapterPrice + "원";
+
         String buyAmountText = holder.binding.tvProductBuyAmount.getText().toString();
         int amount = Integer.parseInt(buyAmountText);
+
         decimalFormat = new DecimalFormat("###,###");
         int totalAmount = intProductPrice * amount;
         String totalAmountPrice = decimalFormat.format(totalAmount);
 
-        holder.binding.tvCartOrderPrice.setText("￦ " + totalAmountPrice + "원");
+        String formattedTotalAmountPrice = "￦ " + totalAmountPrice + "원";
+
+        holder.binding.tvCartProductPrice.setText(formattedPrice);
+        holder.binding.tvCartOrderPrice.setText(formattedTotalAmountPrice);
+
 //
 //        holder.binding.checkCartSelect.setOnClickListener(v ->{
 //            cart.get(i).setChecked(holder.binding.checkCartSelect.isChecked());

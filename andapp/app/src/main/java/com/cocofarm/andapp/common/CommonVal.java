@@ -22,6 +22,9 @@ public class CommonVal {
     public static SimpleDateFormat HHmmss = new SimpleDateFormat("HH:mm:ss");
 
     public static DecimalFormat decimalFormat = new DecimalFormat("###,###");
+    public static String comma(int money){
+        return "￦ "+decimalFormat.format(money)+"원";
+    }
 
     public static String boardselectedImage = "";
 }

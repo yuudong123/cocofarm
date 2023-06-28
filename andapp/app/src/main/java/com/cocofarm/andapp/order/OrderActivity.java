@@ -61,7 +61,8 @@ public class OrderActivity extends AppCompatActivity {
                 }
             }
         }
-        binding.tvOrderAllPrice.setText(getAllPrice(list)+""); //전체 값이 나옴.
+        String formatPrice = CommonVal.decimalFormat.format(getAllPrice(list));
+        binding.tvOrderAllPrice.setText("￦ "+formatPrice+"원"); //전체 값이 나옴.
 
         binding.etOrderAddress.setText(CommonVal.loginMember.getAddress());
         binding.tvOrderPersonname.setText(CommonVal.loginMember.getNickname());
