@@ -22,7 +22,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/page_logo" />
@@ -33,11 +33,12 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/btn_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="20dp"
-                android:src="@drawable/icon_page_menu" />
+                android:src="@drawable/icon_close" />
         </LinearLayout>
     </LinearLayout>
 

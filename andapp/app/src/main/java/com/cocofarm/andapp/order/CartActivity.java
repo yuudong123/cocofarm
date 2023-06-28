@@ -45,10 +45,6 @@ public class CartActivity extends AppCompatActivity {
         binding = ActivityCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //프로덕트 vo받는 코드
-        // ProductVO productVO = (ProductVO) getIntent().getSerializableExtra("productVO");
-
-        //디비에서 리스트 불러오는 메소드
         load();
 
         allSelect = binding.checkCartAll;
@@ -93,14 +89,7 @@ public class CartActivity extends AppCompatActivity {
                     }).create().show();
         });
 
-
-
-
-
-        //삭제 버튼누르는게 db처리하고 남은것들도 db로 다시 불러오기. 불러오는 과정 여러번 이면..
-
         binding.btnGoCocomall.setOnClickListener(v -> {
-            //finish();
             Intent intent = new Intent(CartActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
@@ -146,8 +135,6 @@ public class CartActivity extends AppCompatActivity {
             }
 
         });
-
-
 
     }
 

@@ -50,14 +50,18 @@ public class ProductActivity extends AppCompatActivity {
         CommonConn conn = new CommonConn(this, "selectproductimagelist.and");
         conn.addParam("product_id", productVO.getProduct_id());
         conn.onExcute((isResult, data) -> {
-            ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
-            }.getType());
+            if (isResult){
+                ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
+                }.getType());
 
-            ProductImgAdapter adapter = new ProductImgAdapter(list);
-            LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-            binding.recvProductImg.setAdapter(adapter);
-            binding.recvProductImg.setLayoutManager(manager);
-            Log.d("데이터emp", "onCreateView: " + list.size());
+                ProductImgAdapter adapter = new ProductImgAdapter(list);
+                LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+                binding.recvProductImg.setAdapter(adapter);
+                binding.recvProductImg.setLayoutManager(manager);
+                Log.d("데이터emp", "onCreateView: " + list.size());
+            }else {
+            Toast.makeText(this, "이미지를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
         });
 
         Fragment fragment = new ProductDetailFragment();
@@ -111,7 +115,7 @@ public class ProductActivity extends AppCompatActivity {
 
         ImageUtil.load(bindingSheet.ivSheetProduct1, productVO.getFilename());
         bindingSheet.tvSheetProductName.setText(productVO.getName());
-        bindingSheet.tvSheetOrderPrice.setText(productVO.getPrice() + "");
+        bindingSheet.tvSheetOrderPrice.setText("각 "+ productVO.getPrice()+"원");
 
         bindingSheet.btnMinus.setOnClickListener(view -> {
             if (number > 0) {
@@ -139,21 +143,20 @@ public class ProductActivity extends AppCompatActivity {
             conn1.addParam("member_no", loginMember.getMember_no());
             conn1.addParam("product_id", productVO.getProduct_id());
             conn1.addParam("amount", Integer.parseInt(bindingSheet.tvProductBuyAmount.getText() + ""));
-            conn1.onExcute((isResult, data) -> {
-                Log.d("장바구니", "onCreate: " + isResult);
+            conn1.onExcute((isResult, data) -> {// 장바구니로 이동하는 로직
+                if(isResult){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("").setMessage("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?").setCancelable(false)
+                            .setPositiveButton("확인", (dialogInterface, i1) -> {
+                                Intent intent = new Intent(ProductActivity.this, CartActivity.class);
+                                startActivity(intent);
+                            })
+                            .setNegativeButton("취소", (dialogInterface, i1) -> {
+
+                            }).create().show();
+                }
             });
 
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("").setMessage("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까?").setCancelable(false)
-                    .setPositiveButton("확인", (dialogInterface, i1) -> {
-                        Intent intent = new Intent(ProductActivity.this, CartActivity.class);
-                        startActivity(intent);
-                    })
-                    .setNegativeButton("취소", (dialogInterface, i1) -> {
-
-                    }).create().show();
-            // 장바구니로 이동하는 로직
         });
         bindingSheet.btnGoBuy.setOnClickListener(v -> {
             if (number <= 0) {
@@ -164,11 +167,15 @@ public class ProductActivity extends AppCompatActivity {
             Intent intent = new Intent(ProductActivity.this, OrderActivity.class);
             intent.putExtra("number",number);
             intent.putExtra("productVO",productVO);
-            intent.putExtra("value", 1);
+            intent.putExtra("value", 1); //구매 페이지 갔을때 0 장바구니 1 바로넘어온거.
             //value로 주문activity로 보냄.
             startActivity(intent);
         });
         allPrice();
+
+        binding.btnClose.setOnClickListener(v->{
+            finish();
+        });
     }
 
     // 바인딩시트 열고 닫기 토글 버튼으로 만들기.
@@ -183,8 +190,11 @@ public class ProductActivity extends AppCompatActivity {
     }
 
     public void allPrice() {
+        //상품 가격 앞뒤에 글자 넣기위해서 priceString.replaceAll("[^0-9]",""); 추가.
+        String priceString = bindingSheet.tvSheetOrderPrice.getText().toString();
+        String numString = priceString.replaceAll("[^0-9]","");
         int value1 = number;
-        int value2 = Integer.parseInt(bindingSheet.tvSheetOrderPrice.getText().toString());
+        int value2 = Integer.parseInt(numString);
         int result = value1 * value2;
         bindingSheet.tvAllPrice.setText(String.valueOf(result));
     }
