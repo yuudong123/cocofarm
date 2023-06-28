@@ -9,9 +9,14 @@
 </head>
 <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
-    <th:block th:replace="~{fragments/mypagebar :: mypagebarFragment}"></th:block>
-    <th:block th:replace="~{fragments/pwconfirm :: pwconfirmFragment}"></th:block>
-    <a id="ok" href="#">탈퇴하기 ></a>
+    <th:block th:replace="~{fragments/mypagetopbar :: mypagetopbarFragment}"></th:block>
+
+    <div class="container">
+        <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
+        <div class="row">
+          <h5>회원 탈퇴</h5>
+            <th:block th:replace="~{fragments/pwconfirm :: pwconfirmFragment}"></th:block>
+            <a id="ok" onclick="onClickOk();">탈퇴하기 ></a>
         </div>
     </div>
 
@@ -20,14 +25,27 @@
     <script src="/js/default.js"></script>
     <script>
         document.querySelector('#menu-name').innerHTML = '> 회원 탈퇴';
-        document.querySelector('#menu-name2').innerHTML = '회원 탈퇴';
-        document.querySelector("#ok").addEventListener("click", () => {
-            if (confirm("정말 탈퇴하시겠습니까?")) {
-                alert("o");
-            } else {
-                alert("x")
-            }
-        });
+
+
+        function onClickOk(){
+            var password = document.querySelector('#password');
+            fetchTEXT(
+            "/member/pwconfirm",
+            {
+            password: password.value
+            },
+            (data) => {
+                if(data == "success") {
+                    if (confirm("정말 탈퇴하시겠습니까?")) {
+                        alert("o");
+                    } else {
+                        alert("x");
+                    }
+                } else {
+                    alert("비밀번호 불일치");
+                }
+            });
+        }
     </script>
 </body>
 </html>

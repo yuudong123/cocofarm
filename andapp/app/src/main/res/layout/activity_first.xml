@@ -31,7 +31,7 @@
             android:id="@+id/tv_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="코코팜을\n시작합니다"
+            android:text="Nature\nBrand\nCOCOFARM"
             android:textColor="#ffffff"
             android:textSize="30dp"
             android:textStyle="bold" />
@@ -55,7 +55,7 @@
         android:textStyle="bold"
         android:backgroundTint="#ffffff"
         android:textColor="@color/primary"
-        android:text="시작하기"
+        android:text="일반 로그인"
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"/>

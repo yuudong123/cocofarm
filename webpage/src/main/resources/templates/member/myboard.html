@@ -9,11 +9,17 @@
 </head>
 <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
-    <th:block th:replace="~{fragments/mypagebar :: mypagebarFragment}"></th:block>
+    <th:block th:replace="~{fragments/mypagetopbar :: mypagetopbarFragment}"></th:block>
+
+    <div class="container">
+        <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
+        <div class="row">
+          <h5>내가 쓴 글</h5>
+        </div>
+    </div>
 
     <script>
         document.querySelector('#menu-name').innerHTML = '> 내가 쓴 글';
-        document.querySelector('#menu-name2').innerHTML = '내가 쓴 글';
     </script>
 </body>
 </html>
