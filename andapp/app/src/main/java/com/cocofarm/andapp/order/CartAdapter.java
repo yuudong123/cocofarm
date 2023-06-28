@@ -15,8 +15,17 @@ import com.cocofarm.andapp.databinding.ActivityCartBinding;
 import com.cocofarm.andapp.databinding.ItemCartBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
+import java.text.DecimalFormat;
+
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     ItemCartBinding binding;
+    DecimalFormat decimalFormat;
+
+    CartActivity activity;
+
+    public CartAdapter(CartActivity activity) {
+        this.activity = activity;
+    }
 
     @NonNull
     @Override
@@ -24,6 +33,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         binding = ItemCartBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
 
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -37,29 +51,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         int intProductPrice = Integer.parseInt(cartProductPrice);
         String buyAmountText = holder.binding.tvProductBuyAmount.getText().toString();
         int amount = Integer.parseInt(buyAmountText);
+        decimalFormat = new DecimalFormat("###,###");
         int totalAmount = intProductPrice * amount;
+        String totalAmountPrice = decimalFormat.format(totalAmount);
 
-        holder.binding.tvCartOrderPrice.setText("￦" + totalAmount + "원");
-
-        holder.binding.checkCartSelect.setOnClickListener(v ->{
-            cart.get(i).setChecked(holder.binding.checkCartSelect.isChecked());
-                    if(CartActivity.allSelect.isChecked()){
-                        CartActivity.allSelect.setChecked(false);
-                    }
-        });
+        holder.binding.tvCartOrderPrice.setText("￦ " + totalAmountPrice + "원");
+//
+//        holder.binding.checkCartSelect.setOnClickListener(v ->{
+//            cart.get(i).setChecked(holder.binding.checkCartSelect.isChecked());
+//                    if(CartActivity.allSelect.isChecked()){
+//                        CartActivity.allSelect.setChecked(false);
+//                    }
+//        });
 
         holder.binding.checkCartSelect.setOnCheckedChangeListener((compoundButton, isChecked) ->{
-            cart.get(i).setChecked(isChecked);
-                int totalPrice = 0;
-                for(CartDTO cartDTO : CommonVal.cart) {
-                    if (cartDTO.isChecked()) {
-                        int productPrice = cartDTO.getProduct_price();
-                        int productQuantity = cartDTO.getAmount();
-                        totalPrice += productPrice * productQuantity;
-                    }
-
-                }
-               CartActivity.allPrice.setText("￦" + totalPrice + "원");
+                CommonVal.cart.get(i).setChecked(isChecked);
+                activity.isAllCheckChange();
             });
 
         holder.binding.tvOrderCancel.setOnClickListener(v->{
