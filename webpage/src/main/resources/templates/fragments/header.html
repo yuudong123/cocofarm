@@ -18,7 +18,8 @@
             <li><a th:href="@{/board/notice}">게시판</a></li>
           </ul>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a th:href="@{/mypage}">마이페이지</a></li>
+            <li><a th:href="@{/member/myinfo}">마이페이지</a></li>
+            <!-- <li><a th:if="${userinfo == null}" th:href="@{/member/login}">마이페이지</a></li> -->
             <th:block>
               <li th:if="${userinfo == null}"><a id="btnHeaderLogin" th:href="@{/member/login}">로그인</a></li>
               <li th:if="${userinfo != null}"><a id="btnHeaderLogout">로그아웃</a></li>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/member/mypage.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <th:block th:replace="~{fragments/mypagetopbar :: mypagetopbarFragment}"></th:block>
+    <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
+        
+        <div id="myinfo">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <th>이메일</th>
+                                <td>email@cocofarm.com</td>
+                            </tr>
+                            <tr>
+                                <th>닉네임</th>
+                                <td>Nickname</td>
+                            </tr>
+                            <tr>
+                                <th>전화번호</th>
+                                <td>01012341234</td>
+                            </tr>
+                            <tr>
+                                <th>주소</th>
+                                <td>서울특별시 종로구 청와대로 1</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="#">정보 수정하기 ></a>
+                </div>
+
+
+        </div>
+
+    <script src="/js/default.js"></script>
+    <script>
+        document.querySelector('#menu-name').innerHTML = '> 내 정보';
+        document.querySelector('#menu-name2').innerHTML = '내 정보';
+    </script>
+</body>
+</html>

@@ -73,6 +73,32 @@ public class WebMemberController {
         return "member/test";
     }
 
+    @GetMapping(value="/member/myinfo")
+    public String mypage() {
+        return "member/myinfo";
+    }
+
+    @GetMapping(value="/member/myboard")
+    public String myboard() {
+        return "member/myboard";
+    }
+
+    @GetMapping(value="/member/mydevice")
+    public String mydevice() {
+        return "member/mydevice";
+    }
+
+    @GetMapping(value="/member/cscenter")
+    public String cscenter() {
+        return "member/cscenter";
+    }
+
+    @GetMapping(value="/member/away")
+    public String away() {
+        return "member/away";
+    }
+
+
     @ResponseBody
     @PostMapping(value = "/member/email_search")
     public String email_search(@RequestBody MemberVO vo) {
