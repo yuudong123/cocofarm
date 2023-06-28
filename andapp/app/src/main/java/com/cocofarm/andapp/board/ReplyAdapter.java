@@ -1,8 +1,10 @@
 package com.cocofarm.andapp.board;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.HHmmss;
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.app.Activity;
 import android.content.Context;
@@ -90,30 +92,33 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
             imm.hideSoftInputFromWindow(binding.edtReplyModify.getWindowToken(), 0);
             binding.edtReplyModify.setText("");
         });
-        holder.binding.btnSeemore.setOnClickListener(v -> {
-            PopupMenu menu = new PopupMenu(v.getContext(), v);
-            menu.getMenuInflater().inflate(R.menu.reply_seemore, menu.getMenu());
-            menu.setOnMenuItemClickListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.menuReplySeemoreModify:
-                        holder.binding.itemReplyModifyBar.setVisibility(View.VISIBLE);
-                        break;
-                    case R.id.menuReplySeemoreDelete:
-                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setTitle("댓글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
-                                .setPositiveButton("확인", (dialogInterface, i1) -> {
-                                    deleteReply(replyVO.getReply_no());
-                                })
-                                .setNegativeButton("취소", (dialogInterface, i1) -> {
-                                }).create().show();
-                        break;
-                    default:
-                        break;
-                }
-                return false;
+        if (loginMember.getMember_no() == replyVO.getMember_no() || loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
+            holder.binding.btnSeemore.setVisibility(View.VISIBLE);
+            holder.binding.btnSeemore.setOnClickListener(v -> {
+                PopupMenu menu = new PopupMenu(v.getContext(), v);
+                menu.getMenuInflater().inflate(R.menu.reply_seemore, menu.getMenu());
+                menu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.menuReplySeemoreModify:
+                            holder.binding.itemReplyModifyBar.setVisibility(View.VISIBLE);
+                            break;
+                        case R.id.menuReplySeemoreDelete:
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                            builder.setTitle("댓글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
+                                    .setPositiveButton("확인", (dialogInterface, i1) -> {
+                                        deleteReply(replyVO.getReply_no());
+                                    })
+                                    .setNegativeButton("취소", (dialogInterface, i1) -> {
+                                    }).create().show();
+                            break;
+                        default:
+                            break;
+                    }
+                    return false;
+                });
+                menu.show();
             });
-            menu.show();
-        });
+        }
     }
 
     @Override

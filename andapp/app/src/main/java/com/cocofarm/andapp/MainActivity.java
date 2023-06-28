@@ -4,6 +4,7 @@ import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -15,16 +16,20 @@ import androidx.fragment.app.Fragment;
 import com.cocofarm.andapp.board.BoardFragment;
 import com.cocofarm.andapp.databinding.ActivityMainBinding;
 import com.cocofarm.andapp.home.HomeFragment;
+import com.cocofarm.andapp.member.LoginActivity;
 import com.cocofarm.andapp.mydevice.MyDeviceFragment;
 import com.cocofarm.andapp.mypage.CsCenterActivity;
 import com.cocofarm.andapp.mypage.MypageFragment;
 import com.cocofarm.andapp.mypage.NonMemberFragment;
 import com.cocofarm.andapp.order.CartActivity;
 import com.cocofarm.andapp.product.ProductFragment;
+import com.cocofarm.andapp.util.BackPressedHandler;
 
 public class MainActivity extends AppCompatActivity {
     public static Context mContext;
     public ActivityMainBinding binding;
+
+    private BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +78,14 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.right_nav_logout:
                     loginMember = null;
+                    SharedPreferences.Editor editor = SplashActivity.preferences.edit();
+                    editor.putString("email", "");
+                    editor.putString("password", "");
+                    editor.putBoolean("checked", false);
+                    editor.apply();
                 case R.id.right_nav_login:
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(intent);
                     finish();
                     break;
                 case R.id.right_nav_cocomall:
@@ -132,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
                     .setText(loginMember.getEmail());
             ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.tv_right_nav_nickname))
                     .setText(loginMember.getNickname());
+            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.tv_right_nav_nim))
+                    .setText("  님");
         }
     }
 
@@ -141,5 +155,6 @@ public class MainActivity extends AppCompatActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.END);
             return;
         }
+        backPressedHandler.onBackPressed();
     }
 }

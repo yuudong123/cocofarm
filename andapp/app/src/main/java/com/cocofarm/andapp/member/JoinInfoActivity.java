@@ -13,10 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityJoinInfoBinding;
 import com.cocofarm.andapp.mypage.RoadSearchActivity;
+import com.cocofarm.andapp.util.BackPressedHandler;
 
 public class JoinInfoActivity extends AppCompatActivity {
 
     ActivityJoinInfoBinding binding;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class JoinInfoActivity extends AppCompatActivity {
                         loginVo.setPassword(vo.getPassword());
                         intent.putExtra("login", loginVo);
                         startActivity(intent);
+                        finish();
                     } else {
                         Log.d("오류 발생", "onfalse: ");
                         Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
@@ -96,6 +99,6 @@ public class JoinInfoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        backPressedHandler.onBackPressed();
     }
 }

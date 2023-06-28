@@ -1,8 +1,12 @@
 package com.cocofarm.andapp.board;
 
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_NOTICE;
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_QNA;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
 import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
+import static com.cocofarm.andapp.conn.Service.BASE_URL;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -111,6 +115,20 @@ public class BoardReadActivity extends AppCompatActivity {
                 menu.getMenuInflater().inflate(R.menu.board_seemore, menu.getMenu());
             }
             menu.setOnMenuItemClickListener(item -> {
+                String url = BASE_URL + "board/";
+                switch (boardVO.getBoard_category_cd()) {
+                    case BOARD_CATEGORY_NOTICE:
+                        url += "notice/";
+                        break;
+                    case BOARD_CATEGORY_EVENT:
+                        url += "event/";
+                        break;
+                    case BOARD_CATEGORY_QNA:
+                        url += "qna/";
+                        break;
+                }
+                url+= boardVO.getBoard_no();
+
                 switch (item.getItemId()) {
                     case R.id.menuBoardSeemoreModify:
                         Intent intent = new Intent(this, BoardModifyActivity.class);
@@ -136,12 +154,12 @@ public class BoardReadActivity extends AppCompatActivity {
                     case R.id.menuBoardSeemoreShare:
                         Intent intentShare = new Intent(Intent.ACTION_SEND);
                         intentShare.setType("text/plain");
-                        intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/" + boardVO.getBoard_no());
+                        intentShare.putExtra(Intent.EXTRA_TEXT, url);
                         startActivity(Intent.createChooser(intentShare, "공유하기"));
                         break;
                     case R.id.menuBoardSeemoreBrowser:
                         Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
-                        intentBrowser.setData(Uri.parse("http://localhost:9090/board/" + boardVO.getBoard_no()));
+                        intentBrowser.setData(Uri.parse(url));
                         startActivity(intentBrowser);
                         break;
                     default:

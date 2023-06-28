@@ -12,11 +12,13 @@ import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ResultCompleteBinding;
 import com.cocofarm.andapp.databinding.ResultCompleteLottieBinding;
+import com.cocofarm.andapp.util.BackPressedHandler;
 import com.google.gson.Gson;
 
 public class JoinCompleteActivity extends AppCompatActivity {
 
     ResultCompleteLottieBinding binding;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,6 @@ public class JoinCompleteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        backPressedHandler.onBackPressed();
     }
 }

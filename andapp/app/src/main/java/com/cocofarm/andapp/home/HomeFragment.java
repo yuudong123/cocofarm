@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment {
             if (currentPage == e_list.size()) {
                 currentPage = 0;
             }
-            if (binding.viewPager !=null) {
+            if (binding !=null) {
                 binding.viewPager.setCurrentItem(currentPage, true);
                 currentPage++;
             }

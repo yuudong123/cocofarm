@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:paddingBottom="10dp"
     android:background="#eeeeee"
-    android:minHeight="80dp">
+    android:minHeight="80dp"
+    android:paddingBottom="10dp">
 
     <LinearLayout
         android:id="@+id/itemReplyModifyBar"
@@ -45,15 +45,16 @@
             app:iconTint="@color/black" />
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/tvNickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:text="닉네임"
         android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemReplyModifyBar" />
 
@@ -72,6 +73,7 @@
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:padding="10dp"
+        android:visibility="gone"
         app:icon="@drawable/icon_three_dot_v"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/tvContent"

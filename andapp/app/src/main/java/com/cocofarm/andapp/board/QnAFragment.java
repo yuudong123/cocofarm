@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.board;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static com.cocofarm.andapp.board.BoardFragment.cri;
 
 import android.content.Intent;
@@ -18,7 +20,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class QnAFragment extends Fragment {
 
@@ -35,20 +36,18 @@ public class QnAFragment extends Fragment {
         loadBoard();
 
         binding.btnPrev.setOnClickListener(v -> {
-            pager();
             if (!prev) {
                 Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                cri.setPage(cri.getPage()-1);
+                cri.setPage(cri.getPage() - 1);
                 loadBoard();
             }
         });
         binding.btnNext.setOnClickListener(v -> {
-            pager();
             if (!next) {
                 Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
             } else {
-                cri.setPage(cri.getPage()+1);
+                cri.setPage(cri.getPage() + 1);
                 loadBoard();
             }
         });
@@ -72,8 +71,9 @@ public class QnAFragment extends Fragment {
         conn.addParam("code", cri.getCode());
         conn.addParam("keyword", cri.getKeyword());
         conn.onExcute((isResult, data) -> {
-            if(isResult) {
+            if (isResult) {
                 this.total = Integer.parseInt(data);
+                pager();
             }
         });
         conn = new CommonConn(null, "board/selectqnalist.and");
@@ -93,11 +93,14 @@ public class QnAFragment extends Fragment {
             binding.recvBoardList.setLayoutManager(manager);
         });
         binding.pagenum.setText(cri.getPage() + "");
+
     }
 
     protected void pager() {
-        endPage = (total-1)/10 +1;
-        prev = cri.getPage()>1;
-        next = cri.getPage()<endPage;
+        endPage = (total - 1) / 10 + 1;
+        prev = cri.getPage() > 1;
+        next = cri.getPage() < endPage;
+        binding.btnPrev.setVisibility(prev ? VISIBLE : INVISIBLE);
+        binding.btnNext.setVisibility(next ? VISIBLE : INVISIBLE);
     }
 }
