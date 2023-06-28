@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.board;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static com.cocofarm.andapp.board.BoardFragment.cri;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_NOTICE;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
@@ -10,7 +12,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,7 +36,6 @@ public class NoticeFragment extends Fragment {
 
         loadBoard();
 
-
         if (loginMember != null && loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
             binding.btnWrite.setVisibility(View.VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
@@ -48,22 +48,12 @@ public class NoticeFragment extends Fragment {
         }
 
         binding.btnPrev.setOnClickListener(v -> {
-            pager();
-            if (!prev) {
-                Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                cri.setPage(cri.getPage() - 1);
-                loadBoard();
-            }
+            cri.setPage(cri.getPage() - 1);
+            loadBoard();
         });
         binding.btnNext.setOnClickListener(v -> {
-            pager();
-            if (!next) {
-                Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
-            } else {
-                cri.setPage(cri.getPage() + 1);
-                loadBoard();
-            }
+            cri.setPage(cri.getPage() + 1);
+            loadBoard();
         });
         return binding.getRoot();
     }
@@ -81,6 +71,7 @@ public class NoticeFragment extends Fragment {
         conn.onExcute((isResult, data) -> {
             if (isResult) {
                 this.total = Integer.parseInt(data);
+                pager();
             }
         });
         conn = new CommonConn(null, "board/selectboardlist.and");
@@ -106,5 +97,7 @@ public class NoticeFragment extends Fragment {
         endPage = (total - 1) / 10 + 1;
         prev = cri.getPage() > 1;
         next = cri.getPage() < endPage;
+        binding.btnPrev.setVisibility(prev ? VISIBLE : INVISIBLE);
+        binding.btnNext.setVisibility(next ? VISIBLE : INVISIBLE);
     }
 }

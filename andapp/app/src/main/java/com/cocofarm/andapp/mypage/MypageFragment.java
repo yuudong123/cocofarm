@@ -41,7 +41,6 @@ import com.navercorp.nid.oauth.OAuthLoginCallback;
 public class MypageFragment extends Fragment {
 
     FragmentMypageBinding binding;
-    MemberVO vo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
