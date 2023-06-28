@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.cocofarm.andapp.product.ProductVO;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +32,61 @@ public class CartActivity extends AppCompatActivity {
     CommonConn conn;
     ActivityCartBinding binding;
 
-    CartAdapter adapter;
+    public CartAdapter adapter;
 
-    public static TextView allPrice;
-    public static Button allDelete;
+    public TextView allPrice;
+    public Button allDelete;
 
-    public static CheckBox allSelect;
-    int total = 0;
+    public CheckBox allSelect;
+
+
+    CompoundButton.OnCheckedChangeListener listenerAll = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            for (int i = 0; i < CommonVal.cart.size(); i++) {
+                CommonVal.cart.get(i).setChecked(isChecked);
+            }
+            totalSum();
+            adapter.notifyDataSetChanged();
+
+
+
+
+        }
+    };
+
+    public void isAllCheckChange(){
+        boolean allCheck = false;
+        for (int i = 0; i < CommonVal.cart.size(); i++) {
+            allCheck = true;
+            if (!CommonVal.cart.get(i).isChecked()) {
+                allCheck = false;
+                break;
+            }
+        }
+
+            allSelect.setOnCheckedChangeListener(null);
+            allSelect.setChecked(allCheck);
+            allSelect.setOnCheckedChangeListener(listenerAll);
+            totalSum();
+
+
+    }
+
+    public void totalSum(){
+        int total = 0 ;
+        for (int i = 0; i < CommonVal.cart.size(); i++) {
+            if (CommonVal.cart.get(i).isChecked()) {
+                total += (CommonVal.cart.get(i).getProduct_price() * CommonVal.cart.get(i).getAmount());
+
+            }
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("###,###");
+        String totalPrice = decimalFormat.format(total);
+        allPrice.setText("￦" + totalPrice + "원");
+
+    }
+
 
 
     @Override
@@ -49,20 +99,24 @@ public class CartActivity extends AppCompatActivity {
 
         allSelect = binding.checkCartAll;
         //전체상품 선택 , 해제 , 금액.
+
+        allSelect.setOnCheckedChangeListener(listenerAll);
         allSelect.setOnClickListener(v -> {
-            boolean isChecked = allSelect.isChecked();
-
-            total = 0;
-            for (int i = 0; i < CommonVal.cart.size(); i++) {
-                CommonVal.cart.get(i).setChecked(isChecked);
-
-                int intCartOrderPrice = CommonVal.cart.get(i).getProduct_price();
-                total += intCartOrderPrice;
-            }
-
-            allPrice.setText("￦" + (isChecked ? total : 0) + "원");
-
-            adapter.notifyDataSetChanged();
+//            boolean isChecked = allSelect.isChecked();
+//
+//            total = 0;
+//            for (int i = 0; i < CommonVal.cart.size(); i++) {
+//                CommonVal.cart.get(i).setChecked(isChecked);
+//
+//                //int intCartOrderPrice = CommonVal.cart.get(i).getProduct_price();
+//                total +=  CommonVal.cart.get(i).getProduct_price();;
+//            }
+//            decimalFormat = new DecimalFormat("###,###");
+//            String totalPrice = decimalFormat.format(total);
+//
+//            allPrice.setText("￦" + (isChecked ? totalPrice : 0) + "원");
+//
+//            adapter.notifyDataSetChanged();
         });
 
 
@@ -120,7 +174,7 @@ public class CartActivity extends AppCompatActivity {
             if (isResult) {
                 CommonVal.cart = new Gson().fromJson(data, new TypeToken<ArrayList<CartDTO>>() {
                 }.getType());
-                adapter = new CartAdapter();
+                adapter = new CartAdapter(this);
                 LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 binding.recvCart.setAdapter(adapter);
                 binding.recvCart.setLayoutManager(manager);
@@ -149,7 +203,7 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        CartActivity.allPrice.setText("￦" + 0 + "원");
+        allPrice.setText("￦ " + 0 + "원");
         load();
     }
 

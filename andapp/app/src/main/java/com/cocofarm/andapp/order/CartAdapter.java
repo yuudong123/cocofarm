@@ -15,8 +15,17 @@ import com.cocofarm.andapp.databinding.ActivityCartBinding;
 import com.cocofarm.andapp.databinding.ItemCartBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
+import java.text.DecimalFormat;
+
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     ItemCartBinding binding;
+    DecimalFormat decimalFormat;
+    DecimalFormat decimalFormat1;
+    CartActivity activity;
+
+    public CartAdapter(CartActivity activity) {
+        this.activity = activity;
+    }
 
     @NonNull
     @Override
@@ -27,39 +36,48 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ImageUtil.load(holder.binding.ivCartOrder1,cart.get(i).getProduct_image());
         holder.binding.tvCartOrderName.setText(cart.get(i).getProduct_name());
         holder.binding.tvCartProductPrice.setText(cart.get(i).getProduct_price() + "");
         holder.binding.tvProductBuyAmount.setText(cart.get(i).getAmount() + "");
         holder.binding.checkCartSelect.setChecked(cart.get(i).isChecked());
+
         String cartProductPrice = holder.binding.tvCartProductPrice.getText().toString();
-        int intProductPrice = Integer.parseInt(cartProductPrice);
+        String numericString = cartProductPrice.replaceAll("[^0-9]", "");
+        int intProductPrice = Integer.parseInt(numericString);
+        decimalFormat1 = new DecimalFormat("###,###");
+        String adapterPrice = decimalFormat1.format(intProductPrice);
+        String formattedPrice = "￦ " + adapterPrice + "원";
+
         String buyAmountText = holder.binding.tvProductBuyAmount.getText().toString();
         int amount = Integer.parseInt(buyAmountText);
+
+        decimalFormat = new DecimalFormat("###,###");
         int totalAmount = intProductPrice * amount;
+        String totalAmountPrice = decimalFormat.format(totalAmount);
 
-        holder.binding.tvCartOrderPrice.setText("￦" + totalAmount + "원");
+        String formattedTotalAmountPrice = "￦ " + totalAmountPrice + "원";
 
-        holder.binding.checkCartSelect.setOnClickListener(v ->{
-            cart.get(i).setChecked(holder.binding.checkCartSelect.isChecked());
-                    if(CartActivity.allSelect.isChecked()){
-                        CartActivity.allSelect.setChecked(false);
-                    }
-        });
+        holder.binding.tvCartProductPrice.setText(formattedPrice);
+        holder.binding.tvCartOrderPrice.setText(formattedTotalAmountPrice);
+
+//
+//        holder.binding.checkCartSelect.setOnClickListener(v ->{
+//            cart.get(i).setChecked(holder.binding.checkCartSelect.isChecked());
+//                    if(CartActivity.allSelect.isChecked()){
+//                        CartActivity.allSelect.setChecked(false);
+//                    }
+//        });
 
         holder.binding.checkCartSelect.setOnCheckedChangeListener((compoundButton, isChecked) ->{
-            cart.get(i).setChecked(isChecked);
-                int totalPrice = 0;
-                for(CartDTO cartDTO : CommonVal.cart) {
-                    if (cartDTO.isChecked()) {
-                        int productPrice = cartDTO.getProduct_price();
-                        int productQuantity = cartDTO.getAmount();
-                        totalPrice += productPrice * productQuantity;
-                    }
-
-                }
-               CartActivity.allPrice.setText("￦" + totalPrice + "원");
+                CommonVal.cart.get(i).setChecked(isChecked);
+                activity.isAllCheckChange();
             });
 
         holder.binding.tvOrderCancel.setOnClickListener(v->{

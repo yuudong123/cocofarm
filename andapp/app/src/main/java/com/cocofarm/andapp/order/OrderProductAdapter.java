@@ -71,7 +71,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         holder.binding.tvOrderReady.setText(list.get(position).getValue());
         ImageUtil.load(holder.binding.ivCartOrder1, list.get(position).getFilename());
         holder.binding.tvOrderproductName.setText(list.get(position).getName());
-        holder.binding.tvOrderproductPrice.setText("각" + list.get(position).getPrice() + " / ");
+        holder.binding.tvOrderproductPrice.setText("각 "+CommonVal.comma(list.get(position).getPrice())+ " / ");
         holder.binding.tvOrderproductAmount.setText(list.get(position).getAmount() + "개");
 
 

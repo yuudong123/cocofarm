@@ -10,7 +10,7 @@
 
     <ImageView
         android:id="@+id/btn_drop"
-        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
        android:layout_gravity="center"
         android:src="@drawable/icon_drop_down"
         android:layout_width="40dp"
@@ -24,6 +24,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_marginBottom="5dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -31,16 +32,16 @@
             android:id="@+id/iv_sheet_product_1"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_product1"
+            android:adjustViewBounds="true"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp"
+           />
             <TextView
                 android:id="@+id/tv_sheet_product_name"
                 android:padding="15dp"
                 android:textSize="25dp"
                 android:layout_gravity="center"
-                android:text="로즈마리"
+                android:text=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -88,13 +89,13 @@
                 android:padding="10dp"
                 android:layout_marginRight="30dp"
                 android:textSize="20dp"
-                android:text="33000"
+                android:text=""
              android:layout_width="wrap_content"
               android:layout_height="wrap_content"/>
     </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="40dp"/>
 
     </LinearLayout>
 
@@ -103,12 +104,15 @@
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:text="총 상품금액" />
+
     <TextView
-        android:text=""
+        android:textSize="20dp"
         android:id="@+id/tv_all_price"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text=""
+        />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -120,18 +124,17 @@
             android:textColor="@color/white"
             android:text="장바구니에 담기"
             android:backgroundTint="@color/primary"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <Button
-            android:layout_marginLeft="10dp"
             android:id="@+id/btn_go_buy"
             android:textColor="@color/white"
-            android:text="바로구매"
+            android:text="바로구매하기"
             android:backgroundTint="@color/primary"
-            android:layout_marginRight="10dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>

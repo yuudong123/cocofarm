@@ -49,7 +49,7 @@
 
                 <TextView
                     android:layout_marginRight="10dp"
-                    android:text="상품금액 : "
+                    android:text="상품금액"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
