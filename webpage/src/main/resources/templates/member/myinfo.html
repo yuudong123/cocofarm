@@ -16,7 +16,7 @@
       <div class="row">
         <h5>내 정보</h5>
         <div id="myinfo">
-          <table>
+          <table th:if="${userinfo!=null}">
             <tbody>
               <tr>
                 <th>이메일</th>

@@ -1,3 +1,13 @@
+* {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-weight: 400;
+}
+
+.respons {
+  padding: 40px;
+  width: 300px;
+}
+
 html,
 body {
   height: 100%;
@@ -17,6 +27,10 @@ main {
   padding-inline: 15%;
 }
 
+#nav-mobile a {
+  font-weight: 700;
+}
+
 footer p,
 footer span,
 footer a {
@@ -24,10 +38,10 @@ footer a {
 }
 
 footer a:hover {
-  font-weight: bold;
+  font-weight: 800;
 }
 
 .footerTitle {
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-weight: 800;
+  font-size: 1.3rem;
 }

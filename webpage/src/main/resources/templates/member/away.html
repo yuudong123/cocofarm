@@ -16,7 +16,7 @@
         <div class="row">
           <h5>회원 탈퇴</h5>
             <th:block th:replace="~{fragments/pwconfirm :: pwconfirmFragment}"></th:block>
-            <a id="ok" onclick="onClickOk();">탈퇴하기 ></a>
+            <a id="ok" onclick="onClickOk();" style="cursor: pointer;">탈퇴하기 ></a>
         </div>
     </div>
 
@@ -46,16 +46,17 @@
                                 console.log(data2);
                                 if (data2 >= 1) {
                                     alert("탈퇴가 완료되었습니다.");
+                                    location.href = "/";
                                 } else {
-                                    alert("문제가 발생하여 회원탈퇴에 실패하였습니다.\n잠시 후에 다시 시도해주세요.");
+                                    M.toast({html:'문제가 발생하여 회원탈퇴에 실패하였습니다.\n잠시 후에 다시 시도해주세요.'});
                                 }
                             }
                         )
                     } else {
-                        alert("x");
+                        M.toast({html: '회원 탈퇴를 취소하였습니다.'});
                     }
                 } else {
-                    alert("비밀번호 불일치");
+                    M.toast({html: '비밀번호를 확인해 주세요.'});
                 }
             });
         }

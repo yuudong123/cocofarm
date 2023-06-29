@@ -23,6 +23,12 @@ from TBL_MEMBER
 where EMAil = #{email}
     </select>
 
+    <update id="pw_modify">
+update tbl_member
+set password = #{password}
+where email = #{email}
+    </update>
+
     <update id="am_modify">
 update tbl_member
 set nickname = #{nickname}, password = #{password}, phonenumber = #{phonenumber}, address = #{address}

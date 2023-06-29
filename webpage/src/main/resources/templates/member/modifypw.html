@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/member/findpw.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>코코팜 > 비밀번호 찾기</title>
+</head>
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main class="wrap">
+        <div class="find">
+            <h2><img style="vertical-align: text-bottom;" src="/images/page_logo.png"/>&nbsp;비밀번호 변경</h2>
+
+          <div class="password">
+            <h5>비밀번호</h5>
+            <input type="email" id="pw" placeholder="*****" />
+          </div>
+          <div class="confirm">
+            <h5>비밀번호 확인</h5>
+            <input type="text" id="pw2" placeholder="*****" />
+          </div>
+          
+  
+          <div class="submit">
+            <input type="submit" id="btnok" value="변경" />
+          </div>
+        </div>
+      </main>
+
+
+      <!-- JavaScript -->
+      <script src="/js/default.js"></script>
+      <script>
+        document.querySelector("#btnok").addEventListener("click", () => {
+          var pw = document.querySelector("#pw");
+          var pw2 = document.querySelector("#pw2");
+          if (pw.value.length < 1 || pw2.value.length < 1) {
+            M.toast({html: '비밀번호를 입력되지 않았습니다.\n 비밀번호를 입력해 주세요.'});
+          } else if (pw.value != pw2.value) {
+            M.toast({html: '비밀번호가 일치하지 않습니다.'});
+          } else {
+            fetchTEXT("/member/modifypw", {password: pw2.value}, (data) => {
+                if (data == "success") {
+                  location.href = "/member/login";
+                  alert("비밀번호가 변경되었습니다.\n 변경된 비밀번호로 로그인 하세요.");
+                } else {
+                  M.toast({html: '비밀번호 변경에 실패했습니다.\n 잠시 후에 다시 시도해 주세요.'});
+                }
+              }
+            )
+          }
+        });
+      </script>
+</body>
+</html>
