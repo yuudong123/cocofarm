@@ -2,6 +2,7 @@ package com.cocofarm.andapp.board;
 
 import static com.cocofarm.andapp.common.CommonVal.HHmmss;
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.isToday;
 
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +44,7 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
             holder.binding.answer.setText("");
         }
         SimpleDateFormat sdf;
-        if (new Date().getTime() - qnaDTO.getRegdate().getTime() < 86400000) {
+        if (isToday(qnaDTO.getRegdate())) {
             sdf = HHmmss;
         } else {
             sdf = Md;

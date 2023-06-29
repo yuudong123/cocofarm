@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static void login(String email, String pw, Activity activity) {
-        CommonConn conn = new CommonConn(null, "/member/login.and");
+        CommonConn conn = new CommonConn(activity, "/member/login.and");
         conn.addParam("email", email);
         conn.addParam("password", pw);
 

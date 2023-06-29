@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.service.MemberService;
 
 @Controller
-@SessionAttributes({ "userinfo", "prevpage" })
+@SessionAttributes({ "userinfo", "prevPage" })
 public class WebMemberController {
 
     @Autowired
@@ -35,31 +36,27 @@ public class WebMemberController {
 
     @ResponseBody
     @PostMapping(value = "/member/login")
-    public String loginPOST(@RequestBody MemberVO emailAndPassword, HttpSession session) {
+    public String loginPOST(@RequestBody MemberVO emailAndPassword, Model model) {
         MemberVO userinfo = memberService.login(emailAndPassword);
         if (userinfo != null) {
-            session.setAttribute("userinfo", userinfo);
-            return "true";
+            model.addAttribute("userinfo", userinfo);
+            return model.getAttribute("prevPage") + "";
         } else {
             return "false";
         }
     }
 
-
-    @GetMapping(value = "/member/logout")
-    public ModelAndView logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        request.getSession().setAttribute("userinfo", null);
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("userinfo", null);
-        mav.setViewName("/index");
-        return mav;
+    @ResponseBody
+    @PostMapping(value = "/member/logout")
+    public String logout(SessionStatus sessionStatus, Model model) {
+        sessionStatus.setComplete();
+        return model.getAttribute("prevPage") + "";
     }
 
     @ResponseBody
     @PostMapping(value = "/member/pwconfirm")
-    public String pwconfirm(@RequestBody HashMap<String,String> param, HttpSession session) {
-        
+    public String pwconfirm(@RequestBody HashMap<String, String> param, HttpSession session) {
+
         MemberVO vo = (MemberVO) session.getAttribute("userinfo");
         if (param.get("password").equals(vo.getPassword().toString())) {
             return "success";
@@ -68,7 +65,7 @@ public class WebMemberController {
         }
     }
 
-    @GetMapping(value="/member/join")
+    @GetMapping(value = "/member/join")
     public String join(MemberVO vo) {
         return "member/join";
     }
@@ -87,36 +84,35 @@ public class WebMemberController {
         return memberService.join(vo);
     }
 
-    @GetMapping(value="/member/test")
+    @GetMapping(value = "/member/test")
     public String test() {
         return "member/test";
     }
 
-    @GetMapping(value="/member/myinfo")
+    @GetMapping(value = "/member/myinfo")
     public String myinfo() {
         return "member/myinfo";
     }
 
-    @GetMapping(value="/member/myboard")
+    @GetMapping(value = "/member/myboard")
     public String myboard() {
         return "member/myboard";
     }
 
-    @GetMapping(value="/member/mydevice")
+    @GetMapping(value = "/member/mydevice")
     public String mydevice() {
         return "member/mydevice";
     }
 
-    @GetMapping(value="/member/cscenter")
+    @GetMapping(value = "/member/cscenter")
     public String cscenter() {
         return "member/cscenter";
     }
 
-    @GetMapping(value="/member/away")
+    @GetMapping(value = "/member/away")
     public String away() {
         return "member/away";
     }
-
 
     @ResponseBody
     @PostMapping(value = "/member/email_search")

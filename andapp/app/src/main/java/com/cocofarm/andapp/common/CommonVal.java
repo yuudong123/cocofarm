@@ -6,6 +6,7 @@ import com.cocofarm.andapp.order.CartDTO;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CommonVal {
 
@@ -14,16 +15,23 @@ public class CommonVal {
     public static MemberVO loginMember = null;
 
 
-    public static ArrayList<CartDTO>cart = new ArrayList<>();
+    public static ArrayList<CartDTO> cart = new ArrayList<>();
 
     public static boolean isCheckLogout = false;
     public static SimpleDateFormat Md = new SimpleDateFormat("M월 d일");
+    public static SimpleDateFormat yyyyMMdd = new SimpleDateFormat("yyyyMMdd");
+
+    public static boolean isToday(Date date) {
+        return yyyyMMdd.format(date).equals(yyyyMMdd.format(new Date()));
+    }
+
     public static SimpleDateFormat yyyyMMddHHmmss = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static SimpleDateFormat HHmmss = new SimpleDateFormat("HH:mm:ss");
 
     public static DecimalFormat decimalFormat = new DecimalFormat("###,###");
-    public static String comma(int money){
-        return "￦ "+decimalFormat.format(money)+"원";
+
+    public static String comma(int money) {
+        return "￦ " + decimalFormat.format(money) + "원";
     }
 
     public static String boardselectedImage = "";

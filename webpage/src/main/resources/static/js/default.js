@@ -42,14 +42,14 @@ function fetchTEXT(url, data, callback) {
     .catch((error) => console.error("Error : " + error));
 }
 
-// document.querySelector("#btnHeaderLogout").addEventListener("click", (e) => {
-//   e.preventDefault();
-//   logout();
-// });
+document.querySelector("#btnHeaderLogout").addEventListener("click", (e) => {
+  e.preventDefault();
+  logout();
+});
 
-// function logout() {
-//   fetchTEXT("/member/logout", null, (data) => {
-//     console.log(data);
-//     location.reload();
-//   })
-// }
+function logout() {
+  fetchTEXT("/member/logout", null, (data) => {
+    console.log(data);
+    location.reload();
+  });
+}

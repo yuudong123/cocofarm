@@ -1,7 +1,5 @@
 package com.cocofarm.andapp.conn;
 
-import static com.cocofarm.andapp.MainActivity.mContext;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
@@ -61,7 +59,8 @@ public class CommonConn {
                     onPostExcute(true, response.body());
                     return;
                 }
-                Toast.makeText(mContext, "오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(context, "오류가 발생했습니다", Toast.LENGTH_SHORT).show();
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -70,8 +69,8 @@ public class CommonConn {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d("Post", "onFailure: " + t.getClass().getName());
-                if (t.getClass().getName().equals("java.net.SocketTimeoutException")) {
-                    Toast.makeText(context, "서버가 이상한가봅니다", Toast.LENGTH_SHORT).show();
+                if (t.getClass().getName().equals("java.net.SocketTimeoutException") && context != null) {
+                    onPostExcute(false, t.getMessage());
                     if (dialog != null) {
                         dialog.dismiss();
                     }

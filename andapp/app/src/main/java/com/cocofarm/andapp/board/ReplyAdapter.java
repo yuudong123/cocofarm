@@ -4,6 +4,7 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.HHmmss;
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.isToday;
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.app.Activity;
@@ -61,7 +62,7 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
         holder.binding.tvNickname.setText(replyVO.getNickname());
         holder.binding.tvContent.setText(replyVO.getContent());
         SimpleDateFormat sdf;
-        if (new Date().getTime() - replyVO.getRegdate().getTime() < 86400000) {
+        if (isToday(replyVO.getRegdate())) {
             sdf = HHmmss;
         } else {
             sdf = Md;

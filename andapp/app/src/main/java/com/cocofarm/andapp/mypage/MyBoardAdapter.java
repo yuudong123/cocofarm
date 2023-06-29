@@ -2,6 +2,7 @@ package com.cocofarm.andapp.mypage;
 
 import static com.cocofarm.andapp.common.CommonVal.HHmmss;
 import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.isToday;
 
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +51,7 @@ public class MyBoardAdapter extends RecyclerView.Adapter<MyBoardAdapter.ViewHold
             holder.binding.answer.setText("");
         }
         SimpleDateFormat sdf;
-        if (new Date().getTime() - list.get(position).getRegdate().getTime() < 86400000) {
+        if (isToday(list.get(position).getRegdate())) {
             sdf = HHmmss;
         } else {
             sdf = Md;

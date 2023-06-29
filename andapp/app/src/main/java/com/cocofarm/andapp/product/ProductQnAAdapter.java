@@ -1,5 +1,9 @@
 package com.cocofarm.andapp.product;
 
+import static com.cocofarm.andapp.common.CommonVal.HHmmss;
+import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.isToday;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.board.QnaDTO;
-import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemProductQnaBinding;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.ViewHolder> {
     ItemProductQnaBinding binding;
@@ -32,21 +34,21 @@ public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        QnaDTO qnaDTO = list.get(i);
 
-        holder.binding.tvNickname.setText(list.get(i).getNickname());
-        if (new Date().getTime() - list.get(i).getRegdate().getTime() > 86400000) {
-            holder.binding.tvRegdate.setText(CommonVal.Md.format(list.get(i).getRegdate()));
+        if (isToday(qnaDTO.getRegdate())) {
+            holder.binding.tvRegdate.setText(HHmmss.format(list.get(i).getRegdate()));
         } else {
-            holder.binding.tvRegdate.setText(CommonVal.HHmmss.format(list.get(i).getRegdate()));
+            holder.binding.tvRegdate.setText(Md.format(list.get(i).getRegdate()));
         }
-        holder.binding.tvContentQ.setText(list.get(i).getContent());
-        if (list.get(i).getAnswer() != null) {
-            holder.binding.tvTitle.setText("[답변완료] " + list.get(i).getTitle());
-            holder.binding.tvAnswerNickname.setText(list.get(i).getAnswer().getNickname());
-            holder.binding.tvContentA.setText(list.get(i).getAnswer().getContent());
+        holder.binding.tvContentQ.setText(qnaDTO.getContent());
+        if (qnaDTO.getAnswer() != null) {
+            holder.binding.tvTitle.setText("[답변완료] " + qnaDTO.getTitle());
+            holder.binding.tvAnswerNickname.setText(qnaDTO.getAnswer().getNickname());
+            holder.binding.tvContentA.setText(qnaDTO.getAnswer().getContent());
             holder.binding.layoutAnswer.setVisibility(View.VISIBLE);
         } else {
-            holder.binding.tvTitle.setText(list.get(i).getTitle());
+            holder.binding.tvTitle.setText(qnaDTO.getTitle());
         }
         holder.binding.layoutTitle.setOnClickListener(v -> {
             if (holder.binding.layoutContent.getVisibility() == View.GONE) {
