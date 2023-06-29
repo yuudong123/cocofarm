@@ -50,6 +50,6 @@ document.querySelector("#btnHeaderLogout").addEventListener("click", (e) => {
 function logout() {
   fetchTEXT("/member/logout", null, (data) => {
     console.log(data);
-    location.reload();
+    location.href = "/";
   });
 }
