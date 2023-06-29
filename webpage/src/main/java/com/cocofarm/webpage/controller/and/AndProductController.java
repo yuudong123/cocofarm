@@ -28,9 +28,9 @@ public class AndProductController {
 
     @PostMapping(value = "/selectProductContent.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String selectProductConetent(int product_id) {
-        ProductVO productContent = productService.selectProductContent(product_id);
-        return new Gson().toJson(productContent);
+    public String selectProduct(int product_id) {
+        ProductVO product = productService.selectProduct(product_id);
+        return new Gson().toJson(product);
     }
 
     @PostMapping(value = "/selectproductlistwithimage.and", produces = "text/html;charset=utf-8")

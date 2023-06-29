@@ -24,8 +24,8 @@ public class ProductService {
         return list;
     }
 
-    public ProductVO selectProductContent(int product_id) {
-        ProductVO productCon = productMapper.selectProductContent(product_id);
+    public ProductVO selectProduct(int product_id) {
+        ProductVO productCon = productMapper.selectProduct(product_id);
         // productCon.setImg(imageMapper.selectAllImageWithProductId(product_id));
         return productCon;
     }
