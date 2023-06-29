@@ -30,13 +30,6 @@ public class MainController {
         return mav;
     }
 
-    @GetMapping("/access-denied")
-    public ModelAndView accessDenied() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("etc/access-denied");
-        return mav;
-    }
-
     @GetMapping(value = "/admin/home")
     public ModelAndView adminHome() {
         ModelAndView mav = new ModelAndView();

@@ -22,6 +22,8 @@ h6 {
 
 .collection-item {
   padding: 5px 10px !important;
+  display: flex;
+  justify-content: space-between;
 }
 
 #btnRefresh {

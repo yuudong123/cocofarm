@@ -11,8 +11,7 @@
         <section id="toolMenu" class="z-depth-1">
           <ul class="tabs">
             <li class="tab"><a class="active" href="#section1">새 QnA</a></li>
-            <li class="tab"><a href="#section2">게시물 관리</a></li>
-            <li class="tab"><a href="#section3">신고된 게시물</a></li>
+            <li class="tab"><a href="#section2">신고된 게시물</a></li>
           </ul>
           <button id="btnNewBoard" class="btn green"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></button>
         </section>
@@ -24,17 +23,6 @@
         </section>
 
         <section id="section2" class="z-depth-1">
-          <h6>게시물 관리</h6>
-          <ul class="tabs">
-            <li class="tab"><a data-category="notice" href="">공지사항</a></li>
-            <li class="tab"><a data-category="event" href="">이벤트</a></li>
-            <li class="tab"><a data-category="qna" href="">QnA</a></li>
-            <li class="tab"><a data-category="review" href="">리뷰</a></li>
-          </ul>
-          <div id="manageList" class="collection"></div>
-        </section>
-
-        <section id="section3" class="z-depth-1">
           <h6>신고된 게시물</h6>
           <div id="reportList" class="collection"></div>
         </section>
@@ -54,7 +42,6 @@
 
       onload = loadNewQna();
       onClassChange(section1, loadNewQna);
-      onClassChange(section2, loadBoard);
       manageTabs.forEach((tab) => {
         tab.addEventListener("click", () => {
           loadBoard(tab.dataset.category);
@@ -83,30 +70,6 @@
             link.setAttribute("href", "/board/qna/" + item.board_no);
             link.innerText = regdate + " " + title;
             newQnaList.appendChild(link);
-          });
-        });
-      }
-
-      function loadBoard(category) {
-        if (category == "" || category == null) {
-          category = "notice";
-        }
-        console.log(category + " 게시판을 불러옵니다.");
-        manageList.innerHTML = "";
-        fetchJSON("/admin/board/managelist", { category: category }, (data) => {
-          if (data == null || data.length == 0) {
-            return;
-          }
-          data.forEach((item) => {
-            let title = item.title;
-            let board_no = item.board_no;
-            let regdate = moment(item.regdate).format("YYYY/MM/DD HH:mm:ss");
-            let link = document.createElement("a");
-            let checkbox = document.createElement("input");
-            checkbox.setAttribute("type", "checkbox");
-            link.classList.add("collection-item");
-            link.innerHTML = "<span>" + board_no + " | " + regdate + " | " + title + "</span>";
-            manageList.appendChild(link);
           });
         });
       }
