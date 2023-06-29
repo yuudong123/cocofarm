@@ -35,9 +35,22 @@
             password: password.value
             },
             (data) => {
-                if(data == "success") {
+                if(data != "failure") {
                     if (confirm("정말 탈퇴하시겠습니까?")) {
-                        alert("o");
+                        fetchTEXT(
+                            "/member/away/approval",
+                            {
+                                email: data
+                            },
+                            (data2) => {
+                                console.log(data2);
+                                if (data2 >= 1) {
+                                    alert("탈퇴가 완료되었습니다.");
+                                } else {
+                                    alert("문제가 발생하여 회원탈퇴에 실패하였습니다.\n잠시 후에 다시 시도해주세요.");
+                                }
+                            }
+                        )
                     } else {
                         alert("x");
                     }

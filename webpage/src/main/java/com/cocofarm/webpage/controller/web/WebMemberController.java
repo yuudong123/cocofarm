@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
@@ -59,7 +60,7 @@ public class WebMemberController {
 
         MemberVO vo = (MemberVO) session.getAttribute("userinfo");
         if (param.get("password").equals(vo.getPassword().toString())) {
-            return "success";
+            return vo.getEmail();
         } else {
             return "failure";
         }
@@ -113,6 +114,17 @@ public class WebMemberController {
     public String away() {
         return "member/away";
     }
+
+    @ResponseBody
+    @PostMapping(value = "/member/away/approval")
+    public int away_approval(@RequestBody HashMap<String, String> email) {
+        MemberVO vo = new MemberVO();
+        vo.setEmail(email.get("email"));
+        
+        
+        return memberService.away(vo.getEmail());
+    }
+
 
     @ResponseBody
     @PostMapping(value = "/member/email_search")
