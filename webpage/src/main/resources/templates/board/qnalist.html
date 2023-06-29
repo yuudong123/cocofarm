@@ -34,6 +34,7 @@
           </div>
         </form>
         <p id="noresultmsg" th:if="${boardlist.size == 0}">조건에 맞는 QnA가 없습니다.</p>
+        <a th:if="${userinfo != null}" th:href="@{/board/qnawrite}" id="btnQnaWrite" class="btn right blue">Qna 쓰기<i class="material-icons">edit</i></a>
         <table th:if="${boardlist.size != 0}">
           <thead>
             <tr>

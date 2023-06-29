@@ -2,6 +2,14 @@
   min-height: 300px;
 }
 
+#productSelect {
+  margin-top: 20px;
+  display: block;
+  width: fit-content;
+  height: 2rem;
+  align-items: center;
+  padding: 0 5px;
+}
 /* label color */
 .input-field label {
   color: #429f5d;
@@ -41,4 +49,22 @@
 
 #submit {
   margin-right: 5px;
+}
+#productBox {
+  margin-top: 10px;
+  height: fit-content;
+  display: none;
+  background-color: #eee;
+  padding: 10px;
+}
+#productImage {
+  width: 100px;
+  margin-right: 10px;
+}
+#productContent {
+  font-size: 0.8rem;
+  max-lines: 3;
+}
+#productName {
+  font-weight: bold;
 }

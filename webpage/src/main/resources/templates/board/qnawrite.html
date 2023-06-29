@@ -8,24 +8,85 @@
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
-        <form th:action="@{/board/qnawrite}" method="post">
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="title" name="title" type="text" class="validate" />
-              <label for="title">제목</label>
-            </div>
+        <select id="productSelect" class="icons browser-default">
+          <option value="" disabled selected>-- 상품 선택 --</option>
+          <option th:each="product : ${productlist}" th:value="${product.product_id}" th:text="${product.name}" th:data-image="${product.filename}" th:data-content="${product.content}"></option>
+        </select>
+        <div id="productBox">
+          <img id="productImage" class="responsive-img" src="" alt="상품 이미지" />
+          <div>
+            <h6 id="productName">안녕</h6>
+            <p id="productContent"></p>
           </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <textarea id="content" name="content" class="materialize-textarea"></textarea>
-              <label for="content">내용</label>
-            </div>
-          </div>
-          <button id="cancel" class="btn red right">취소</button>
-          <button id="submit" class="btn green right">작성완료</button>
-        </form>
+        </div>
+        <div class="input-field col s12">
+          <input id="title" name="title" type="text" class="validate" />
+          <label for="title">제목</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="content" name="content" class="materialize-textarea"></textarea>
+          <label for="content">내용</label>
+        </div>
+        <button id="btnCancel" class="btn red right">취소</button>
+        <button id="btnFinish" class="btn green right">작성완료</button>
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>
+  <script th:inline="javascript">
+    const btnFinish = document.querySelector("#btnFinish");
+    const btnCancel = document.querySelector("#btnCancel");
+    const productSelect = document.querySelector("#productSelect");
+
+    M.AutoInit();
+    btnFinish.addEventListener("click", () => {
+      if (productSelect.value == "") {
+        M.toast({ html: "상품을 선택해주세요." });
+        return;
+      }
+      if (title.value == null || title.value == "") {
+        M.toast({ html: "제목을 입력해주세요." });
+        return;
+      }
+      if (content.value == null || content.value == "") {
+        M.toast({ html: "내용을 입력해주세요." });
+        return;
+      }
+
+      let product_id = productSelect.options[productSelect.selectedIndex].value;
+      let mainimage = productSelect.options[productSelect.selectedIndex].dataset.image;
+      fetchTEXT(
+        "/board/qnawrite",
+        {
+          board_category_cd: 201,
+          title: title.value,
+          content: content.value,
+          product_id: product_id,
+          mainimage: mainimage,
+        },
+        (data) => {
+          if (data == 1) {
+            alert("등록되었습니다.");
+            location.href = "/board/qna";
+          } else {
+            alert("작성에 실패했습니다.");
+          }
+        }
+      );
+    });
+    btnCancel.addEventListener("click", () => {
+      if (confirm("작성한 내용은 저장되지 않습니다. 취소하시겠습니까?")) {
+        history.back();
+      }
+    });
+
+    productSelect.addEventListener("change", loadProduct);
+
+    function loadProduct(product_id) {
+      document.querySelector("#productBox").style.display = "flex";
+      document.querySelector("#productImage").setAttribute("src", "/images/" + productSelect.options[productSelect.selectedIndex].dataset.image);
+      document.querySelector("#productName").innerHTML = productSelect.options[productSelect.selectedIndex].textContent;
+      document.querySelector("#productContent").innerHTML = productSelect.options[productSelect.selectedIndex].dataset.content;
+    }
+  </script>
 </html>
