@@ -24,7 +24,7 @@ public class OrderFinishActivity extends AppCompatActivity {
 
         binding.btnGoOrderContentA.setOnClickListener(v->{
 
-            Intent intent = new Intent(OrderFinishActivity.this, OrderProductActivity.class);
+            Intent intent = new Intent(OrderFinishActivity.this, OrderProductListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
             intent.putExtra("order_id", value);
             startActivity(intent);
