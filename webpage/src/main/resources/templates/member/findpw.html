@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/member/findpw.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>코코팜 > 비밀번호 찾기</title>
+</head>
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main class="wrap">
+        <div class="find">
+            <h2><img style="vertical-align: text-bottom;" src="/images/page_logo.png"/>&nbsp;비밀번호 찾기</h2>
+
+          <div class="email">
+            <h5>이메일</h5>
+            <input type="email" id="email" placeholder="가입 시 등록하신 이메일을 입력해 주세요." />
+          </div>
+          <a class="waves-effect waves-light btn-small" id="btnsend" name="btnSend">인증번호 전송</a>
+          <div class="confirm">
+            <h5>인증번호</h5>
+            <input type="text" id="confirm_text" placeholder="인증번호 7자리를 입력해 주세요." />
+          </div>
+          
+  
+          <div class="submit">
+            <input type="submit" id="btnok" value="새로운 비밀번호 등록" />
+          </div>
+        </div>
+      </main>
+
+
+      <!-- JavaScript -->
+      <script src="/js/default.js"></script>
+      <script>
+        document.querySelector('.confirm').style.display = 'none';
+
+        document.querySelector("#btnsend").addEventListener("click", () => {
+          var email = document.querySelector("#email").value;
+          var randomValue = self.crypto.randomUUID().substring(0, 7);
+          
+          if (email.length < 1 ) {
+            M.toast({html: '이메일을 입력해 주세요.'});
+          } else {
+            fetchTEXT(
+            "/member/email_search", {email: email}, (data1) => {
+                console.log(data1);
+                if (data1 == 0) {
+                    M.toast({html: '가입하지 않은 이메일입니다. 다시 입력해 주세요.'});
+                } else {
+                fetchTEXT(
+                "/email/send",
+                {
+                    confirm_text: randomValue,
+                    email: email,
+                    status: "findpw"
+                },
+                (data2) => {
+                    console.log(data2);
+                    if (data2 != null) {
+                        document.querySelector('.confirm').style.display = 'block';
+                        var btnok = document.querySelector("#btnok");
+
+                        btnok.addEventListener("click", () => {
+                            var confirm_text = document.querySelector("#confirm_text");
+                            if (data2 == confirm_text.value){
+                                location.href = "/member/modifypw";
+                            } else {
+                                M.toast({html: '잘못된 인증번호입니다.\n다시 입력해 주세요.'});
+                            }
+                        });
+                      } else {
+                        M.toast({html: '이메일 전송에 실패했습니다. 잠시 후 다시 시도해 주세요.'});
+                    }
+                },
+              );
+            }
+          }
+        );
+      }
+  });
+
+      </script>
+</body>
+</html>

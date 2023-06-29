@@ -5,13 +5,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/member/login.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main class="wrap">
       <div class="login">
-        <h2>로그인</h2>
+        
+        <h2><img style="vertical-align: text-bottom;" src="/images/page_logo.png"/>&nbsp;로그인</h2>
         <div class="login_sns">
           <li>
             <a href=""><img src="/images/kakaotalk_logo.png" width="30px" /></a>
@@ -25,19 +25,24 @@
         </div>
         <div class="login_email">
           <h5>이메일</h5>
-          <input type="email" name="email" id="email" placeholder="이메일" />
+          <input type="email" name="email" id="email" placeholder="user@cocofarm.com" />
         </div>
         <div class="login_pw">
           <h5>비밀번호</h5>
-          <input type="password" name="password" id="password" placeholder="비밀번호" />
+          <input type="password" name="password" id="password" placeholder="*****" />
         </div>
         <div class="login_etc">
-          <div class="checkbox"><input type="checkbox" name="savetheinfo" />로그인 정보 저장</div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"/>
+            <span>로그인 정보 저장</span>
+          </label>
+        </div>
           <div class="forgot_pw">
-            <a href="#">비밀번호 찾기</a>
+            <a href="/member/findpw" style="color: #429F5D;">비밀번호 찾기</a>
           </div>
           <div class="forgot_pw">
-            <a href="/member/join">회원가입</a>
+            <a href="/member/join" style="color: #429F5D;">회원가입</a>
           </div>
         </div>
 
@@ -47,6 +52,8 @@
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+
+    
     <script>
       const btnLogin = document.querySelector("#btnLogin");
       btnLogin.addEventListener("click", login);
