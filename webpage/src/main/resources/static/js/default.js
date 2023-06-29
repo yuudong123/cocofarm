@@ -42,6 +42,7 @@ function fetchTEXT(url, data, callback) {
     .catch((error) => console.error("Error : " + error));
 }
 
+
 // document.querySelector("#btnHeaderLogout").addEventListener("click", (e) => {
 //   e.preventDefault();
 //   logout();
