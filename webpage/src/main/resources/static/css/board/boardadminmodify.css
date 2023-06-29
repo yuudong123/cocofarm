@@ -9,11 +9,9 @@
   margin-right: 5px;
 }
 
-#category {
-  display: block;
-  width: fit-content;
-  height: 2rem;
-  margin-right: 20px;
-  align-items: center;
-  padding: 0 5px;
+.select-dropdown li img {
+  width: 80px;
+  height: fit-content;
+  margin: 5px 15px;
+  float: left;
 }

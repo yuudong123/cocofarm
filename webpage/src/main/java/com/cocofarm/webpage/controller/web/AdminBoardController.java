@@ -1,6 +1,7 @@
 package com.cocofarm.webpage.controller.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,10 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CriteriaDTO;
+import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.BoardService;
+import com.cocofarm.webpage.service.ImageService;
 import com.cocofarm.webpage.service.ProductService;
 import com.google.gson.Gson;
 
@@ -34,6 +37,9 @@ public class AdminBoardController {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ImageService imageService;
 
     @GetMapping(value = "/")
     public ModelAndView boardMain() {
@@ -53,15 +59,22 @@ public class AdminBoardController {
 
     @ResponseBody
     @PostMapping(value = "/managelist")
-    public String manageList(@RequestBody String category) {
+    public String manageList(@RequestBody HashMap<String, String> param) {
         CriteriaDTO cri = new CriteriaDTO(1, 50);
-        ArrayList<BoardVO> managelist = boardService.selectList(category, cri);
-        return new Gson().toJson(managelist);
+        if (param.get("category").equals("qna")) {
+            ArrayList<QnaDTO> managelist = boardService.selectQnaList(cri);
+            return new Gson().toJson(managelist);
+        } else {
+            ArrayList<BoardVO> managelist = boardService.selectList(param.get("category"), cri);
+            return new Gson().toJson(managelist);
+        }
     }
 
     @GetMapping(value = "/write")
     public ModelAndView writeGET() {
         ModelAndView mav = new ModelAndView();
+        ArrayList<ImageDTO> imagelist = imageService.selectAllImageWithProductId(0);
+        mav.addObject("imagelist", imagelist);
         mav.setViewName("board/admin/write");
         return mav;
     }
@@ -87,7 +100,9 @@ public class AdminBoardController {
     public ModelAndView modifyGET(@PathVariable int board_no) {
         ModelAndView mav = new ModelAndView();
         BoardVO boardVO = boardService.selectboard(board_no);
+        ArrayList<ImageDTO> imagelist = imageService.selectAllImageWithProductId(0);
         mav.addObject("board", boardVO);
+        mav.addObject("imagelist", imagelist);
         mav.setViewName("board/admin/modify");
         return mav;
     }

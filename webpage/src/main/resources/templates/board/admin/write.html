@@ -14,6 +14,12 @@
             <option value="204">이벤트</option>
           </select>
           <input id="title" name="title" type="text" placeholder="제목" />
+          <div class="input-field col s12 m6">
+            <select id="imageSelect" class="icons">
+              <option th:each="image : ${imagelist}" th:value="${image.filename}" th:data-icon="${'/images/'+image.filename}"></option>
+            </select>
+            <label>메인 이미지 선택</label>
+          </div>
           <textarea id="content" class="materialize-textarea" name="content" placeholder="내용..."></textarea>
           <button id="btnFinish" class="btn">작성완료</button>
           <button id="btnCancel" class="btn red">취소</button>
@@ -28,7 +34,25 @@
     const category = document.querySelector("#category");
     const title = document.querySelector("#title");
     const content = document.querySelector("#content");
+    const imageSelect = document.querySelector("#imageSelect");
 
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll("select");
+      var instances = M.FormSelect.init(elems, {
+        dropdownOptions: {
+          coverTrigger: false,
+          container: document.body,
+          constrainWidth: false,
+        },
+        classes: "icons",
+      });
+      var selectedValueElement = document.querySelectorAll(".select-dropdown").item(1);
+      imageSelect.addEventListener("change", function () {
+        var selectedOption = this.options[this.selectedIndex];
+        var selectedValue = selectedOption.value;
+        selectedValueElement.value = selectedValue;
+      });
+    });
     btnFinish.addEventListener("click", () => {
       if (title.value == null || title.value == "") {
         M.toast({ html: "제목을 입력해주세요." });
@@ -38,12 +62,16 @@
         M.toast({ html: "내용을 입력해주세요." });
         return;
       }
+
+      let category_cd = category.options[category.selectedIndex].value;
+      let mainimage = imageSelect.options[imageSelect.selectedIndex].value;
       fetchTEXT(
         "/admin/board/write",
         {
           title: title.value,
           content: content.value,
-          board_category_cd: category.value,
+          board_category_cd: category_cd,
+          mainimage: mainimage,
         },
         (data) => {
           if (data == "success") {

@@ -10,6 +10,12 @@
       <div class="container">
         <div id="form">
           <input id="title" name="title" type="text" placeholder="제목" th:value="${board.title}" />
+          <div class="input-field col s12 m6">
+            <select id="imageSelect" class="icons">
+              <option th:each="image : ${imagelist}" th:value="${image.filename}" th:data-icon="${'/images/'+image.filename}"></option>
+            </select>
+            <label>메인 이미지 선택</label>
+          </div>
           <textarea id="content" class="materialize-textarea" name="content" placeholder="내용..." th:text="${board.content}"></textarea>
           <button id="btnFinish" class="btn">작성완료</button>
           <button id="btnCancel" class="btn red">취소</button>
@@ -21,17 +27,47 @@
   <script th:inline="javascript">
     const btnFinish = document.querySelector("#btnFinish");
     const btnCancel = document.querySelector("#btnCancel");
-    const category = document.querySelector("#category");
     const title = document.querySelector("#title");
     const content = document.querySelector("#content");
+    const imageSelect = document.querySelector("#imageSelect");
     const board_no = /*[[${board.board_no}]]*/ "";
+    const mainimage = /*[[${board.mainimage}]]*/ "";
 
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll("select");
+      var instances = M.FormSelect.init(elems, {
+        dropdownOptions: {
+          coverTrigger: false,
+          container: document.body,
+          constrainWidth: false,
+        },
+        classes: "icons",
+      });
+      var selectedValueElement = document.querySelectorAll(".select-dropdown").item(0);
+      selectedValueElement.value = mainimage;
+      imageSelect.addEventListener("change", function () {
+        var selectedOption = this.options[this.selectedIndex];
+        var selectedValue = selectedOption.value;
+        if (selectedValue != "") {
+          selectedValueElement.value = selectedValue;
+        }
+      });
+    });
     btnFinish.addEventListener("click", () => {
+      if (title.value == null || title.value == "") {
+        M.toast({ html: "제목을 입력해주세요." });
+        return;
+      }
+      if (content.value == null || content.value == "") {
+        M.toast({ html: "내용을 입력해주세요." });
+        return;
+      }
       fetchTEXT(
         "/admin/board/" + board_no + "/modify",
         {
           title: title.value,
           content: content.value,
+          mainimage: imageSelect.options[imageSelect.selectedIndex].value,
         },
         (data) => {
           if (data == "success") {

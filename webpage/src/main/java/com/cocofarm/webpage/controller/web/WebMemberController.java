@@ -50,7 +50,7 @@ public class WebMemberController {
     @PostMapping(value = "/member/logout")
     public String logout(SessionStatus sessionStatus, Model model) {
         sessionStatus.setComplete();
-        return model.getAttribute("prevPage") + "";
+        return "/";
     }
 
     @ResponseBody

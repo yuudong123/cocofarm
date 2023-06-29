@@ -5,15 +5,18 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CriteriaDTO;
+import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.PageDTO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.domain.QnaDTO;
@@ -75,17 +78,20 @@ public class WebBoardController {
     @GetMapping(value = "/board/qnawrite")
     public ModelAndView insertQna() {
         ModelAndView mav = new ModelAndView();
+        ArrayList<ProductVO> productlist = productService.selectProductListWithImage();
+        mav.addObject("productlist", productlist);
         mav.setViewName("board/qnawrite");
         return mav;
     }
 
-    // @PostMapping(value = "/write")
-    // public int insertBoard(BoardVO vo) {
-    // return boardService.insert(vo);
-    // }
-
+    @ResponseBody
     @PostMapping(value = "/board/qnawrite")
-    public int insertQna(BoardVO vo) {
+    public int insertQna(@RequestBody BoardVO vo, Model model) {
+        MemberVO member = (MemberVO) model.getAttribute("userinfo");
+        if (member != null) {
+            vo.setMember_no(member.getMember_no());
+            vo.setNickname(member.getNickname());
+        }
         return boardService.insert(vo);
     }
 
