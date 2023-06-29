@@ -1,36 +1,24 @@
 package com.cocofarm.andapp.mypage;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cocofarm.andapp.FirstActivity;
-import com.cocofarm.andapp.MainActivity;
-import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.FragmentMypageBinding;
-import com.cocofarm.andapp.member.LoginActivity;
-import com.cocofarm.andapp.member.MemberVO;
-import com.cocofarm.andapp.order.OrderProductActivity;
+import com.cocofarm.andapp.order.OrderProductListActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.internal.service.Common;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.kakao.sdk.user.UserApiClient;
@@ -152,7 +140,8 @@ public class MypageFragment extends Fragment {
 //            Intent intent = new Intent(getActivity(), AlertListActivity.class);
         });
         binding.tvMyorder.setOnClickListener(v-> {
-            Intent intent = new Intent(getActivity(), OrderProductActivity.class);
+           // Intent intent = new Intent(getActivity(), OrderProductActivity.class);
+            Intent intent = new Intent(getActivity(), OrderProductListActivity.class);
             startActivity(intent);
         });
         binding.tvMyboard.setOnClickListener(v-> {

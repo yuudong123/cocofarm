@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
+import com.cocofarm.webpage.domain.OrderProductDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
 import com.cocofarm.webpage.mapper.OrderMapper;
@@ -43,10 +44,6 @@ public class OrderService {
         return random.nextInt(max - min + 1) + min;
     }
 
-    public ArrayList<OrderProductVO> OrderProductList(OrderVO vo) {
-        return ordermapper.OrderProductList(vo);
-    }
-
     public int OrderProductStatusUpdate(OrderProductVO vo) {
         return ordermapper.OrderProductStatusUpdate(vo);
     }
@@ -58,6 +55,15 @@ public class OrderService {
     public OrderProductVO OrderProductReviewWritePage(int orderproduct_id){
         OrderProductVO vo = ordermapper.OrderProductReviewWritePage(orderproduct_id);
         return vo;
+    }
+
+    // public ArrayList<OrderProductVO> OrderProductLowerList(OrderVO vo){
+    //     return ordermapper.OrderProductLowerList(vo);
+    // }
+
+    public ArrayList<OrderProductDTO> MyOrderList(int member_no){
+        return ordermapper.MyOrderList(member_no);
+        
     }
  
 }

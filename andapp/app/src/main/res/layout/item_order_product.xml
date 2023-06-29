@@ -15,10 +15,11 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
-                android:id="@+id/tv_order_day"
-                android:textStyle="bold"
-                android:text="05.30결제"
+                android:layout_margin="5dp"
+                android:id="@+id/tv_order_ready"
+                android:text="상품 준비중"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <View
@@ -29,15 +30,8 @@
                 android:src="@drawable/icon_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
         </LinearLayout>
 
-        <TextView
-            android:layout_margin="5dp"
-            android:id="@+id/tv_order_ready"
-            android:text="상품 준비중"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -116,17 +110,8 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
         </LinearLayout>
 
     </LinearLayout>
-    <View
-        android:layout_marginBottom="10dp"
-        android:layout_margin="10dp"
-        android:background="#90595959"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
 
 </LinearLayout>

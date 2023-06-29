@@ -165,6 +165,9 @@ public class CartActivity extends AppCompatActivity {
             }
 
         });
+        binding.btnClose.setOnClickListener(v->{
+            finish();
+        });
     }
 
     protected void load() {
