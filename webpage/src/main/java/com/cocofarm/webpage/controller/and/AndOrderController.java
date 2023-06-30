@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cocofarm.webpage.common.ResultVO;
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.OrderProductDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
+import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.CartService;
 import com.cocofarm.webpage.service.OrderService;
 import com.google.gson.Gson;
@@ -22,6 +24,8 @@ public class AndOrderController {
     OrderService orderservice;
     @Autowired
     CartService cartService;
+    @Autowired
+    BoardService boardService;
 
     @PostMapping(value = "orderinsert.and", produces = "text/html;charset=utf-8")
     @ResponseBody
@@ -57,10 +61,19 @@ public class AndOrderController {
         orderservice.ChangeAndRefundInsert(tempDto);
     }
 
-    @PostMapping(value = "orderproductreviewwritepage.and", produces = "text/html;charset=utf-8")
+    // @PostMapping(value = "orderproductreviewwritepage.and", produces =
+    // "text/html;charset=utf-8")
+    // @ResponseBody
+    // public String OrderProductReviewWritePage(int orderproduct_id) {
+    // OrderProductVO vo =
+    // orderservice.OrderProductReviewWritePage(orderproduct_id);
+    // return new Gson().toJson(vo);
+    // }
+
+    @PostMapping(value = "orderproductreviewone.and", produces = "text/html;charset=utf-8")
     @ResponseBody
-    public String OrderProductReviewWritePage(int orderproduct_id) {
-        OrderProductVO vo = orderservice.OrderProductReviewWritePage(orderproduct_id);
+    public String selectreviewboard(int orderproduct_id) {
+        BoardVO vo = orderservice.selectreviewboard(orderproduct_id);
         return new Gson().toJson(vo);
     }
 

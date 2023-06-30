@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:background="#ddd"
+    android:layout_margin="10dp"
+    android:elevation="10dp"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,7 +12,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e0e0e0" />
+        android:background="#e0e0e0"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,8 +28,7 @@
         android:id="@+id/qnaProductSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ddd"
-        android:padding="10dp">
+        >
 
         <ImageView
             android:id="@+id/ivProductImage"
@@ -66,10 +68,11 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingHorizontal="11dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="50dp">
+        >
 
         <TextView
+            android:textSize="20dp"
+            android:textStyle="bold"
             android:id="@+id/tv_reviewview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

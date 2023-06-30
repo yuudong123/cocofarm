@@ -23,4 +23,6 @@ public class BoardVO implements Serializable {
     private Date upddate;
     private String mainimage = "";
     private int replycnt;
+
+    private int orderproduct_id;
 }

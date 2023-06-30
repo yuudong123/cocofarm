@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 public class OrderProductDTO implements Serializable {
-    private int order_id;
+    private String order_id;
     private ArrayList<OrderProductVO> orderproduct_list;
 
     private int member_no;

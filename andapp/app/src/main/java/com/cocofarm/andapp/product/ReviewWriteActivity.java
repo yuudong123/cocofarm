@@ -67,6 +67,7 @@ public class ReviewWriteActivity extends AppCompatActivity {
         conn.addParam("content", review);
         conn.addParam("title", "");
         conn.addParam("mainimage", orderProductVO.getFilename());
+        conn.addParam("orderproduct_id", orderProductVO.getOrderproduct_id());
         conn.onExcute((isResult, data) -> {
             Log.d("리뷰작성 성공", "onCreate: " + isResult);
             if (isResult){

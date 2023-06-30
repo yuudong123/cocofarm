@@ -20,8 +20,8 @@ public class ReviewViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityReviewViewBinding.inflate(getLayoutInflater());
         orderProductVO = (OrderProductVO) getIntent().getSerializableExtra("orderProductVO");
-        CommonConn conn = new CommonConn(this, "/board/selectboard.and");
-        conn.addParam("board_no", orderProductVO.getReview_board_no());
+        CommonConn conn = new CommonConn(this, "orderproductreviewone.and");
+        conn.addParam("orderproduct_id", orderProductVO.getOrderproduct_id());
         conn.onExcute((isResult, data) -> {
             BoardVO vo = new Gson().fromJson(data, BoardVO.class);
             if (isResult){

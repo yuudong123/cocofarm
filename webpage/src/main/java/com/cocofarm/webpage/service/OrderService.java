@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.OrderProductDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
@@ -48,22 +49,26 @@ public class OrderService {
         return ordermapper.OrderProductStatusUpdate(vo);
     }
 
-    public int ChangeAndRefundInsert(ChangeAndRefundDTO dto){
+    public int ChangeAndRefundInsert(ChangeAndRefundDTO dto) {
         return ordermapper.ChangeAndRefundInsert(dto);
     }
 
-    public OrderProductVO OrderProductReviewWritePage(int orderproduct_id){
-        OrderProductVO vo = ordermapper.OrderProductReviewWritePage(orderproduct_id);
+    // public OrderProductVO OrderProductReviewWritePage(int orderproduct_id){
+    // OrderProductVO vo = ordermapper.OrderProductReviewWritePage(orderproduct_id);
+    // return vo;
+    // }
+    public BoardVO selectreviewboard(int orderproduct_id) {
+        BoardVO vo = ordermapper.selectreviewboard(orderproduct_id);
         return vo;
     }
 
     // public ArrayList<OrderProductVO> OrderProductLowerList(OrderVO vo){
-    //     return ordermapper.OrderProductLowerList(vo);
+    // return ordermapper.OrderProductLowerList(vo);
     // }
 
-    public ArrayList<OrderProductDTO> MyOrderList(int member_no){
+    public ArrayList<OrderProductDTO> MyOrderList(int member_no) {
         return ordermapper.MyOrderList(member_no);
-        
+
     }
- 
+
 }

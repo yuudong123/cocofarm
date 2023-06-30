@@ -18,6 +18,7 @@ public class BoardVO implements Serializable {
     private Date upddate;
     private int replycnt;
     private String mainimage;
+    private int orderproduct_id;
 }
 
 // create table tbl_board (
