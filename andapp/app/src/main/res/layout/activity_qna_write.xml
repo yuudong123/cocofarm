@@ -163,6 +163,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:hint="문의하고자 하는 내용을 적어주세요. 주소, 전화번호 등의 민감한 정보는 삼가주세요.\n\n예) 상품에 대한 문의, 배송 관련 질문, 교환/반품 요청 등"
+            android:inputType="textMultiLine"
             android:textSize="15dp" />
     </LinearLayout>
 </LinearLayout>
