@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.BoardMapper">
     <select id="getTotal" resultType="int"> select count(*) from tbl_board where board_category_cd =
-        #{code} and title like '%'||#{keyword}||'%' <if
-            test="productId != 0"> and product_id = #{productId} </if>
+        #{code} and title like '%'||#{keyword}||'%' <if test="productId != 0"> and product_id = #{productId} </if>
     </select>
     <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO">
         <![CDATA[ 
@@ -40,9 +39,8 @@
             where board_category_cd = 201
             and title like '%'||#{keyword}||'%'
             ]]>
-            <if
-            test="productId != 0"> and p.product_id = #{productId} </if>
-            <![CDATA[
+        <if test="productId != 0"> and p.product_id = #{productId} </if>
+        <![CDATA[
             order by b.board_no desc
         ) a
         order by rownum
@@ -52,7 +50,7 @@
     ]]>
     </select>
     <select id="selectNoAnsweredQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
-    <![CDATA[
+        <![CDATA[
     select * from (
         select rownum as rn, a.* from (   
             select b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
@@ -72,12 +70,13 @@
     </select>
     <select id="selectboard" resultType="com.cocofarm.webpage.domain.BoardVO"> select * from
         tbl_board where board_no = #{board_no} </select>
+
     <select id="selectqna" resultType="com.cocofarm.webpage.domain.QnaDTO"> select b.*, p.name
         product_name, p.content product_content from tbl_board b left join tbl_product p on
         b.product_id = p.product_id where board_no = #{board_no}</select>
-    <insert id="insert" parameterType="com.cocofarm.webpage.domain.BoardVO"> insert into tbl_board
+    <insert id="insert" parameterType="com.cocofarm.webpage.domain.BoardVO"> insert into tbl_board(BOARD_NO, MEMBER_NO, NICKNAME, BOARD_CATEGORY_CD, PRODUCT_ID, TITLE, CONTENT, REGDATE, UPDDATE, MAINIMAGE, ORDERPRODUCT_ID)
         values (seq_board_no.nextval, #{member_no}, #{nickname}, #{board_category_cd},
-        #{product_id}, #{title}, #{content}, sysdate, sysdate, #{mainimage}) </insert>
+        #{product_id}, #{title}, #{content}, sysdate, sysdate, #{mainimage},#{orderproduct_id}) </insert>
     <update id="update" parameterType="com.cocofarm.webpage.domain.BoardVO"> update tbl_board set
         product_id = #{product_id}, title = #{title}, content = #{content}, upddate = sysdate,
         mainimage = #{mainimage} where board_no = #{board_no} </update>

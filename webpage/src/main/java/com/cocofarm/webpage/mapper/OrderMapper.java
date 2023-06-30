@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.OrderProductDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
@@ -20,10 +21,10 @@ public interface OrderMapper {
 
     public int ChangeAndRefundInsert(ChangeAndRefundDTO dto);
 
-    public OrderProductVO OrderProductReviewWritePage(int orderproduct_id);
-    
+    // public OrderProductVO OrderProductReviewWritePage(int orderproduct_id);
+    public BoardVO selectreviewboard(int orderproduct_id);
     public ArrayList<OrderProductDTO> MyOrderList(int member_no);
-    
+
     // public ArrayList<OrderProductVO> OrderProductLowerList(OrderVO vo);
 
 }

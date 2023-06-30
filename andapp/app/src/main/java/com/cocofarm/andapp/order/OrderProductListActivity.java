@@ -23,6 +23,13 @@ public class OrderProductListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityOrderProductListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        binding.btnClose.setOnClickListener(v -> {
+            finish();
+        });
+    }
+
+    public void load(){
         conn = new CommonConn(this, "myorderlist.and");
         conn.addParam("member_no", CommonVal.loginMember.getMember_no());
         conn.onExcute((isResult, data) -> {
@@ -38,19 +45,17 @@ public class OrderProductListActivity extends AppCompatActivity {
             }
         });
 
-        setContentView(binding.getRoot());
-        binding.btnClose.setOnClickListener(v -> {
-            finish();
-        });
-    }
 
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
     }
 
-    protected void onRestart() {
-        super.onRestart();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        load();
     }
 }

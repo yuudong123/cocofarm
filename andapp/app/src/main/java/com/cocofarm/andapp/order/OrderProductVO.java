@@ -12,7 +12,7 @@ import lombok.Data;
 public class OrderProductVO implements Serializable {
     private int orderproduct_id;
     private int product_id;
-    private int order_id;
+    private String order_id;
     private int member_no;
     private int amount;
     private int price;
@@ -24,5 +24,5 @@ public class OrderProductVO implements Serializable {
     @JsonAdapter(DateJsonAdapter.class)
     private Date orderdate;
     private String name;
-    private int review_board_no;
+    private int checkreview;
 }
