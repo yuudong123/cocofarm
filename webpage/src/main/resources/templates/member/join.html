@@ -1,303 +1,289 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+  <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/member/join.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/member/join.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <div class="row">
-        <form class="col s12">
-            <h2 class="join">회원가입</h2>
-            <span>필수 정보 *</span><br/><br/>
-          <div id="email">
-              <div class="row">
-                <div class="input-field inline">
-                <i class="material-icons prefix">mail</i>
-                  <input placeholder="user" name="id" type="text" class="validate">
-                  <label class="active">이메일 *</label>
-                </div>
-                    @
-                <div class="input-field inline">
-                    <input placeholder="cocofarm.com" name="address" type="text" class="validate">
-                </div>
-                <div class="input-field inline">
-                    <select class="browser-default" name="select">
-                        <option value="">-선택-</option>
-                        <option value="">직접 입력</option>
-                        <option value="naver.com">naver.com</option>
-                        <option value="gmail.com">gmail.com</option>
-                        <option value="hanmail.net">hanmail.net</option>
-                        <option value="hotmail.com">hotmail.com</option>
-                    </select>
-                </div>
-                <a class="waves-effect waves-light btn-small" name="btnSend">인증</a>
-              </div>
-          </div>
-
-          <div id="emailConfirm">
-              <div class="row">
-                <div class="input-field inline">
-                    <i class="material-icons prefix">check</i>
-                    <input placeholder="인증번호 7자리" name="confirmNo" type="text" class="validate">
-                    <label for="first_name" class="active">인증번호 *</label>
-                </div>
-                <a class="waves-effect waves-light btn-small" name="btnConfirm">인증번호 확인</a>
-                <a name="message" style="color: red;">잘못된 인증번호입니다.</a>
-              </div>
-          </div>
-
-              <div class="row" id="password">
-                <div class="input-field inline col s6">
-                <i class="material-icons prefix">lock</i>
-                  <input placeholder="****" name="pw" type="password" class="validate">
-                  <label for="first_name" class="active">비밀번호 *</label>
-                </div>
-                <div class="input-field inline col s6">
-                    <i class="material-icons prefix">lock_outline</i>
-                      <input placeholder="****" name="confirm" type="password" class="validate">
-                      <label for="first_name" class="active">비밀번호 확인 *</label>
-                    </div>
-              </div>
-
+      <form class="col s12">
+        <h2 class="join">회원가입</h2>
+        <span>필수 정보 *</span><br /><br />
+        <div id="email">
           <div class="row">
-            <div class="input-field inline col s6">
-                <i class="material-icons prefix">person</i>
-                <input placeholder="nickname" id="nickname" type="text" class="validate">
-                <label for="first_name" class="active">닉네임 *</label>
-            </div>
-          </div><br/>
-
-          <span>선택 정보</span><br/><br/>
-        
-          <div class="row" id="phonenumber">
             <div class="input-field inline">
-              <i class="material-icons prefix">phone</i>
-              <input disabled value="010" type="tel" name="no1" class="validate">
-              <label class="active">전화번호</label>
+              <i class="material-icons prefix">mail</i>
+              <input autocomplete="off" placeholder="user" name="id" type="text" class="validate" />
+              <label class="active">이메일 *</label>
             </div>
-                ─
+            @
             <div class="input-field inline">
-                <input type="tel" name="no2" maxlength="4">
+              <input placeholder="cocofarm.com" name="address" type="text" class="validate" />
             </div>
-                ─
             <div class="input-field inline">
-                <input type="tel" name="no3" maxlength="4">
+              <select class="browser-default" name="select">
+                <option value="">-선택-</option>
+                <option value="">직접 입력</option>
+                <option value="naver.com">naver.com</option>
+                <option value="gmail.com">gmail.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="hotmail.com">hotmail.com</option>
+              </select>
             </div>
+            <a class="waves-effect waves-light btn-small" name="btnSend">인증</a>
           </div>
-
-          <div id="address">
-              <div class="row">
-                <div class="input-field inline col s9">
-                        <i class="material-icons prefix">place</i>
-                        <input name="road" placeholder="도로명 주소" type="text" class="validate" disabled>
-                </div>
-                <div class="input-field inline col s3">
-                    <a class="waves-effect waves-light btn" name="search"><i class="material-icons left">search</i>검색</a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field inline col s12">
-                        <i class="material-icons prefix">home</i>
-                        <input type="text" class="validate" name="details">
-                        <label for="first_name" class="active">상세 주소</label>
-                </div>
-              </div>
-          </div>
-
-          <div class="submit">
-            <input type="button" id="submit" value="가입하기">
         </div>
-          
-        </form>
-      </div>
 
-    
-            
+        <div id="emailConfirm">
+          <div class="row">
+            <div class="input-field inline">
+              <i class="material-icons prefix">check</i>
+              <input placeholder="인증번호 7자리" name="confirmNo" type="text" class="validate" />
+              <label for="first_name" class="active">인증번호 *</label>
+            </div>
+            <a class="waves-effect waves-light btn-small" name="btnConfirm">인증번호 확인</a>
+            <a name="message" style="color: red">잘못된 인증번호입니다.</a>
+          </div>
+        </div>
 
+        <div class="row" id="password">
+          <div class="input-field inline col s6">
+            <i class="material-icons prefix">lock</i>
+            <input autocomplete="off" placeholder="****" name="pw" type="password" class="validate" />
+            <label for="first_name" class="active">비밀번호 *</label>
+          </div>
+          <div class="input-field inline col s6">
+            <i class="material-icons prefix">lock_outline</i>
+            <input autocomplete="off" placeholder="****" name="confirm" type="password" class="validate" />
+            <label for="first_name" class="active">비밀번호 확인 *</label>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="input-field inline col s6">
+            <i class="material-icons prefix">person</i>
+            <input autocomplete="off" placeholder="nickname" id="nickname" type="text" class="validate" />
+            <label for="first_name" class="active">닉네임 *</label>
+          </div>
+        </div>
+        <br />
 
+        <span>선택 정보</span><br /><br />
 
+        <div class="row" id="phonenumber">
+          <div class="input-field inline">
+            <i class="material-icons prefix">phone</i>
+            <input disabled value="010" type="tel" name="no1" class="validate" />
+            <label class="active">전화번호</label>
+          </div>
+          ─
+          <div class="input-field inline">
+            <input autocomplete="off" type="tel" name="no2" maxlength="4" />
+          </div>
+          ─
+          <div class="input-field inline">
+            <input autocomplete="off" type="tel" name="no3" maxlength="4" />
+          </div>
+        </div>
+
+        <div id="address">
+          <div class="row">
+            <div class="input-field inline col s9">
+              <i class="material-icons prefix">place</i>
+              <input name="road" placeholder="도로명 주소" type="text" class="validate" disabled />
+            </div>
+            <div class="input-field inline col s3">
+              <a class="waves-effect waves-light btn" name="search"><i class="material-icons left">search</i>검색</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field inline col s12">
+              <i class="material-icons prefix">home</i>
+              <input type="text" class="validate" name="details" />
+              <label for="first_name" class="active">상세 주소</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="submit">
+          <input type="button" id="submit" value="가입하기" />
+        </div>
+      </form>
+    </div>
 
     <!-- javaScript -->
-<script src="/js/default.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/default.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<script>
-    let isChecked = false;
-    let isPwChecked = false;
-    var btnEmail = document.querySelector("#email [name='btnEmail']");
-    var inputId = document.querySelector("#email [name='id']");
-    var inputAddress = document.querySelector("#email [name='address']");
-    var selectAddress = document.querySelector("#email [name='select']");
-    var complete_msg = document.querySelector("#emailConfirm [name='message']");
-    const btnSend = document.querySelector("#email [name='btnSend']");
-    var emailConfirm = document.querySelector("#emailConfirm");
-    complete_msg.style.display = 'none';
-    emailConfirm.style.display = 'none';
+    <script>
+      let isChecked = false;
+      let isPwChecked = false;
+      var btnEmail = document.querySelector("#email [name='btnEmail']");
+      var inputId = document.querySelector("#email [name='id']");
+      var inputAddress = document.querySelector("#email [name='address']");
+      var selectAddress = document.querySelector("#email [name='select']");
+      var complete_msg = document.querySelector("#emailConfirm [name='message']");
+      const btnSend = document.querySelector("#email [name='btnSend']");
+      var emailConfirm = document.querySelector("#emailConfirm");
+      complete_msg.style.display = "none";
+      emailConfirm.style.display = "none";
 
-
-    selectAddress.addEventListener("change", () => {
+      selectAddress.addEventListener("change", () => {
         inputAddress.value = selectAddress.value;
-    });
+      });
 
-
-    btnSend.addEventListener("click", () => {
+      btnSend.addEventListener("click", () => {
         var email = inputId.value + "@" + inputAddress.value;
         var randomValue = self.crypto.randomUUID().substring(0, 7);
 
         if (inputId.value.length < 1 || inputAddress.value.length < 1) {
-            M.toast({html: '이메일을 입력해 주세요.'});
+          M.toast({ html: "이메일을 입력해 주세요." });
         } else {
-            var email = inputId.value + "@" + inputAddress.value;
-            fetchTEXT(
+          var email = inputId.value + "@" + inputAddress.value;
+          fetchTEXT(
             "/member/email_search",
             {
-            email: email,
-            status: "join"
+              email: email,
+              status: "join",
             },
             (data1) => {
-                console.log(data1);
-                if (data1 >= 1) {
-                    M.toast({html: '이미 사용 중인 이메일입니다.\n다른 이메일을 사용해 주세요.'});
-                } else {
+              console.log(data1);
+              if (data1 >= 1) {
+                M.toast({ html: "이미 사용 중인 이메일입니다.\n다른 이메일을 사용해 주세요." });
+              } else {
                 fetchTEXT(
-                "/email/send",
-                {
+                  "/email/send",
+                  {
                     confirm_text: randomValue,
-                    email: email
-                },
-                (data2) => {
+                    email: email,
+                  },
+                  (data2) => {
                     console.log(data2);
                     if (data2 != null) {
-                        emailConfirm.style.display = 'block';
-                        var btnConfirm = document.querySelector("#emailConfirm a[name='btnConfirm']");
+                      emailConfirm.style.display = "block";
+                      var btnConfirm = document.querySelector("#emailConfirm a[name='btnConfirm']");
 
-                        btnConfirm.addEventListener("click", () => {
-                            var confirmNo = document.querySelector("#emailConfirm [name='confirmNo']");
-                            if (data2 == confirmNo.value){
-                                isChecked = true;
-                                M.toast({html: '인증이 완료되었습니다.\n회원가입을 계속 진행하세요.'});
-                                inputId.disabled = true;
-                                inputAddress.disabled = true;
-                                btnConfirm.text = '인증됨';
-                                btnSend.classList.add('disabled');
-                                btnConfirm.classList.add('disabled');
-                            } else {
-                                M.toast({html: '잘못된 인증번호입니다.\n다시 입력해주세요.'});
-                                complete_msg.style.display = 'block';
-                            }
-                        });
+                      btnConfirm.addEventListener("click", () => {
+                        var confirmNo = document.querySelector("#emailConfirm [name='confirmNo']");
+                        if (data2 == confirmNo.value) {
+                          isChecked = true;
+                          M.toast({ html: "인증이 완료되었습니다.\n회원가입을 계속 진행하세요." });
+                          inputId.disabled = true;
+                          inputAddress.disabled = true;
+                          btnConfirm.text = "인증됨";
+                          btnSend.classList.add("disabled");
+                          btnConfirm.classList.add("disabled");
+                        } else {
+                          M.toast({ html: "잘못된 인증번호입니다.\n다시 입력해주세요." });
+                          complete_msg.style.display = "block";
+                        }
+                      });
                     } else {
-                        complete_msg.text = "사용할 수 없는 이메일입니다.";
+                      complete_msg.text = "사용할 수 없는 이메일입니다.";
                     }
-                },
-            );
+                  }
+                );
+              }
             }
+          );
         }
-      );
-    }
-});
+      });
 
-    var btnPw = document.querySelector("#password [name='btnPw']");
-    var pw = document.querySelector("#password [name='pw']");
-    var confirm = document.querySelector("#password [name='confirm']");
+      var btnPw = document.querySelector("#password [name='btnPw']");
+      var pw = document.querySelector("#password [name='pw']");
+      var confirm = document.querySelector("#password [name='confirm']");
 
-    confirm.addEventListener("blur", () => {
+      confirm.addEventListener("blur", () => {
         if (pw.value == confirm.value && pw.value.length != 0) {
-            return isPwChecked = true;
+          return (isPwChecked = true);
         } else if (pw.value.length == 0 || confirm.value.length == 0) {
-            M.toast({html: '비밀번호를 입력해주세요.'});
+          M.toast({ html: "비밀번호를 입력해주세요." });
         } else {
-            M.toast({html: '비밀번호가 일치하지 않습니다.'});
+          M.toast({ html: "비밀번호가 일치하지 않습니다." });
         }
-    });
+      });
 
-    var no1 = document.querySelector("#phonenumber [name='no1']");
-    var no2 = document.querySelector("#phonenumber [name='no2']");
-    var no3 = document.querySelector("#phonenumber [name='no3']");
+      var no1 = document.querySelector("#phonenumber [name='no1']");
+      var no2 = document.querySelector("#phonenumber [name='no2']");
+      var no3 = document.querySelector("#phonenumber [name='no3']");
 
-    var search = document.querySelector("#address [name='search']");
-    search.addEventListener("click",  () => {
+      var search = document.querySelector("#address [name='search']");
+      search.addEventListener("click", () => {
         // let openWin = window.open('/roadSearch', 'pop','width=430,height=500,location=no,status=no,scrollbars=yes');
         // openWin.document.sample2_execDaumPostcode();
         new daum.Postcode({
-            oncomplete: function(data) {
-                console.log(data);
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-                var jibunAddr = data.jibunAddress; // 지번 주소 변수
-                if(roadAddr !== ''){
-                    document.querySelector("#address [name='road']").value = roadAddr;
-                } 
-                else if(jibunAddr !== ''){
-                    document.querySelector("#address [name='road']").value = jibunAddr;
-                }
+          oncomplete: function (data) {
+            console.log(data);
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+            if (roadAddr !== "") {
+              document.querySelector("#address [name='road']").value = roadAddr;
+            } else if (jibunAddr !== "") {
+              document.querySelector("#address [name='road']").value = jibunAddr;
             }
+          },
         }).open();
-    });
+      });
 
-    // var btnAddress = document.querySelector("#address [name='btnAddress']");
-    var road = document.querySelector("#address [name='road']");
-    var details = document.querySelector("#address [name='details']");
+      // var btnAddress = document.querySelector("#address [name='btnAddress']");
+      var road = document.querySelector("#address [name='road']");
+      var details = document.querySelector("#address [name='details']");
 
-    var nickname = document.querySelector("#nickname");
+      var nickname = document.querySelector("#nickname");
 
-    // btnAddress.addEventListener("click", () => {
-    //     alert(road.value + ", " + details.value);
-    // });
+      // btnAddress.addEventListener("click", () => {
+      //     alert(road.value + ", " + details.value);
+      // });
 
-    const submit = document.querySelector("#submit");
-    submit.addEventListener("click", () => {
+      const submit = document.querySelector("#submit");
+      submit.addEventListener("click", () => {
         if (!isChecked) {
-            M.toast({html: '이메일 인증은 필수입니다.\n이메일을 인증해 주세요.'});
-            inputId.focus();
+          M.toast({ html: "이메일 인증은 필수입니다.\n이메일을 인증해 주세요." });
+          inputId.focus();
         } else if (!isPwChecked) {
-            M.toast({html: '비밀번호를 확인해 주세요.'});
-            pw.focus();
+          M.toast({ html: "비밀번호를 확인해 주세요." });
+          pw.focus();
         } else if (nickname.value.length == 0) {
-            M.toast({html: '닉네임을 입력해 주세요.'});
-            nickname.focus();
+          M.toast({ html: "닉네임을 입력해 주세요." });
+          nickname.focus();
         } else {
-            var phone;
-            if (no2.value.length == 0 || no3.value.length == 0) {
-                phone = "";
-            } else {
-                phone = no1.value + "-" + no2.value + "-" + no3.value;
-            }
+          var phone;
+          if (no2.value.length == 0 || no3.value.length == 0) {
+            phone = "";
+          } else {
+            phone = no1.value + "-" + no2.value + "-" + no3.value;
+          }
 
-            var roadadd;
-            if (road.value.length == 0) {
-                roadadd = "";
-            } else if (details.value.length == 0) {
-                roadadd = road.value;
-            } else {
-                roadadd = road.value + ", " + details.value;
-            }
+          var roadadd;
+          if (road.value.length == 0) {
+            roadadd = "";
+          } else if (details.value.length == 0) {
+            roadadd = road.value;
+          } else {
+            roadadd = road.value + ", " + details.value;
+          }
 
-            fetchTEXT(
-            "/member/createMember", 
+          fetchTEXT(
+            "/member/createMember",
             {
-                email: inputId.value + "@" + inputAddress.value,
-                password: confirm.value,
-                nickname: nickname.value,
-                phonenumber: phone,
-                address: roadadd,
-                sns: "N"
-            }, 
+              email: inputId.value + "@" + inputAddress.value,
+              password: confirm.value,
+              nickname: nickname.value,
+              phonenumber: phone,
+              address: roadadd,
+              sns: "N",
+            },
             (data) => {
-                console.log(data);
-                window.location.href = "/member/login";
+              console.log(data);
+              window.location.href = "/member/login";
             }
-            );
+          );
         }
-    });
-
-
-    
-</script>
-
-</body>
+      });
+    </script>
+  </body>
 </html>

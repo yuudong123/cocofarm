@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.cocofarm.webpage.common.PreviousPageHandler;
 import com.cocofarm.webpage.common.RequestApi;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.service.MemberService;
@@ -26,13 +27,19 @@ import com.cocofarm.webpage.service.MemberService;
 @SessionAttributes({ "userinfo", "prevPage", "email" })
 public class WebMemberController {
 
+    private final PreviousPageHandler previousPageHandler;
+
+    public WebMemberController(PreviousPageHandler previousPageHandler) {
+        this.previousPageHandler = previousPageHandler;
+    }
+
     @Autowired
     MemberService memberService;
 
     @GetMapping(value = "/member/login")
     public ModelAndView loginGET(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("prevPage", request.getHeader("referer"));
+        mav.addObject("prevPage", previousPageHandler.getPreviousPage(request));
         mav.setViewName("member/login");
         return mav;
     }
@@ -43,11 +50,7 @@ public class WebMemberController {
         MemberVO userinfo = memberService.login(emailAndPassword);
         if (userinfo != null) {
             model.addAttribute("userinfo", userinfo);
-            if ((model.getAttribute("prevPage") + "").equals("http://localhost:9090/member/join")) {
-                return "/";
-            }
-            // return model.getAttribute("prevPage") + "";
-            return "/";
+            return model.getAttribute("prevPage") + "";
         } else {
             return "false";
         }
@@ -117,7 +120,6 @@ public class WebMemberController {
     @PostMapping(value = "/member/logout")
     public String logout(SessionStatus sessionStatus, Model model) {
         sessionStatus.setComplete();
-        // return model.getAttribute("prevPage") + "";
         return "/";
     }
 
@@ -140,15 +142,7 @@ public class WebMemberController {
 
     @ResponseBody
     @PostMapping(value = "/member/createMember")
-    public int createMember(@RequestBody HashMap<String, String> param) {
-        MemberVO vo = new MemberVO();
-        vo.setEmail(param.get("email"));
-        vo.setPassword(param.get("password"));
-        vo.setNickname(param.get("nickname"));
-        vo.setPhonenumber(param.get("phonenumber"));
-        vo.setAddress(param.get("address"));
-        vo.setSns(param.get("sns"));
-
+    public int createMember(@RequestBody MemberVO vo) {
         return memberService.join(vo);
     }
 
