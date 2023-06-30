@@ -1,8 +1,5 @@
 package com.cocofarm.webpage.controller.web;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,8 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cocofarm.webpage.common.RequestApi;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.service.MemberService;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 @Controller
 @SessionAttributes({ "userinfo", "prevPage", "email" })
@@ -49,7 +43,7 @@ public class WebMemberController {
         MemberVO userinfo = memberService.login(emailAndPassword);
         if (userinfo != null) {
             model.addAttribute("userinfo", userinfo);
-            if((model.getAttribute("prevPage")+"").equals("http://localhost:9090/member/join")) {
+            if ((model.getAttribute("prevPage") + "").equals("http://localhost:9090/member/join")) {
                 return "/";
             }
             // return model.getAttribute("prevPage") + "";
@@ -59,40 +53,38 @@ public class WebMemberController {
         }
     }
 
-    
-
     @RequestMapping("/member/kakaocallback")
     public String kakaoCallback(String code, HttpSession session) {
         RequestApi requestApi = new RequestApi();
-        if( code==null ) return "redirect:/";
+        if (code == null)
+            return "redirect:/";
         System.out.println(code);
-        
+
         StringBuffer url = new StringBuffer(
-     "https://kauth.kakao.com/oauth/token?grant_type=authorization_code");
-        url.append("&client_id=").append( "a07abf01f02b441c592d150ab0d53577" );
-        url.append("&code=").append( code );
+                "https://kauth.kakao.com/oauth/token?grant_type=authorization_code");
+        url.append("&client_id=").append("a07abf01f02b441c592d150ab0d53577");
+        url.append("&code=").append(code);
 
-            String response = requestApi.requestAPI(url , null);
-            // String response = requestApi.requestAPI( url.toString());
-            //문자열 --> JSON
+        String response = requestApi.requestAPI(url, null);
+        // String response = requestApi.requestAPI( url.toString());
+        // 문자열 --> JSON
 
-             JSONObject json = new JSONObject( response );
-            String token_type = json.getString("token_type");
-            String access_token = json.getString("access_token");
-            
-            url = new StringBuffer("https://kapi.kakao.com/v2/user/me");
-            json = new JSONObject( requestApi.requestAPI(url, token_type + " "+ access_token) );
-            json = json.getJSONObject("kakao_account");
-            System.out.println(json.toString());
-            MemberVO vo = new MemberVO();
-            vo.setSns( "KAKAO" );
-            vo.setEmail( json.get("email").toString());
-                return "redirect:/";
-        }
+        JSONObject json = new JSONObject(response);
+        String token_type = json.getString("token_type");
+        String access_token = json.getString("access_token");
 
+        url = new StringBuffer("https://kapi.kakao.com/v2/user/me");
+        json = new JSONObject(requestApi.requestAPI(url, token_type + " " + access_token));
+        json = json.getJSONObject("kakao_account");
+        System.out.println(json.toString());
+        MemberVO vo = new MemberVO();
+        vo.setSns("KAKAO");
+        vo.setEmail(json.get("email").toString());
+        return "redirect:/";
+    }
 
     @GetMapping(value = "/member/kakaologin")
-    public String kakao(){
+    public String kakao() {
         return "redirect:https://kauth.kakao.com/oauth/authorize?state=aaaa&response_type=code&client_id=a07abf01f02b441c592d150ab0d53577&redirect_uri=http://localhost:9090/member/kakaocallback";
     }
 
@@ -104,9 +96,9 @@ public class WebMemberController {
     @GetMapping(value = "/member/modifypw")
     public ModelAndView modifypwGET(Model model) {
         ModelAndView mav = new ModelAndView();
-        String email = model.getAttribute("email")+"";
+        String email = model.getAttribute("email") + "";
         mav.addObject("email", email);
-        
+
         mav.setViewName("member/modifypw");
         return mav;
     }
@@ -114,13 +106,12 @@ public class WebMemberController {
     @ResponseBody
     @PostMapping(value = "/member/modifypw")
     public String modifypw(@RequestBody HashMap<String, String> param, Model model) {
-        String email = model.getAttribute("email")+"";
+        String email = model.getAttribute("email") + "";
         String password = param.get("password");
 
         memberService.pw_modify(email, password);
         return "success";
     }
-
 
     @ResponseBody
     @PostMapping(value = "/member/logout")
@@ -197,10 +188,9 @@ public class WebMemberController {
         MemberVO vo = new MemberVO();
         vo.setEmail(email.get("email"));
         sessionStatus.setComplete();
-        
+
         return memberService.away(vo.getEmail());
     }
-
 
     @ResponseBody
     @PostMapping(value = "/member/email_search")
