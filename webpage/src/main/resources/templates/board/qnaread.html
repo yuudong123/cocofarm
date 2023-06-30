@@ -19,7 +19,7 @@
             <span th:text="${#dates.format(qnadto.regdate,'yyyy/MM/dd HH:mm:ss')}"></span>
           </div>
           <div id="hr"></div>
-          <div id="productBox">
+          <div id="productBox" th:if="${qnadto.product_id != 0}">
             <img id="productImage" class="responsive-img" th:src="'/images/'+${qnadto.mainimage}" alt="메인 이미지" />
             <div>
               <h6 th:text="${qnadto.product_name}"></h6>
@@ -35,7 +35,7 @@
           </div>
           <button th:if="${userinfo!=null && userinfo.member_type_cd==101 && qnadto.answer==null}" id="btnAnswerConfirm" class="btn">확인</button>
           <button th:if="${userinfo!=null && userinfo.member_type_cd==101 && qnadto.answer==null}" id="btnAnswer" class="btn">답변 쓰기</button>
-          <p id="answer" class="grey-text">답변이 없습니다.</p>
+          <p id="answer" class="grey-text">답변을 준비중입니다</p>
         </section>
       </div>
     </main>
@@ -99,12 +99,10 @@
       }
     }
     function loadAnswer() {
-      answer.innerHTML = "";
       fetchJSON("/reply/getanswer", { board_no: board_no }, (data) => {
-        if (data) {
+        if (data != "" || data != null) {
           answer.innerHTML = data.content;
-        } else {
-          answer.innerHTML = "답변이 없습니다.";
+          answer.classList.remove("grey-text");
         }
       });
     }

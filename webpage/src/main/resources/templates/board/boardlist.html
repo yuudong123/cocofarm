@@ -39,7 +39,7 @@
             <tr th:each="board : ${boardlist}">
               <td>
                 <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
-                <small th:if="${board.regdate != board.upddate}" style="color: #aaa">수정됨</small>
+                <small th:if="${board.regdate != board.upddate}" style="color: #aaa; margin-left: 5px">수정됨</small>
               </td>
               <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
             </tr>

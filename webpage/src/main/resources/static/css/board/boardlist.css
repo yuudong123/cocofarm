@@ -47,6 +47,7 @@ tr {
 td:nth-child(1) {
   display: flex;
   width: 100%;
+  align-items: baseline;
 }
 td:nth-child(1) div:nth-child(3) {
   display: flex;

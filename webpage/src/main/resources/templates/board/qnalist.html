@@ -45,7 +45,7 @@
           <tbody>
             <tr th:each="board : ${boardlist}">
               <td>
-                <small th:if="${board.replycnt != 0}" style="color: #aaa">[답변완료]</small>
+                <small th:if="${board.replycnt != 0}" style="color: #aaa; margin-right: 5px">[답변완료]</small>
                 <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
               </td>
               <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
