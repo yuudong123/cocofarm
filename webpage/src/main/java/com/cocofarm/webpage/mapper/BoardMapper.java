@@ -17,6 +17,8 @@ public interface BoardMapper {
 
     public ArrayList<QnaDTO> selectQnaList(CriteriaDTO cri);
 
+    public ArrayList<QnaDTO> selectReviewList(CriteriaDTO cri);
+
     public ArrayList<QnaDTO> selectNoAnsweredQnaList();
 
     public BoardVO selectboard(int board_no);

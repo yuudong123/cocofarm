@@ -46,6 +46,12 @@ public class WebBoardController {
             mav.addObject("boardlist", qnalist);
             mav.addObject("productlist", productlist);
             mav.setViewName("board/qnalist");
+        } else if (category.equals("review")) {
+            ArrayList<QnaDTO> reviewlist = boardService.selectReviewList(cri);
+            ArrayList<ProductVO> productlist = productService.selectProductListWithImage();
+            mav.addObject("boardlist", reviewlist);
+            mav.addObject("productlist", productlist);
+            mav.setViewName("board/reviewlist");
         } else {
             ArrayList<BoardVO> boardlist = boardService.selectList(category, cri);
             mav.addObject("boardlist", boardlist);

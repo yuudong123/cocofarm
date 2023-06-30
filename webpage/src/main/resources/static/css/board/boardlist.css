@@ -39,9 +39,23 @@
 
 tr {
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+td:nth-child(1) {
+  display: flex;
+  width: 100%;
+}
+td:nth-child(1) div:nth-child(3) {
+  display: flex;
+  position: absolute;
+  margin: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  right: 0;
 }
 
 #reqDivInner {
@@ -90,4 +104,20 @@ tr {
 
 .boardtitle {
   cursor: pointer;
+}
+
+#productBox {
+  display: flex;
+  height: 120px;
+  background-color: #eee;
+  flex-grow: 1;
+  padding: 10px;
+}
+#productImage {
+  width: 100px;
+  margin-right: 10px;
+}
+#productContent {
+  font-size: 0.8rem;
+  max-lines: 3;
 }

@@ -54,6 +54,12 @@ public class BoardService {
         return list;
     }
 
+    public ArrayList<QnaDTO> selectReviewList(CriteriaDTO cri) {
+        cri.setCode(BOARD_CATEGORY_REVIEW);
+        ArrayList<QnaDTO> list = boardMapper.selectReviewList(cri);
+        return list;
+    }
+
     public ArrayList<QnaDTO> selectNoAnsweredQnaList() {
         ArrayList<QnaDTO> list = boardMapper.selectNoAnsweredQnaList();
         return list;

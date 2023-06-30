@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardlist.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <form id="reqDiv" method="get">
+          <div id="category">
+            <a data-category="notice">공지사항</a>
+            <a data-category="event">이벤트</a>
+            <a data-category="qna">Qna</a>
+            <a data-category="review">리뷰</a>
+          </div>
+          <div id="categorySelectBar"></div>
+          <div id="reqDivInner">
+            <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
+            <select name="boardPerPage" id="selectBoardPerPage">
+              <option value="10" selected>10개씩 보기</option>
+              <option value="30">30개씩 보기</option>
+              <option value="50">50개씩 보기</option>
+            </select>
+            <select name="productId" id="selectProduct">
+              <option value="0">-- 모든 결과 --</option>
+              <th:block th:each="product : ${productlist}">
+                <option th:value="${product.product_id}" th:text="${product.name}"></option>
+              </th:block>
+            </select>
+          </div>
+        </form>
+        <p id="noresultmsg" th:if="${boardlist.size == 0}">조건에 맞는 리뷰가 없습니다.</p>
+        <a th:if="${userinfo != null}" th:href="@{/board/qnawrite}" id="btnQnaWrite" class="btn right blue">Qna 쓰기<i class="material-icons">edit</i></a>
+        <table th:if="${boardlist.size != 0}">
+          <tbody>
+            <tr th:each="board : ${boardlist}">
+              <td>
+                <div id="productBox">
+                  <img id="productImage" class="responsive-img" th:src="'/images/'+${board.mainimage}" alt="메인 이미지" />
+                  <div>
+                    <h6 th:text="${board.product_name}"></h6>
+                    <p id="productContent" th:text="${board.content}"></p>
+                  </div>
+                  <div>
+                    <span th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></span>
+                    <span th:text="${board.nickname}"></span>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ul class="pagination" th:if="${boardlist.size != 0}">
+          <li class="waves-effect">
+            <a id="pageFirst"><i class="material-icons">chevron_left</i></a>
+          </li>
+          <th:block th:each="num : ${#numbers.sequence(pager.startPage,pager.endPage)}">
+            <li class="waves-effect"><a class="pageNum" th:text="${num}"></a></li>
+          </th:block>
+          <li class="waves-effect">
+            <a id="pageLast"><i class="material-icons">chevron_right</i></a>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script th:inline="javascript">
+      const reqDiv = document.querySelector("#reqDiv");
+      const categorys = document.querySelectorAll("#category a");
+      const selectBar = document.getElementById("categorySelectBar");
+      const selectBoardPerPage = document.querySelector("#selectBoardPerPage");
+      const selectProduct = document.querySelector("#selectProduct");
+      const inputPage = document.querySelector("#inputPage");
+      const inputKeyword = document.querySelector("#inputKeyword");
+      const btnSearch = document.querySelector("#btnSearch");
+      const pageFirst = document.querySelector("#pageFirst");
+      const pageLast = document.querySelector("#pageLast");
+      const pageNum = document.querySelectorAll(".pageNum");
+      const boardtitle = document.querySelectorAll(".boardtitle");
+
+      switch (/*[[${pager.cri.boardPerPage}]]*/ "") {
+        case 10:
+          selectBoardPerPage.selectedIndex = 0;
+          break;
+        case 30:
+          selectBoardPerPage.selectedIndex = 1;
+          break;
+        case 50:
+          selectBoardPerPage.selectedIndex = 2;
+          break;
+      }
+
+      for (let i = 0; i < selectProduct.options.length; i++) {
+        console.log(/*[[${pager.cri.productId}]]*/ "");
+        if (selectProduct.options[i].value == /*[[${pager.cri.productId}]]*/ "") {
+          selectProduct.options[i].selected = true;
+        }
+      }
+
+      selectProduct.addEventListener("change", () => {
+        inputPage.value = 1;
+        reqDiv.submit();
+      });
+
+      categorys.forEach((category) => {
+        category.addEventListener("click", () => {
+          reqDiv.setAttribute("action", "/board/" + category.dataset.category);
+          inputPage.value = 1;
+          reqDiv.submit();
+        });
+
+        var width = category.offsetWidth;
+        var offsetLeft = category.offsetLeft;
+        category.addEventListener("mouseenter", function () {
+          selectBar.style.width = width + "px";
+          selectBar.style.transform = "translateX(" + offsetLeft + "px)";
+        });
+
+        category.addEventListener("mouseleave", function () {
+          selectBar.style.width = "0";
+          selectBar.style.transform = "translateX(" + (offsetLeft + width / 2) + "px)";
+        });
+      });
+
+      pageFirst.addEventListener("click", () => {
+        inputPage.value = 1;
+        reqDiv.submit();
+      });
+      pageLast.addEventListener("click", () => {
+        inputPage.value = /*[[${pager.lastPage}]]*/ "";
+        reqDiv.submit();
+      });
+      pageNum.forEach((page) => {
+        page.addEventListener("click", () => {
+          inputPage.value = page.textContent;
+          reqDiv.submit();
+        });
+        if (page.textContent == inputPage.value) {
+          page.parentElement.classList.add("active");
+          page.parentElement.classList.add("green");
+        }
+      });
+      boardtitle.forEach((board) => {
+        board.addEventListener("click", () => {
+          if (location.href.includes("?")) {
+            location.href = location.href.substring(0, location.href.indexOf("?")) + "/" + board.dataset.no;
+          } else {
+            location.href = location.href + "/" + board.dataset.no;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
