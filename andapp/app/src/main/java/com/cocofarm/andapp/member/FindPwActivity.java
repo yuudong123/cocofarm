@@ -1,12 +1,12 @@
 package com.cocofarm.andapp.member;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.InputInfoEmailBinding;
@@ -30,49 +30,44 @@ public class FindPwActivity extends AppCompatActivity {
         YoYo.with(Techniques.FadeInUp).duration(1000).repeat(0).playOn(binding.edtInfo);
         YoYo.with(Techniques.FadeInUp).duration(1000).repeat(0).playOn(binding.tvSend);
 
-
         binding.tvSend.setOnClickListener(view -> {
             String email = binding.edtInfo.getText().toString();
 
             if (email.isEmpty()) {
                 Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
-            } else {
-                CommonConn email_conn = new CommonConn(this, "/member/email_search.and");
-                email_conn.addParam("email", email);
+                return;
+            }
+            CommonConn email_conn = new CommonConn(this, "/member/email_search.and");
+            email_conn.addParam("email", email);
 
-                email_conn.onExcute((isResult, data) -> {
-                    if(isResult) {
-                            binding.tvSend.setVisibility(View.GONE);
-                            binding.tvComplete.setVisibility(View.VISIBLE);
-                            binding.layoutConfirm.setVisibility(View.VISIBLE);
+            email_conn.onExcute((isResult, data) -> {
+                if (!isResult) {
+                    Toast.makeText(this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
+                binding.tvSend.setVisibility(View.GONE);
+                binding.tvComplete.setVisibility(View.VISIBLE);
+                binding.layoutConfirm.setVisibility(View.VISIBLE);
 
-                            String confirm_text = JoinEmailActivity.random_email();
+                String confirm_text = JoinEmailActivity.random_email();
 
-                            CommonConn conn = new CommonConn(this, "/email/findpw");
-                            conn.addParam("confirm_text", confirm_text);
-                            conn.addParam("email", email);
+                CommonConn conn = new CommonConn(this, "/email/findpw");
+                conn.addParam("confirm_text", confirm_text);
+                conn.addParam("email", email);
 
-                            conn.onExcute((isResult1, data1) -> {
-                                Log.d("인증번호", "onCreate: " + data1);
-                            });
+                conn.onExcute((isResult1, data1) -> Log.d("인증번호", "onCreate: " + data1));
 
-                            binding.tvOk.setOnClickListener(v->{
-                                if (binding.edtConfirm.getText().toString().equals(confirm_text)) {
-                                    Intent intent = new Intent(this, ChangePwActivity.class);
-                                    intent.putExtra("email", email);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(this, "잘못된 인증번호입니다.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                binding.tvOk.setOnClickListener(v -> {
+                    if (binding.edtConfirm.getText().toString().equals(confirm_text)) {
+                        Intent intent = new Intent(this, ChangePwActivity.class);
+                        intent.putExtra("email", email);
+                        startActivity(intent);
                     } else {
-                        Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(this, "잘못된 인증번호입니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
-            }
+            });
         });
     }
 }

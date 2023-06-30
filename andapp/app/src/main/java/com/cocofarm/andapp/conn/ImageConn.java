@@ -1,14 +1,11 @@
 package com.cocofarm.andapp.conn;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.util.HashMap;
-
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +45,7 @@ public class ImageConn {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                Toast.makeText(context, "이미지를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "이미지를 불러오지 못했습니다.", LENGTH_SHORT).show();
             }
         });
     }

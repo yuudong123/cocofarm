@@ -20,7 +20,6 @@ public class JoinEmailActivity extends AppCompatActivity {
 
     InputInfoEmailBinding binding;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,58 +34,52 @@ public class JoinEmailActivity extends AppCompatActivity {
 
         MemberVO vo = new MemberVO();
 
-
         binding.tvSend.setOnClickListener(view -> {
             String email = binding.edtInfo.getText().toString();
 
             if (email.isEmpty()) {
                 Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show();
-            } else {
-                CommonConn email_conn = new CommonConn(this, "/member/email_search.and");
-                email_conn.addParam("email", email);
+                return;
+            }
+            CommonConn email_conn = new CommonConn(this, "/member/email_search.and");
+            email_conn.addParam("email", email);
 
-                email_conn.onExcute((isResult, data) -> {
-                    if(isResult) {
-                        if (data.equals("1")) {
-                            Toast.makeText(this, "이미 등록된 이메일입니다.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            vo.setEmail(email);
-                            vo.setSns("N");
-                            binding.tvSend.setVisibility(View.GONE);
-                            binding.tvComplete.setVisibility(View.VISIBLE);
-                            binding.layoutConfirm.setVisibility(View.VISIBLE);
+            email_conn.onExcute((isResult, data) -> {
+                if (!isResult) {
+                    Toast.makeText(this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
+                if (data.equals("1")) {
+                    Toast.makeText(this, "이미 등록된 이메일입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                vo.setEmail(email);
+                vo.setSns("N");
+                binding.tvSend.setVisibility(View.GONE);
+                binding.tvComplete.setVisibility(View.VISIBLE);
+                binding.layoutConfirm.setVisibility(View.VISIBLE);
 
-                            String confirm_text = random_email();
+                String confirm_text = random_email();
 
-                            CommonConn conn = new CommonConn(this, "/email/send.and");
-                            conn.addParam("confirm_text", confirm_text);
-                            conn.addParam("email", email);
-
-                            conn.onExcute((isResult1, data1) -> {
-                                Log.d("인증번호", "onCreate: " + data1);
-                            });
-
-                            binding.tvOk.setOnClickListener(v->{
-                                if (binding.edtConfirm.getText().toString().equals(confirm_text)) {
-                                    Intent intent = new Intent(JoinEmailActivity.this, JoinInfoActivity.class);
-                                    intent.putExtra("join", vo);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(this, "잘못된 인증번호입니다.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    } else {
-                        Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
+                CommonConn conn = new CommonConn(this, "/email/send.and");
+                conn.addParam("confirm_text", confirm_text);
+                conn.addParam("email", email);
+                conn.onExcute((isResult1, data1) -> {
+                    Log.d("인증번호", "onCreate: " + data1);
                 });
 
-
-            }
+                binding.tvOk.setOnClickListener(v -> {
+                    if (binding.edtConfirm.getText().toString().equals(confirm_text)) {
+                        Intent intent = new Intent(JoinEmailActivity.this, JoinInfoActivity.class);
+                        intent.putExtra("join", vo);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(this, "잘못된 인증번호입니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            });
         });
-
-
 
 //        binding.tvInfoBtmClick.setOnClickListener(v-> {
 //            Intent intent = new Intent(JoinEmailActivity.this, LoginActivity.class);
@@ -95,13 +88,10 @@ public class JoinEmailActivity extends AppCompatActivity {
 //        });
     }
 
-
-
-
     // 인증번호 생성
     public static String random_email() {
-        Log.d("UUID", "random_email: " +  UUID.randomUUID().toString());
-        String randomValue = UUID.randomUUID().toString().substring(0,7);
+        Log.d("UUID", "random_email: " + UUID.randomUUID().toString());
+        String randomValue = UUID.randomUUID().toString().substring(0, 7);
 
         return randomValue;
     }

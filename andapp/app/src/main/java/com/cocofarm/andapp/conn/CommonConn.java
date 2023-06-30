@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.conn;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
@@ -60,7 +62,7 @@ public class CommonConn {
                     return;
                 }
 
-                Toast.makeText(context, "오류가 발생했습니다", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "오류가 발생했습니다", LENGTH_SHORT).show();
                 if (dialog != null) {
                     dialog.dismiss();
                 }

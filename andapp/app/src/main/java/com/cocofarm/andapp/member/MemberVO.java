@@ -26,7 +26,6 @@ public class MemberVO implements Serializable {
     private String m_answer;
 
     public MemberVO() {
-
     }
 
     public MemberVO(int member_no, String nickname, int member_type_cd) {
