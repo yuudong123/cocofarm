@@ -12,7 +12,6 @@ import static com.cocofarm.andapp.common.CommonVal.yyyyMMddHHmmss;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -27,7 +26,6 @@ import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
 import com.cocofarm.andapp.product.ProductVO;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class QnAReadActivity extends AppCompatActivity {
 
@@ -62,8 +60,7 @@ public class QnAReadActivity extends AppCompatActivity {
                 CommonConn conn = new CommonConn(this, "selectProductContent.and");
                 conn.addParam("product_id", dto.getProduct_id());
                 conn.onExcute((isResult, data) -> {
-                    productVO = new Gson().fromJson(data, new TypeToken<ProductVO>() {
-                    }.getType());
+                    productVO = new Gson().fromJson(data, ProductVO.class);
                     intent.putExtra("productVO", productVO);
                     startActivity(intent);
                 });

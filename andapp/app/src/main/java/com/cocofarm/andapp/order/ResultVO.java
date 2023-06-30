@@ -1,4 +1,4 @@
-package com.cocofarm.andapp.common;
+package com.cocofarm.andapp.order;
 
 import lombok.Data;
 
