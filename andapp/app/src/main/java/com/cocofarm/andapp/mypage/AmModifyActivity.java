@@ -11,7 +11,6 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
 
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.common.CommonVal;
@@ -23,10 +22,8 @@ import com.google.gson.Gson;
 public class AmModifyActivity extends AppCompatActivity {
 
     ActivityAmModifyBinding binding;
-    MemberVO vo = CommonVal.loginMember;
     public String oldEdtPhone = "";
     TextWatcher watcher;
-    NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +69,10 @@ public class AmModifyActivity extends AppCompatActivity {
 
         // 주소
         binding.tvAddressModify.setOnClickListener(v -> {
-            String address = (String) binding.tvAddress.getText();
-
             Intent intent = new Intent(AmModifyActivity.this, RoadSearchActivity.class);
             getSearchResult.launch(intent);
             binding.edtAddress.setVisibility(View.VISIBLE);
         });
-
 
         watcher = new TextWatcher() {
             @Override
@@ -94,16 +88,10 @@ public class AmModifyActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 if (oldEdtPhone.equals(editable.toString())) return;
-                ;
-
-
-                setEdtChangeText(phone_format(editable.toString().toString()));
+                setEdtChangeText(phone_format(editable.toString()));
             }
         };
-
-
         binding.edtPhone.addTextChangedListener(watcher);
-
 
         // 완료
         binding.btnOk.setOnClickListener(v -> {
@@ -147,7 +135,6 @@ public class AmModifyActivity extends AppCompatActivity {
                     Log.e("정보수정", "데이터를 가져오지 못했습니다.");
                 }
             });
-
         });
     }
 
@@ -167,13 +154,10 @@ public class AmModifyActivity extends AppCompatActivity {
     private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    if (result.getData() != null) {
-                        String data = result.getData().getStringExtra("address");
-                        binding.tvAddress.setText(data);
-                    }
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    String data = result.getData().getStringExtra("address");
+                    binding.tvAddress.setText(data);
                 }
             }
     );
-
 }

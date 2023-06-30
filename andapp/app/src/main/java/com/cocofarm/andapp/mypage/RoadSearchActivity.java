@@ -1,7 +1,5 @@
 package com.cocofarm.andapp.mypage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,16 +15,19 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.cocofarm.andapp.conn.Service;
 import com.cocofarm.andapp.databinding.ActivityRoadSearchBinding;
 
 public class RoadSearchActivity extends AppCompatActivity {
     ActivityRoadSearchBinding binding;
     WebView webView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= ActivityRoadSearchBinding.inflate(getLayoutInflater());
+        binding = ActivityRoadSearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         init_webView();
@@ -75,7 +76,7 @@ public class RoadSearchActivity extends AppCompatActivity {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 Log.e("페이지 시작", url);
-             //   binding.webProgress.setVisibility(View.VISIBLE);
+                //   binding.webProgress.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -86,25 +87,20 @@ public class RoadSearchActivity extends AppCompatActivity {
                 webView.loadUrl("javascript:sample2_execDaumPostcode();");
             }
         });
-
         // webview url load. php or html 파일 주소
         webView.loadUrl(Service.getApiClient().baseUrl() + "roadSearch");
     }
-
 
     class AndroidBridge {
         @JavascriptInterface
         @SuppressWarnings("unused")
         public void processDATA(String roadAdd) {
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d("주소", "run: " + roadAdd);
-                    Intent intent = new Intent();
-                    intent.putExtra("address", roadAdd);
-                    setResult(RESULT_OK ,intent);
-                    finish();
-                }
+            new Handler().post(() -> {
+                Log.d("주소", "run: " + roadAdd);
+                Intent intent = new Intent();
+                intent.putExtra("address", roadAdd);
+                setResult(RESULT_OK, intent);
+                finish();
             });
         }
     }

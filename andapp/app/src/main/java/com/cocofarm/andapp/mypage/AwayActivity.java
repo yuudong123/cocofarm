@@ -1,10 +1,10 @@
 package com.cocofarm.andapp.mypage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ActivityAmConfirmBinding;
@@ -22,8 +22,8 @@ public class AwayActivity extends AppCompatActivity {
         binding.tvTitle.setText("회원탈퇴");
         binding.tvEmail.setText(CommonVal.loginMember.getEmail());
 
-        binding.btnOk.setOnClickListener(v->{
-            if(binding.edtPw.getText().toString().equals(CommonVal.loginMember.getPassword().toString())) {
+        binding.btnOk.setOnClickListener(v -> {
+            if (binding.edtPw.getText().toString().equals(CommonVal.loginMember.getPassword().toString())) {
                 Intent intent = new Intent(AwayActivity.this, AwayRemoveActivity.class);
                 startActivity(intent);
             } else {

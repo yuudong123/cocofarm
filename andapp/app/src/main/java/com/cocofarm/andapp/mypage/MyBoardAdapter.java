@@ -7,21 +7,17 @@ import static com.cocofarm.andapp.common.CommonVal.isToday;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocofarm.andapp.board.BoardVO;
 import com.cocofarm.andapp.board.QnAReadActivity;
 import com.cocofarm.andapp.board.QnaDTO;
 import com.cocofarm.andapp.databinding.ItemMyBoardBinding;
-import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MyBoardAdapter extends RecyclerView.Adapter<MyBoardAdapter.ViewHolder> {
 
@@ -46,23 +42,18 @@ public class MyBoardAdapter extends RecyclerView.Adapter<MyBoardAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         QnaDTO qnaDTO = list.get(position);
-        holder.binding.title.setText(list.get(position).getTitle());
-        if (list.get(position).getReplycnt() == 0) {
+        holder.binding.title.setText(qnaDTO.getTitle());
+        if (qnaDTO.getReplycnt() == 0) {
             holder.binding.answer.setText("");
         }
-        SimpleDateFormat sdf;
-        if (isToday(list.get(position).getRegdate())) {
-            sdf = HHmmss;
-        } else {
-            sdf = Md;
-        }
+        SimpleDateFormat sdf = isToday(qnaDTO.getRegdate()) ? HHmmss : Md;
 
-        holder.binding.title.setText(list.get(position).getTitle());
-        holder.binding.regdate.setText(sdf.format(list.get(position).getRegdate()));
+        holder.binding.title.setText(qnaDTO.getTitle());
+        holder.binding.regdate.setText(sdf.format(qnaDTO.getRegdate()));
 
         holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, QnAReadActivity.class);
-            intent.putExtra("QnaDTO", list.get(position));
+            intent.putExtra("QnaDTO", qnaDTO);
             context.startActivity(intent);
         });
     }

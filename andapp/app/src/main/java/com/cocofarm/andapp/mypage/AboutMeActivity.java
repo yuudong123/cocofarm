@@ -1,19 +1,17 @@
 package com.cocofarm.andapp.mypage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ActivityAboutMeBinding;
-import com.cocofarm.andapp.member.MemberVO;
 
 public class AboutMeActivity extends AppCompatActivity {
 
     ActivityAboutMeBinding binding;
-    MemberVO vo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +19,7 @@ public class AboutMeActivity extends AppCompatActivity {
         binding = ActivityAboutMeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
-        binding.tvModify.setOnClickListener(v->{
+        binding.tvModify.setOnClickListener(v -> {
             Intent intent = new Intent(AboutMeActivity.this, AmConfirmActivity.class);
             startActivity(intent);
         });
@@ -37,7 +34,4 @@ public class AboutMeActivity extends AppCompatActivity {
             Toast.makeText(this, "오류 발생", Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
 }

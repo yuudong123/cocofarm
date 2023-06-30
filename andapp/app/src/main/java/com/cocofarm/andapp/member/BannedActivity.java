@@ -12,7 +12,6 @@ import com.cocofarm.andapp.util.BackPressedHandler;
 public class BannedActivity extends AppCompatActivity {
 
     ActivityBannedBinding binding;
-    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +27,7 @@ public class BannedActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }

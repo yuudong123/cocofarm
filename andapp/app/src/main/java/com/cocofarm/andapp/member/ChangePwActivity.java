@@ -12,7 +12,6 @@ import com.cocofarm.andapp.util.BackPressedHandler;
 
 public class ChangePwActivity extends AppCompatActivity {
     InputInfoPwBinding binding;
-    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,7 @@ public class ChangePwActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }
