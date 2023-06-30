@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.board;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
 
 import android.content.Context;
@@ -38,10 +39,10 @@ public class BoardImageAdapter extends RecyclerView.Adapter<BoardImageAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ImageDTO imageDTO = list.get(i);
         holder.binding.filename.setText(imageDTO.getFilename());
-        ImageUtil.load(holder.binding.thumbnail,imageDTO.getFilename());
+        ImageUtil.load(holder.binding.thumbnail, imageDTO.getFilename());
         holder.binding.itemImageSelect.setOnClickListener(v -> {
             boardselectedImage = imageDTO.getFilename();
-            Toast.makeText(context, imageDTO.getFilename() + " 로 변경", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, imageDTO.getFilename() + " 로 변경", LENGTH_SHORT).show();
             BoardImageSelectActivity.finishActivity();
         });
     }

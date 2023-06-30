@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.board;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.board.QnAWriteActivity.qnaselectedproduct;
 
 import android.content.Context;
@@ -41,7 +42,7 @@ public class QnAProductAdapter extends RecyclerView.Adapter<QnAProductAdapter.Vi
         ImageUtil.load(holder.binding.thumbnail,productVO.getFilename());
         holder.binding.itemImageSelect.setOnClickListener(v -> {
             qnaselectedproduct = productVO;
-            Toast.makeText(context, productVO.getName() + " 로 변경", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, productVO.getName() + " 로 변경", LENGTH_SHORT).show();
             QnAProductSelectActivity.finishActivity();
         });
     }

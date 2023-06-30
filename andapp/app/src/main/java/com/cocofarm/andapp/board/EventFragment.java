@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.board;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.board.BoardFragment.cri;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
@@ -10,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,14 +40,14 @@ public class EventFragment extends Fragment {
         binding = FragmentEventBinding.inflate(inflater, container, false);
 
         if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
-            binding.btnWrite.setVisibility(View.VISIBLE);
+            binding.btnWrite.setVisibility(VISIBLE);
             binding.btnWrite.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), BoardWriteActivity.class);
                 intent.putExtra("category", BOARD_CATEGORY_EVENT);
                 startActivity(intent);
             });
         } else {
-            binding.btnWrite.setVisibility(View.GONE);
+            binding.btnWrite.setVisibility(GONE);
         }
 
         loadBoard();
@@ -100,6 +104,8 @@ public class EventFragment extends Fragment {
                 }.getType());
                 boardList.addAll(list);
                 adapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getContext(), "게시글을 불러오지 못했습니다.", LENGTH_SHORT).show();
             }
         });
     }

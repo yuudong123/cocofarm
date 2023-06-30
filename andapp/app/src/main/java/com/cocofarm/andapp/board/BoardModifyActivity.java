@@ -1,11 +1,12 @@
 package com.cocofarm.andapp.board;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,11 +33,11 @@ public class BoardModifyActivity extends AppCompatActivity {
 
         if (!"".equals(boardVO.getMainimage())) {
             boardselectedImage = boardVO.getMainimage();
-            ImageUtil.load(binding.ivMainImage,boardselectedImage);
+            ImageUtil.load(binding.ivMainImage, boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
-            binding.mainImageSelected.setVisibility(View.VISIBLE);
+            binding.mainImageSelected.setVisibility(VISIBLE);
         } else {
-            binding.mainImageSelect.setVisibility(View.VISIBLE);
+            binding.mainImageSelect.setVisibility(VISIBLE);
         }
 
         binding.mainImageSelect.setOnClickListener(v -> {
@@ -50,10 +51,10 @@ public class BoardModifyActivity extends AppCompatActivity {
 
         binding.btnConfirm.setOnClickListener(v -> {
             if (binding.edtTitle.getText().toString().equals("") || binding.edtContent.getText().toString().equals("")) {
-                Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
-            } else {
-                updateBoard();
+                Toast.makeText(this, "제목과 내용을 확인해주세요", LENGTH_SHORT).show();
+                return;
             }
+            updateBoard();
         });
 
         binding.btnCancel.setOnClickListener(v -> {
@@ -65,13 +66,13 @@ public class BoardModifyActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (!"".equals(boardselectedImage)) {
-            ImageUtil.load(binding.ivMainImage,boardselectedImage);
+            ImageUtil.load(binding.ivMainImage, boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
-            binding.mainImageSelect.setVisibility(View.GONE);
-            binding.mainImageSelected.setVisibility(View.VISIBLE);
+            binding.mainImageSelect.setVisibility(GONE);
+            binding.mainImageSelected.setVisibility(VISIBLE);
         } else {
-            binding.mainImageSelected.setVisibility(View.GONE);
-            binding.mainImageSelect.setVisibility(View.VISIBLE);
+            binding.mainImageSelected.setVisibility(GONE);
+            binding.mainImageSelect.setVisibility(VISIBLE);
         }
     }
 
@@ -89,21 +90,27 @@ public class BoardModifyActivity extends AppCompatActivity {
         conn.addParam("mainimage", boardselectedImage);
         conn.addParam("content", binding.edtContent.getText().toString());
         conn.onExcute((isResult, data) -> {
-            Log.d("글 작성", "onCreate: " + isResult);
-            if (isResult) {
-                if (BoardReadActivity.getInstance() != null) {
-                    BoardReadActivity.getInstance().finish();
-                }
-                this.finish();
-                Intent intent = new Intent(BoardModifyActivity.this, BoardReadActivity.class);
-                CommonConn newconn = new CommonConn(BoardModifyActivity.this, "board/selectboard.and");
-                newconn.addParam("board_no", boardVO.getBoard_no());
-                newconn.onExcute((isResult1, data1) -> {
+            if (!isResult) {
+                Toast.makeText(this, "오류가 발생했습니다.", LENGTH_SHORT).show();
+                return;
+            }
+            if (BoardReadActivity.getInstance() != null) {
+                BoardReadActivity.getInstance().finish();
+            }
+            this.finish();
+            Intent intent = new Intent(BoardModifyActivity.this, BoardReadActivity.class);
+            CommonConn newconn = new CommonConn(BoardModifyActivity.this, "board/selectboard.and");
+            newconn.addParam("board_no", boardVO.getBoard_no());
+            newconn.onExcute((isResult1, data1) -> {
+                if (isResult1) {
                     BoardVO newvo = new Gson().fromJson(data1, BoardVO.class);
                     intent.putExtra("BoardVO", newvo);
                     startActivity(intent);
-                });
-            }
+                } else {
+                    Toast.makeText(this, "오류가 발생했습니다.", LENGTH_SHORT).show();
+                }
+            });
+
         });
     }
 }

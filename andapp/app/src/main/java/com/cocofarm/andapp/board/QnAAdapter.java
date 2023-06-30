@@ -16,7 +16,6 @@ import com.cocofarm.andapp.databinding.ItemQnaBoardBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
     ItemQnaBoardBinding binding;
@@ -43,12 +42,8 @@ public class QnAAdapter extends RecyclerView.Adapter<QnAAdapter.ViewHolder> {
         if (qnaDTO.getReplycnt() == 0) {
             holder.binding.answer.setText("");
         }
-        SimpleDateFormat sdf;
-        if (isToday(qnaDTO.getRegdate())) {
-            sdf = HHmmss;
-        } else {
-            sdf = Md;
-        }
+        SimpleDateFormat sdf = isToday(qnaDTO.getRegdate()) ? HHmmss : Md;
+
         holder.binding.regdate.setText(sdf.format(qnaDTO.getRegdate()));
         holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, QnAReadActivity.class);

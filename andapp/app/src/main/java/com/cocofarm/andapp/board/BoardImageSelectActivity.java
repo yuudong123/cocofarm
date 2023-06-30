@@ -1,8 +1,10 @@
 package com.cocofarm.andapp.board;
 
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,12 +31,16 @@ public class BoardImageSelectActivity extends AppCompatActivity {
 
         CommonConn conn = new CommonConn(null, "selectimagelist.and");
         conn.onExcute((isResult, data) -> {
-            ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
-            }.getType());
-            BoardImageAdapter adapter = new BoardImageAdapter(this, list);
-            LinearLayoutManager manager = new LinearLayoutManager(this);
-            binding.recvBoardImageSelect.setAdapter(adapter);
-            binding.recvBoardImageSelect.setLayoutManager(manager);
+            if (isResult) {
+                ArrayList<ImageDTO> list = new Gson().fromJson(data, new TypeToken<ArrayList<ImageDTO>>() {
+                }.getType());
+                BoardImageAdapter adapter = new BoardImageAdapter(this, list);
+                LinearLayoutManager manager = new LinearLayoutManager(this);
+                binding.recvBoardImageSelect.setAdapter(adapter);
+                binding.recvBoardImageSelect.setLayoutManager(manager);
+            } else {
+                Toast.makeText(activity, "이미지를 불러오지 못했습니다.", LENGTH_SHORT).show();
+            }
         });
 
         binding.btnConfirm.setOnClickListener(v -> {

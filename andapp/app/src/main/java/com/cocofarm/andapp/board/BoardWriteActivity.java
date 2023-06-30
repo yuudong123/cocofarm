@@ -1,12 +1,13 @@
 package com.cocofarm.andapp.board;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CommonVal.boardselectedImage;
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +37,7 @@ public class BoardWriteActivity extends AppCompatActivity {
 
         binding.btnConfirm.setOnClickListener(v -> {
             if (binding.edtTitle.getText().toString().equals("") || binding.edtContent.getText().toString().equals("")) {
-                Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "제목과 내용을 확인해주세요", LENGTH_SHORT).show();
                 return;
             }
             writeBoard();
@@ -50,13 +51,13 @@ public class BoardWriteActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (boardselectedImage != "") {
-            ImageUtil.load( binding.ivMainImage,boardselectedImage);
+            ImageUtil.load(binding.ivMainImage, boardselectedImage);
             binding.tvFileName.setText(boardselectedImage);
-            binding.mainImageSelect.setVisibility(View.GONE);
-            binding.mainImageSelected.setVisibility(View.VISIBLE);
+            binding.mainImageSelect.setVisibility(GONE);
+            binding.mainImageSelected.setVisibility(VISIBLE);
         } else {
-            binding.mainImageSelected.setVisibility(View.GONE);
-            binding.mainImageSelect.setVisibility(View.VISIBLE);
+            binding.mainImageSelected.setVisibility(GONE);
+            binding.mainImageSelect.setVisibility(VISIBLE);
         }
     }
 
@@ -75,9 +76,10 @@ public class BoardWriteActivity extends AppCompatActivity {
         conn.addParam("content", binding.edtContent.getText().toString());
         conn.addParam("mainimage", boardselectedImage);
         conn.onExcute((isResult, data) -> {
-            Log.d("글 작성", "onCreate: " + isResult);
             if (isResult) {
                 finish();
+            } else {
+                Toast.makeText(this, "오류가 발생했습니다.", LENGTH_SHORT).show();
             }
         });
     }

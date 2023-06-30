@@ -2,6 +2,7 @@ package com.cocofarm.andapp.board;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.board.BoardFragment.cri;
 
 import android.content.Intent;
@@ -37,7 +38,7 @@ public class QnAFragment extends Fragment {
 
         binding.btnPrev.setOnClickListener(v -> {
             if (!prev) {
-                Toast.makeText(getContext(), "이전 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "이전 페이지가 없습니다.", LENGTH_SHORT).show();
             } else {
                 cri.setPage(cri.getPage() - 1);
                 loadBoard();
@@ -45,7 +46,7 @@ public class QnAFragment extends Fragment {
         });
         binding.btnNext.setOnClickListener(v -> {
             if (!next) {
-                Toast.makeText(getContext(), "다음 페이지가 없습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "다음 페이지가 없습니다.", LENGTH_SHORT).show();
             } else {
                 cri.setPage(cri.getPage() + 1);
                 loadBoard();
@@ -82,18 +83,18 @@ public class QnAFragment extends Fragment {
         conn.addParam("page", cri.getPage());
         conn.addParam("boardPerPage", 10);
         conn.onExcute((isResult, data) -> {
-            if (!isResult) {
-                return;
+            if (isResult) {
+                list = new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>() {
+                }.getType());
+                QnAAdapter adapter = new QnAAdapter(list, getContext());
+                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                binding.recvBoardList.setAdapter(adapter);
+                binding.recvBoardList.setLayoutManager(manager);
+            } else {
+                Toast.makeText(getContext(), "게시글을 불러오지 못했습니다.", LENGTH_SHORT).show();
             }
-            list = new Gson().fromJson(data, new TypeToken<ArrayList<QnaDTO>>() {
-            }.getType());
-            QnAAdapter adapter = new QnAAdapter(list, getContext());
-            LinearLayoutManager manager = new LinearLayoutManager(getContext());
-            binding.recvBoardList.setAdapter(adapter);
-            binding.recvBoardList.setLayoutManager(manager);
         });
         binding.pagenum.setText(cri.getPage() + "");
-
     }
 
     protected void pager() {

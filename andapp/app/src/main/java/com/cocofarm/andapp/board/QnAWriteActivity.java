@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.board;
 
+import static android.view.View.*;
+import static android.view.View.VISIBLE;
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_QNA;
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
@@ -42,7 +45,7 @@ public class QnAWriteActivity extends AppCompatActivity {
         });
         binding.btnConfirm.setOnClickListener(v -> {
             if (binding.edtTitle.getText().toString().equals("") || binding.edtContent.getText().toString().equals("")) {
-                Toast.makeText(this, "제목과 내용을 확인해주세요", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "제목과 내용을 확인해주세요", LENGTH_SHORT).show();
                 return;
             }
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -64,17 +67,17 @@ public class QnAWriteActivity extends AppCompatActivity {
         super.onStart();
         if (qnaselectedproduct != null) {
             if (qnaselectedproduct.getFilename() == null) {
-                ImageUtil.load(binding.ivProductImage,qnaselectedproduct.getImg().get(0).getFilename());
+                ImageUtil.load(binding.ivProductImage, qnaselectedproduct.getImg().get(0).getFilename());
             } else {
-                ImageUtil.load(binding.ivProductImage,qnaselectedproduct.getFilename());
+                ImageUtil.load(binding.ivProductImage, qnaselectedproduct.getFilename());
             }
             binding.tvProductName.setText(qnaselectedproduct.getName());
             binding.tvProductContent.setText(qnaselectedproduct.getContent());
-            binding.qnaProductSelect.setVisibility(View.GONE);
-            binding.qnaProductSelected.setVisibility(View.VISIBLE);
+            binding.qnaProductSelect.setVisibility(GONE);
+            binding.qnaProductSelected.setVisibility(VISIBLE);
         } else {
-            binding.qnaProductSelected.setVisibility(View.GONE);
-            binding.qnaProductSelect.setVisibility(View.VISIBLE);
+            binding.qnaProductSelected.setVisibility(GONE);
+            binding.qnaProductSelect.setVisibility(VISIBLE);
         }
     }
 
@@ -97,6 +100,8 @@ public class QnAWriteActivity extends AppCompatActivity {
             Log.d("글 작성", "onCreate: " + isResult);
             if (isResult) {
                 finish();
+            } else {
+                Toast.makeText(this, "오류가 발생했습니다.", LENGTH_SHORT).show();
             }
         });
     }

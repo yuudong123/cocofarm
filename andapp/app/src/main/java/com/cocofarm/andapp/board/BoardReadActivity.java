@@ -1,5 +1,11 @@
 package com.cocofarm.andapp.board;
 
+import static android.content.Intent.ACTION_SEND;
+import static android.content.Intent.ACTION_VIEW;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT;
+import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_NOTICE;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_QNA;
@@ -12,7 +18,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -22,7 +27,6 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.R;
-import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityBoardReadBinding;
@@ -43,11 +47,12 @@ public class BoardReadActivity extends AppCompatActivity {
         boardVO = (BoardVO) getIntent().getSerializableExtra("BoardVO");
         binding.title.setText(boardVO.getTitle());
         String category = "";
-        if (boardVO.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_QNA) {
+        int code = boardVO.getBoard_category_cd();
+        if (code == BOARD_CATEGORY_QNA) {
             category = "QnA";
-        } else if (boardVO.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_NOTICE) {
+        } else if (code == BOARD_CATEGORY_NOTICE) {
             category = "공지사항";
-        } else if (boardVO.getBoard_category_cd() == CodeTable.BOARD_CATEGORY_EVENT) {
+        } else if (code == BOARD_CATEGORY_EVENT) {
             category = "이벤트";
         }
         binding.tvCategory.setText(category);
@@ -61,7 +66,7 @@ public class BoardReadActivity extends AppCompatActivity {
         readFragment.setArguments(readBundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.containerBoardRead, readFragment).commit();
         binding.btnReply.setOnClickListener(v -> {
-            Fragment fragment = null;
+            Fragment fragment;
             if (binding.btnReply.getText().toString().equals("댓글 보기")) {
                 binding.btnReply.setIcon(getDrawable(R.drawable.icon_close));
                 binding.btnReply.setText("댓글 닫기");
@@ -80,17 +85,17 @@ public class BoardReadActivity extends AppCompatActivity {
             }
         });
         binding.btnReplyWrite.setOnClickListener(v -> {
-            binding.bottomMenuBar.setVisibility(View.GONE);
-            binding.bottomReplyWriteBar.setVisibility(View.VISIBLE);
+            binding.bottomMenuBar.setVisibility(GONE);
+            binding.bottomReplyWriteBar.setVisibility(VISIBLE);
             binding.edtReplyWrite.requestFocus();
 
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            imm.showSoftInput(binding.edtReplyWrite, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(binding.edtReplyWrite, SHOW_IMPLICIT);
         });
 
         binding.btnReplyConfirm.setOnClickListener(v -> {
             if (binding.edtReplyWrite.getText().toString().equals("")) {
-                Toast.makeText(this, "댓글을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "댓글을 입력해주세요.", LENGTH_SHORT).show();
                 return;
             }
             writeReply(boardVO.getBoard_no());
@@ -101,8 +106,8 @@ public class BoardReadActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.containerBoardRead, fragment).commit();
         });
         binding.btnReplyCancel.setOnClickListener(v -> {
-            binding.bottomMenuBar.setVisibility(View.VISIBLE);
-            binding.bottomReplyWriteBar.setVisibility(View.GONE);
+            binding.bottomMenuBar.setVisibility(VISIBLE);
+            binding.bottomReplyWriteBar.setVisibility(GONE);
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(binding.edtReplyWrite.getWindowToken(), 0);
             binding.edtReplyWrite.setText("");
@@ -116,57 +121,47 @@ public class BoardReadActivity extends AppCompatActivity {
             }
             menu.setOnMenuItemClickListener(item -> {
                 String url = BASE_URL + "board/";
-                switch (boardVO.getBoard_category_cd()) {
-                    case BOARD_CATEGORY_NOTICE:
-                        url += "notice/";
-                        break;
-                    case BOARD_CATEGORY_EVENT:
-                        url += "event/";
-                        break;
-                    case BOARD_CATEGORY_QNA:
-                        url += "qna/";
-                        break;
-                }
-                url+= boardVO.getBoard_no();
 
-                switch (item.getItemId()) {
-                    case R.id.menuBoardSeemoreModify:
-                        Intent intent = new Intent(this, BoardModifyActivity.class);
-                        intent.putExtra("BoardVO", boardVO);
-                        startActivity(intent);
-                        break;
-                    case R.id.menuBoardSeemoreDelete:
-                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                        builder.setTitle("게시글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false)
-                                .setPositiveButton("확인", (dialogInterface, i1) -> {
-                                    CommonConn conn = new CommonConn(this, "board/deleteboard.and");
-                                    conn.addParam("board_no", boardVO.getBoard_no());
-                                    conn.onExcute((isResult, data) -> {
-                                        if (isResult) {
-                                            Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                                            this.finish();
-                                        }
-                                    });
-                                })
-                                .setNegativeButton("취소", (dialogInterface, i1) -> {
-                                }).create().show();
-                        break;
-                    case R.id.menuBoardSeemoreShare:
-                        Intent intentShare = new Intent(Intent.ACTION_SEND);
-                        intentShare.setType("text/plain");
-                        intentShare.putExtra(Intent.EXTRA_TEXT, url);
-                        startActivity(Intent.createChooser(intentShare, "공유하기"));
-                        break;
-                    case R.id.menuBoardSeemoreBrowser:
-                        Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
-                        intentBrowser.setData(Uri.parse(url));
-                        startActivity(intentBrowser);
-                        break;
-                    default:
-                        break;
+                if (code == BOARD_CATEGORY_NOTICE) {
+                    url += "notice/";
+                } else if (code == BOARD_CATEGORY_EVENT) {
+                    url += "event/";
+                } else if (code == BOARD_CATEGORY_QNA) {
+                    url += "qna/";
+                }
+                url += boardVO.getBoard_no();
+
+                int itemId = item.getItemId();
+                if (itemId == R.id.menuBoardSeemoreModify) {
+                    Intent intent = new Intent(this, BoardModifyActivity.class);
+                    intent.putExtra("BoardVO", boardVO);
+                    startActivity(intent);
+                } else if (itemId == R.id.menuBoardSeemoreDelete) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("게시글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false).setPositiveButton("확인", (dialogInterface, i1) -> {
+                        CommonConn conn = new CommonConn(this, "board/deleteboard.and");
+                        conn.addParam("board_no", boardVO.getBoard_no());
+                        conn.onExcute((isResult, data) -> {
+                            if (isResult) {
+                                Toast.makeText(this, "삭제되었습니다.", LENGTH_SHORT).show();
+                                this.finish();
+                            }
+                        });
+                    }).setNegativeButton("취소", (dialogInterface, i1) -> {
+                    }).create().show();
+                } else if (itemId == R.id.menuBoardSeemoreShare) {
+                    Intent intentShare = new Intent(ACTION_SEND);
+                    intentShare.setType("text/plain");
+                    intentShare.putExtra(Intent.EXTRA_TEXT, url);
+                    startActivity(Intent.createChooser(intentShare, "공유하기"));
+                } else if (itemId == R.id.menuBoardSeemoreBrowser) {
+                    Intent intentBrowser = new Intent(ACTION_VIEW);
+                    intentBrowser.setData(Uri.parse(url));
+                    startActivity(intentBrowser);
                 }
                 return false;
             });
+
             menu.show();
         });
     }
@@ -181,10 +176,12 @@ public class BoardReadActivity extends AppCompatActivity {
             Log.d("Reply", "onCreate: " + isResult);
             if (isResult) {
                 binding.edtReplyWrite.setText("");
-                binding.bottomMenuBar.setVisibility(View.VISIBLE);
-                binding.bottomReplyWriteBar.setVisibility(View.GONE);
+                binding.bottomMenuBar.setVisibility(VISIBLE);
+                binding.bottomReplyWriteBar.setVisibility(GONE);
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(binding.edtReplyWrite.getWindowToken(), 0);
+            } else {
+                Toast.makeText(instance, "오류가 발생했습니다.", LENGTH_SHORT).show();
             }
         });
     }
