@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/member/mypage.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <th:block th:replace="~{fragments/mypagetopbar :: mypagetopbarFragment}"></th:block>
+
+    <div class="container">
+      <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
+      <div class="row">
+        <h5>정보 수정</h5>
+        <div id="myinfo">
+          <table th:if="${userinfo!=null}">
+            <tbody>
+              <tr>
+                <th>이메일</th>
+                <td id="email" th:text="${userinfo.email}">정보 없음</td>
+              </tr>
+              <tr>
+                <th>닉네임</th>
+                <td th:text="${userinfo.nickname}" id="nickname" class="info">정보 없음</td>
+                <td><input class="input" id="input-nickname" type="text" placeholder="변경하실 닉네임을 입력해 주세요."></td>
+                <td><a class="modi" onclick="onClickModify(event);" style="cursor: pointer; text-align: right;" >수정</a></td>
+              </tr>
+              <tr>
+                <th>전화번호</th>
+                <td th:text="${userinfo.phonenumber}" id="phone" class="info">정보 없음</td>
+                <td><input class="input" id="input-phone" type="number" placeholder="변경하실 전화번호를 입력해 주세요."></td>
+                <td><a class="modi" onclick="onClickModify(event);" style="cursor: pointer;">수정</a></td>
+              </tr>
+              <tr>
+                <th>주소</th>
+                <td th:text="${userinfo.address}" id="address" class="road">정보 없음</td>
+                <td><input id="blank" type="text"></td>
+                <td><a class="search" style="cursor: pointer;">수정</a></td>
+              </tr>
+              <tr id="details" style="display: none;">
+                <th>상세 주소</th>
+                <td><input class="details" type="text" placeholder="상세주소를 입력해 주세요."></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <a onclick="onClickOk();" style="cursor: pointer;">입력 완료 ></a>
+      </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="/js/default.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+      document.querySelector("#menu-name").innerHTML = "> 내 정보 &nbsp; > 정보 수정";
+      document.querySelector("#blank").style.display = "none";
+      document.querySelectorAll(".input").forEach(function(element) {
+        element.style.display = "none";
+      });
+
+      function onClickModify(event) {
+        const currentRow = event.target.parentNode.parentNode;
+        const infoElement = currentRow.querySelector(".info");
+        const inputElement = currentRow.querySelector(".input");
+        const modifyButton = currentRow.querySelector(".modi");
+
+        infoElement.style.display = "none";
+        inputElement.style.display = "block";
+        modifyButton.textContent = "취소";
+        modifyButton.setAttribute("onclick", "onClickCancel(event)");
+      }
+
+      function onClickCancel(event) {
+        const currentRow = event.target.parentNode.parentNode;
+        const infoElement = currentRow.querySelector(".info");
+        const inputElement = currentRow.querySelector(".input");
+        const modifyButton = currentRow.querySelector(".modi");
+
+        infoElement.style.display = "table-cell";
+        inputElement.style.display = "none";
+        modifyButton.textContent = "수정";
+        modifyButton.setAttribute("onclick", "onClickModify(event)");
+      }
+
+
+      var search = document.querySelector(".search");
+      search.addEventListener("click", () => {
+        document.querySelector("#details").style.display = '';
+        new daum.Postcode({
+          oncomplete: function (data) {
+            console.log(data);
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+            if (roadAddr !== "") {
+              document.querySelector(".road").textContent = roadAddr;
+            } else if (jibunAddr !== "") {
+              document.querySelector(".road").textContent = jibunAddr;
+            }
+          },
+        }).open();
+      });
+
+      function onClickOk () {
+        var nickname = document.querySelector("#nickname").textContent;
+        var inputNickname = document.querySelectorAll("tr")[1].querySelector(".input");
+        var phone = document.querySelector("#phone").textContent;
+        var inputPhone = document.querySelectorAll("tr")[2].querySelector(".input");
+        var address = document.querySelector("#address").textContent;
+        var details = document.querySelector(".details").value;
+        if (inputNickname.style.display == "block") {
+          nickname = inputNickname.value;
+        }
+        if (inputPhone.style.display == "block") {
+          phone = inputPhone.value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+        }
+        if (document.querySelector("#details").style.display == "") {
+          address = address + ", " + details;
+        }
+        
+        if (confirm("닉네임: " + nickname + "\n전화번호: " + phone + "\n주소: " + address + "\n\n정보를 수정하시겠습니까?")) {
+          fetchTEXT(
+          "/member/modifyinfo",
+          {
+            email: document.querySelector('#email').textContent,
+            nickname: nickname,
+            phonenumber: phone,
+            address: address,
+          },
+            (data) => {
+              location.href = "/member/myinfo";
+            }
+        );
+          } else {
+            M.toast({html: '정보 수정이 취소되었습니다.'});
+          }
+        
+        
+
+      }
+
+
+
+    </script>
+  </body>
+</html>

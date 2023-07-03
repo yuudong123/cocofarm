@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/member/mypage.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <th:block th:replace="~{fragments/mypagetopbar :: mypagetopbarFragment}"></th:block>
+
+    <div class="container">
+        <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
+        <div class="row">
+          <h5>정보 수정</h5>
+            <th:block th:replace="~{fragments/pwconfirm :: pwconfirmFragment}"></th:block>
+            <a id="ok" onclick="onClickOk();" style="cursor: pointer;">다음 ></a>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+<script src="/js/default.js"></script>
+<script>
+document.querySelector("#menu-name").innerHTML = "> 내 정보 &nbsp; > 정보 수정";
+function onClickOk(){
+            var password = document.querySelector('#password');
+            fetchTEXT(
+            "/member/pwconfirm",
+            {
+            password: password.value
+            },
+            (data) => {
+                if(data != "failure") {
+                    location.href = "/member/modifyinfo";
+                } else {
+                    M.toast({html: '비밀번호를 확인해 주세요.'});
+                }
+            });
+        }
+</script>
+
+
+</body>
+</html>

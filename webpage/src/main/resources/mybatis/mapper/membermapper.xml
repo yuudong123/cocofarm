@@ -35,6 +35,12 @@ set nickname = #{nickname}, password = #{password}, phonenumber = #{phonenumber}
 where email = #{email}
     </update>
 
+    <update id="web_modify">
+update tbl_member
+set nickname = #{nickname}, phonenumber = #{phonenumber}, address = #{address}
+where email = #{email}
+    </update>
+
     <delete id="away">
 delete from tbl_member
 where email = #{email}

@@ -41,15 +41,16 @@
     color: rgb(207, 243, 219);
 }
 
-#myinfo, #pwconfirm {
+#myinfo, #pwconfirm, #password_modify {
     border-radius: 20px;
     border: 1px solid rgb(206, 206, 206);
     padding: 30px;
 }
 
-#myinfo th, #pwconfirm th {
+#myinfo th, #pwconfirm th, #password_modify th {
     width: 25%;
     font-size: 18px;
+    font-weight: 800;
 }
 
 .row {
@@ -70,3 +71,13 @@
     font-weight: bolder;
     padding: 10px;
 }
+
+.modi, .search {
+    color: #429F5D;
+}
+
+.modi:hover, .search:hover {
+    color : crimson;
+    text-decoration: underline;
+}
+

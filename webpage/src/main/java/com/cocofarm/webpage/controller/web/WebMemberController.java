@@ -22,6 +22,7 @@ import com.cocofarm.webpage.common.PreviousPageHandler;
 import com.cocofarm.webpage.common.RequestApi;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.service.MemberService;
+import com.google.gson.Gson;
 
 @Controller
 @SessionAttributes({ "userinfo", "prevPage", "email" })
@@ -96,6 +97,16 @@ public class WebMemberController {
         return "member/findpw";
     }
 
+    @GetMapping(value = "/member/modifypw_mp")
+    public ModelAndView modifypw_mpGET(Model model) {
+        ModelAndView mav = new ModelAndView();
+        String email = model.getAttribute("email") + "";
+        mav.addObject("email", email);
+
+        mav.setViewName("member/modifypw_mp");
+        return mav;
+    }
+
     @GetMapping(value = "/member/modifypw")
     public ModelAndView modifypwGET(Model model) {
         ModelAndView mav = new ModelAndView();
@@ -116,12 +127,40 @@ public class WebMemberController {
         return "success";
     }
 
+
     @ResponseBody
     @PostMapping(value = "/member/logout")
     public String logout(SessionStatus sessionStatus, Model model) {
         sessionStatus.setComplete();
         return "/";
     }
+
+    @GetMapping(value = "/member/pwok")
+    public String pwok() {
+        return "member/pwok";
+    }
+
+    @GetMapping(value = "/member/modifyinfo")
+    public String modifyinfo() {
+        return "member/modifyinfo";
+    }
+
+    @ResponseBody
+    @PostMapping(value = "/member/modifyinfo")
+    public String modifyinfoPost(@RequestBody HashMap<String, String> param, Model model) {
+        MemberVO vo = new MemberVO();
+        vo.setEmail(param.get("email"));
+        vo.setNickname(param.get("nickname"));
+        vo.setPhonenumber(param.get("phonenumber"));
+        vo.setAddress(param.get("address"));
+
+        memberService.web_modify(vo);
+        MemberVO result = memberService.login((MemberVO)model.getAttribute("userinfo"));
+        model.addAttribute("userinfo", result);
+
+        return "success";
+    }
+
 
     @ResponseBody
     @PostMapping(value = "/member/pwconfirm")

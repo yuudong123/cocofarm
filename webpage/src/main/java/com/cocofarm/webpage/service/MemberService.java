@@ -37,6 +37,10 @@ public class MemberService {
     return mapper.login(vo);
   }
 
+  public void web_modify(MemberVO vo) {
+    mapper.web_modify(vo);
+  }
+
   public void pw_modify(String email, String password) {
     mapper.pw_modify(email, password);
   }
