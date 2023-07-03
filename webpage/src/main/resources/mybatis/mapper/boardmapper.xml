@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.BoardMapper">
     <select id="getTotal" resultType="int"> select count(*) from tbl_board where board_category_cd =
-        #{code} and title like '%'||#{keyword}||'%' <if
+        #{code} <if test="code != 203"> and title like '%'||#{keyword}||'%'</if><if
             test="productId != 0"> and product_id = #{productId} </if>
     </select>
     <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO">

@@ -2,12 +2,55 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/index.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <div class="container">기본 페이지, 새 html 생성시 복붙</div>
+      <div class="container">
+        <div class="carousel" style="height: 350px">
+          <div th:each="event : ${eventlist}" class="carousel-item">
+            <a th:href="'/board/event/'+${event.board_no}"><img th:data-no="${event.board_no}" th:src="'/images/'+${event.mainimage}" alt="이벤트 썸네일" /></a>
+          </div>
+        </div>
+        <div id="product">
+          <a th:href="@{/product}">제품 바로가기 >> </a>
+        </div>
+        <div id="board">
+          <div class="row">
+            <div class="col s12 m6">
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title">공지사항</span>
+                  <div class="collection">
+                    <a style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap" class="collection-item" th:each="notice : ${noticelist}" th:href="'/board/notice/'+${notice.board_no}" th:text="${notice.title}"></a>
+                  </div>
+                  <a th:href="@{/board/notice}">공지사항 바로가기 >> </a>
+                </div>
+              </div>
+            </div>
+            <div class="col s12 m6">
+              <div class="card">
+                <div class="card-content">
+                  <span class="card-title">이벤트</span>
+                  <div class="collection">
+                    <a style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap" class="collection-item" th:each="event : ${eventlist}" th:href="'/board/event/'+${event.board_no}" th:text="${event.title}"></a>
+                  </div>
+                  <a th:href="@{/board/event}">이벤트 바로가기 >> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script>
+      const carousel = document.querySelector(".carousel");
+      instance = M.Carousel.init(carousel, {
+        indicators: true,
+        dist: -150,
+      });
+    </script>
   </body>
 </html>

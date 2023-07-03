@@ -1,0 +1,22 @@
+.carousel-item {
+  width: 40rem !important;
+}
+
+#product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+#product a {
+  margin-block: 10px;
+}
+
+.collection-item {
+  padding: 5px 10px !important;
+}
