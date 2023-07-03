@@ -49,9 +49,20 @@ insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, r
         where o.orderproduct_id = #{orderproduct_id}
     </select>
 
+    <!-- 주문 목록에서 리뷰 읽기 -->
+    <select id="selectreviewboard" resultType="com.cocofarm.webpage.domain.BoardVO"> 
+        select * 
+        from tbl_board 
+        where orderproduct_id = #{orderproduct_id} 
+    </select>
+
+
     <resultMap id="ordermap" type="com.cocofarm.webpage.domain.OrderProductDTO">
         <id property="order_id" column="order_id" />
-        <collection property="orderproduct_list" column="order_id" select="MyOrderProductList"/>
+        <id property="member_no" column="member_no" />
+
+        <collection property="orderproduct_list" column="{order_id=order_id,member_no=member_no}" select="MyOrderProductList"/>
+        <!-- <collection property="orderproduct_list" column="order_id" select="MyOrderProductList"/> -->
     </resultMap>
 
     <!-- 내 주문목록 부르기 -->
@@ -65,15 +76,15 @@ insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, r
 
     <select id="MyOrderProductList" resultType="com.cocofarm.webpage.domain.OrderProductVO">
         <![CDATA[  
-    select op.orderproduct_id, op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount, cd.value, im.filename, p.name
-        , nvl(b.review_board_no, 0)as review_board_no
+    select op.orderproduct_id, op.product_id, op.order_id, o.member_no, o.orderdate, op.order_status_cd, op.price, op.amount, cd.value, im.filename, p.name, b.checkreview
+        
     from 
         tbl_orderproduct op
         join tbl_order o on op.order_id = o.order_id 
         join (select code, value from tbl_code where codetype='ORDER_STATUS')cd on op.order_status_cd = cd.code
         left outer join (select product_id, min(filename)as filename from tbl_image group by product_id )im on op.product_id = im.product_id
         join (select name, product_id from tbl_product)p on op.product_id = p.product_id
-        left outer join (select rownum, board_no as review_board_no, product_id from tbl_board where board_category_cd =203 and member_no =#{member_no} and rownum =1) b on op.product_id = b.product_id
+        left outer join (select orderproduct_id, count(*) as checkreview from tbl_board  where board_category_cd =203 and member_no =#{member_no} group by orderproduct_id ) b on op.orderproduct_id = b.orderproduct_id
     WHERE
         o.order_id = #{order_id}
     ORDER BY

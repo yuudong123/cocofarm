@@ -44,11 +44,13 @@ public class DeliveryStatusActivity extends AppCompatActivity {
         }else if (order_status_cd == CodeTable.ORDER_STATUS_ONDELIVERY) {
             binding.tvDeliveryOn.setTextColor(Color.parseColor("#FFFF00"));
             ment.setText("배송중입니다.");
-        }else if (order_status_cd == CodeTable.ORDER_STATUS_ARRIVED || order_status_cd == CodeTable.ORDER_STATUS_SUCCESS) {
+        }else if (order_status_cd == CodeTable.ORDER_STATUS_ARRIVED || order_status_cd == CodeTable.ORDER_STATUS_SUCCESS
+                ||order_status_cd == CodeTable.ORDER_STATUS_CHANGE_REQ||order_status_cd == CodeTable.ORDER_STATUS_CHANGE_REQ)
+        {
             binding.tvDeliveryFinish.setTextColor(Color.parseColor("#00FA9A"));
             ment.setText("배송완료");
-        }else{
-
+        }
+        else{
         }
     }
 }

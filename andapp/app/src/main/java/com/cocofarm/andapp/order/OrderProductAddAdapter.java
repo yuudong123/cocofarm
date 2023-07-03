@@ -52,7 +52,8 @@ public class OrderProductAddAdapter extends RecyclerView.Adapter<OrderProductAdd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String orderDate = CommonVal.Md.format(list.get(position).getOrderdate());
         holder.binding.tvOrderDate.setText(orderDate + " 결제");
-        holder.binding.tvOrderPrice.setText("주문금액"+list.get(position).getPrice()+"");
+        holder.binding.tvOrderPrice.setText("주문금액 "+CommonVal.comma(list.get(position).getPrice()));
+
         //holder.binding.tvOrderAmount.setText(list.get(position).getAmount());
 
         ArrayList<OrderProductVO> OrderProductList = list.get(position).getOrderproduct_list();
