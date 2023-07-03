@@ -1,12 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/product/productpage.css" />
   </head>
   <body>
-    <h1>검색하기.</h1>
-    하이 <span th:text="'뭐야'+${data1}"></span>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <section class="z-depth-1">
+          <ul class="tabs">
+            <li class="tab" data-category="401">
+              <a class="active" href="#section1">식물류</a>
+            </li>
+            <li class="tab" data-category="402">
+              <a href="#section2">기기류</a>
+            </li>
+          </ul>
+        </section>
+        <section id="section1" class="z-depth-1">
+          <h6>식물류</h6>
+          <div id="plantList" class="row"></div>
+        </section>
+        <section id="section2" class="z-depth-1">
+          <h6>기기류</h6>
+          <div id="deviceList" class="row"></div>
+        </section>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script>
+      M.AutoInit();
+      const section1 = document.querySelector("#section1");
+      const section2 = document.querySelector("#section2");
+      const plantList = document.querySelector("#plantList");
+      const deviceList = document.querySelector("#deviceList");
+
+      loadProduct(401);
+      loadProduct(402);
+
+      function loadProduct(value) {
+        let list;
+        console.log(value);
+        if (value == 401) {
+          list = plantList;
+        } else if (value == 402) {
+          list = deviceList;
+        }
+        list.innerHTML = "";
+        fetchJSON("/productlist", { category: value }, (data) => {
+          if (data == null || data.length == 0) {
+            return;
+          }
+          data.forEach((item) => {
+            let product_id = item.product_id;
+            let image = item.filename;
+            let name = item.name;
+            let price = item.price;
+            let content = item.content;
+            let link =
+              "<div class='card' onclick='redirectToProductDetail(" +
+              product_id +
+              ")'><div class='card-image'><img src='/images/" +
+              image +
+              "'/></div><div class='card-content'><span class='card-title'>" +
+              name +
+              "</span><p>" +
+              price +
+              "</p><p>" +
+              content +
+              "</p></div></div>";
+            list.innerHTML += link;
+          });
+        });
+      }
+
+      function redirectToProductDetail(product_id) {
+        window.location.href = "/product/" + product_id; // 상세 페이지의 URL을 생성하여 이동
+      }
+    </script>
   </body>
 </html>

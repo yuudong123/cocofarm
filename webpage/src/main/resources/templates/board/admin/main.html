@@ -13,7 +13,12 @@
             <li class="tab"><a class="active" href="#section1">새 QnA</a></li>
             <li class="tab"><a href="#section2">신고된 게시물</a></li>
           </ul>
-          <button id="btnNewBoard" class="btn green"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></button>
+          <button id="btnNewBoard" class="btn green">
+            <span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i
+              class="material-icons"
+              >edit</i
+            >
+          </button>
         </section>
 
         <section id="section1" class="z-depth-1">
@@ -42,11 +47,6 @@
 
       onload = loadNewQna();
       onClassChange(section1, loadNewQna);
-      manageTabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          loadBoard(tab.dataset.category);
-        });
-      });
 
       btnRefresh.addEventListener("click", loadNewQna);
       btnNewBoard.addEventListener("click", () => {
