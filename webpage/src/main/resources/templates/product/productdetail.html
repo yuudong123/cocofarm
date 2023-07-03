@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/product/productdetail.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="containerCenter">
+        <div class="containerPlace">
+          <div class="leftPlace">
+            <img
+              th:each="image : ${list}"
+              th:src="'/images/'+${image.filename}"
+            />
+          </div>
+          <div class="rightPlace">
+            <div class="rightContent">
+              <div class="productName">[[${vo.name}]]</div>
+              <div class="productPrice">[[${vo.price}]]</div>
+              <div id="btnBox">
+                <span>
+                  <button id="btnMinus">-</button>
+                  <span id="count" th:data-amount="${vo.amount}">0</span>
+                  <button id="btnPlus">+</button>
+                </span>
+              </div>
+            </div>
+            <div id="allprice">총 상품 금액</div>
+            <span>
+              <a>장바구니에 넣기</a>
+              <a>바로 구매하기</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+  </body>
+  <script>
+    const btnMinus = document.querySelector("#btnMinus");
+    const btnPlus = document.querySelector("#btnPlus");
+    const countElement = document.querySelector("#count");
+    const productPrice = document.querySelector(".productPrice");
+    const allprice = document.querySelector("#allprice");
+    let count = 0;
+
+    var totalPrice = function (id, price, count) {
+      const totalPrice = Number(price) * Number(count);
+      id.textContent = totalPrice;
+    };
+
+    btnMinus.addEventListener("click", () => {
+      count = countElement.textContent;
+      if (count < 1) {
+        alert("1개 이상 선택하세요.");
+        return false;
+      }
+      count--;
+      countElement.textContent = count;
+
+      totalPrice(allprice, productPrice.textContent, count);
+    });
+    console.log(countElement);
+    btnPlus.addEventListener("click", () => {
+      count = countElement.textContent;
+      let amount = countElement.getAttribute("data-amount");
+      count = Number(count);
+      amount = Number(amount);
+      if (count > amount - 1) {
+        alert("재고가 없습니다.");
+      } else {
+        count++;
+        countElement.textContent = count;
+      }
+      totalPrice(allprice, productPrice.textContent, count);
+    });
+    //값을 보내는거는 순수자바 스크립트로 구현해보기
+  </script>
+</html>
