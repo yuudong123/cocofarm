@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cocofarm.webpage.mapper.ReportMapper">
+    <select id="selectReportList">select * from tbl_report <if test="category == 'board'">where
+        reported_board != 0</if><if test="category == 'reply'">where reported_reply != 0</if>
+    </select>
+</mapper>

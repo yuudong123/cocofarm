@@ -22,7 +22,6 @@ import com.cocofarm.webpage.common.PreviousPageHandler;
 import com.cocofarm.webpage.common.RequestApi;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.service.MemberService;
-import com.google.gson.Gson;
 
 @Controller
 @SessionAttributes({ "userinfo", "prevPage", "email" })
@@ -127,7 +126,6 @@ public class WebMemberController {
         return "success";
     }
 
-
     @ResponseBody
     @PostMapping(value = "/member/logout")
     public String logout(SessionStatus sessionStatus, Model model) {
@@ -155,12 +153,11 @@ public class WebMemberController {
         vo.setAddress(param.get("address"));
 
         memberService.web_modify(vo);
-        MemberVO result = memberService.login((MemberVO)model.getAttribute("userinfo"));
+        MemberVO result = memberService.login((MemberVO) model.getAttribute("userinfo"));
         model.addAttribute("userinfo", result);
 
         return "success";
     }
-
 
     @ResponseBody
     @PostMapping(value = "/member/pwconfirm")

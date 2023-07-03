@@ -45,7 +45,7 @@
 
       function countReportBoard() {
         reportedBoard.innerHTML = "";
-        fetchJSON("/admin/board/reportlist", null, (data) => {
+        fetchJSON("/admin/getreportlist", { category: "board" }, (data) => {
           if (data == null) {
             reportedBoard.innerHTML = "처리되지 않은 게시물 신고가 없습니다.";
             return;

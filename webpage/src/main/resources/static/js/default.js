@@ -42,7 +42,6 @@ function fetchTEXT(url, data, callback) {
     .catch((error) => console.error("Error : " + error));
 }
 
-
 const btnLogout = document.querySelector("#btnHeaderLogout");
 
 if (btnLogout != null) {
@@ -51,7 +50,6 @@ if (btnLogout != null) {
     logout();
   });
 }
-
 
 function logout() {
   fetchTEXT("/member/logout", null, (data) => {

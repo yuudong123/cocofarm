@@ -28,6 +28,15 @@ public class CodeTable {
     public static final int REASON_CODE_BROKEN = 506; // 교환 : 상품이 파손됨
     public static final int REASON_CODE_DETAIL = 507; // 교환 : 상세사유 TEXT
 
+    public static final int REASON_CODE_BENEFIT = 511;
+    public static final int REASON_CODE_PRIVACY = 512;
+    public static final int REASON_CODE_ILLEGAL = 513;
+    public static final int REASON_CODE_SENSITIVE = 514;
+    public static final int REASON_CODE_ABORT = 515;
+    public static final int REASON_CODE_ID_DB_DEAL = 516;
+    public static final int REASON_CODE_SPAM = 517;
+    public static final int REASON_CODE_ETC = 518;
+
     public static final int PRODUCT_CATEGORY_PLANT = 401; // 식물류
     public static final int PRODUCT_CATEGORY_DEVICE = 402; // 기기류
 }
