@@ -16,12 +16,8 @@
         </section>
         <section class="z-depth-1">
           <a class="link" th:href="@{/admin/board}">게시판/QnA 관리로..</a>
-          <h6>새 QnA</h6>
-          <div class="collection">
-            <a href="#!" class="collection-item">1</a>
-            <a href="#!" class="collection-item">2</a>
-            <a href="#!" class="collection-item">3</a>
-          </div>
+          <h5 id="newQna">새 QnA</h5>
+          <h5 id="reportedBoard">게시물 신고</h5>
         </section>
         <section class="z-depth-1">
           <a class="link" th:href="@{/admin/member}">고객 관리로..</a>
@@ -29,5 +25,34 @@
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+      const newQna = document.querySelector("#newQna");
+      const reportedBoard = document.querySelector("#reportedBoard");
+      countNewQna();
+      countReportBoard();
+
+      function countNewQna() {
+        newQna.innerHTML = "";
+        fetchJSON("/admin/board/newqnalist", null, (data) => {
+          if (data == null) {
+            newQna.innerHTML = "새로 등록된 QnA가 없습니다.";
+            return;
+          }
+          newQna.innerHTML = "새로 등록된 QnA : " + data.length + "개";
+        });
+      }
+
+      function countReportBoard() {
+        reportedBoard.innerHTML = "";
+        fetchJSON("/admin/board/reportlist", null, (data) => {
+          if (data == null) {
+            reportedBoard.innerHTML = "처리되지 않은 게시물 신고가 없습니다.";
+            return;
+          }
+          reportedBoard.innerHTML = "처리되지 않은 게시물 : " + data.length + "건";
+        });
+      }
+    </script>
   </body>
 </html>

@@ -29,6 +29,7 @@
                 <option th:value="${product.product_id}" th:text="${product.name}"></option>
               </th:block>
             </select>
+            <button id="btnSearch" class="btn green" type="submit">검색</button>
           </div>
         </form>
         <p id="noresultmsg" th:if="${boardlist.size == 0}">조건에 맞는 리뷰가 없습니다.</p>

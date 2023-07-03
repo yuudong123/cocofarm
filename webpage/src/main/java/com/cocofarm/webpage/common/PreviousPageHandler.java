@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class PreviousPageHandler {
     private static final String[] EXCEPTION_PAGES = { "/err", "/admin", "/login", "/join", "/modifypw" };
-    private static final String INDEX_PAGE = "/";
 
     public String getPreviousPage(HttpServletRequest request) {
         String referer = request.getHeader("referer");
@@ -15,7 +14,7 @@ public class PreviousPageHandler {
         if (referer != null && !containsExceptionPage(referer)) {
             return referer;
         } else {
-            return INDEX_PAGE;
+            return "/";
         }
     }
 

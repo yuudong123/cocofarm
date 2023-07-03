@@ -1,7 +1,6 @@
 package com.cocofarm.webpage.controller.web;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
-import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.ProductVO;
@@ -52,22 +50,15 @@ public class AdminBoardController {
 
     @ResponseBody
     @PostMapping(value = "/newqnalist")
-    public String qnaList() {
+    public String newQnaList() {
         ArrayList<QnaDTO> qnalist = boardService.selectNoAnsweredQnaList();
         return new Gson().toJson(qnalist);
     }
 
     @ResponseBody
-    @PostMapping(value = "/managelist")
-    public String manageList(@RequestBody HashMap<String, String> param) {
-        CriteriaDTO cri = new CriteriaDTO(1, 50);
-        if (param.get("category").equals("qna")) {
-            ArrayList<QnaDTO> managelist = boardService.selectQnaList(cri);
-            return new Gson().toJson(managelist);
-        } else {
-            ArrayList<BoardVO> managelist = boardService.selectList(param.get("category"), cri);
-            return new Gson().toJson(managelist);
-        }
+    @PostMapping(value = "/reportlist")
+    public String reportList() {
+        return null;
     }
 
     @GetMapping(value = "/write")

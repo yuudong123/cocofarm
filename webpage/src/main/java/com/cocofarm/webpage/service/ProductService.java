@@ -16,8 +16,6 @@ public class ProductService {
 
     @Autowired
     ProductMapper productMapper;
-    // @Autowired
-    // ImageMapper imageMapper;
 
     public ArrayList<ProductVO> selectProductList(int category_cd) {
         ArrayList<ProductVO> list = productMapper.selectProductList(category_cd);
@@ -25,9 +23,8 @@ public class ProductService {
     }
 
     public ProductVO selectProduct(int product_id) {
-        ProductVO productCon = productMapper.selectProduct(product_id);
-        // productCon.setImg(imageMapper.selectAllImageWithProductId(product_id));
-        return productCon;
+        ProductVO vo = productMapper.selectProduct(product_id);
+        return vo;
     }
 
     public ArrayList<ProductVO> selectProductListWithImage() {
