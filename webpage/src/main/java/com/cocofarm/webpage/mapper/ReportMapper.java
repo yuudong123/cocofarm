@@ -9,6 +9,8 @@ import com.cocofarm.webpage.domain.ReportVO;
 @Mapper
 public interface ReportMapper {
 
-    ArrayList<ReportVO> selectReportList(String category);
+    public ArrayList<ReportVO> selectReportList(String category);
+
+    public int insertReport(ReportVO reportVO);
 
 }

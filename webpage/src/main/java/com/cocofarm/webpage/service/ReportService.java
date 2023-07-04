@@ -19,4 +19,7 @@ public class ReportService {
         return reportlist;
     }
 
+    public int insertReport(ReportVO reportVO) {
+        return reportMapper.insertReport(reportVO);
+    }
 }

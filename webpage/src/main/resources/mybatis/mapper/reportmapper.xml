@@ -4,4 +4,7 @@
     <select id="selectReportList">select * from tbl_report <if test="category == 'board'">where
         reported_board != 0</if><if test="category == 'reply'">where reported_reply != 0</if>
     </select>
+
+    <insert id="insertReport"> insert into tbl_report values (seq_report_no.nextval, #{member_no},
+        #{reported_board}, #{reported_reply}, #{reported_member}, #{reason_cd}, #{content}) </insert>
 </mapper>
