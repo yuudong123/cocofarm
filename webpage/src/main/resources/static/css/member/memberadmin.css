@@ -1,10 +1,14 @@
+.container {
+  margin-bottom: 70px;
+}
+
 section {
   display: flex;
   position: relative;
   flex-direction: column;
   align-items: stretch;
   margin: 10px;
-  padding: 15px;
+  padding: 25px;
   flex: 1 0;
   border-radius: 10px;
   border: 2px solid #eee;
@@ -12,8 +16,8 @@ section {
 
 h6 {
   margin: 0;
-  margin-bottom: 10px;
-  font-weight: bold;
+  font-weight: 800;
+  font-size: 1.6rem;
 }
 
 .collection {
@@ -64,4 +68,83 @@ h6 {
 .tabs .tab a:focus.active {
   background-color: rgba(156, 255, 147, 0.2);
   outline: none;
+}
+
+th {
+  font-weight: 800;
+  color: darkblue;
+  background-color: aliceblue
+}
+
+.sort-button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#ascicon {
+  font-size: 1.3rem;
+  background-color: cornflowerblue;
+  color: white;
+}
+
+#reqDiv {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#category {
+  width: fit-content;
+  padding-block: 10px;
+}
+
+#category a {
+  font-size: 20px;
+  color: black;
+  font-weight: 800;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#category a:hover {
+  font-size: 20px;
+  color: #429f5d;
+  margin: 10px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#categorySelectBar {
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #429f5d;
+  transition: all 0.2s ease-in-out;
+  bottom: 6px;
+  left: 0;
+}
+
+.oneLine h6 {
+  display: inline;
+}
+
+.oneLine { 
+  margin-bottom: 10px;
+}
+
+.search_area{
+  display: inline-block;
+  margin-top: 30px;
+  margin-left: 260px;
+}
+.search_area input{
+    height: 30px;
+  width: 250px;
+}
+.search_area button{
+   width: 100px;
+  height: 36px;
 }

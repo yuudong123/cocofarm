@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.mapper.MemberMapper;
@@ -58,6 +59,29 @@ public class MemberService {
   // 내가 쓴 리뷰 보기
   public ArrayList<BoardVO> myreviewboard(MemberVO vo) {
     return mapper.myreviewboard(vo);
+  }
+
+  public int countAll() {
+    return mapper.countAll();
+  }
+
+  public int countBanned() {
+    return mapper.countBanned();
+  }
+
+  // Admin
+  public ArrayList<MemberVO> memberListAll(CriteriaDTO cri) {
+    ArrayList<MemberVO> list = mapper.memberListAll(cri);
+    return list;
+  }
+
+  public ArrayList<MemberVO>  memberListBanned(CriteriaDTO cri) {
+  ArrayList<MemberVO> list = mapper.memberListBanned();
+  return list;
+  }
+
+  public void banned(String email, String isactivated) {
+    mapper.banned(email, isactivated);
   }
 
 }

@@ -65,7 +65,7 @@
 
         fetchTEXT("/member/login", { email: email.value, password: password.value }, (data) => {
           if (data == "false") {
-            alert("이메일 또는 비밀번호가 일치하지 않습니다.");
+            M.toast({ html: "이메일 또는 비밀번호가 일치하지 않습니다." });
           } else {
             window.location.href = data;
           }

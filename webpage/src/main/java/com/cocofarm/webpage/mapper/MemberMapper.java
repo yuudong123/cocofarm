@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.QnaDTO;
 
@@ -30,4 +31,14 @@ public interface MemberMapper {
 
     //내가 쓴 리뷰 보기
     public ArrayList<BoardVO> myreviewboard(MemberVO vo);
+
+    public int countAll();
+    public int countBanned();
+
+
+    // Admin
+    public ArrayList<MemberVO> memberListAll(CriteriaDTO cri);
+    public ArrayList<MemberVO> memberListBanned();
+    
+    public void banned(String email, String isactivated);
 }

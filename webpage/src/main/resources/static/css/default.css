@@ -2,6 +2,8 @@
   font-family: 'Nanum Gothic', sans-serif;
   font-weight: 400;
 }
+/* 나눔고딕체 font-weight: 400, 700, 800
+  로도 regular, bold, bolder(extrabold) 조절 가능합니다!  */
 
 .respons {
   padding: 40px;
@@ -34,7 +36,9 @@ main {
 footer p,
 footer span,
 footer a {
-  color: black;
+  color: #314637;
+  font-weight: 700;
+  font-size: 0.85rem;
 }
 
 footer a:hover {
@@ -44,4 +48,5 @@ footer a:hover {
 .footerTitle {
   font-weight: 800;
   font-size: 1.3rem;
+  text-decoration: underline;
 }

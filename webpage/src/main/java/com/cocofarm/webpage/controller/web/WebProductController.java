@@ -1,4 +1,4 @@
-// package com.cocofarm.webpage.controller.web;
+package com.cocofarm.webpage.controller.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,13 +14,10 @@ import com.cocofarm.webpage.service.ImageService;
 import com.cocofarm.webpage.service.ProductService;
 import com.google.gson.Gson;
 
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
