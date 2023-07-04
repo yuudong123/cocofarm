@@ -30,12 +30,17 @@ public class ReplyService {
         ArrayList<ReplyVO> list = mapper.selectList(board_no);
         for (ReplyVO replyVO : list) {
             String buttons = "";
-            if (memberVO != null && (memberVO.getMember_type_cd() == MEMBER_TYPE_ADMIN
-                    || memberVO.getMember_no() == replyVO.getMember_no())) {
-                buttons = "<button class='btn btnmodify blue' onclick='modifyReply(" + replyVO.getReply_no()
-                        + ",\"" + replyVO.getContent()
-                        + "\")'>수정</button><button class='btn btndelete red' onclick='deleteReply("
-                        + replyVO.getReply_no() + ")'>삭제</button>";
+            if (memberVO != null) {
+                if (memberVO.getMember_type_cd() == MEMBER_TYPE_ADMIN
+                        || memberVO.getMember_no() == replyVO.getMember_no()) {
+                    buttons = "<button class='btn btnmodify blue' onclick='modifyReply(" + replyVO.getReply_no()
+                            + ",\"" + replyVO.getContent()
+                            + "\")'>수정</button><button class='btn btndelete red' onclick='deleteReply("
+                            + replyVO.getReply_no() + ")'>삭제</button>";
+                }
+                buttons += "<button class='btn-flat btnreport waves-effect waves-red modal-trigger' onclick='reportReply("
+                        + replyVO.getReply_no() + ",\"" + replyVO.getNickname() + "\",\"" + replyVO.getMember_no()
+                        + "\")' href='#reportModal'>신고</button>";
             }
             String reply = "<table><thead><tr><th>" + replyVO.getNickname() + "</th><th>" +
                     new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(replyVO.getRegdate()) +

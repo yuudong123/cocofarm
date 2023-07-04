@@ -56,6 +56,7 @@ tr {
 }
 th {
   padding: 5px;
+  font-weight: bold;
 }
 td {
   padding: 5px;
@@ -113,7 +114,8 @@ small {
 }
 
 .btnmodify,
-.btndelete {
+.btndelete,
+.btnreport {
   position: absolute;
   z-index: 2;
   padding: 5px;
@@ -123,8 +125,22 @@ small {
 }
 
 .btnmodify {
-  right: 212px;
+  right: 254px;
 }
 .btndelete {
+  right: 212px;
+}
+.btnreport {
   right: 170px;
+}
+
+.input-field {
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+#replyReportContent {
+  min-height: 120px;
+}
+.modal-content {
+  padding-bottom: 0 !important;
 }

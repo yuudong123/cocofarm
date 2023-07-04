@@ -33,7 +33,7 @@
     <script>
       M.AutoInit();
       const newQnaList = document.querySelector("#newQnaList");
-      const manageList = document.querySelector("#manageList");
+      const reportList = document.querySelector("#reportList");
       const btnRefresh = document.querySelector("#btnRefresh");
       const btnNewBoard = document.querySelector("#btnNewBoard");
       const section1 = document.querySelector("#section1");
@@ -70,6 +70,18 @@
             link.setAttribute("href", "/board/qna/" + item.board_no);
             link.innerText = regdate + " " + title;
             newQnaList.appendChild(link);
+          });
+        });
+      }
+
+      function loadReportBoard() {
+        reportList.innerHTML = "";
+        fetchJSON("/admin/getreportlist", { category: "board" }, (data) => {
+          if (data == null || data.length == 0) {
+            return;
+          }
+          data.forEach((item) => {
+            //여기부터 만들어야함
           });
         });
       }
