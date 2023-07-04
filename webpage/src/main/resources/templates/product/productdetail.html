@@ -19,6 +19,7 @@
             <div class="rightContent">
               <div class="productName">[[${vo.name}]]</div>
               <div class="productPrice">[[${vo.price}]]</div>
+              <input type="hidden" id="member_no" value="[[${member.mem}]]" />
               <div id="btnBox">
                 <span>
                   <button id="btnMinus">-</button>
@@ -27,16 +28,35 @@
                 </span>
               </div>
             </div>
-            <div id="allprice">총 상품 금액</div>
+            총상품금액
+            <div id="allprice">0</div>
             <span>
-              <a>장바구니에 넣기</a>
-              <a>바로 구매하기</a>
+              <button
+                id="btnInsertCart"
+                th:data-product_id="${vo.product_id}"
+                class="btn"
+              >
+                장바구니에 넣기
+              </button>
+              <button
+                id="btnDirectBuy"
+                th:data-product_id="${vo.product_id}"
+                class="btnBuy"
+              >
+                바로 구매하기
+              </button>
             </span>
           </div>
         </div>
       </div>
+      <form action="order/page" method="post" id="cartinsert">
+        <input type="hidden" name="product_id" />
+        <input type="hidden" name="amount" />
+      </form>
+      <!-- 제품상세, 리뷰, QnA추가 필요 -->
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="/js/cocofarm.js"></script>
   </body>
   <script>
     const btnMinus = document.querySelector("#btnMinus");
@@ -44,6 +64,11 @@
     const countElement = document.querySelector("#count");
     const productPrice = document.querySelector(".productPrice");
     const allprice = document.querySelector("#allprice");
+    const btnInsertCart = document.querySelector("#btnInsertCart");
+    const btnDirectBuy = document.querySelector("#btnDirectBuy");
+    const product_id = /*[[${vo.product_id}]]*/ "";
+    const memberNo = document.querySelector("#member_no");
+
     let count = 0;
 
     var totalPrice = function (id, price, count) {
@@ -76,6 +101,114 @@
       }
       totalPrice(allprice, productPrice.textContent, count);
     });
-    //값을 보내는거는 순수자바 스크립트로 구현해보기
+
+    btnInsertCart.addEventListener("click", () => {
+      if (count <= 0) {
+        alert("수량을 추가해주세요.");
+        return false;
+      }
+      let product_id = btnInsertCart.getAttribute("data-product_id");
+      const data = {
+        product_id: product_id,
+        amount: count,
+      };
+      sendServerData(
+        "POST",
+        "/cartinsert",
+        "application/json",
+        JSON.stringify(data),
+        function (data) {
+          if ((data.status = "OK")) {
+            if (
+              confirm(
+                "장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요."
+              )
+            ) {
+              alert("장바구니 가기");
+              //장바구니 이동 페이지 필요
+              location.href = "cart";
+            } else {
+            }
+          }
+        }
+      );
+
+      //   const xhr = new XMLHttpRequest();
+      //   xhr.onload = function () {
+      //     if (xhr.status === 200) {
+      //       // 요청이 성공적으로 완료됐을 때 실행할 코드
+      //       var response = xhr.responseText;
+      //       var a = JSON.parse(response);
+
+      //       if (a.status == "OK") {
+      //         if (
+      //           confirm(
+      //             "장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요."
+      //           )
+      //         ) {
+      //           alert("장바구니 가기");
+      //           //장바구니 이동 페이지 필요
+      //         } else {
+      //         }
+      //       }
+      //       console.log(response);
+      //     } else {
+      //       // 요청이 실패했을 때 실행할 코드
+      //       console.error("Request failed. Status code: " + xhr.status);
+      //     }
+      //   };
+      //   var postData = JSON.stringify(data);
+
+      //   // 서버에 POST 요청 보내기
+      //   xhr.open("POST", "/cartinsert", true);
+      //   xhr.setRequestHeader("Content-Type", "application/json");
+      //   xhr.send(postData);
+    });
+
+    btnDirectBuy.addEventListener("click", () => {
+      if (count <= 0) {
+        alert("수량을 추가해주세요.");
+        return false;
+      }
+      let product_id = btnInsertCart.getAttribute("data-product_id");
+      // const data = {
+      //   product_id: product_id,
+      //   amount: count,
+      // };
+      var cartinsert = document.querySelector("#cartinsert"); //폼태그
+
+      // cartinsert.setAttribute("Content-Type", "application/json");
+      // cartinsert.setAttribute("method", "POST");
+      // cartinsert.setAttribute("action", "order/page");
+      // let formData = new FormData(cartinsert);
+      // formData.append("product_id", product_id);
+      // formData.append("amount", count);
+      // console.log(formData);
+      cartinsert.product_id.value = product_id;
+      cartinsert.amount.value = count;
+      alert(cartinsert.product_id.value);
+      cartinsert.submit();
+    });
+
+    //     const buyData = {
+    //       member_no: memberNo,
+    //       product_id: product_id,
+    //       count: count,
+    //       price: productPrice,
+    //     };
+    //     xhr.open("POST", "/order", true);
+    //     xhr.setRequestHeader("Content-Type", "application/json");
+    //     xhr.onreadystatechange = function () {
+    //       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    //         // 주문 추가 성공 처리
+    //         console.log("주문이 성공적으로 추가되었습니다.");
+    //       } else {
+    //         // 주문 추가 실패 처리
+    //         console.error("주문 추가가 실패하였습니다.");
+    //       }
+    //     };
+    //     xhr.send(JSON.stringify(buyData));
+    //   })
+    // );
   </script>
 </html>
