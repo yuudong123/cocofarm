@@ -232,4 +232,9 @@ public class WebMemberController {
         System.out.println(vo.getEmail());
         return memberService.email_search(vo.getEmail());
     }
+
+    @GetMapping(value = "/admin/member")
+    public String admin_member() {
+        return "member/admin";
+    }
 }

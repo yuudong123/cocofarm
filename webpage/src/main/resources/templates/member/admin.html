@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/member/memberadmin.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <section id="toolMenu" class="z-depth-1">
+          <ul class="tabs">
+            <li class="tab"><a class="active" href="#section1">전체 회원</a></li>
+            <li class="tab"><a href="#section2">차단된 회원</a></li>
+          </ul>
+        </section>
+
+        <section id="section1" class="z-depth-1">
+          <h6>전체 회원</h6>
+          <button id="btnRefresh" class="btn material-icons">refresh</button>
+          <div id="memberListAll" class="collection"></div>
+        </section>
+
+        <section id="section2" class="z-depth-1">
+          <h6>차단된 회원</h6>
+          <div id="memberListBanned" class="collection"></div>
+        </section>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        M.AutoInit();
+        const memberListAll = document.querySelector("#memberListAll");
+        const manageList = document.querySelector("#manageList");
+        const btnRefresh = document.querySelector("#btnRefresh");
+        const btnNewBoard = document.querySelector("#btnNewBoard");
+        const section1 = document.querySelector("#section1");
+        const section2 = document.querySelector("#section2");
+        const manageTabs = document.querySelectorAll("#section2 .tabs .tab a");
+
+        onload = loadMemberAll();
+        onClassChange(section1, loadMemberAll);
+        manageTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          loadBoard(tab.dataset.category);
+        });
+      });
+
+      function loadMemberAll() {
+        console.log("답변이 없는 qna를 불러옵니다.");
+        newQnaList.innerHTML = "";
+        fetchJSON("/admin/board/newqnalist", null, (data) => {
+          if (data == null || data.length == 0) {
+            return;
+          }
+          data.forEach((item) => {
+            let title = item.title;
+            let regdate = moment(item.regdate).format("YYYY/MM/DD HH:mm:ss");
+            let link = document.createElement("a");
+            link.classList.add("collection-item");
+            link.setAttribute("href", "/board/qna/" + item.board_no);
+            link.innerText = regdate + " " + title;
+            newQnaList.appendChild(link);
+          });
+        });
+      }
+
+      function onClassChange(el, callback) {
+        const observer = new MutationObserver((mList) => {
+          for (let m of mList) {
+            if (m.type === "attributes" && m.attributeName === "class") {
+              const target = m.target;
+              if (target.classList.contains("active")) {
+                callback();
+              }
+            }
+          }
+        });
+        observer.observe(el, { attributes: true });
+      }
+
+    </script>
+    </body>
+    </html>
