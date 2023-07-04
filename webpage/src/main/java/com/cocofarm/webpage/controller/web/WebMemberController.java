@@ -1,5 +1,6 @@
 package com.cocofarm.webpage.controller.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.common.PreviousPageHandler;
 import com.cocofarm.webpage.common.RequestApi;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.PageDTO;
 import com.cocofarm.webpage.service.MemberService;
 
 @Controller
@@ -50,11 +53,23 @@ public class WebMemberController {
         MemberVO userinfo = memberService.login(emailAndPassword);
         if (userinfo != null) {
             model.addAttribute("userinfo", userinfo);
-            return model.getAttribute("prevPage") + "";
+           if (userinfo.getIsactivated().toString().equals("Y")) {
+                return model.getAttribute("prevPage") + "";
+           } else {
+                model.addAttribute("userinfo", null);
+                return "/member/refused";
+           }
         } else {
             return "false";
         }
     }
+
+    @GetMapping(value = "/member/refused")
+    public String refused() {
+        return "member/refused";
+    }
+
+
 
     @RequestMapping("/member/kakaocallback")
     public String kakaoCallback(String code, HttpSession session) {
@@ -182,11 +197,6 @@ public class WebMemberController {
         return memberService.join(vo);
     }
 
-    @GetMapping(value = "/member/test")
-    public String test() {
-        return "member/test";
-    }
-
     @GetMapping(value = "/member/myinfo")
     public String myinfo() {
         return "member/myinfo";
@@ -230,8 +240,36 @@ public class WebMemberController {
         return memberService.email_search(vo.getEmail());
     }
 
+    @ResponseBody
+    @PostMapping(value = "/admin/member")
+    public String banned(@RequestBody HashMap<String, String> param) {
+        String email = param.get("email");
+        String isactivated = param.get("isactivated");
+        memberService.banned(email, isactivated);
+        return "success";
+    }
+
     @GetMapping(value = "/admin/member")
-    public String admin_member() {
-        return "member/admin";
+    public ModelAndView admin_member(CriteriaDTO cri) {
+        cri.setBoardPerPage(7);
+        ModelAndView mav = new ModelAndView();
+        ArrayList<MemberVO> vo = memberService.memberListAll(cri);
+        mav.addObject("vo", vo);
+        mav.addObject("countAll", memberService.countAll());
+        mav.addObject("pager", new PageDTO(cri, memberService.countAll()));
+        mav.setViewName("/member/admin/memberlist");
+        return mav;
+    }
+
+    @GetMapping(value = "/admin/memberbanned")
+    public ModelAndView admin_memberBanned(CriteriaDTO cri) {
+        cri.setBoardPerPage(7);
+        ModelAndView mav = new ModelAndView();
+        ArrayList<MemberVO> vo = memberService.memberListBanned(cri);
+        mav.addObject("vo", vo);
+        mav.addObject("countBanned", memberService.countBanned());
+        mav.addObject("pager", new PageDTO(cri, memberService.countBanned()));
+        mav.setViewName("/member/admin/bannedlist");
+        return mav;
     }
 }

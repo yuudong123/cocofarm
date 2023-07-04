@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/member/memberadmin.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <form id="reqDiv" method="get">
+            <div id="category">
+              <a href="/admin/member">전체 회원</a>
+              <a href="/admin/memberbanned" style="color:#429f5d; text-decoration: underline;">차단된 회원</a>
+            </div>
+            <div id="categorySelectBar"></div>
+            <div id="reqDivInner">
+              <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
+            </div>
+          </form>
+
+        <section id="section1" class="z-depth-1">
+          <div class="oneLine">
+            <h6>차단된 회원 목록 &#40;</h6><h6 th:text="${countBanned}"></h6><h6>&#41;</h6>
+          </div>
+          <table id="memberListAll" class="highlight">
+            <thead>
+              <tr>
+                <th>회원 번호 <i id="ascicon" class="material-icons" onclick="sortTable(0)" style="cursor:pointer;">import_export</i></th>
+                <th>이메일</th>
+                <th>닉네임</th>
+                <th>전화번호</th>
+                <th>주소</th>
+                <th>가입일</th>
+                <th>활성화 여부</th>
+                <th>SNS</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="member:${vo}">
+                <td th:text="${member.member_no}" style="font-weight: 700;"></td>
+                <td th:text="${member.email}"></td>
+                <td th:text="${member.nickname}"></td>
+                <td th:text="${member.phonenumber}"></td>
+                <td th:text="${member.address}"></td>
+                <td th:text="${#dates.format(member.joindate, 'yyyy/MM/dd')}"></td>
+                <td th:text="${member.isactivated == 'Y' ? 'Y' : 'N (차단)'}" th:style="${member.isactivated == 'N' ? 'color:crimson; font-weight:700' : ''}"></td>
+                <td th:text="${member.sns}"></td>
+                <td><button class="btn red accent-2" th:if="${member.isactivated=='N'}" th:data-id="${member.email}" th:onclick="btn([[${member.email}]] , 'Y')">해제</button></td></td>
+              </tr>
+            </tbody>
+          </table>
+          <ul class="pagination">
+            <li class="waves-effect">
+              <a id="pageFirst"><i class="material-icons">chevron_left</i></a>
+            </li>
+            <th:block th:each="num : ${#numbers.sequence(pager.startPage,pager.endPage)}">
+              <li class="waves-effect"><a class="pageNum" th:text="${num}"></a></li>
+            </th:block>
+            <li class="waves-effect">
+              <a id="pageLast"><i class="material-icons">chevron_right</i></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        M.AutoInit();
+        const memberListAll = document.querySelector("#memberListAll");
+        const memberListBanned = document.querySelector("#memberListBanned");
+        const btnRefresh = document.querySelector("#btnRefresh");
+        const section1 = document.querySelector("#section1");
+        const section2 = document.querySelector("#section2");
+        const manageTabs = document.querySelectorAll("#section2 .tabs .tab a");
+
+        pageFirst.addEventListener("click", () => {
+        inputPage.setAttribute("value", "1");
+        reqDiv.submit();
+        });
+        pageLast.addEventListener("click", () => {
+            inputPage.setAttribute("value", /*[[${pager.lastPage}]]*/ "");
+            reqDiv.submit();
+        });
+        pageNum.forEach((page) => {
+            page.addEventListener("click", () => {
+            inputPage.setAttribute("value", page.textContent);
+            reqDiv.submit();
+            });
+            if (page.textContent == inputPage.getAttribute("value")) {
+            page.parentElement.classList.add("active");
+            page.parentElement.classList.add("green");
+            }
+        });
+        boardtitle.forEach((board) => {
+            board.addEventListener("click", () => {
+            if (location.href.includes("?")) {
+                location.href = location.href.substring(0, location.href.indexOf("?")) + "/" + board.dataset.no;
+            } else {
+                location.href = location.href + "/" + board.dataset.no;
+            }
+            });
+        });
+
+        function sortTable(n) {
+        var table, rows, switching, o, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.querySelector('#memberListAll');
+        switching = true;
+        dir = "asc";
+
+        var ascicon = document.querySelector('#ascicon');
+
+        while (switching) {
+            switching = false;
+            rows = table.querySelectorAll('tr');
+
+            for (o = 1; o < (rows.length - 1); o++) {
+            shouldSwitch = false;
+            x = rows[o].querySelector(`td:nth-child(${n + 1})`);
+            y = rows[o + 1].querySelector(`td:nth-child(${n + 1})`);
+
+            if (dir == "asc") {
+                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                shouldSwitch = true;
+                ascicon.style.backgroundColor = "cornflowerblue";
+                break;
+                }
+            } else if (dir == "desc") {
+                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+                shouldSwitch = true;
+                ascicon.style.backgroundColor = "coral";
+                break;
+                }
+            }
+            }
+
+            if (shouldSwitch) {
+            rows[o].parentNode.insertBefore(rows[o + 1], rows[o]);
+            switching = true;
+            switchcount++;
+            } else {
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+            }
+        }
+        }
+
+        function btn(email, isactivated){
+          fetchTEXT(
+            "/admin/member",
+            {
+              email: email,
+              isactivated: isactivated
+            },
+            (data) => {
+              if (data == "success") {
+                alert("이메일: " + email + "\n\n차단이 해제되었습니다.");
+                location.reload();
+              } else {
+                alert("Error!");
+              }
+            });
+        }
+
+        // onload = loadMemberAll();
+        // onClassChange(section1, loadMemberAll);
+        // onClassChange(section2, loadMemberBanned);
+        
+        // btnRefresh.addEventListener("click", loadMemberAll);
+
+        // if (isactivated == "N") {
+        //   isActivatedCell.style.color = "crimson";
+        //   isActivatedCell.style.fontWeight = 700;
+        //   isActivatedCell.innerText = "N (차단)"
+        // }
+
+        // function loadMemberBanned() {
+        //   const tableBody = document.querySelector("#memberListBanned tbody");
+        //   tableBody.innerHTML = "";
+        //   fetchJSON("/admin/member/memberListBanned", null, (data) => {
+        //     if (data == null || data.length == 0) {
+        //       return;
+        //     }
+        //     data.forEach((item) => {
+        //       let member_no = item.member_no;
+        //       let email = item.email;
+        //       let nickname = item.nickname;
+        //       let phonenumber = item.phonenumber;
+        //       let address = item.address;
+        //       let joindate = moment(item.joindate).format("YYYY/MM/DD");
+        //       let isactivated = item.isactivated;
+        //       let sns = item.sns;
+
+        //       let unblockButton = document.createElement("button");
+        //       unblockButton.innerText = "해제";
+        //       unblockButton.classList.add("btn", "waves-effect", "waves-light");
+        //       unblockButton.addEventListener("click", () => unblockMember(member_no));
+        //       let row = document.createElement("tr");
+        //       let memberNoCell = document.createElement("td");
+        //       let emailCell = document.createElement("td");
+        //       let nicknameCell = document.createElement("td");
+        //       let phoneNumberCell = document.createElement("td");
+        //       let addressCell = document.createElement("td");
+        //       let joinDateCell = document.createElement("td");
+        //       let isActivatedCell = document.createElement("td");
+        //       let snsCell = document.createElement("td");
+        //       let unblockCell = document.createElement("td");
+        //       unblockCell.appendChild(unblockButton);
+
+        //       memberNoCell.innerText = member_no;
+        //       emailCell.innerText = email;
+        //       nicknameCell.innerText = nickname;
+        //       phoneNumberCell.innerText = phonenumber;
+        //       addressCell.innerText = address;
+        //       joinDateCell.innerText = joindate;
+        //       isActivatedCell.innerText = isactivated;
+        //       snsCell.innerText = sns;
+
+        //       row.appendChild(memberNoCell);
+        //       row.appendChild(emailCell);
+        //       row.appendChild(nicknameCell);
+        //       row.appendChild(phoneNumberCell);
+        //       row.appendChild(addressCell);
+        //       row.appendChild(joinDateCell);
+        //       row.appendChild(isActivatedCell);
+        //       row.appendChild(snsCell);
+        //       row.appendChild(unblockCell);
+
+        //       tableBody.appendChild(row);
+        //     });
+        //   });
+        // }
+
+        // function onClassChange(el, callback) {
+        //   const observer = new MutationObserver((mList) => {
+        //     for (let m of mList) {
+        //       if (m.type === "attributes" && m.attributeName === "class") {
+        //         const target = m.target;
+        //         if (target.classList.contains("active")) {
+        //           callback();
+        //         }
+        //       }
+        //     }
+        //   });
+        //   observer.observe(el, { attributes: true });
+        // }
+
+    </script>
+    </body>
+    </html>

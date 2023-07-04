@@ -62,4 +62,67 @@ where member_no = #{member_no} and board_category_cd = 203
 order by board_no desc 
     </select>
 
+
+
+<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+    <!-- 이 아래부터 Admin 기능 -->
+
+    <select id="memberListAll" resultType="com.cocofarm.webpage.domain.MemberVO">
+    <![CDATA[
+select *
+from (
+select rownum as rn, a.*
+from (
+select *
+from tbl_member
+where member_type_cd = 102
+order by member_no asc
+) a
+)
+where rn <= #{page} * #{boardPerPage}
+and rn > (#{page}-1) * #{boardPerPage}
+]]>
+    </select>
+    
+    <select id="memberListBanned" resultType="com.cocofarm.webpage.domain.MemberVO">
+select *
+from tbl_member
+where isactivated = 'N'
+order by member_no asc
+    </select>
+
+    <select id="countAll">
+select count(*)
+from tbl_member
+    </select>
+
+    <select id="countBanned">
+select count(*)
+from tbl_member
+where isactivated = 'N'
+    </select>
+
+    <update id="banned"> 
+update tbl_member
+set isactivated = #{isactivated}
+where email = #{email}
+    </update>
+    
+    <!-- <select id="getListPaging" resultType="com.cocofarm.webpage.domain.MemberVO">
+    <![CDATA[
+        select *
+        from(       
+            select *              
+            from tbl_member
+            where rownum <= #{page} * #{boardPerPage}
+    ]]>            
+       <if test="keyword != null">
+        and email like '%'||#{keyword}||'%' 
+       </if>
+    <![CDATA[   
+    )           
+        where rownum > (#{page}-1) * #{boardPerPage}
+    ]]>
+    </select> -->
+
 </mapper>
