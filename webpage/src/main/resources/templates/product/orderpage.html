@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    주문 목록
+  </body>
+
+  <script th:inline="javascript">
+    fetchTEXT(
+      "/product/orderpage/insert",
+      {
+        board_category_cd: 1,
+        title: 2,
+        content: 3,
+        product_id: 4,
+        mainimage: 5,
+      },
+      (data) => {
+        if (data == 1) {
+          alert("등록되었습니다.");
+          location.href = "/board/qna";
+        } else {
+          alert("작성에 실패했습니다.");
+        }
+      }
+    );
+  </script>
+</html>
