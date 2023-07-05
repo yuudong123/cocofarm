@@ -19,7 +19,11 @@
             <div class="rightContent">
               <div class="productName">[[${vo.name}]]</div>
               <div class="productPrice">[[${vo.price}]]</div>
-              <input type="hidden" id="member_no" value="[[${member.mem}]]" />
+              <input
+                type="hidden"
+                id="member_no"
+                value="[[${member.member_no}]]"
+              />
               <div id="btnBox">
                 <span>
                   <button id="btnMinus">-</button>
@@ -31,20 +35,26 @@
             총상품금액
             <div id="allprice">0</div>
             <span>
-              <button
+              <a
+                th:if="${userinfo != null}"
                 id="btnInsertCart"
                 th:data-product_id="${vo.product_id}"
                 class="btn"
+                >장바구니에 넣기</a
               >
-                장바구니에 넣기
-              </button>
-              <button
+              <a th:if="${userinfo == null}" id="notlogin" class="btn"
+                >장바구니에 넣기</a
+              >
+              <a
+                th:if="${userinfo != null}"
                 id="btnDirectBuy"
                 th:data-product_id="${vo.product_id}"
                 class="btnBuy"
+                >바로 구매하기</a
               >
-                바로 구매하기
-              </button>
+              <a th:if="${userinfo == null}" id="notlogin2" class="btn"
+                >바로 구매하기</a
+              >
             </span>
           </div>
         </div>
@@ -68,7 +78,8 @@
     const btnDirectBuy = document.querySelector("#btnDirectBuy");
     const product_id = /*[[${vo.product_id}]]*/ "";
     const memberNo = document.querySelector("#member_no");
-
+    const notlogin = document.querySelector("#notlogin");
+    const notlogin2 = document.querySelector("#notlogin2");
     let count = 0;
 
     var totalPrice = function (id, price, count) {
@@ -102,93 +113,145 @@
       totalPrice(allprice, productPrice.textContent, count);
     });
 
-    btnInsertCart.addEventListener("click", () => {
-      if (count <= 0) {
-        alert("수량을 추가해주세요.");
-        return false;
-      }
-      let product_id = btnInsertCart.getAttribute("data-product_id");
-      const data = {
-        product_id: product_id,
-        amount: count,
-      };
-      sendServerData(
-        "POST",
-        "/cartinsert",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          if ((data.status = "OK")) {
-            if (
-              confirm(
-                "장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요."
-              )
-            ) {
-              alert("장바구니 가기");
-              //장바구니 이동 페이지 필요
-              location.href = "cart";
-            } else {
+    if (btnInsertCart) {
+      btnInsertCart.addEventListener("click", () => {
+        if (count <= 0) {
+          alert("수량을 추가해주세요.");
+          return false;
+        }
+        let product_id = btnInsertCart.getAttribute("data-product_id");
+        const data = {
+          product_id: product_id,
+          amount: count,
+        };
+        sendServerData(
+          "POST",
+          "/cartinsert",
+          "application/json",
+          JSON.stringify(data),
+          function (data) {
+            data = JSON.parse(data);
+            if ((data.status = "OK")) {
+              if (
+                confirm(
+                  "장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요."
+                )
+              ) {
+                alert("장바구니 가기");
+                //장바구니 이동 페이지 필요
+                location.href = "cart";
+              } else {
+              }
             }
           }
+        );
+
+        //   const xhr = new XMLHttpRequest();
+        //   xhr.onload = function () {
+        //     if (xhr.status === 200) {
+        //       // 요청이 성공적으로 완료됐을 때 실행할 코드
+        //       var response = xhr.responseText;
+        //       var a = JSON.parse(response);
+
+        //       if (a.status == "OK") {
+        //         if (
+        //           confirm(
+        //             "장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요."
+        //           )
+        //         ) {
+        //           alert("장바구니 가기");
+        //           //장바구니 이동 페이지 필요
+        //         } else {
+        //         }
+        //       }
+        //       console.log(response);
+        //     } else {
+        //       // 요청이 실패했을 때 실행할 코드
+        //       console.error("Request failed. Status code: " + xhr.status);
+        //     }
+        //   };
+        //   var postData = JSON.stringify(data);
+
+        //   // 서버에 POST 요청 보내기
+        //   xhr.open("POST", "/cartinsert", true);
+        //   xhr.setRequestHeader("Content-Type", "application/json");
+        //   xhr.send(postData);
+      });
+    }
+    if (notlogin) {
+      notlogin.addEventListener("click", () => {
+        if (
+          confirm(
+            "로그인이 필요한 서비스 입니다. 로그인을 원하시면 확인을 눌러주세요."
+          )
+        ) {
+          location.href = "/member/login";
+        } else {
+          M.toast({ html: "로그인이 필요한 서비스 입니다." });
         }
-      );
+      });
+    }
+    if (btnDirectBuy) {
+      btnDirectBuy.addEventListener("click", () => {
+        if (count <= 0) {
+          alert("수량을 추가해주세요.");
+          return false;
+        }
+        let product_id = btnInsertCart.getAttribute("data-product_id");
+        // const data = {
+        //   product_id: product_id,
+        //   amount: count,
+        // };
+        var cartinsert = document.querySelector("#cartinsert"); //폼태그
+        //페이지바꾸기
 
-      //   const xhr = new XMLHttpRequest();
-      //   xhr.onload = function () {
-      //     if (xhr.status === 200) {
-      //       // 요청이 성공적으로 완료됐을 때 실행할 코드
-      //       var response = xhr.responseText;
-      //       var a = JSON.parse(response);
+        var newContent = document.createTextNode("내용물을 추가합니다.");
+        cartinsert.appendChild(newContent);
 
-      //       if (a.status == "OK") {
-      //         if (
-      //           confirm(
-      //             "장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요."
-      //           )
-      //         ) {
-      //           alert("장바구니 가기");
-      //           //장바구니 이동 페이지 필요
-      //         } else {
-      //         }
-      //       }
-      //       console.log(response);
-      //     } else {
-      //       // 요청이 실패했을 때 실행할 코드
-      //       console.error("Request failed. Status code: " + xhr.status);
-      //     }
-      //   };
-      //   var postData = JSON.stringify(data);
+        // let formData = new FormData();
+        // formData.append("product_id", product_id);
+        // formData.append("amount", count);
 
-      //   // 서버에 POST 요청 보내기
-      //   xhr.open("POST", "/cartinsert", true);
-      //   xhr.setRequestHeader("Content-Type", "application/json");
-      //   xhr.send(postData);
-    });
+        // console.log(formData.get("product_id"));
+        // console.log(formData.get("amount"));
 
-    btnDirectBuy.addEventListener("click", () => {
-      if (count <= 0) {
-        alert("수량을 추가해주세요.");
-        return false;
-      }
-      let product_id = btnInsertCart.getAttribute("data-product_id");
-      // const data = {
-      //   product_id: product_id,
-      //   amount: count,
-      // };
-      var cartinsert = document.querySelector("#cartinsert"); //폼태그
+        cartinsert.product_id.value = product_id;
+        cartinsert.amount.value = count;
+        cartinsert.submit();
 
-      // cartinsert.setAttribute("Content-Type", "application/json");
-      // cartinsert.setAttribute("method", "POST");
-      // cartinsert.setAttribute("action", "order/page");
-      // let formData = new FormData(cartinsert);
-      // formData.append("product_id", product_id);
-      // formData.append("amount", count);
-      // console.log(formData);
-      cartinsert.product_id.value = product_id;
-      cartinsert.amount.value = count;
-      alert(cartinsert.product_id.value);
-      cartinsert.submit();
-    });
+        // let expandingList = document.createElement("ul", {
+        //   is: "expanding-list",
+        // });
+        // cartinsert.appendChild(expandingList);
+        // console.log(document.querySelector("#expanding-list"));
+
+        // fetch("/order/page", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(FormData),
+        // });
+
+        // const xhr = new XMLHttpRequest();
+        // xhr.open("POST", "/order/page", true);
+        // xhr.setRequestHeader("Content-Type", "application/json");
+        // xhr.send(JSON.stringify(formData));
+      });
+    }
+    if (notlogin2) {
+      notlogin2.addEventListener("click", () => {
+        if (
+          confirm(
+            "로그인이 필요한 서비스 입니다. 로그인을 원하시면 확인을 눌러주세요."
+          )
+        ) {
+          location.href = "/member/login";
+        } else {
+          M.toast({ html: "로그인이 필요한 서비스 입니다." });
+        }
+      });
+    }
 
     //     const buyData = {
     //       member_no: memberNo,
