@@ -10,6 +10,10 @@
   width: 300px;
 }
 
+.whitelogo {
+  width: 270px;
+}
+
 html,
 body {
   height: 100%;
@@ -27,9 +31,6 @@ main {
 
 .headerNav {
   padding-inline: 15%;
-}
-
-#nav-mobile a {
   font-weight: 700;
 }
 
@@ -48,5 +49,4 @@ footer a:hover {
 .footerTitle {
   font-weight: 800;
   font-size: 1.3rem;
-  text-decoration: underline;
 }

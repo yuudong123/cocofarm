@@ -2,17 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <th:block th:fragment="adminmenuFragment">
     <div id="adminmenu" class="container-fluid">
-      <nav>
-        <div class="teal darken-4 nav-wrapper headerNav">
-          <a th:href="@{/admin/home}" class="brand-logo">관리자 홈</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a th:href="@{/admin/product/}">제품관리</a></li>
-            <li><a th:href="@{/admin/order/}">주문/배송 관리</a></li>
-            <li><a th:href="@{/admin/board/}">게시판/QnA 관리</a></li>
-            <li><a th:href="@{/admin/member/}">고객 관리</a></li>
-          </ul>
-        </div>
-      </nav>
+      <div class="navbar-fixed">
+        <nav>
+          <div class="teal darken-4 nav-wrapper headerNav">
+            <a th:href="@{/admin/home}" class="brand-logo">관리자 홈</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <li><a th:href="@{/admin/product/}">제품관리</a></li>
+              <li><a th:href="@{/admin/order/}">주문/배송 관리</a></li>
+              <li><a th:href="@{/admin/board/}">게시판/QnA 관리</a></li>
+              <li><a th:href="@{/admin/member/}">고객 관리</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </div>
   </th:block>
 </html>
