@@ -11,22 +11,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.CartDTO;
+import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.service.CartService;
+import com.cocofarm.webpage.service.ImageService;
 import com.cocofarm.webpage.service.ProductService;
 import com.google.gson.Gson;
 
 @Controller
+@SessionAttributes("userinfo")
 public class WebCartController {
 
     @Autowired
     CartService cartService;
     @Autowired
     ProductService productService;
+    @Autowired
+    ImageService imageService;
 
     // @ResponseBody
     // @PostMapping(value = "/selectcartlist")
@@ -70,14 +76,27 @@ public class WebCartController {
         return "{\"status\":\"OK\",\"carts\":" + new Gson().toJson(list) + "}";
     }
 
-    @GetMapping(value = "cart")
+    @GetMapping(value = "/cart")
     public ModelAndView cartPage(HttpSession session) {
+        ModelAndView mav = new ModelAndView();
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
         ArrayList<CartDTO> list = cartService.selectCartList(member.getMember_no());
-        ModelAndView mav = new ModelAndView();
         mav.addObject("list", list);
         mav.setViewName("product/cart");
+        System.out.println(list + "전체 값보기 ");
+        System.out.println(member.getMember_no() + "멤버 값보기 ");
         return mav;
+    }
+
+    // 장바구니 상품 한개 삭제
+    @PostMapping(value = "/cart/delete")
+    @ResponseBody
+    public int deleteCartProductOne(@RequestBody CartDTO dto, HttpSession session) {
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        dto.setMember_no(member.getMember_no());
+        System.out.println(member.getMember_no());
+        System.out.println(dto.getCart_id());
+        return cartService.deleteCartProductOne(dto);
     }
 
     /**

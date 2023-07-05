@@ -1,11 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/product/cart.css" />
   </head>
   <body>
-    장바구니?
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <div class="checkbox1">
+          <label>
+            <input
+              type="checkbox"
+              class="filled-in"
+              name="all"
+              id="selectAll"
+            />
+            <span>전체 상품 선택하기</span>
+          </label>
+        </div>
+        <div><a class="btnDeleteAll">전체 삭제</a></div>
+        <section id="section1" class="z-depth-1">
+          <table id="cartListAll" class="highlight">
+            <tbody>
+              <tr th:each="cart: ${list}">
+                <td>
+                  <label>
+                    <input
+                      type="checkbox"
+                      class="filled-in"
+                      name="all"
+                      id="selectOne"
+                    />
+                    <span></span>
+                  </label>
+                </td>
+                <td><img th:src="'/images/'+${cart.product_image}" /></td>
+                <td th:text="${cart.product_name}"></td>
+                <td>상품금액</td>
+                <td th:text="${cart.product_price}"></td>
+                <td>주문개수 :</td>
+                <td th:text="${cart.amount}"></td>
+                <td>
+                  <a
+                    class="btnDelete"
+                    th:onclick="onDelete([[${cart.cart_id}]])"
+                    >삭제</a
+                  >
+                </td>
+                <td>주문금액</td>
+                <td></td>
+                <td><a class="btnPayment">주문하기</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section id="section2" class="z-depth-1">
+          <table id="orderpalce" class="order">
+            <td>총상품금액</td>
+            <td id="allprice">0</td>
+            <td><a class="btnAllPayment">총 주문하기</a></td>
+          </table>
+        </section>
+
+        <!-- <div class="leftPlace">
+          <section id="section2" class="z-depth-1">
+            <div th:each="list: ${list}">
+              <label>
+                <input type="checkbox" class="filled-in" id="oneSelect" />
+                <span></span>
+              </label>
+              <img th:src="'/images/'+${list.product_image}" />
+              <span class="productName" th:text="${list.product_name}"></span>
+              <span class="productPrice" th:text="${list.product_price}"></span>
+              <div class="productAmount" th:text="${list.amount}">개</div>
+              
+              <a class="btnDelete">삭제</a>
+              <br>
+              <span id="onePrice">0<span>주문금액</span></span>
+              <a class="btnPayment">주문하기</a>
+            </div>
+          </section>
+        </div> -->
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="/js/cocofarm.js"></script>
   </body>
+  <script>
+    const productName = document.querySelector(".productName");
+    const productPrice = document.querySelector(".productPrice");
+
+    function onDelete(cart_id) {
+      const data = {
+        cart_id: cart_id,
+      };
+      sendServerData(
+        "POST",
+        "/cart/delete",
+        "application/json",
+        JSON.stringify(data),
+        function (data) {
+          if (Number(data) > 0) {
+            alert("삭제 되었습니다.");
+            window.location.reload(true);
+          } else {
+            alert("삭제하지 못했습니다.");
+          }
+        }
+      );
+    }
+
+    //개별 삭제
+    // const onedelete = document.querySelector(".btnDelete");
+
+    // if(onedelete){
+    //   onedelete.addEventListener("click", () =>{
+
+    //   }
+    // )};
+
+    // 전체 선택 체크박스
+    const allCheckbox = document.querySelector("#selectAll");
+
+    // 개별 선택 체크박스들
+    const checkboxes = document.querySelectorAll("#selectOne");
+
+    // 전체 선택 체크박스 클릭 이벤트 처리
+    allCheckbox.addEventListener("click", function () {
+      const isChecked = allCheckbox.checked;
+
+      // 개별 선택 체크박스들 상태 업데이트
+      checkboxes.forEach(function (checkbox) {
+        checkbox.checked = isChecked;
+      });
+    });
+
+    // 개별 선택 체크박스들 클릭 이벤트 처리
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("click", function () {
+        const allChecked = Array.from(checkboxes).every(function (checkbox) {
+          return checkbox.checked;
+        });
+        // 전체 선택 체크박스 상태 업데이트
+        allCheckbox.checked = allChecked;
+      });
+    });
+  </script>
 </html>
