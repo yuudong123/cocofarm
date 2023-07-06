@@ -2,21 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.ReportMapper">
     <select id="selectReportList" resultType="com.cocofarm.webpage.domain.ReportVO">
-    select  r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isprocessed
-    from    tbl_report r
-            left join tbl_member m on r.member_no = m.member_no
-    <if test="category == 'board'">
-    where   reported_reply = 0 </if>
-    <if test="category == 'reply'">
-    where   reported_reply != 0 </if><![CDATA[ 
-    and     rownum <= 50 ]]>
+    select * from (
+        select  rownum rn, r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isprocessed
+        from    tbl_report r
+                left join tbl_member m on r.member_no = m.member_no
+        <if test="category == 'board'">
+        where   reported_reply = 0 </if>
+        <if test="category == 'reply'">
+        where   reported_reply != 0 </if>
+        and     r.isprocessed = 'N'
+        order by r.report_no )      <![CDATA[ 
+        where rownum <= 50          ]]>
+    
     </select>
 
-    <select id="selectReport" resultType="com.cocofarm.webpage.domain.ReportVO">
-    select  r.*, m.nickname, rm.nickname reported_nickname, ct.value reason_text
+    <select id="selectReportBoard" resultType="com.cocofarm.webpage.domain.ReportVO">
+    select  r.*, m.nickname, rm.nickname reported_nickname, rm.email reported_email, b.title reported_title, b.content reported_content, ct.value reason_text
     from    tbl_report r
             left join tbl_member m on r.member_no = m.member_no
             left join tbl_member rm on r.reported_member = rm.member_no
+            left join tbl_board b on r.reported_board = b.board_no
+            left join tbl_code ct on r.reason_cd = ct.code
+    where   report_no = #{report_no}
+    </select>
+
+    <select id="selectReportReply" resultType="com.cocofarm.webpage.domain.ReportVO">
+    select  r.*, m.nickname, rm.nickname reported_nickname, rm.email reported_email, reply.content reported_content, ct.value reason_text
+    from    tbl_report r
+            left join tbl_member m on r.member_no = m.member_no
+            left join tbl_member rm on r.reported_member = rm.member_no
+            left join tbl_reply reply on r.reported_reply = reply.reply_no
             left join tbl_code ct on r.reason_cd = ct.code
     where   report_no = #{report_no}
     </select>

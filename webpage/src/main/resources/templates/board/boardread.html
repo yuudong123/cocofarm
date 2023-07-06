@@ -16,7 +16,7 @@
               <button id="btnDelete" class="btn red">삭제</button>
             </th:block>
           </div>
-          <button id="btnReportBoard" class="btn red waves-effect waves-red modal-trigger" href="#reportModal">신고</button>
+          <button th:if="${userinfo != null}" id="btnReportBoard" class="btn red waves-effect waves-red modal-trigger" href="#reportModal">신고</button>
         </div>
         <section class="z-depth-1">
           <h5 th:text="${boardvo.title}"></h5>

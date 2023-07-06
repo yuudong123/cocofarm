@@ -11,7 +11,7 @@
         <div id="topMenu">
           <div id="category">
             <a href="/admin/board/qna">새 QnA</a>
-            <a href="/admin/board/boardreport">신고된 게시물</a>
+            <a href="/admin/board/boardreport">신고된 게시글</a>
             <a href="/admin/board/replyreport">신고된 댓글</a>
             <div id="categorySelectBar"></div>
           </div>
@@ -19,7 +19,7 @@
         </div>
 
         <section class="z-depth-1">
-          <h6>신고된 게시물<small class="grey-text" style="font-weight: bold">&nbsp;&nbsp;오래된 항목순으로 불러옵니다. (최대 50개)</small></h6>
+          <h6>신고된 게시글<small class="grey-text" style="font-weight: bold">&nbsp;&nbsp;오래된 항목순으로 불러옵니다. (최대 50개)</small></h6>
           <table id="reportboard" class="highlight">
             <thead>
               <tr>
@@ -52,63 +52,153 @@
       <div class="modal-content">
         <h4>신고 상세 보기</h4>
         <p>
-          <span style="font-weight: bold">게시글 번호 : </span>
-          <span id="reportNo"></span>&nbsp;<a id="gotoboard"><small>해당 게시글 보기 >></small></a>
+          <span style="font-weight: bold">신고 번호 : </span>
+          <span id="reportNo"></span>
         </p>
-        <p>
-          <span style="font-weight: bold">작성자 : </span>
-          <span id="reportedNickname"></span>
-        </p>
+        <section>
+          <p>
+            <span style="font-weight: bold">게시글 번호 : </span>
+            <span id="boardNo"></span>
+          </p>
+          <p>
+            <span style="font-weight: bold">작성자 : </span>
+            <span id="reportedNickname"></span>
+          </p>
+          <p>
+            <span style="font-weight: bold">제목 : </span>
+            <span id="boardTitle"></span>
+          </p>
+          <p>
+            <span style="font-weight: bold">내용 : </span>
+            <span id="boardContent"></span>
+          </p>
+        </section>
         <p>
           <span style="font-weight: bold">신고 사유 : </span>
           <span id="reasonCode"></span>&nbsp;&nbsp;<span id="reasonText"></span>
         </p>
-        <p style="font-weight: bold">상세 사유</p>
-        <p id="content"></p>
+        <p>
+          <span style="font-weight: bold">상세 사유 : </span>
+          <span id="content"></span>
+        </p>
         <input type="hidden" id="hiddendata" />
       </div>
       <div class="modal-footer">
         <button id="btnBanWriter" class="btn">작성자 차단</button>
-        <button id="btnRemoveBoard" class="btn">게시물 삭제</button>
-        <button id="btnBanAndRemove" class="btn red">차단 및 삭제</button>
+        <button id="btnDeleteBoard" class="btn">게시물 삭제</button>
+        <button id="btnBanAndDelete" class="btn red">차단 및 삭제</button>
+        <button id="btnIgnore" class="btn grey">무시</button>
       </div>
     </div>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
     <script>
       const detailModal = M.Modal.init(document.querySelector("#detailModal"), {});
       const reportNo = document.querySelector("#reportNo");
+      const boardNo = document.querySelector("#boardNo");
       const reportedNickname = document.querySelector("#reportedNickname");
+      const boardTitle = document.querySelector("#boardTitle");
+      const boardContent = document.querySelector("#boardContent");
       const reasonCode = document.querySelector("#reasonCode");
       const reasonText = document.querySelector("#reasonText");
       const reportContent = document.querySelector("#content");
       const hiddendata = document.querySelector("#hiddendata");
       const btnBanWriter = document.querySelector("#btnBanWriter");
-      const btnRemoveBoard = document.querySelector("#btnRemoveBoard");
-      const btnBanAndRemove = document.querySelector("#btnBanAndRemove");
+      const btnDeleteBoard = document.querySelector("#btnDeleteBoard");
+      const btnBanAndDelete = document.querySelector("#btnBanAndDelete");
+      const btnIgnore = document.querySelector("#btnIgnore");
 
       function detail(report_no) {
-        fetchJSON("/getreport", report_no, (data) => {
+        fetchJSON("/getreportboard", report_no, (data) => {
           if (data != null && data.length != 0) {
             reportNo.innerHTML = report_no;
+            boardNo.innerHTML = data.reported_board;
             reportedNickname.innerHTML = data.reported_nickname;
+            if (data.reported_title != null && data.reported_title != "") {
+              boardTitle.innerHTML = data.reported_title;
+            } else {
+              boardTitle.innerHTML = "";
+            }
+            boardContent.innerHTML = data.reported_content;
             reasonCode.innerHTML = data.reason_cd;
             reasonText.innerHTML = "(" + data.reason_text + ")";
-            reportContent.innerHTML = data.content;
+            if (data.content != null && data.content != "") {
+              reportContent.innerHTML = data.content;
+            } else {
+              reportContent.innerHTML = "";
+            }
+            hiddendata.dataset.email = data.reported_email;
           }
         });
       }
-      
+
       btnBanWriter.addEventListener("click", () => {
         if (confirm("차단된 회원은 고객관리 페이지에서 확인/차단해제 가능합니다. 차단하시겠습니까?")) {
-          fetchJSON("");
+          fetchTEXT(
+            "/banwriter",
+            {
+              report_no: reportNo.innerHTML,
+              reported_email: hiddendata.dataset.email,
+            },
+            (data) => {
+              if (data == "success") {
+                toast("차단되었습니다.");
+                location.reload();
+              } else {
+                toast("오류가 발생했습니다.");
+              }
+            }
+          );
         }
       });
-      btnRemoveBoard.addEventListener("click", () => {
-        if (confirm("삭제된 게시물을 복구되지 않습니다. 삭제하시겠습니까?")) {
+      btnDeleteBoard.addEventListener("click", () => {
+        if (confirm("삭제된 게시글은 복구되지 않습니다. 삭제하시겠습니까?")) {
+          fetchTEXT(
+            "/deleteboard",
+            {
+              report_no: reportNo.innerHTML,
+              reported_board: boardNo.innerHTML,
+            },
+            (data) => {
+              if (data == "success") {
+                toast("삭제되었습니다.");
+                location.reload();
+              } else {
+                toast("오류가 발생했습니다.");
+              }
+            }
+          );
         }
       });
-      btnBanAndRemove.addEventListener("click", () => {
-        if (confirm("차단된 회원은 고객관리 페이지에서 확인/차단해제 가능하며, 삭제된 게시물은 복구되지 않습니다. 정말 진행하시겠습니까?")) {
+      btnBanAndDelete.addEventListener("click", () => {
+        if (confirm("차단된 회원은 고객관리 페이지에서 확인/차단해제 가능하며, 삭제된 게시글은 복구되지 않습니다. 정말 진행하시겠습니까?")) {
+          fetchTEXT(
+            "/bananddelete",
+            {
+              report_no: reportNo.innerHTML,
+              reported_email: hiddendata.dataset.email,
+              reported_board: boardNo.innerHTML,
+            },
+            (data) => {
+              if (data == "success") {
+                toast("처리되었습니다.");
+                location.reload();
+              } else {
+                toast("오류가 발생했습니다.");
+              }
+            }
+          );
+        }
+      });
+      btnIgnore.addEventListener("click", () => {
+        if (confirm("별도 작업 없이 처리가 완료됩니다. 무시하시겠습니까?")) {
+          fetchTEXT("/ignorereport", reportNo.innerHTML, (data) => {
+            if (data == 1) {
+              toast("처리되었습니다.");
+              location.reload();
+            } else {
+              toast("오류가 발생했습니다.");
+            }
+          });
         }
       });
     </script>

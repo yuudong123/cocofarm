@@ -8,9 +8,12 @@
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
-        <div id="btnBox">
-          <button id="btnList" class="btn">목록으로</button>
-          <button th:if="${userinfo != null && (userinfo.member_type_cd == 101 || userinfo.member_no == qnadto.member_no)}" id="btnDelete" class="btn red">삭제</button>
+        <div style="display: flex; justify-content: space-between; padding: 10px; padding-bottom: 0">
+          <div id="btnBox">
+            <button id="btnList" class="btn">목록으로</button>
+            <button th:if="${userinfo != null && (userinfo.member_type_cd == 101 || userinfo.member_no == qnadto.member_no)}" id="btnDelete" class="btn red">삭제</button>
+          </div>
+          <button th:if="${userinfo != null}" id="btnReportBoard" class="btn red waves-effect waves-red modal-trigger" href="#reportModal">신고</button>
         </div>
         <section class="z-depth-1">
           <h5 th:text="${qnadto.title}"></h5>
@@ -39,16 +42,94 @@
         </section>
       </div>
     </main>
+    <div id="reportModal" class="modal">
+      <div class="modal-content">
+        <h4>신고</h4>
+        <span style="font-weight: bold">게시물 유형 :&nbsp;</span>
+        <span id="reportType"></span>&nbsp;&nbsp;
+        <span style="font-weight: bold">번호 : </span>
+        <span id="reportNo"></span>&nbsp;&nbsp;
+        <span style="font-weight: bold">작성자 : </span>
+        <span id="reportedNickname"></span>
+        <form action="#">
+          <p>
+            <label>
+              <input class="with-gap" data-cd="511" name="report" type="radio" checked />
+              <span>영리목적/홍보성</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" data-cd="512" name="report" type="radio" />
+              <span>개인정보 노출</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" data-cd="513" name="report" type="radio" />
+              <span>불법정보</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" data-cd="514" name="report" type="radio" />
+              <span>음란성/선정성</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" data-cd="515" name="report" type="radio" />
+              <span>욕설/인신공격</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" data-cd="516" name="report" type="radio" />
+              <span>아이디/DB 거래</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" data-cd="517" name="report" type="radio" />
+              <span>같은 내용 반복(도배)</span>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input class="with-gap" data-cd="518" name="report" type="radio" />
+              <span>기타</span>
+            </label>
+          </p>
+        </form>
+        <div class="input-field">
+          <textarea id="reportContent" class="materialize-textarea" placeholder="자세한 내용을 적어주세요."></textarea>
+          <label for="reportContent">상세사유</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnReportConfirm" class="waves-effect waves-green btn-flat">신고</button>
+      </div>
+    </div>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
   </body>
   <script th:inline="javascript">
     const btnList = document.querySelector("#btnList");
     const btnDelete = document.querySelector("#btnDelete");
+    const btnReportBoard = document.querySelector("#btnReportBoard");
     const btnAnswer = document.querySelector("#btnAnswer");
     const btnAnswerConfirm = document.querySelector("#btnAnswerConfirm");
     const answerContent = document.querySelector("#answerContent");
     const answer = document.querySelector("#answer");
     const board_no = /*[[${qnadto.board_no}]]*/ "";
+    const board_nickname = /*[[${qnadto.nickname}]]*/ "";
+    const board_memberno = /*[[${qnadto.member_no}]]*/ "";
+    const reportType = document.querySelector("#reportType");
+    const reportNo = document.querySelector("#reportNo");
+    const reportedNickname = document.querySelector("#reportedNickname");
+    const reportRadios = document.querySelectorAll("input[name='report']");
+    const reportContent = document.querySelector("#reportContent");
+    const btnReportConfirm = document.querySelector("#btnReportConfirm");
+    const reportModal = M.Modal.init(document.querySelector("#reportModal"), {});
 
     onload = loadAnswer();
     btnList.addEventListener("click", () => {
@@ -106,5 +187,44 @@
         }
       });
     }
+
+    if (btnReportBoard != null) {
+      btnReportBoard.addEventListener("click", () => {
+        reportType.innerHTML = "게시글";
+        reportNo.innerHTML = board_no;
+        reportedNickname.innerHTML = board_nickname;
+        reportedNickname.dataset.memberNo = board_memberno;
+      });
+    }
+    btnReportConfirm.addEventListener("click", () => {
+      let reqBody = {
+        reported_member: reportedNickname.dataset.memberNo,
+        content: reportContent.value,
+      };
+      if (reportType.textContent == "게시글") {
+        reqBody.reported_board = reportNo.textContent;
+      } else if (reportType.textContent == "댓글") {
+        reqBody.reported_board = board_no;
+        reqBody.reported_reply = reportNo.textContent;
+      }
+
+      reportRadios.forEach((radio) => {
+        if (radio.checked) {
+          reqBody.reason_cd = radio.dataset.cd;
+        }
+      });
+      console.log(reqBody);
+      if (confirm("작성을 완료하시겠습니까?")) {
+        fetchTEXT("/report", reqBody, (data) => {
+          if (data == 1) {
+            M.toast({ html: "신고되었습니다." });
+            reportModal.close();
+            reportContent.value = "";
+          } else {
+            M.toast({ html: "신고에 실패했습니다." });
+          }
+        });
+      }
+    });
   </script>
 </html>

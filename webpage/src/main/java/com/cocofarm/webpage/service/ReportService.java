@@ -23,8 +23,12 @@ public class ReportService {
         return reportMapper.insertReport(reportVO);
     }
 
-    public ReportVO selectReport(int report_no) {
-        ReportVO reportVO = reportMapper.selectReport(report_no);
+    public ReportVO selectReportBoard(int report_no) {
+        ReportVO reportVO = reportMapper.selectReportBoard(report_no);
+        return reportVO;
+    }
+    public ReportVO selectReportReply(int report_no) {
+        ReportVO reportVO = reportMapper.selectReportReply(report_no);
         return reportVO;
     }
 

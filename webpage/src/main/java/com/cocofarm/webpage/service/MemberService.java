@@ -75,13 +75,13 @@ public class MemberService {
     return list;
   }
 
-  public ArrayList<MemberVO>  memberListBanned(CriteriaDTO cri) {
-  ArrayList<MemberVO> list = mapper.memberListBanned();
-  return list;
+  public ArrayList<MemberVO> memberListBanned(CriteriaDTO cri) {
+    ArrayList<MemberVO> list = mapper.memberListBanned();
+    return list;
   }
 
-  public void banned(String email, String isactivated) {
-    mapper.banned(email, isactivated);
+  public int banned(String email, String isactivated) {
+    return mapper.banned(email, isactivated);
   }
 
 }
