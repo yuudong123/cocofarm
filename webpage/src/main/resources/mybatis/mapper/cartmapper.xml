@@ -15,6 +15,21 @@ insert into tbl_cart values (seq_board_no.nextval, #{member_no},#{product_id}, #
     ORDER BY c.cart_id DESC
     </select>
 
+    <select id="selectCartOrderList" parameterType="com.cocofarm.webpage.domain.CartDTO">
+     select c.*, pp.name as product_name, pp.price as product_price, pp.filename as product_image
+    from tbl_cart c
+    inner join (select p.product_id, p.name, p.price, min(i.filename) as filename
+                from tbl_image i inner join tbl_product p on (p.product_id = i.product_id)
+                group by p.product_id, p.name, p.price) pp on c.product_id = pp.product_id
+    where cart_id in( 
+        <foreach collection="list" item="item" separator=",">
+    
+          #{item}
+   
+        </foreach> )
+    ORDER BY c.cart_id DESC
+    </select>
+
     <!-- 장바구니 상품 한개 삭제 -->
     <delete id="deleteCartProductOne">
     delete tbl_cart where cart_id = #{cart_id} and member_no = #{member_no}

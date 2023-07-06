@@ -20,6 +20,12 @@ public class CartService {
         return list;
     }
 
+    // 웹용 장바구니 오더 보이게 하기?
+    public ArrayList<CartDTO> selectCartList(List<String> order) {
+        ArrayList<CartDTO> list = cartmapper.selectCartOrderList(order);
+        return list;
+    }
+
     public int insert(CartDTO dto) {
         return cartmapper.insert(dto);
     }

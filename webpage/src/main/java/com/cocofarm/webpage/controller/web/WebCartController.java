@@ -81,8 +81,6 @@ public class WebCartController {
         ArrayList<CartDTO> list = cartService.selectCartList(member.getMember_no());
         mav.addObject("list", list);
         mav.setViewName("product/cart");
-        System.out.println(list + "전체 값보기 ");
-        System.out.println(member.getMember_no() + "멤버 값보기 ");
         return mav;
     }
 
@@ -92,14 +90,16 @@ public class WebCartController {
     public int deleteCartProductOne(@RequestBody CartDTO dto, HttpSession session) {
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
         dto.setMember_no(member.getMember_no());
-        System.out.println(member.getMember_no());
-        System.out.println(dto.getCart_id());
         return cartService.deleteCartProductOne(dto);
     }
 
-    /**
-     * public void insertCartAnd(CartDTO dto) {
-     * cartService.insert(dto);
-     * }
-     */
+    // 장바구니 전체 삭제
+    @PostMapping(value = "/cart/alldelete")
+    @ResponseBody
+    public int deleteCartList(HttpSession session) {
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        int member_no = member.getMember_no();
+        return cartService.deleteCartList(member_no);
+    }
+
 }
