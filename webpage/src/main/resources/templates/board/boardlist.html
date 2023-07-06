@@ -61,8 +61,6 @@
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
     <script th:inline="javascript">
       const reqDiv = document.querySelector("#reqDiv");
-      const categorys = document.querySelectorAll("#category a");
-      const selectBar = document.getElementById("categorySelectBar");
       const selectBoardPerPage = document.querySelector("#selectBoardPerPage");
       const inputPage = document.querySelector("#inputPage");
       const inputKeyword = document.querySelector("#inputKeyword");
@@ -83,26 +81,6 @@
           selectBoardPerPage.selectedIndex = 2;
           break;
       }
-
-      categorys.forEach((category) => {
-        category.addEventListener("click", () => {
-          reqDiv.setAttribute("action", "/board/" + category.dataset.category);
-          inputPage.setAttribute("value", "1");
-          reqDiv.submit();
-        });
-
-        var width = category.offsetWidth;
-        var offsetLeft = category.offsetLeft;
-        category.addEventListener("mouseenter", function () {
-          selectBar.style.width = width + "px";
-          selectBar.style.transform = "translateX(" + offsetLeft + "px)";
-        });
-
-        category.addEventListener("mouseleave", function () {
-          selectBar.style.width = "0";
-          selectBar.style.transform = "translateX(" + (offsetLeft + width / 2) + "px)";
-        });
-      });
 
       pageFirst.addEventListener("click", () => {
         inputPage.setAttribute("value", "1");
@@ -132,5 +110,6 @@
         });
       });
     </script>
+    <script src="js/category.js"></script>
   </body>
 </html>
