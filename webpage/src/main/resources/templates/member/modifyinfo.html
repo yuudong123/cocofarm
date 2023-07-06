@@ -16,30 +16,35 @@
       <div class="row">
         <h5>정보 수정</h5>
         <div id="myinfo">
-          <form action="/member/modifyinfo" method="get" id="modifyform">
+          <form action="/member/modifyinfo" method="post" id="modifyform">
             <table th:if="${userinfo!=null}">
               <tbody>
                 <tr>
                   <th>이메일</th>
-                  <td id="email" th:text="${userinfo.email}">정보 없음</td>
+                  <td name="email" th:text="${userinfo.email}" onclick="cantmodify()">정보 없음</td>
                 </tr>
                 <tr>
                   <th>닉네임</th>
-                  <td><input name="nickname" type="text" th:value="${userinfo.nickname}"></td>
+                  <td><input name="nickname"  id="nickname"type="text" th:value="${userinfo.nickname}"></td>
                 </tr>
                 <tr>
                   <th>전화번호</th>
-                  <td><input name="phonenumber" type="tel" th:value="${userinfo.phonenumber}"></td>
+                  <td>
+                    <input class="input-phone" type="tel" th:value="${userinfo.phonenumber}">
+                    <input name="phonenumber" type="hidden" value="test"/>
+                  </td>
                 </tr>
                 <tr>
                   <th>주소</th>
-                  <td><input id="address" class="road" type="text" th:value="${userinfo.address}" disabled></td>
+                  <td><input class="road" type="text" th:value="${userinfo.address}" readonly></td>
                   <td><a class="search" style="cursor: pointer;">주소 검색</a></td>
                 </tr>
                 <tr id="details" style="display: none;">
                   <th>상세 주소</th>
-                  <td><input class="details" type="text" placeholder="상세주소를 입력해 주세요."></td>
-                </tr>
+                  <td><input class="details" type="text" placeholder="상세주소를 입력해 주세요.">
+                      <input name="address" type="hidden"/>
+                  </td>
+                                  </tr>
               </tbody>
             </table>
           </form>
@@ -74,53 +79,34 @@
         }).open();
       });
 
-
-      function onClickOk () {
-        var nickname = document.querySelector("#nickname").textContent;
-        var input_nickname = document.querySelector("#input-nickname").value;
-
-if(input_nickname==''){
-  alert('입력');
-}else{
-  alert('입력완료');
-}
-
-        var inputNickname = document.querySelectorAll("tr")[1].querySelector(".input");
-        var phone = document.querySelector("#phone").textContent;
-        var inputPhone = document.querySelectorAll("tr")[2].querySelector(".input");
-        var address = document.querySelector("#address").textContent;
-        var details = document.querySelector(".details").value;
-        if (inputNickname.style.display == "block") {
-          nickname = inputNickname.value;
-        }
-        if (inputPhone.style.display == "block") {
-          phone = inputPhone.value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
-        }
-        if (document.querySelector("#details").style.display == "") {
-          address = address + ", " + details;
-        }
-        
-        if (confirm("닉네임: " + nickname + "\n전화번호: " + phone + "\n주소: " + address + "\n\n정보를 수정하시겠습니까?")) {
-          document.querySelector("#modifyform").submit();
-          //   fetchTEXT(
-        //   "/member/modifyinfo",
-        //   {
-        //     email: document.querySelector('#email').textContent,
-        //     nickname: nickname,
-        //     phonenumber: phone,
-        //     address: address,
-        //   },
-        //     (data) => {
-        //       location.href = "/member/myinfo";
-        //     }
-        // );
-          } else {
-            M.toast({html: '정보 수정이 취소되었습니다.'});
-          }
+      function cantmodify () {
+        M.toast({html: '이메일은 변경할 수 없습니다.'});
       }
 
 
+      function onClickOk () {
+        var inputPhone = document.querySelector('.input-phone');
+        var road = document.querySelector(".road").value;
+        var details = document.querySelector(".details").value;
+        var phonenumber = document.querySelector('input[name="phonenumber"]');
+        var address = document.querySelector('input[name="address"]');
+        var nickname = document.querySelector('input[name="nickname"]');
 
+      //  if (document.querySelector("#details").style.display == "") {
+          if (details == "") {
+            address.value = road;
+          } else {
+            address.value = road + ", " + details;
+          }
+     //   }
+        phonenumber.value = inputPhone.value.replace(/[^0-9]/g, '').replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+
+        if (confirm("닉네임: " + nickname.value + "\n전화번호: " + phonenumber.value + "\n주소: " + address.value + "\n\n정보를 수정하시겠습니까?")) {
+          document.querySelector("#modifyform").submit();
+        } else {
+            M.toast({html: '정보 수정이 취소되었습니다.'});
+        }
+      }
     </script>
   </body>
 </html>

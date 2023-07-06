@@ -111,14 +111,6 @@ th,
   cursor: pointer;
 }
 
-#category a:hover {
-  font-size: 20px;
-  color: #429f5d;
-  margin: 10px;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
 .oneLine h6 {
   display: inline;
 }
@@ -139,4 +131,14 @@ th,
 .search_area button {
   width: 100px;
   height: 36px;
+}
+
+#categorySelectBar {
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #429f5d;
+  transition: all 0.25s ease-in-out;
+  bottom: 6px;
+  left: 0;
 }

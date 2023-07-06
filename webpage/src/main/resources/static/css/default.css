@@ -31,6 +31,9 @@ main {
 
 .headerNav {
   padding-inline: 15%;
+}
+
+.headerNav a {
   font-weight: 700;
 }
 
