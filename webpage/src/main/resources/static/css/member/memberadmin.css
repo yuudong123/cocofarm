@@ -111,6 +111,13 @@ th,
   cursor: pointer;
 }
 
+#inputKeyword {
+  width: 50%;
+  min-width: 200px;
+  height: 2rem;
+  margin-right: 10px;
+}
+
 .oneLine h6 {
   display: inline;
 }

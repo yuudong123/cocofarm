@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/about/location.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+<!-- container -->
+<div id="container">
+		
+    <!-- sub-title -->
+    <div class="sub-title01">
+        <h3>오시는 길</h3>
+    </div>
+    <!-- //sub-title -->
+    <!-- tab-type04 -->
+    <h4 style="color:#429F5D">(주)코코팜 본사</h4>
+    <!-- //tab-type04 -->
+
+    <div class="directions-mapbox">
+        <div id="directionsMap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3262.122615797608!2d126.88542077630044!3d35.153562658779045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35718c095451ddab%3A0xb8207167890e32bb!2z7ZWc7Jq47KeB7JeF7KCE66y47ZWZ6rWQ!5e0!3m2!1sko!2skr!4v1688628768366!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="contact">
+            <div class="address">61928 광주광역시 서구 경열로 3 ( 농성동 271-4 )</div>
+            <div class="number">
+                <span class="tel">TEL: 062-123-1114</span>
+                <span class="fax">FAX: 062-123-1115</span>
+            </div>
+        </div>
+    </div>
+    <!-- //mapbox -->
+    
+    <!-- navigation -->
+    <div class="navigation">
+        <h4>승용차로 오시는 길</h4>
+        <dl>
+            <dt>첨단방면</dt>
+            <dd>
+                <span>첨단2지구</span>- 첨단연신로77번길에서 우회전 - 동림IC 상무지구 방면 <br />
+                북문대로 버스터미널 광주역 방면으로 좌회전 - 상무대로 서구청 방면으로 좌회전 - 경열로 U턴 - 200M 전방 우측 코코팜 본사
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>송정방면</dt>
+            <dd>
+                <span>광주송정역</span>- 상무대로205번길 직진 - 상무대로 서구청 방면으로 지하차도 진입 <br />
+                경열로 중소기업청, 서구청 방면 우측도로 - 경열로 U턴 - 200M 전방 우측 코코팜 본사
+            </dd>
+        </dl>
+
+        <dl>
+            <dt>화순방면</dt>
+            <dd>
+                <span>너릿재터널</span>- 소태동 사거리 - 전남대병원 - 양림동 로터리 - 문화전당역 - 금남로4가역 - 금남사거리 - 양동시장방향 진입 - 육교 전방 100M 지점  <br />
+                첫 번째 횡단보도 지나서 우회전 -200M 전방 좌측 코코팜 본사
+            </dd>
+        </dl>
+    </div>
+    <!-- //navigation -->
+
+    <!-- navigation -->
+    <div class="navigation" style="margin-bottom: 120px;">
+        <h4>대중교통으로 오시는 길</h4>
+        <dl>
+            <dt>지하철</dt>
+            <dd>
+                <span>1호선</span> '농성역' 하차 (1번, 7번 출구, 도보 5분)
+            </dd>
+        </dl>
+        <dl>
+            <dt>버스</dt>
+            <dd>
+                <span>서구청 하차</span>(농성SK뷰 방면 / 서광주한전방면), &nbsp;금호36, 문흥39, 봉선37, 송정19, 송암68, 송암72, 나주160, 마을763, &nbsp;도보 3분<br />
+            </dd>
+            <dd>
+                <span>서구청 하차</span>(광주시립미술관하정웅미술관방면), &nbsp;지선1187, &nbsp;도보 3분
+            </dd>
+        </dl>
+    </div>
+    <!-- //navigation -->
+
+</div>
+<!-- //container -->
+<th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+</body>
+</html>

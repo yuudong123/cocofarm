@@ -6,6 +6,19 @@
         <th:block th:replace="~{fragments/adminmenu :: adminmenuFragment}"></th:block>
       </th:block>
       <div class="navbar-fixed">
+         <!-- Dropdown Structure -->
+         <ul id="dropdown1" class="dropdown-content">
+          <li>
+            <a href="#!">one</a>
+          </li>
+          <li>
+            <a href="#!">two</a>
+          </li>
+          <li class="divider"></li>
+          <li>
+            <a href="#!">three</a>
+          </li>
+        </ul>
         <nav>
           <div class="light-green darken-1 nav-wrapper headerNav" id="mainmenu">
             <a th:href="@{/}" class="brand-logo center"><img class="whitelogo" src="/images/logo_white.png" /></a>
@@ -13,6 +26,7 @@
               <li><a th:href="@{/}">홈</a></li>
               <li><a th:href="@{/product}">제품</a></li>
               <li><a th:href="@{/board/notice}">게시판</a></li>
+              <li><a class="dropdown-trigger" th:href="@{/about/location}" data-target="dropdown1">회사소개<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
               <li><a th:if="${userinfo != null}" th:href="@{/member/myinfo}">마이페이지</a></li>

@@ -76,6 +76,8 @@ from (
 select *
 from tbl_member
 where member_type_cd = 102
+and (email like '%'||#{keyword}||'%'
+or nickname like '%'||#{keyword}||'%')
 order by member_no asc
 ) a
 )
@@ -88,6 +90,8 @@ and rn > (#{page}-1) * #{boardPerPage}
 select *
 from tbl_member
 where isactivated = 'N'
+and (email like '%'||#{keyword}||'%'
+or nickname like '%'||#{keyword}||'%')
 order by member_no asc
     </select>
 
@@ -95,12 +99,16 @@ order by member_no asc
 select count(*)
 from tbl_member
 where member_type_cd = '102'
+and (email like '%'||#{keyword}||'%'
+or nickname like '%'||#{keyword}||'%')
     </select>
 
     <select id="countBanned">
 select count(*)
 from tbl_member
 where isactivated = 'N'
+and (email like '%'||#{keyword}||'%'
+or nickname like '%'||#{keyword}||'%')
     </select>
 
     <update id="banned"> 

@@ -8,7 +8,7 @@
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
-        <form id="reqDiv" method="get">
+        <form id="reqDiv" method="get" action="/admin/member">
           <div id="category">
             <a href="/admin/member" style="color: #429f5d; text-decoration: underline">전체 회원</a>
             <a href="/admin/memberbanned">차단된 회원</a>
@@ -16,6 +16,9 @@
           <div id="categorySelectBar"></div>
           <div id="reqDivInner">
             <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
+            <b>회원검색</b>
+            <input type="text" id="inputKeyword" name="keyword" th:value="${pager.cri.keyword}" />
+            <button class="btn light-green darken-1" type="submit"><i class="material-icons">search</i></button>
           </div>
         </form>
 

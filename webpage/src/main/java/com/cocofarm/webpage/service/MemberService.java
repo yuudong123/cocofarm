@@ -61,12 +61,12 @@ public class MemberService {
     return mapper.myreviewboard(vo);
   }
 
-  public int countAll() {
-    return mapper.countAll();
+  public int countAll(CriteriaDTO cri) {
+    return mapper.countAll(cri);
   }
 
-  public int countBanned() {
-    return mapper.countBanned();
+  public int countBanned(CriteriaDTO cri) {
+    return mapper.countBanned(cri);
   }
 
   // Admin
@@ -76,7 +76,7 @@ public class MemberService {
   }
 
   public ArrayList<MemberVO>  memberListBanned(CriteriaDTO cri) {
-  ArrayList<MemberVO> list = mapper.memberListBanned();
+  ArrayList<MemberVO> list = mapper.memberListBanned(cri);
   return list;
   }
 

@@ -158,7 +158,6 @@ public class WebMemberController {
         return "member/modifyinfo";
     }
 
-    @ResponseBody
     @PostMapping(value = "/member/modifyinfo")
     public String modifyinfoPost(  MemberVO vo, Model model) {
 
@@ -166,7 +165,7 @@ public class WebMemberController {
         MemberVO result = memberService.login((MemberVO) model.getAttribute("userinfo"));
         model.addAttribute("userinfo", result);
 
-        return "success";
+        return "redirect:/member/myinfo";
     }
 
     @ResponseBody
@@ -207,11 +206,6 @@ public class WebMemberController {
         return "member/mydevice";
     }
 
-    @GetMapping(value = "/member/cscenter")
-    public String cscenter() {
-        return "member/cscenter";
-    }
-
     @GetMapping(value = "/member/away")
     public String away() {
         return "member/away";
@@ -250,8 +244,8 @@ public class WebMemberController {
         ModelAndView mav = new ModelAndView();
         ArrayList<MemberVO> vo = memberService.memberListAll(cri);
         mav.addObject("vo", vo);
-        mav.addObject("countAll", memberService.countAll());
-        mav.addObject("pager", new PageDTO(cri, memberService.countAll()));
+        mav.addObject("countAll", memberService.countAll(cri));
+        mav.addObject("pager", new PageDTO(cri, memberService.countAll(cri)));
         mav.setViewName("/member/admin/memberlist");
         return mav;
     }
@@ -262,8 +256,8 @@ public class WebMemberController {
         ModelAndView mav = new ModelAndView();
         ArrayList<MemberVO> vo = memberService.memberListBanned(cri);
         mav.addObject("vo", vo);
-        mav.addObject("countBanned", memberService.countBanned());
-        mav.addObject("pager", new PageDTO(cri, memberService.countBanned()));
+        mav.addObject("countBanned", memberService.countBanned(cri));
+        mav.addObject("pager", new PageDTO(cri, memberService.countBanned(cri)));
         mav.setViewName("/member/admin/bannedlist");
         return mav;
     }
