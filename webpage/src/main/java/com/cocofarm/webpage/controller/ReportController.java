@@ -34,4 +34,9 @@ public class ReportController {
         ReportVO reportVO = reportService.selectReport(report_no);
         return new Gson().toJson(reportVO);
     }
+
+    @PostMapping("/process")
+    public int processReport(@RequestBody int report_no) {
+        return reportService.processReport(report_no);
+    }
 }

@@ -3,12 +3,13 @@ const selectBar = document.getElementById("categorySelectBar");
 
 if (categorys != null) {
   categorys.forEach((category) => {
-    category.addEventListener("click", () => {
-      reqDiv.setAttribute("action", "/board/" + category.dataset.category);
-      inputPage.setAttribute("value", "1");
-      reqDiv.submit();
-    });
-
+    if (category.dataset.category != null) {
+      category.addEventListener("click", () => {
+        reqDiv.setAttribute("action", "/board/" + category.dataset.category);
+        inputPage.setAttribute("value", "1");
+        reqDiv.submit();
+      });
+    }
     var width = category.offsetWidth;
     var offsetLeft = category.offsetLeft;
     category.addEventListener("mouseenter", function () {

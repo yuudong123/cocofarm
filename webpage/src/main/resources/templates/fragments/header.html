@@ -2,7 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <th:block th:fragment="headerFragment">
     <header>
-      <th:block th:if="${userinfo != null && userinfo.member_type_cd == 101}" th:replace="~{fragments/adminmenu :: adminmenuFragment}"></th:block>
+      <th:block th:if="${userinfo != null && userinfo.member_type_cd == 101}">
+        <th:block th:replace="~{fragments/adminmenu :: adminmenuFragment}"></th:block>
+      </th:block>
       <div class="navbar-fixed">
         <nav>
           <div class="light-green darken-1 nav-wrapper headerNav" id="mainmenu">

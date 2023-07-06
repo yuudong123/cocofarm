@@ -15,4 +15,6 @@ public interface ReportMapper {
 
     public ReportVO selectReport(int report_no);
 
+    public int processReport(int report_no);
+
 }

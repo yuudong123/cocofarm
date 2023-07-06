@@ -10,8 +10,8 @@
       <div class="container">
         <form id="reqDiv" method="get">
           <div id="category">
-            <a data-category="notice">공지사항</a>
-            <a data-category="event">이벤트</a>
+            <a data-category="notice" th:style="${category == 'notice'?'color: #429f5d':''}">공지사항</a>
+            <a data-category="event" th:style="${category == 'event'?'color: #429f5d':''}">이벤트</a>
             <a data-category="qna">Qna</a>
             <a data-category="review">리뷰</a>
           </div>
@@ -110,6 +110,6 @@
         });
       });
     </script>
-    <script src="js/category.js"></script>
+    <script src="/js/category.js"></script>
   </body>
 </html>

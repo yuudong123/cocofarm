@@ -27,4 +27,8 @@ public class ReportService {
         ReportVO reportVO = reportMapper.selectReport(report_no);
         return reportVO;
     }
+
+    public int processReport(int report_no) {
+        return reportMapper.processReport(report_no);
+    }
 }

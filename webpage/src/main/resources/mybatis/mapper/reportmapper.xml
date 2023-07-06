@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.ReportMapper">
     <select id="selectReportList" resultType="com.cocofarm.webpage.domain.ReportVO">
-    select  r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isdisposed
+    select  r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isprocessed
     from    tbl_report r
             left join tbl_member m on r.member_no = m.member_no
     <if test="category == 'board'">
@@ -25,4 +25,10 @@
     insert into tbl_report
     values (seq_report_no.nextval, #{member_no}, #{reported_board}, #{reported_reply}, #{reported_member}, #{reason_cd}, #{content}, sysdate, 'N')
     </insert>
+
+    <update id="processReport">
+    update  tbl_report
+    set     isprocessed = 'Y'
+    where   report_no = #{report_no}
+    </update>
 </mapper>

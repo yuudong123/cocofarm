@@ -17,5 +17,5 @@ public class ReportVO {
     private String reason_text;
     private String content;
     private Date reportdate;
-    private String isdisposed;
+    private String isprocessed;
 }

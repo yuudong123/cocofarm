@@ -36,10 +36,10 @@
                 <td th:text="${report.nickname}"></td>
                 <td th:text="${report.reason_cd}"></td>
                 <td th:text="${#dates.format(report.reportdate, 'yyyy/MM/dd')}"></td>
-                <td th:text="${report.isdisposed}"></td>
+                <td th:text="${report.isprocessed}"></td>
                 <td>
-                  <button th:if="${report.isdisposed=='N'}" th:onclick="detail([[${report.report_no}]])" class="btn modal-trigger" href="#detailModal">상세보기</button>
-                  <button th:if="${report.isdisposed=='Y'}" disabled>처리됨</button>
+                  <button th:if="${report.isprocessed=='N'}" th:onclick="detail([[${report.report_no}]])" class="btn modal-trigger" href="#detailModal">상세보기</button>
+                  <button th:if="${report.isprocessed=='Y'}" disabled>처리됨</button>
                 </td>
               </tr>
             </tbody>

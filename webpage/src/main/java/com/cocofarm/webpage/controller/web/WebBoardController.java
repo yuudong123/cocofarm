@@ -60,6 +60,7 @@ public class WebBoardController {
         int total = boardService.getTotal(cri);
         PageDTO pagedto = new PageDTO(cri, total);
         mav.addObject("pager", pagedto);
+        mav.addObject("category", category);
         return mav;
     }
 
