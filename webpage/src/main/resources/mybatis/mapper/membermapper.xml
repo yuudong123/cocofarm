@@ -94,6 +94,7 @@ order by member_no asc
     <select id="countAll">
 select count(*)
 from tbl_member
+where member_type_cd = '102'
     </select>
 
     <select id="countBanned">

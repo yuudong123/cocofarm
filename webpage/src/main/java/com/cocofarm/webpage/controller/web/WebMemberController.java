@@ -160,12 +160,7 @@ public class WebMemberController {
 
     @ResponseBody
     @PostMapping(value = "/member/modifyinfo")
-    public String modifyinfoPost(@RequestBody HashMap<String, String> param, Model model) {
-        MemberVO vo = new MemberVO();
-        vo.setEmail(param.get("email"));
-        vo.setNickname(param.get("nickname"));
-        vo.setPhonenumber(param.get("phonenumber"));
-        vo.setAddress(param.get("address"));
+    public String modifyinfoPost(  MemberVO vo, Model model) {
 
         memberService.web_modify(vo);
         MemberVO result = memberService.login((MemberVO) model.getAttribute("userinfo"));

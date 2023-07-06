@@ -13,6 +13,7 @@
             <a href="/admin/member" style="color: #429f5d; text-decoration: underline">전체 회원</a>
             <a href="/admin/memberbanned">차단된 회원</a>
           </div>
+          <div id="categorySelectBar"></div>
           <div id="reqDivInner">
             <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
           </div>
@@ -75,6 +76,7 @@
 
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="/js/category.js"></script>
     <script>
       M.AutoInit();
       const memberListAll = document.querySelector("#memberListAll");
