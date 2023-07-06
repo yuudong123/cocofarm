@@ -10,10 +10,9 @@
       <div class="container">
         <form id="reqDiv" method="get">
           <div id="category">
-            <a data-category="notice" href="/admin/member" style="color:#429f5d; text-decoration: underline;">전체 회원</a>
-            <a data-category="event" href="/admin/memberbanned">차단된 회원</a>
+            <a href="/admin/member" style="color: #429f5d; text-decoration: underline">전체 회원</a>
+            <a href="/admin/memberbanned">차단된 회원</a>
           </div>
-          <div id="categorySelectBar"></div>
           <div id="reqDivInner">
             <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
           </div>
@@ -21,12 +20,16 @@
 
         <section id="section1" class="z-depth-1">
           <div class="oneLine">
-            <h6>전체 회원 목록 &#40;</h6><h6 th:text="${countAll}"></h6><h6>&#41;</h6>
+            <h6>전체 회원 목록 &#40;</h6>
+            <h6 th:text="${countAll}"></h6>
+            <h6>&#41;</h6>
           </div>
           <table id="memberListAll" class="highlight">
             <thead>
               <tr>
-                <th>회원 번호 <i id="ascicon" class="material-icons" onclick="sortTable(0)" style="cursor:pointer;">import_export</i></th>
+                <th>
+                  <div id="memberno" style="display: flex; align-items: center">회원 번호 <i id="ascicon" class="material-icons" onclick="sortTable(0)" style="cursor: pointer; margin-left: 3px">import_export</i></div>
+                </th>
                 <th>이메일</th>
                 <th>닉네임</th>
                 <th>전화번호</th>
@@ -39,7 +42,7 @@
             </thead>
             <tbody>
               <tr th:each="member:${vo}">
-                <td th:text="${member.member_no}" style="font-weight: 700;"></td>
+                <td th:text="${member.member_no}" style="font-weight: 700"></td>
                 <td th:text="${member.email}"></td>
                 <td th:text="${member.nickname}"></td>
                 <td th:text="${member.phonenumber}"></td>
@@ -49,7 +52,8 @@
                 <td th:text="${member.sns}"></td>
                 <td>
                   <button class="btn" th:if="${member.isactivated=='Y'}" th:onclick="btn([[${member.email}]] , 'N')">차단</button>
-                  <button class="btn red accent-2" th:if="${member.isactivated=='N'}" th:onclick="btn([[${member.email}]] , 'Y')">해제</button></td>
+                  <button class="btn red accent-2" th:if="${member.isactivated=='N'}" th:onclick="btn([[${member.email}]] , 'Y')">해제</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -72,110 +76,118 @@
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script>
-        M.AutoInit();
-        const memberListAll = document.querySelector("#memberListAll");
-        const memberListBanned = document.querySelector("#memberListBanned");
-        const btnRefresh = document.querySelector("#btnRefresh");
-        const section1 = document.querySelector("#section1");
-        const section2 = document.querySelector("#section2");
-        const manageTabs = document.querySelectorAll("#section2 .tabs .tab a");
-        
-        const reqDiv = document.querySelector("#reqDiv");  
-        const inputPage = document.querySelector("#inputPage");
-        const pageFirst = document.querySelector("#pageFirst");
-        const pageLast = document.querySelector("#pageLast");
-        const pageNum = document.querySelectorAll(".pageNum");
+      M.AutoInit();
+      const memberListAll = document.querySelector("#memberListAll");
+      const memberListBanned = document.querySelector("#memberListBanned");
+      const btnRefresh = document.querySelector("#btnRefresh");
+      const section1 = document.querySelector("#section1");
+      const section2 = document.querySelector("#section2");
+      const manageTabs = document.querySelectorAll("#section2 .tabs .tab a");
 
+      const reqDiv = document.querySelector("#reqDiv");
+      const inputPage = document.querySelector("#inputPage");
+      const pageFirst = document.querySelector("#pageFirst");
+      const pageLast = document.querySelector("#pageLast");
+      const pageNum = document.querySelectorAll(".pageNum");
 
-        pageFirst.addEventListener("click", () => {
+      pageFirst.addEventListener("click", () => {
         inputPage.setAttribute("value", "1");
         reqDiv.submit();
-        });
-        pageLast.addEventListener("click", () => {
-          inputPage.setAttribute("value", page.length - 1);
+      });
+      pageLast.addEventListener("click", () => {
+        inputPage.setAttribute("value", page.length - 1);
+        reqDiv.submit();
+      });
+      pageNum.forEach((page) => {
+        page.addEventListener("click", () => {
+          inputPage.setAttribute("value", page.textContent);
           reqDiv.submit();
         });
-        pageNum.forEach((page) => {
-          page.addEventListener("click", () => {
-            inputPage.setAttribute("value", page.textContent);
-            reqDiv.submit();
-          });
-          if (page.textContent == inputPage.getAttribute("value")) {
-            page.parentElement.classList.add("active");
-            page.parentElement.classList.add("green");
-          }
-        });
+        if (page.textContent == inputPage.getAttribute("value")) {
+          page.parentElement.classList.add("active");
+          page.parentElement.classList.add("green");
+        }
+      });
 
-        function sortTable(n) {
-        var table, rows, switching, o, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.querySelector('#memberListAll');
+      function sortTable(n) {
+        var table,
+          rows,
+          switching,
+          o,
+          x,
+          y,
+          shouldSwitch,
+          dir,
+          switchcount = 0;
+        table = document.querySelector("#memberListAll");
         switching = true;
         dir = "asc";
 
         while (switching) {
           switching = false;
-          rows = table.querySelectorAll('tr');
+          rows = table.querySelectorAll("tr");
 
-          for (o = 1; o < (rows.length - 1); o++) {
+          for (o = 1; o < rows.length - 1; o++) {
             shouldSwitch = false;
             x = rows[o].querySelector(`td:nth-child(${n + 1})`);
             y = rows[o + 1].querySelector(`td:nth-child(${n + 1})`);
 
             if (dir == "asc") {
-                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+              if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
                 shouldSwitch = true;
                 ascicon.style.backgroundColor = "cornflowerblue";
                 break;
-                }
+              }
             } else if (dir == "desc") {
-                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+              if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
                 shouldSwitch = true;
                 ascicon.style.backgroundColor = "coral";
                 break;
-                }
+              }
             }
           }
-            if (shouldSwitch) {
-              rows[o].parentNode.insertBefore(rows[o + 1], rows[o]);
+          if (shouldSwitch) {
+            rows[o].parentNode.insertBefore(rows[o + 1], rows[o]);
+            switching = true;
+            switchcount++;
+          } else {
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
               switching = true;
-              switchcount++;
-            } else {
-              if (switchcount == 0 && dir == "asc") {
-                dir = "desc";
-                switching = true;
-              }
             }
           }
         }
+      }
 
-        function btn(email  ,isactivated){
-          fetchTEXT(
-            "/admin/member",
-            {
-              email: email,
-              isactivated: isactivated
-            },
-            (data) => {
-              if (data == "success") {
-                if(isactivated == 'Y'){
-                  alert("이메일: " + email + "\n\n차단이 해제되었습니다.");
-                }else if (isactivated == 'N'){
-                  alert("이메일: " + email + "\n\n차단 되었습니다.");
-                }
-
-                location.reload();
-              } else {
-                alert("Error!");
+      function btn(email, isactivated) {
+        fetchTEXT(
+          "/admin/member",
+          {
+            email: email,
+            isactivated: isactivated,
+          },
+          (data) => {
+            if (data == "success") {
+              if (isactivated == "Y") {
+                alert("이메일: " + email + "\n\n차단이 해제되었습니다.");
+              } else if (isactivated == "N") {
+                alert("이메일: " + email + "\n\n차단 되었습니다.");
               }
-            });
-        }
 
-        // document.querySelector(".search_area button").addEventListener("click", (e) => {
-        //   e.preventDefault();
-        //   let val = document.querySelector("#inputKeyword").value;
-        //   moveForm.find(val);
-        //   moveForm.submit();
-        // })
+              location.reload();
+            } else {
+              alert("Error!");
+            }
+          }
+        );
+      }
+
+      // document.querySelector(".search_area button").addEventListener("click", (e) => {
+      //   e.preventDefault();
+      //   let val = document.querySelector("#inputKeyword").value;
+      //   moveForm.find(val);
+      //   moveForm.submit();
+      // })
     </script>
-    </body>
-    </html>
+  </body>
+</html>

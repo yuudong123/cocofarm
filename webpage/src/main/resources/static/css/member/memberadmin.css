@@ -12,6 +12,7 @@ section {
   flex: 1 0;
   border-radius: 10px;
   border: 2px solid #eee;
+  overflow: hidden;
 }
 
 h6 {
@@ -70,10 +71,11 @@ h6 {
   outline: none;
 }
 
-th {
+th,
+#memberno {
   font-weight: 800;
   color: darkblue;
-  background-color: aliceblue
+  background-color: aliceblue;
 }
 
 .sort-button {
@@ -117,34 +119,24 @@ th {
   text-decoration: underline;
 }
 
-#categorySelectBar {
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background-color: #429f5d;
-  transition: all 0.2s ease-in-out;
-  bottom: 6px;
-  left: 0;
-}
-
 .oneLine h6 {
   display: inline;
 }
 
-.oneLine { 
+.oneLine {
   margin-bottom: 10px;
 }
 
-.search_area{
+.search_area {
   display: inline-block;
   margin-top: 30px;
   margin-left: 260px;
 }
-.search_area input{
-    height: 30px;
+.search_area input {
+  height: 30px;
   width: 250px;
 }
-.search_area button{
-   width: 100px;
+.search_area button {
+  width: 100px;
   height: 36px;
 }
