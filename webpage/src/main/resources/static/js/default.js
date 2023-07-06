@@ -62,3 +62,5 @@ function logout() {
 function toast(message){
   M.toast({ html: message });
 }
+
+const dropdown = M.Dropdown.init(document.querySelector(".dropdown-trigger"),{});

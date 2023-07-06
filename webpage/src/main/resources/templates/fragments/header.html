@@ -26,7 +26,8 @@
               <li><a th:href="@{/}">홈</a></li>
               <li><a th:href="@{/product}">제품</a></li>
               <li><a th:href="@{/board/notice}">게시판</a></li>
-              <li><a class="dropdown-trigger" th:href="@{/about/location}" data-target="dropdown1">회사소개<i class="material-icons right">arrow_drop_down</i></a></li>
+              <!-- <li><a class="dropdown-trigger" th:href="@{/about/location}" data-target="dropdown1">회사소개<i class="material-icons right">arrow_drop_down</i></a></li> -->
+              <li><a class="dropdown-trigger btn" data-target="dropdown1">회사소개<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
               <li><a th:if="${userinfo != null}" th:href="@{/member/myinfo}">마이페이지</a></li>
