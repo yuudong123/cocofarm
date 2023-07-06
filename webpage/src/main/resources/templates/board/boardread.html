@@ -8,12 +8,15 @@
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
-        <div id="btnBox">
-          <button id="btnList" class="btn">목록으로</button>
-          <th:block th:if="${userinfo != null && userinfo.member_type_cd == 101}">
-            <button id="btnModify" class="btn blue">수정</button>
-            <button id="btnDelete" class="btn red">삭제</button>
-          </th:block>
+        <div style="display: flex; justify-content: space-between; padding: 10px; padding-bottom: 0">
+          <div id="btnBox">
+            <button id="btnList" class="btn">목록으로</button>
+            <th:block th:if="${userinfo != null && userinfo.member_type_cd == 101}">
+              <button id="btnModify" class="btn blue">수정</button>
+              <button id="btnDelete" class="btn red">삭제</button>
+            </th:block>
+          </div>
+          <button id="btnReportBoard" class="btn red waves-effect waves-red modal-trigger" href="#reportModal">신고</button>
         </div>
         <section class="z-depth-1">
           <h5 th:text="${boardvo.title}"></h5>
@@ -108,6 +111,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script th:inline="javascript">
       const board_no = /*[[${boardvo.board_no}]]*/ "";
+      const board_nickname = /*[[${boardvo.nickname}]]*/ "";
+      const board_memberno = /*[[${boardvo.member_no}]]*/ "";
     </script>
     <script src="/js/board/boardread.js"></script>
   </body>

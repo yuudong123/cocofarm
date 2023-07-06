@@ -13,4 +13,6 @@ public interface ReportMapper {
 
     public int insertReport(ReportVO reportVO);
 
+    public ReportVO selectReport(int report_no);
+
 }

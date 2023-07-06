@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.ReportMapper">
-    <select id="selectReportList">select * from tbl_report <if test="category == 'board'">where
-        reported_board != 0</if><if test="category == 'reply'">where reported_reply != 0</if>
+    <select id="selectReportList" resultType="com.cocofarm.webpage.domain.ReportVO">
+    select  r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isdisposed
+    from    tbl_report r
+            left join tbl_member m on r.member_no = m.member_no
+    <if test="category == 'board'">
+    where   reported_reply = 0 </if>
+    <if test="category == 'reply'">
+    where   reported_reply != 0 </if><![CDATA[ 
+    and     rownum <= 50 ]]>
     </select>
 
-    <insert id="insertReport"> insert into tbl_report values (seq_report_no.nextval, #{member_no},
-        #{reported_board}, #{reported_reply}, #{reported_member}, #{reason_cd}, #{content}) </insert>
+    <select id="selectReport" resultType="com.cocofarm.webpage.domain.ReportVO">
+    select  r.*, m.nickname, rm.nickname reported_nickname, ct.value reason_text
+    from    tbl_report r
+            left join tbl_member m on r.member_no = m.member_no
+            left join tbl_member rm on r.reported_member = rm.member_no
+            left join tbl_code ct on r.reason_cd = ct.code
+    where   report_no = #{report_no}
+    </select>
+
+    <insert id="insertReport">
+    insert into tbl_report
+    values (seq_report_no.nextval, #{member_no}, #{reported_board}, #{reported_reply}, #{reported_member}, #{reason_cd}, #{content}, sysdate, 'N')
+    </insert>
 </mapper>

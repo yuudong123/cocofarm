@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardadmin.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <div id="topMenu">
+          <div id="category">
+            <a href="/admin/board/qna">새 QnA</a>
+            <a href="/admin/board/boardreport">신고된 게시물</a>
+            <a href="/admin/board/replyreport">신고된 댓글</a>
+            <div id="categorySelectBar"></div>
+          </div>
+          <a id="btnNewBoard" class="btn green" style="margin: 10px 10px 0 0"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></a>
+        </div>
+
+        <section class="z-depth-1">
+          <h6>새 QnA <small class="grey-text" style="font-weight: bold;">&nbsp;&nbsp;오래된 항목순으로 불러옵니다. (최대 50개)</small></h6>
+          <button id="btnRefresh" class="btn material-icons">refresh</button>
+          <div id="newQnaList" class="collection"></div>
+        </section>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+      M.AutoInit();
+      const newQnaList = document.querySelector("#newQnaList");
+      const reportList = document.querySelector("#reportList");
+      const btnRefresh = document.querySelector("#btnRefresh");
+      const btnNewBoard = document.querySelector("#btnNewBoard");
+      const manageTabs = document.querySelectorAll("#section2 .tabs .tab a");
+      const detailModal = M.Modal.init(document.querySelector("#detailModal"), {});
+
+      onload = loadNewQna();
+      btnRefresh.addEventListener("click", loadNewQna);
+
+      function loadNewQna() {
+        console.log("답변이 없는 qna를 불러옵니다.");
+        newQnaList.innerHTML = "";
+        fetchJSON("/admin/board/newqnalist", null, (data) => {
+          if (data == null || data.length == 0) {
+            return;
+          }
+          data.forEach((item) => {
+            let title = item.title;
+            let regdate = moment(item.regdate).format("YYYY/MM/DD HH:mm:ss");
+            let link = document.createElement("a");
+            link.classList.add("collection-item");
+            link.setAttribute("href", "/board/qna/" + item.board_no);
+            link.innerText = regdate + " " + title;
+            newQnaList.appendChild(link);
+          });
+        });
+      }
+    </script>
+    <script src="/js/category.js"></script>
+    <script src="/js/board/admintopmenu.js"></script>
+  </body>
+</html>

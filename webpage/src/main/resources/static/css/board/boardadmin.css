@@ -65,3 +65,43 @@ h6 {
   background-color: rgba(156, 255, 147, 0.2);
   outline: none;
 }
+
+th,
+#reportno {
+  font-weight: 800;
+  color: darkblue;
+  background-color: aliceblue;
+}
+
+#topMenu {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#category {
+  width: fit-content;
+  padding-top: 10px;
+}
+
+#category a {
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#categorySelectBar {
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: #429f5d;
+  transition: all 0.25s ease-in-out;
+  left: 0;
+}
+
+#gotoboard {
+  cursor: pointer;
+}

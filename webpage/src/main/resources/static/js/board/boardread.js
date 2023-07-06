@@ -3,6 +3,7 @@ const btnModify = document.querySelector("#btnModify");
 const btnDelete = document.querySelector("#btnDelete");
 const btnReply = document.querySelector("#btnReply");
 const btnReplyConfirm = document.querySelector("#btnReplyConfirm");
+const btnReportBoard = document.querySelector("#btnReportBoard");
 const replyForm = document.querySelector("#replyForm");
 const replyModifyForm = document.querySelector("#replyModifyForm");
 const replyList = document.querySelector("#replyList");
@@ -90,6 +91,7 @@ btnReportConfirm.addEventListener("click", () => {
   if (reportType.textContent == "게시글") {
     reqBody.reported_board = reportNo.textContent;
   } else if (reportType.textContent == "댓글") {
+    reqBody.reported_board = board_no;
     reqBody.reported_reply = reportNo.textContent;
   }
 
@@ -112,6 +114,12 @@ btnReportConfirm.addEventListener("click", () => {
   }
 });
 
+btnReportBoard.addEventListener("click", () => {
+  reportType.innerHTML = "게시글";
+  reportNo.innerHTML = board_no;
+  reportedNickname.innerHTML = board_nickname;
+  reportedNickname.dataset.memberNo = board_memberno;
+});
 function modifyReply(reply_no, content) {
   modReplyNo = reply_no;
   modReplyContent = content;

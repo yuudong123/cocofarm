@@ -18,11 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
-import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.domain.QnaDTO;
+import com.cocofarm.webpage.domain.ReportVO;
 import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.ImageService;
 import com.cocofarm.webpage.service.ProductService;
+import com.cocofarm.webpage.service.ReportService;
 import com.google.gson.Gson;
 
 @Controller
@@ -39,12 +40,13 @@ public class AdminBoardController {
     @Autowired
     ImageService imageService;
 
-    @GetMapping(value = "/")
-    public ModelAndView boardMain() {
+    @Autowired
+    ReportService reportService;
+
+    @GetMapping(value = { "/qna", "/" })
+    public ModelAndView boardQna() {
         ModelAndView mav = new ModelAndView();
-        ArrayList<ProductVO> productlist = productService.selectProductListWithImage();
-        mav.setViewName("board/admin/main");
-        mav.addObject("productlist", productlist);
+        mav.setViewName("board/admin/qna");
         return mav;
     }
 
@@ -55,10 +57,22 @@ public class AdminBoardController {
         return new Gson().toJson(qnalist);
     }
 
-    @ResponseBody
-    @PostMapping(value = "/reportlist")
-    public String reportList() {
-        return null;
+    @GetMapping(value = "/boardreport")
+    public ModelAndView boardReport() {
+        ModelAndView mav = new ModelAndView();
+        ArrayList<ReportVO> reportlist = reportService.selectReportList("board");
+        mav.setViewName("/board/admin/reportboard");
+        mav.addObject("reportlist", reportlist);
+        return mav;
+    }
+
+    @GetMapping(value = "/replyreport")
+    public ModelAndView replyReport() {
+        ModelAndView mav = new ModelAndView();
+        ArrayList<ReportVO> reportlist = reportService.selectReportList("reply");
+        mav.setViewName("/board/admin/reportreply");
+        mav.addObject("reportlist", reportlist);
+        return mav;
     }
 
     @GetMapping(value = "/write")

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardadmin.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <div id="topMenu">
+          <div id="category">
+            <a href="/admin/board/qna">새 QnA</a>
+            <a href="/admin/board/boardreport">신고된 게시물</a>
+            <a href="/admin/board/replyreport">신고된 댓글</a>
+            <div id="categorySelectBar"></div>
+          </div>
+          <a id="btnNewBoard" class="btn green" style="margin: 10px 10px 0 0"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></a>
+        </div>
+
+        <section class="z-depth-1">
+          <h6>신고된 게시물<small class="grey-text" style="font-weight: bold">&nbsp;&nbsp;오래된 항목순으로 불러옵니다. (최대 50개)</small></h6>
+          <table id="reportboard" class="highlight">
+            <thead>
+              <tr>
+                <th>신고 번호</th>
+                <th>신고자</th>
+                <th>신고 사유</th>
+                <th>신고일</th>
+                <th>처리 여부</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="report:${reportlist}">
+                <td th:text="${report.report_no}" style="font-weight: 700"></td>
+                <td th:text="${report.nickname}"></td>
+                <td th:text="${report.reason_cd}"></td>
+                <td th:text="${#dates.format(report.reportdate, 'yyyy/MM/dd')}"></td>
+                <td th:text="${report.isdisposed}"></td>
+                <td>
+                  <button th:if="${report.isdisposed=='N'}" th:onclick="detail([[${report.report_no}]])" class="btn modal-trigger" href="#detailModal">상세보기</button>
+                  <button th:if="${report.isdisposed=='Y'}" disabled>처리됨</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </main>
+    <div id="detailModal" class="modal">
+      <div class="modal-content">
+        <h4>신고 상세 보기</h4>
+        <p>
+          <span style="font-weight: bold">게시글 번호 : </span>
+          <span id="reportNo"></span>&nbsp;<a id="gotoboard"><small>해당 게시글 보기 >></small></a>
+        </p>
+        <p>
+          <span style="font-weight: bold">작성자 : </span>
+          <span id="reportedNickname"></span>
+        </p>
+        <p>
+          <span style="font-weight: bold">신고 사유 : </span>
+          <span id="reasonCode"></span>&nbsp;&nbsp;<span id="reasonText"></span>
+        </p>
+        <p style="font-weight: bold">상세 사유</p>
+        <p id="content"></p>
+      </div>
+      <div class="modal-footer">
+        <button id="banWriter" class="btn">작성자 차단</button>
+        <button id="remove" class="btn">작성자 차단 및 게시물 삭제</button>
+      </div>
+    </div>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script>
+      const detailModal = M.Modal.init(document.querySelector("#detailModal"), {});
+      const reportNo = document.querySelector("#reportNo");
+      const reportedNickname = document.querySelector("#reportedNickname");
+      const reasonCode = document.querySelector("#reasonCode");
+      const reasonText = document.querySelector("#reasonText");
+      const reportContent = document.querySelector("#content");
+
+      function detail(report_no) {
+        fetchJSON("/getreport", report_no, (data) => {
+          if (data != null && data.length != 0) {
+            reportNo.innerHTML = report_no;
+            reportedNickname.innerHTML = data.reported_nickname;
+            reasonCode.innerHTML = data.reason_cd;
+            reasonText.innerHTML = "(" + data.reason_text + ")";
+            reportContent.innerHTML = data.content;
+          }
+        });
+      }
+    </script>
+    <script src="/js/category.js"></script>
+    <script src="/js/board/admintopmenu.js"></script>
+  </body>
+</html>
