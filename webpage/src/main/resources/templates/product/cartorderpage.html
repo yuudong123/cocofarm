@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/product/cart.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <section id="section1" class="z-depth-1">
+          <form id="orderForm">
+            <table id="cartListAll" class="highlight">
+              <tbody>
+                <tr
+                  th:each="cart: ${list}"
+                  th:id="'cartItem-' + ${cart.cart_id}"
+                >
+                  <input type="hidden" name="cart" th:value="${cart.cart_id}" />
+                  <td><img th:src="'/images/'+${cart.product_image}" /></td>
+                  <td th:text="${cart.product_name}"></td>
+                  <td>상품금액</td>
+                  <td th:text="${cart.product_price}" id="productPrice"></td>
+                  <td>주문개수 :</td>
+                  <td th:text="${cart.amount}" id="amount"></td>
+
+                  <td>주문금액</td>
+                  <td
+                    th:with="totalPrice=${cart.amount*cart.product_price}"
+                    class="onePayPrice"
+                  >
+                    <span th:text="${totalPrice}"></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <span></span>
+          </form>
+        </section>
+        <section id="section2" class="z-depth-1">
+          <table id="orderpalce" class="order">
+            <td>총상품금액</td>
+            <td id="allprice" th:text="${allTotalPrice}">0</td>
+            <td><button id="btnAllPayment">결제하기</button></td>
+          </table>
+        </section>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="/js/cocofarm.js"></script>
+  </body>
+
+  <script>
+    const btnAllPayment = document.querySelector("#btnAllPayment");
+    const orderForm = document.querySelector("#orderForm");
+
+    btnAllPayment.addEventListener("click", () => {
+      orderForm.action = "/order/payorderpage";
+      orderForm.method = "POST";
+      orderForm.submit();
+    });
+  </script>
+</html>
