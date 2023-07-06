@@ -1,7 +1,6 @@
 package com.cocofarm.webpage.controller.web;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.CartDTO;
-import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.ProductVO;
 import com.cocofarm.webpage.service.CartService;
