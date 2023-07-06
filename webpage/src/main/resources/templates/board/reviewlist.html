@@ -33,7 +33,6 @@
           </div>
         </form>
         <p id="noresultmsg" th:if="${boardlist.size == 0}">조건에 맞는 리뷰가 없습니다.</p>
-        <a th:if="${userinfo != null}" th:href="@{/board/qnawrite}" id="btnQnaWrite" class="btn right blue">Qna 쓰기<i class="material-icons">edit</i></a>
         <table th:if="${boardlist.size != 0}">
           <tbody>
             <tr th:each="board : ${boardlist}">
@@ -94,7 +93,6 @@
       }
 
       for (let i = 0; i < selectProduct.options.length; i++) {
-        console.log(/*[[${pager.cri.productId}]]*/ "");
         if (selectProduct.options[i].value == /*[[${pager.cri.productId}]]*/ "") {
           selectProduct.options[i].selected = true;
         }
@@ -125,14 +123,18 @@
         });
       });
 
-      pageFirst.addEventListener("click", () => {
-        inputPage.value = 1;
-        reqDiv.submit();
-      });
-      pageLast.addEventListener("click", () => {
-        inputPage.value = /*[[${pager.lastPage}]]*/ "";
-        reqDiv.submit();
-      });
+      if (pageFirst != null) {
+        pageFirst.addEventListener("click", () => {
+          inputPage.value = 1;
+          reqDiv.submit();
+        });
+      }
+      if (pageLast != null) {
+        pageLast.addEventListener("click", () => {
+          inputPage.value = /*[[${pager.lastPage}]]*/ "";
+          reqDiv.submit();
+        });
+      }
       pageNum.forEach((page) => {
         page.addEventListener("click", () => {
           inputPage.value = page.textContent;

@@ -114,12 +114,14 @@ btnReportConfirm.addEventListener("click", () => {
   }
 });
 
-btnReportBoard.addEventListener("click", () => {
-  reportType.innerHTML = "게시글";
-  reportNo.innerHTML = board_no;
-  reportedNickname.innerHTML = board_nickname;
-  reportedNickname.dataset.memberNo = board_memberno;
-});
+if (btnReportBoard != null) {
+  btnReportBoard.addEventListener("click", () => {
+    reportType.innerHTML = "게시글";
+    reportNo.innerHTML = board_no;
+    reportedNickname.innerHTML = board_nickname;
+    reportedNickname.dataset.memberNo = board_memberno;
+  });
+}
 function modifyReply(reply_no, content) {
   modReplyNo = reply_no;
   modReplyContent = content;

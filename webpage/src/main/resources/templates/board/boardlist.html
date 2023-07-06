@@ -45,7 +45,7 @@
             </tr>
           </tbody>
         </table>
-        <ul class="pagination">
+        <ul class="pagination" th:if="${boardlist.size != 0}">
           <li class="waves-effect">
             <a id="pageFirst"><i class="material-icons">chevron_left</i></a>
           </li>
@@ -82,14 +82,18 @@
           break;
       }
 
-      pageFirst.addEventListener("click", () => {
-        inputPage.setAttribute("value", "1");
-        reqDiv.submit();
-      });
-      pageLast.addEventListener("click", () => {
-        inputPage.setAttribute("value", /*[[${pager.lastPage}]]*/ "");
-        reqDiv.submit();
-      });
+      if (pageFirst != null) {
+        pageFirst.addEventListener("click", () => {
+          inputPage.setAttribute("value", "1");
+          reqDiv.submit();
+        });
+      }
+      if (pageLast != null) {
+        pageLast.addEventListener("click", () => {
+          inputPage.setAttribute("value", /*[[${pager.lastPage}]]*/ "");
+          reqDiv.submit();
+        });
+      }
       pageNum.forEach((page) => {
         page.addEventListener("click", () => {
           inputPage.setAttribute("value", page.textContent);

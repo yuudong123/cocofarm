@@ -13,7 +13,8 @@ public interface ReportMapper {
 
     public int insertReport(ReportVO reportVO);
 
-    public ReportVO selectReport(int report_no);
+    public ReportVO selectReportBoard(int report_no);
+    public ReportVO selectReportReply(int report_no);
 
     public int processReport(int report_no);
 

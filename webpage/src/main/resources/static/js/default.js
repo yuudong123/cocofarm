@@ -58,3 +58,7 @@ function logout() {
     // location.href = "/";
   });
 }
+
+function toast(message){
+  M.toast({ html: message });
+}

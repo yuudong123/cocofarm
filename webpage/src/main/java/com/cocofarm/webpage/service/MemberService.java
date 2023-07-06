@@ -80,8 +80,8 @@ public class MemberService {
   return list;
   }
 
-  public void banned(String email, String isactivated) {
-    mapper.banned(email, isactivated);
+  public int banned(String email, String isactivated) {
+    return mapper.banned(email, isactivated);
   }
 
 }
