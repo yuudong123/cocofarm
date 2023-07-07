@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.home;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.cocofarm.andapp.common.CommonVal.Md;
 
 import android.content.Context;
@@ -37,16 +39,17 @@ public class HomeNoticeAdapter extends RecyclerView.Adapter<HomeNoticeAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull HomeNoticeAdapter.ViewHolder holder, int i) {
-        holder.binding.title.setText(list.get(i).getTitle());
-        holder.binding.regdate.setText(Md.format(list.get(i).getRegdate()));
-        if (list.get(i).getRegdate().getTime() != list.get(i).getUpddate().getTime()) {
-            holder.binding.tvUpdated.setVisibility(View.VISIBLE);
+        BoardVO boardVO = list.get(i);
+        holder.binding.title.setText(boardVO.getTitle());
+        holder.binding.regdate.setText(Md.format(boardVO.getRegdate()));
+        if (boardVO.getRegdate().getTime() != boardVO.getUpddate().getTime()) {
+            holder.binding.tvUpdated.setVisibility(VISIBLE);
         } else {
-            holder.binding.tvUpdated.setVisibility(View.GONE);
+            holder.binding.tvUpdated.setVisibility(GONE);
         }
         holder.binding.item.setOnClickListener(v -> {
             Intent intent = new Intent(context, BoardReadActivity.class);
-            intent.putExtra("BoardVO", list.get(i));
+            intent.putExtra("BoardVO", boardVO);
             context.startActivity(intent);
         });
     }

@@ -15,12 +15,8 @@ import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ItemCartBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
-import java.text.DecimalFormat;
-
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     ItemCartBinding binding;
-    DecimalFormat decimalFormat;
-    DecimalFormat decimalFormat1;
     CartActivity activity;
 
     public CartAdapter(CartActivity activity) {

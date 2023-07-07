@@ -81,11 +81,6 @@ public class JoinEmailActivity extends AppCompatActivity {
             });
         });
 
-//        binding.tvInfoBtmClick.setOnClickListener(v-> {
-//            Intent intent = new Intent(JoinEmailActivity.this, LoginActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//        });
     }
 
     // 인증번호 생성

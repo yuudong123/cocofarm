@@ -55,7 +55,6 @@ public class FindPwActivity extends AppCompatActivity {
                 CommonConn conn = new CommonConn(this, "/email/findpw");
                 conn.addParam("confirm_text", confirm_text);
                 conn.addParam("email", email);
-
                 conn.onExcute((isResult1, data1) -> Log.d("인증번호", "onCreate: " + data1));
 
                 binding.tvOk.setOnClickListener(v -> {

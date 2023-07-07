@@ -22,7 +22,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.board.BoardVO;
-import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentHomeBinding;
 import com.cocofarm.andapp.product.ProductVO;

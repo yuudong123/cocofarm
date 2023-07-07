@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cocofarm.andapp.databinding.ItemDeviceListBinding;
 
 public class MyDeviceAdapter extends RecyclerView.Adapter<MyDeviceAdapter.ViewHolder> {
-
-//    ArrayList<DeviceVO> list;
+    
     ItemDeviceListBinding binding;
 
     @NonNull

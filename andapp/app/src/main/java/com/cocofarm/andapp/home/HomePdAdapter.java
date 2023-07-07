@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocofarm.andapp.databinding.FragmentHomeBinding;
+import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ItemRecvPdBinding;
-import com.cocofarm.andapp.image.ImageDTO;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
 import com.cocofarm.andapp.product.ProductVO;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class HomePdAdapter extends RecyclerView.Adapter<HomePdAdapter.ViewHolder> {
@@ -37,17 +35,16 @@ public class HomePdAdapter extends RecyclerView.Adapter<HomePdAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DecimalFormat decimalFormat = new DecimalFormat("###,###");
-        String price = decimalFormat.format(list.get(position).getPrice());
-
-        holder.binding.tvName.setText(list.get(position).getName());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        ProductVO productVO = list.get(i);
+        String price = CommonVal.comma(productVO.getPrice());
+        holder.binding.tvName.setText(productVO.getName());
         holder.binding.tvPrice.setText("₩ " + price);
-        ImageUtil.load(holder.binding.ivPd, list.get(position).getFilename());
+        ImageUtil.load(holder.binding.ivPd, productVO.getFilename());
 
         holder.binding.layout.setOnClickListener(view -> {
             Intent intent = new Intent(context, ProductActivity.class);
-            intent.putExtra("productVO", list.get(position));
+            intent.putExtra("productVO", productVO);
             context.startActivity(intent);
         });
     }
@@ -59,6 +56,7 @@ public class HomePdAdapter extends RecyclerView.Adapter<HomePdAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ItemRecvPdBinding binding;
+
         public ViewHolder(@NonNull ItemRecvPdBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

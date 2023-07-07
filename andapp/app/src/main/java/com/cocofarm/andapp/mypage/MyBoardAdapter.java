@@ -40,8 +40,8 @@ public class MyBoardAdapter extends RecyclerView.Adapter<MyBoardAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        QnaDTO qnaDTO = list.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        QnaDTO qnaDTO = list.get(i);
         holder.binding.title.setText(qnaDTO.getTitle());
         if (qnaDTO.getReplycnt() == 0) {
             holder.binding.answer.setText("");

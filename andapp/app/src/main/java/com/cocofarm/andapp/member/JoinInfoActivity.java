@@ -82,11 +82,9 @@ public class JoinInfoActivity extends AppCompatActivity {
     private final ActivityResultLauncher<Intent> getSearchResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    if (result.getData() != null) {
-                        String data = result.getData().getStringExtra("address");
-                        binding.tvAddress.setText(data);
-                    }
+                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                    String data = result.getData().getStringExtra("address");
+                    binding.tvAddress.setText(data);
                 }
             }
     );

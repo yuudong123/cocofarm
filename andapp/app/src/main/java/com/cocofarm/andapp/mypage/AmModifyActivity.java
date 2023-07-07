@@ -43,7 +43,6 @@ public class AmModifyActivity extends AppCompatActivity {
             binding.tvPwModify.setVisibility(View.INVISIBLE);
             binding.tvPw.setVisibility(View.INVISIBLE);
             binding.edtPw.setVisibility(View.VISIBLE);
-            //binding.edtPw.setText(binding.tvPw.getText().toString());
         });
 
         // 닉네임

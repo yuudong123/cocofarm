@@ -1,7 +1,6 @@
 package com.cocofarm.andapp.member;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Paint;
@@ -27,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLogin2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         binding.tvFirst.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         if (CommonVal.isCheckLogout) {
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     private void saveLoginInfo() {
         // 로그인 정보 저장
         SharedPreferences.Editor editor = SplashActivity.preferences.edit();
-        if (binding!=null && binding.chkLogin.isChecked()) {
+        if (binding != null && binding.chkLogin.isChecked()) {
             editor.putString("email", binding.edtId.getText().toString());
             editor.putString("password", binding.edtPw.getText().toString());
             editor.putBoolean("checked", true);

@@ -100,7 +100,6 @@ public class OrderActivity extends AppCompatActivity {
         vo.setOrderProductVOList(list);
         vo.setAddress(CommonVal.loginMember.getAddress());
 
-        //conn.addParam("order_status_cd", CodeTable.ORDER_STATUS_ONREADY);
         conn.addParam("vo", new Gson().toJson(vo)); //장바구니 리스트로 amount
         conn.onExcute((isResult, data) -> {
             ResultVO resultvo = new Gson().fromJson(data, ResultVO.class);

@@ -124,7 +124,6 @@ public class CartActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "구매하실 상품을 선택해주세요.", Toast.LENGTH_SHORT).show();
             }
-
         });
         binding.btnClose.setOnClickListener(v -> {
             finish();
@@ -155,7 +154,6 @@ public class CartActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     protected void onStart() {

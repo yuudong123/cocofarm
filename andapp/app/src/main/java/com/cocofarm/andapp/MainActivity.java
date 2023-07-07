@@ -17,7 +17,6 @@ import com.cocofarm.andapp.board.BoardFragment;
 import com.cocofarm.andapp.databinding.ActivityMainBinding;
 import com.cocofarm.andapp.home.HomeFragment;
 import com.cocofarm.andapp.member.LoginActivity;
-import com.cocofarm.andapp.mydevice.MyDeviceFragment;
 import com.cocofarm.andapp.mypage.CsCenterActivity;
 import com.cocofarm.andapp.mypage.MypageFragment;
 import com.cocofarm.andapp.mypage.NonMemberFragment;
@@ -39,19 +38,17 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 
         binding.bottomNav.setOnItemSelectedListener(menu -> {
-            Fragment fragment = null;
+            Fragment fragment;
             if (menu.getItemId() == R.id.home) {
                 fragment = new HomeFragment();
-
             } else if (menu.getItemId() == R.id.shop) {
                 fragment = new ProductFragment();
-
             } else if (menu.getItemId() == R.id.board) {
                 fragment = new BoardFragment();
-
             } else if (menu.getItemId() == R.id.mydevice) {
-                fragment = new MyDeviceFragment();
-
+                Intent intent = new Intent(this, CartActivity.class);
+                startActivity(intent);
+                return false;
             } else if (menu.getItemId() == R.id.mypage) {
                 if (loginMember == null) {
                     fragment = new NonMemberFragment();
@@ -61,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 return false;
             }
-            if (fragment != null) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
             return true;
         });
 
@@ -72,42 +67,33 @@ public class MainActivity extends AppCompatActivity {
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
                 binding.drawerLayout.closeDrawer(GravityCompat.END);
             }
-            switch (i) {
-                case R.id.right_nav_home:
-                    binding.bottomNav.setSelectedItemId(R.id.home);
-                    break;
-                case R.id.right_nav_logout:
-                    loginMember = null;
-                    SharedPreferences.Editor editor = SplashActivity.preferences.edit();
-                    editor.putString("email", "");
-                    editor.putString("password", "");
-                    editor.putBoolean("checked", false);
-                    editor.apply();
-                case R.id.right_nav_login:
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    break;
-                case R.id.right_nav_cocomall:
-                    binding.bottomNav.setSelectedItemId(R.id.shop);
-                    break;
-                case R.id.right_nav_cart:
-                    Intent intentCart = new Intent(mContext, CartActivity.class);
-                    startActivity(intentCart);
-                    break;
-                case R.id.right_nav_board:
-                    binding.bottomNav.setSelectedItemId(R.id.board);
-                    break;
-                case R.id.right_nav_mypage:
-                    binding.bottomNav.setSelectedItemId(R.id.mypage);
-                    break;
-                case R.id.right_nav_mydevice:
-                    binding.bottomNav.setSelectedItemId(R.id.mydevice);
-                    break;
-                case R.id.right_nav_cs:
-                    Intent intentCs = new Intent(mContext, CsCenterActivity.class);
-                    startActivity(intentCs);
-                    break;
+            if (i == R.id.right_nav_home) {
+                binding.bottomNav.setSelectedItemId(R.id.home);
+            } else if (i == R.id.right_nav_logout) {
+                loginMember = null;
+                SharedPreferences.Editor editor = SplashActivity.preferences.edit();
+                editor.putString("email", "");
+                editor.putString("password", "");
+                editor.putBoolean("checked", false);
+                editor.apply();
+            } else if (i == R.id.right_nav_login) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            } else if (i == R.id.right_nav_cocomall) {
+                binding.bottomNav.setSelectedItemId(R.id.shop);
+            } else if (i == R.id.right_nav_cart) {
+                Intent intentCart = new Intent(mContext, CartActivity.class);
+                startActivity(intentCart);
+            } else if (i == R.id.right_nav_board) {
+                binding.bottomNav.setSelectedItemId(R.id.board);
+            } else if (i == R.id.right_nav_mypage) {
+                binding.bottomNav.setSelectedItemId(R.id.mypage);
+            } else if (i == R.id.right_nav_mydevice) {
+                binding.bottomNav.setSelectedItemId(R.id.mydevice);
+            } else if (i == R.id.right_nav_cs) {
+                Intent intentCs = new Intent(mContext, CsCenterActivity.class);
+                startActivity(intentCs);
             }
             return true;
         });
