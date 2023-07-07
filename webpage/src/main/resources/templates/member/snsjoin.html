@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/member/join.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <div class="row">
+      <form class="col s12" action="/member/createMembersns" method="post" id="create">
+        <h2 class="join">회원가입</h2>
+        <span>필수 정보 *</span><br /><br />
+        <div id="email">
+          <div class="row">
+            <div class="input-field">
+              <i class="material-icons prefix">mail</i>
+              <input th:value="${vo.email}" name="email" type="text" class="validate" readonly/>
+              <input type="hidden" name="sns" value="N" />
+              <label class="active">이메일 *</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="password">
+          <div class="input-field inline col s6">
+            <i class="material-icons prefix">lock</i>
+            <input autocomplete="off" placeholder="****" name="pw" type="password" class="validate" />
+            <label for="first_name" class="active">비밀번호 *</label>
+          </div>
+          <div class="input-field inline col s6">
+            <i class="material-icons prefix">lock_outline</i>
+            <input autocomplete="off" placeholder="****" name="password" type="password" class="validate" />
+            <label for="first_name" class="active">비밀번호 확인 *</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field inline col s6">
+            <i class="material-icons prefix">person</i>
+            <input autocomplete="off" placeholder="nickname" name="nickname" type="text" class="validate" />
+            <label for="first_name" class="active">닉네임 *</label>
+          </div>
+        </div>
+        <br />
+
+        <span>선택 정보</span><br /><br />
+
+        <div class="row" id="phonenumber">
+          <div class="input-field inline">
+            <i class="material-icons prefix">phone</i>
+            <input disabled value="010" type="tel" id="no1" class="validate" />
+            <label class="active">전화번호</label>
+          </div>
+          ─
+          <div class="input-field inline">
+            <input autocomplete="off" type="tel" id="no2" maxlength="4" />
+          </div>
+          ─
+          <div class="input-field inline">
+            <input autocomplete="off" type="tel" id="no3" maxlength="4" />
+            <input type="hidden" name="phonenumber" />
+          </div>
+        </div>
+
+        <div id="address">
+          <div class="row">
+            <div class="input-field inline col s9">
+              <i class="material-icons prefix">place</i>
+              <input name="road" placeholder="도로명 주소" type="text" class="validate" disabled />
+            </div>
+            <div class="input-field inline col s3">
+              <a class="waves-effect waves-light btn" name="search"><i class="material-icons left">search</i>검색</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field inline col s12">
+              <i class="material-icons prefix">home</i>
+              <input type="text" class="validate" name="details" />
+              <input type="hidden" name="address" />
+              <label for="first_name" class="active">상세 주소</label>
+            </div>
+          </div>
+        </div>
+
+        <b>유의사항</b>
+        <p>SNS 간편가입 서비스는 플랫폼에서 동의 항목만 요청하여 제공 받고 있으며,<br>
+          추후 연동 해제를 원하신다면 회원탈퇴 또는 해당 플랫폼을 이용 바랍니다.<br>
+          플랫폼에서 연동 해제 시, 일반회원으로 전환되며 일반 로그인을 통해 코코팜 서비스를 이용하실 수 있습니다.<br><br></p>
+          <label>
+            <input type="checkbox" id="checkbox" class="filled-in" />
+            <span>유의사항을 모두 확인했습니다.</span>
+          </label>
+
+        <div class="submit">
+          <input type="button" value="가입하기" onclick="onClickOk()"/>
+        </div>
+      </form>
+    </div>
+
+    <!-- javaScript -->
+    <script src="/js/default.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+
+      // 이메일 변경 시도 시 불가 메시지 출력
+      document.querySelector('#email').addEventListener('click', () => {
+        M.toast({ html: "이메일은 변경할 수 없습니다." });
+      })
+
+      let isPwChecked = false;
+      var pw = document.querySelector("#password [name='pw']");
+      var confirm = document.querySelector("#password [name='password']");
+
+      // 비밀번호, 비밀번호 확인 / 비밀번호 미입력 체크
+      confirm.addEventListener("blur", () => {
+        if (pw.value == confirm.value && pw.value.length != 0) {
+          return (isPwChecked = true);
+        } else if (pw.value.length == 0 || confirm.value.length == 0) {
+          M.toast({ html: "비밀번호를 입력해주세요." });
+        } else {
+          M.toast({ html: "비밀번호가 일치하지 않습니다." });
+        }
+      });
+
+      // 주소검색
+      var search = document.querySelector("#address [name='search']");
+      search.addEventListener("click", () => {
+        new daum.Postcode({
+          oncomplete: function (data) {
+            console.log(data);
+            var roadAddr = data.roadAddress; // 도로명 주소 변수
+            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+            if (roadAddr !== "") {
+              document.querySelector("input[name='road']").value = roadAddr;
+            } else if (jibunAddr !== "") {
+              document.querySelector("input[name='road']").value = jibunAddr;
+            }
+          },
+        }).open();
+      });
+
+      // submit
+      function onClickOk() {
+        var nickname = document.querySelector('input[name="confirm"]');
+        var nickname = document.querySelector('input[name="nickname"]');
+
+        var no1 = document.querySelector("#no1");
+        var no2 = document.querySelector("#no2");
+        var no3 = document.querySelector("#no3");
+        var phonenumber = document.querySelector('input[name="phonenumber"]');
+
+        var road = document.querySelector("input[name='road']");
+        var details = document.querySelector("input[name='details']");
+        var address = document.querySelector('input[name="address"]');
+
+        if (!isPwChecked) {
+          M.toast({ html: "비밀번호를 확인해 주세요." });
+          pw.focus();
+        } else if (nickname.value.length == 0) {
+          M.toast({ html: "닉네임을 입력해 주세요." });
+          nickname.focus();
+        } else {
+          // 도로명, 상세주소 통합 처리
+          if (details.value == "") {
+            address.value = road.value;
+          } else {
+            address.value = road.value + ", " + details.value;
+          }
+
+          // 전화번호 하이픈 처리
+          if (no2.value.length == 0 || no3.value.length == 0) {
+            phonenumber.value = "";
+          } else {
+            phonenumber.value = no1.value + "-" + no2.value + "-" + no3.value;
+          }
+
+          if (document.querySelector("#checkbox").checked) {
+            document.querySelector("#create").submit();
+            alert("SNS 계정 연동이 완료되었습니다.");
+          } else {
+            M.toast({ html: "유의사항을 확인해주세요." });
+          }
+
+        }
+      }
+    </script>
+  </body>
+</html>
