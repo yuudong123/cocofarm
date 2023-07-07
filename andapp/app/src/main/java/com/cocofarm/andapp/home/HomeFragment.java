@@ -1,5 +1,9 @@
 package com.cocofarm.andapp.home;
 
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_EVENT;
+import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_NOTICE;
+import static com.cocofarm.andapp.common.CodeTable.PRODUCT_CATEGORY_DEVICE;
+
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.cocofarm.andapp.MainActivity;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.board.BoardVO;
+import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentHomeBinding;
 import com.cocofarm.andapp.product.ProductVO;
@@ -25,11 +30,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import kotlinx.coroutines.Job;
-import lombok.val;
 
 public class HomeFragment extends Fragment {
 
@@ -40,14 +40,10 @@ public class HomeFragment extends Fragment {
     HomeEventAdapter e_adapter;
     ArrayList<BoardVO> e_list, n_list;
     int currentPage = 0;
-    final long DELAY_MS = 3000;
-    final long PERIOD_MS = 3000;
     Thread thread = new Thread(new PagerRunnable());
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding.tvCocomall.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -55,62 +51,45 @@ public class HomeFragment extends Fragment {
 
         // 이벤트 배너
         CommonConn e_conn = new CommonConn(getContext(), "/board/eventbanner.and");
-        e_conn.addParam("board_category_cd", 204);
+        e_conn.addParam("board_category_cd", BOARD_CATEGORY_EVENT);
         e_conn.onExcute((isResult, data) -> {
-            if (!isResult) {
-                return;
-            } else {
-                e_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
-                }.getType());
-                e_adapter = new HomeEventAdapter(e_list, getContext());
-                binding.viewPager.setAdapter(e_adapter);
-                binding.viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-                binding.viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
-                binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        super.onPageSelected(position);
-                        //Log.d("포지션", "onPageSelected: " + position);
-                        currentPage = position;
+            if (!isResult) return;
 
-                        binding.tvNumber.setText(getString(R.string.viewpager2_banner, (currentPage % e_list.size()) + 1, e_list.size()));
-                    }
+            e_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+            }.getType());
+            e_adapter = new HomeEventAdapter(e_list, getContext());
+            binding.viewPager.setAdapter(e_adapter);
+            binding.viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+            binding.viewPager.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
+            binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    currentPage = position;
+                    binding.tvNumber.setText(getString(R.string.viewpager2_banner, (currentPage % e_list.size()) + 1, e_list.size()));
+                }
 
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-                        super.onPageScrollStateChanged(state);
-                        switch (state) {
-                            case ViewPager2.SCROLL_STATE_IDLE:
-                                break;
-
-                            case ViewPager2.SCROLL_STATE_DRAGGING:
-                                break;
-
-                            case ViewPager2.SCROLL_STATE_SETTLING:
-                                break;
-                        }
-                    }
-                });
-
-                thread.start();
-            }
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    super.onPageScrollStateChanged(state);
+                }
+            });
+            thread.start();
         });
 
 
         // 인기 제품
         CommonConn p_conn = new CommonConn(getContext(), "/selectProductList.and");
-        p_conn.addParam("category_cd", 402);
+        p_conn.addParam("category_cd", PRODUCT_CATEGORY_DEVICE);
         p_conn.onExcute((isResult, data) -> {
-            if (!isResult) {
-                return;
-            } else {
-                p_list = new Gson().fromJson(data, new TypeToken<ArrayList<ProductVO>>() {
-                }.getType());
-                p_adapter = new HomePdAdapter(p_list, getContext());
-                LinearLayoutManager p_manager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-                binding.recvContents.setAdapter(p_adapter);
-                binding.recvContents.setLayoutManager(p_manager);
-            }
+            if (!isResult) return;
+
+            p_list = new Gson().fromJson(data, new TypeToken<ArrayList<ProductVO>>() {
+            }.getType());
+            p_adapter = new HomePdAdapter(p_list, getContext());
+            LinearLayoutManager p_manager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+            binding.recvContents.setAdapter(p_adapter);
+            binding.recvContents.setLayoutManager(p_manager);
         });
 
         binding.tvCocomall.setOnClickListener(v -> {
@@ -121,18 +100,16 @@ public class HomeFragment extends Fragment {
 
         // 공지사항
         CommonConn n_conn = new CommonConn(getContext(), "/board/eventbanner.and");
-        n_conn.addParam("board_category_cd", 202);
+        n_conn.addParam("board_category_cd", BOARD_CATEGORY_NOTICE);
         n_conn.onExcute((isResult, data) -> {
-            if (!isResult) {
-                return;
-            } else {
-                n_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
-                }.getType());
-                n_adapter = new HomeNoticeAdapter(n_list, getContext());
-                LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                binding.recvBoardList.setAdapter(n_adapter);
-                binding.recvBoardList.setLayoutManager(manager);
-            }
+            if (!isResult) return;
+
+            n_list = new Gson().fromJson(data, new TypeToken<ArrayList<BoardVO>>() {
+            }.getType());
+            n_adapter = new HomeNoticeAdapter(n_list, getContext());
+            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+            binding.recvBoardList.setAdapter(n_adapter);
+            binding.recvBoardList.setLayoutManager(manager);
         });
         binding.tvNotice.setOnClickListener(v -> {
             MainActivity activity = (MainActivity) getActivity();
@@ -176,7 +153,7 @@ public class HomeFragment extends Fragment {
             if (currentPage == e_list.size()) {
                 currentPage = 0;
             }
-            if (binding !=null) {
+            if (binding != null) {
                 binding.viewPager.setCurrentItem(currentPage, true);
                 currentPage++;
             }
