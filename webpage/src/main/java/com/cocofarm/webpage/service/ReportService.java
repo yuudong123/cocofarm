@@ -37,8 +37,8 @@ public class ReportService {
         return reportMapper.processReport(report);
     }
 
-    public int getHistoryTotal() {
-        return reportMapper.getHistoryTotal();
+    public int getHistoryTotal(CriteriaDTO cri) {
+        return reportMapper.getHistoryTotal(cri);
     }
 
     public ArrayList<ReportVO> selectReportHistory(CriteriaDTO cri) {

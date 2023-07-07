@@ -19,7 +19,7 @@ public interface ReportMapper {
 
     public int processReport(ReportVO report);
 
-    public int getHistoryTotal();
+    public int getHistoryTotal(CriteriaDTO cri);
 
     public ArrayList<ReportVO> selectReportHistory(CriteriaDTO cri);
 

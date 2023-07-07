@@ -80,7 +80,7 @@ public class AdminBoardController {
     @GetMapping(value = "/reporthistory")
     public ModelAndView reportHistory(CriteriaDTO cri) {
         ModelAndView mav = new ModelAndView();
-        int total = reportService.getHistoryTotal();
+        int total = reportService.getHistoryTotal(cri);
         ArrayList<ReportVO> reportlist = reportService.selectReportHistory(cri);
         mav.addObject("reportlist", reportlist);
         mav.addObject("pager", new PageDTO(cri, total));

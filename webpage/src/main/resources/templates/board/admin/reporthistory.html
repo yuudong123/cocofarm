@@ -17,6 +17,10 @@
             <div id="categorySelectBar"></div>
           </div>
           <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
+          <div>
+            <input type="text" id="inputKeyword" name="keyword" th:value="${pager.cri.keyword}" autocomplete="off" style="width: 200px;margin:0px;" />
+            <button class="btn light-green darken-1" type="submit"><i class="material-icons">search</i></button>
+          </div>
           <a id="btnNewBoard" class="btn green" style="margin: 10px 10px 0 0"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></a>
         </form>
 
@@ -37,7 +41,7 @@
               <tr th:each="report : ${reportlist}">
                 <td th:text="${report.report_no}" style="font-weight: 700"></td>
                 <td th:text="${report.nickname}"></td>
-                <td th:text="${report.reported_nickname}"></td>
+                <td th:text="${report.reported_nickname} + '(' + ${report.reported_email} + ')'"></td>
                 <th:block th:switch="${report.reason_cd}">
                   <td th:case="511">영리목적/홍보성</td>
                   <td th:case="512">개인정보 노출</td>
