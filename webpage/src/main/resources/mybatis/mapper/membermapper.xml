@@ -35,6 +35,14 @@ set nickname = #{nickname}, password = #{password}, phonenumber = #{phonenumber}
 where email = #{email}
     </update>
 
+    <select id="myboard_list" resultType="com.cocofarm.webpage.domain.BoardVO">
+select *
+from tbl_board
+where  member_no = #{member_no}
+and regdate BETWEEN to_char(add_months(sysdate,-1),'yyyy-mm-dd') and sysdate
+order by regdate desc
+    </select>
+
     <update id="web_modify">
 update tbl_member
 set nickname = #{nickname}, phonenumber = #{phonenumber}, address = #{address}
