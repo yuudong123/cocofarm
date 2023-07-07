@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.domain.BoardVO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
+import com.cocofarm.webpage.domain.PageDTO;
 import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.domain.ReportVO;
 import com.cocofarm.webpage.service.BoardService;
@@ -61,8 +63,8 @@ public class AdminBoardController {
     public ModelAndView boardReport() {
         ModelAndView mav = new ModelAndView();
         ArrayList<ReportVO> reportlist = reportService.selectReportList("board");
-        mav.setViewName("/board/admin/reportboard");
         mav.addObject("reportlist", reportlist);
+        mav.setViewName("/board/admin/reportboard");
         return mav;
     }
 
@@ -70,8 +72,19 @@ public class AdminBoardController {
     public ModelAndView replyReport() {
         ModelAndView mav = new ModelAndView();
         ArrayList<ReportVO> reportlist = reportService.selectReportList("reply");
-        mav.setViewName("/board/admin/reportreply");
         mav.addObject("reportlist", reportlist);
+        mav.setViewName("/board/admin/reportreply");
+        return mav;
+    }
+
+    @GetMapping(value = "/reporthistory")
+    public ModelAndView reportHistory(CriteriaDTO cri) {
+        ModelAndView mav = new ModelAndView();
+        int total = reportService.getHistoryTotal();
+        ArrayList<ReportVO> reportlist = reportService.selectReportHistory(cri);
+        mav.addObject("reportlist", reportlist);
+        mav.addObject("pager", new PageDTO(cri, total));
+        mav.setViewName("board/admin/reporthistory");
         return mav;
     }
 

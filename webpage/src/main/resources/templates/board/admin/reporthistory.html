@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/board/boardadmin.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <form id="topMenu">
+          <div id="category">
+            <a href="/admin/board/qna">새 QnA</a>
+            <a href="/admin/board/boardreport">신고된 게시글</a>
+            <a href="/admin/board/replyreport">신고된 댓글</a>
+            <a href="/admin/board/reporthistory" style="color: #429f5d">신고 기록</a>
+            <div id="categorySelectBar"></div>
+          </div>
+          <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
+          <a id="btnNewBoard" class="btn green" style="margin: 10px 10px 0 0"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></a>
+        </form>
+
+        <section class="z-depth-1">
+          <h6>신고된 게시글<small class="grey-text" style="font-weight: bold">&nbsp;&nbsp;오래된 항목순으로 불러옵니다. (최대 50개)</small></h6>
+          <table id="reportboard" class="highlight">
+            <thead>
+              <tr>
+                <th>신고 번호</th>
+                <th>신고자</th>
+                <th>신고 사유</th>
+                <th>신고일</th>
+                <th>처리 분류</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="report : ${reportlist}">
+                <td th:text="${report.report_no}" style="font-weight: 700"></td>
+                <td th:text="${report.nickname}"></td>
+                <th:block th:switch="${report.reason_cd}">
+                  <td th:case="511">영리목적/홍보성</td>
+                  <td th:case="512">개인정보 노출</td>
+                  <td th:case="513">불법정보</td>
+                  <td th:case="514">음란성/선정성</td>
+                  <td th:case="515">욕설/인신공격</td>
+                  <td th:case="516">아이디/DB 거래</td>
+                  <td th:case="517">같은 내용 반복(도배)</td>
+                  <td th:case="518">기타</td>
+                </th:block>
+                <td th:text="${#dates.format(report.reportdate, 'yyyy/MM/dd')}"></td>
+                <th:block th:switch="${report.isprocessed}">
+                  <td th:case="B">작성자 차단</td>
+                  <td th:case="D">게시물 삭제</td>
+                  <td th:case="BD">차단 및 삭제</td>
+                  <td th:case="I">무시</td>
+                </th:block>
+              </tr>
+            </tbody>
+          </table>
+          <ul th:if="${reportlist.size != 0}" class="pagination">
+            <li class="waves-effect">
+              <a id="pageFirst"><i class="material-icons">chevron_left</i></a>
+            </li>
+            <th:block th:each="num : ${#numbers.sequence(pager.startPage,pager.endPage)}">
+              <li class="waves-effect"><a class="pageNum" th:text="${num}"></a></li>
+            </th:block>
+            <li class="waves-effect">
+              <a id="pageLast"><i class="material-icons">chevron_right</i></a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script th:inline="javascript">
+      const topMenu = document.querySelector("#topMenu");
+      const inputPage = document.querySelector("#inputPage");
+      const pageFirst = document.querySelector("#pageFirst");
+      const pageLast = document.querySelector("#pageLast");
+      const pageNum = document.querySelectorAll(".pageNum");
+
+      pageFirst.addEventListener("click", () => {
+        inputPage.setAttribute("value", "1");
+        topMenu.submit();
+      });
+      pageLast.addEventListener("click", () => {
+        inputPage.setAttribute("value", /*[[${pager.lastPage}]]*/ "");
+        topMenu.submit();
+      });
+      pageNum.forEach((page) => {
+        page.addEventListener("click", () => {
+          inputPage.setAttribute("value", page.textContent);
+          topMenu.submit();
+        });
+        if (page.textContent == inputPage.getAttribute("value")) {
+          page.parentElement.classList.add("active");
+          page.parentElement.classList.add("green");
+        }
+      });
+    </script>
+    <script src="/js/category.js"></script>
+    <script src="/js/board/admintopmenu.js"></script>
+  </body>
+</html>

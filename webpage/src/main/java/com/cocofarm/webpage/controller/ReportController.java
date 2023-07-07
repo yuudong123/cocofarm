@@ -58,7 +58,8 @@ public class ReportController {
     @PostMapping("/banwriter")
     public String banwriter(@RequestBody ReportVO report) {
         int ban = memberService.banned(report.getReported_email(), "N");
-        int process = reportService.processReport(report.getReport_no());
+        report.setIsprocessed("B");
+        int process = reportService.processReport(report);
         if (ban == 1 && process == 1) {
             return "success";
         } else {
@@ -70,7 +71,8 @@ public class ReportController {
     @PostMapping("/deleteboard")
     public String deleteBoard(@RequestBody ReportVO report) {
         int delete = boardService.delete(report.getReported_board());
-        int process = reportService.processReport(report.getReport_no());
+        report.setIsprocessed("D");
+        int process = reportService.processReport(report);
         if (delete == 1 && process == 1) {
             return "success";
         } else {
@@ -82,7 +84,8 @@ public class ReportController {
     @PostMapping("/deletereply")
     public String deleteReply(@RequestBody ReportVO report) {
         int delete = replyService.delete(report.getReported_reply());
-        int process = reportService.processReport(report.getReport_no());
+        report.setIsprocessed("D");
+        int process = reportService.processReport(report);
         if (delete == 1 && process == 1) {
             return "success";
         } else {
@@ -95,7 +98,8 @@ public class ReportController {
     public String banAndDeleteBoard(@RequestBody ReportVO report) {
         int ban = memberService.banned(report.getReported_email(), "N");
         int delete = boardService.delete(report.getReported_board());
-        int process = reportService.processReport(report.getReport_no());
+        report.setIsprocessed("BD");
+        int process = reportService.processReport(report);
         if (ban == 1 && delete == 1 && process == 1) {
             return "success";
         } else {
@@ -108,7 +112,8 @@ public class ReportController {
     public String banAndDeleteReply(@RequestBody ReportVO report) {
         int ban = memberService.banned(report.getReported_email(), "N");
         int delete = replyService.delete(report.getReported_reply());
-        int process = reportService.processReport(report.getReport_no());
+        report.setIsprocessed("BD");
+        int process = reportService.processReport(report);
         if (ban == 1 && delete == 1 && process == 1) {
             return "success";
         } else {
@@ -117,7 +122,8 @@ public class ReportController {
     }
 
     @PostMapping("/ignorereport")
-    public int ignoreReport(@RequestBody int report_no) {
-        return reportService.processReport(report_no);
+    public int ignoreReport(@RequestBody ReportVO report) {
+        report.setIsprocessed("I");
+        return reportService.processReport(report);
     }
 }

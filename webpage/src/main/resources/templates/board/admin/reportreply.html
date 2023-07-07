@@ -12,7 +12,8 @@
           <div id="category">
             <a href="/admin/board/qna">새 QnA</a>
             <a href="/admin/board/boardreport">신고된 게시글</a>
-            <a href="/admin/board/replyreport">신고된 댓글</a>
+            <a href="/admin/board/replyreport" style="color: #429f5d">신고된 댓글</a>
+            <a href="/admin/board/reporthistory">신고 기록</a>
             <div id="categorySelectBar"></div>
           </div>
           <a id="btnNewBoard" class="btn green" style="margin: 10px 10px 0 0"><span>공지사항 / 이벤트 글 작성하기</span>&nbsp;<i class="material-icons">edit</i></a>
@@ -131,7 +132,6 @@
             },
             (data) => {
               if (data == "success") {
-                toast("차단되었습니다.");
                 location.reload();
               } else {
                 toast("오류가 발생했습니다.");
@@ -150,7 +150,6 @@
             },
             (data) => {
               if (data == "success") {
-                toast("삭제되었습니다.");
                 location.reload();
               } else {
                 toast("오류가 발생했습니다.");
@@ -162,7 +161,7 @@
       btnBanAndDelete.addEventListener("click", () => {
         if (confirm("차단된 회원은 고객관리 페이지에서 확인/차단해제 가능하며, 삭제된 댓글은 복구되지 않습니다. 정말 진행하시겠습니까?")) {
           fetchTEXT(
-            "/bananddeleteboard",
+            "/bananddeletereply",
             {
               report_no: reportNo.innerHTML,
               reported_email: hiddendata.dataset.email,
@@ -170,7 +169,6 @@
             },
             (data) => {
               if (data == "success") {
-                toast("처리되었습니다.");
                 location.reload();
               } else {
                 toast("오류가 발생했습니다.");
@@ -181,9 +179,8 @@
       });
       btnIgnore.addEventListener("click", () => {
         if (confirm("별도 작업 없이 처리가 완료됩니다. 무시하시겠습니까?")) {
-          fetchTEXT("/ignorereport", reportNo.innerHTML, (data) => {
+          fetchTEXT("/ignorereport", { report_no: reportNo.innerHTML }, (data) => {
             if (data == 1) {
-              toast("처리되었습니다.");
               location.reload();
             } else {
               toast("오류가 발생했습니다.");

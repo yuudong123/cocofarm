@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cocofarm.webpage.mapper.ReportMapper">
+
     <select id="selectReportList" resultType="com.cocofarm.webpage.domain.ReportVO">
     select * from (
         select  rownum rn, r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isprocessed
@@ -36,6 +37,25 @@
     where   report_no = #{report_no}
     </select>
 
+    <select id="getHistoryTotal">
+    select  count(*)
+    from    tbl_report
+    where   isprocessed != 'N'
+    </select>
+
+    <select id="selectReportHistory" resultType="com.cocofarm.webpage.domain.ReportVO">
+    select * from (
+        select rownum rn, a.* from (
+            select  r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isprocessed
+            from    tbl_report r
+                    left join tbl_member m on r.member_no = m.member_no
+            where   isprocessed != 'N'
+            order by report_no desc ) a) <![CDATA[ 
+    where   rn <= #{page} * #{boardPerPage}
+    and     rn > (#{page} - 1) * #{boardPerPage}
+    ]]>
+    </select>
+
     <insert id="insertReport">
     insert into tbl_report
     values (seq_report_no.nextval, #{member_no}, #{reported_board}, #{reported_reply}, #{reported_member}, #{reason_cd}, #{content}, sysdate, 'N')
@@ -43,7 +63,7 @@
 
     <update id="processReport">
     update  tbl_report
-    set     isprocessed = 'Y'
+    set     isprocessed = #{isprocessed}
     where   report_no = #{report_no}
     </update>
 </mapper>

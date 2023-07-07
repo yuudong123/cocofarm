@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.ReportVO;
 import com.cocofarm.webpage.mapper.ReportMapper;
 
@@ -32,7 +33,15 @@ public class ReportService {
         return reportVO;
     }
 
-    public int processReport(int report_no) {
-        return reportMapper.processReport(report_no);
+    public int processReport(ReportVO report) {
+        return reportMapper.processReport(report);
+    }
+
+    public int getHistoryTotal() {
+        return reportMapper.getHistoryTotal();
+    }
+
+    public ArrayList<ReportVO> selectReportHistory(CriteriaDTO cri) {
+        return reportMapper.selectReportHistory(cri);
     }
 }
