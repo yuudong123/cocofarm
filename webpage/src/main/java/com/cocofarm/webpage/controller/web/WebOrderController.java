@@ -73,7 +73,7 @@ public class WebOrderController {
     }
 
     // 주문 결제 버튼 눌렀을때
-    @PostMapping("order/payorderpage")
+    @PostMapping("order/payresult")
     public ModelAndView insertOrderPage(@RequestParam(value = "cart", required = false) String[] order,
             HttpSession session) {
         OrderVO vo = new OrderVO();
@@ -89,11 +89,13 @@ public class WebOrderController {
         vo.setOrderProductVOList(cartList);
         vo.setOrderdate(new Date());
         int ok = orderService.OrderInsert(vo);
+        System.out.println(vo);
+        mav.addObject("vo", vo);
         mav.addObject("ok", ok);
         mav.addObject("list", cartList);
         mav.addObject("member", member);
         mav.addObject("allTotalPrice", total);
-        mav.setViewName("product/payresult");// 경로
+        mav.setViewName("product/orderpayresult");// 경로
         return mav;
     }
 

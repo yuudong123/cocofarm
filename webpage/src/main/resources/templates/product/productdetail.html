@@ -13,6 +13,7 @@
             <img
               th:each="image : ${list}"
               th:src="'/images/'+${image.filename}"
+              style="width: 150px"
             />
           </div>
           <div class="rightPlace">
