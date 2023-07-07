@@ -11,40 +11,44 @@
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <th:block th:replace="~{fragments/mypagetopbar :: mypagetopbarFragment}"></th:block>
 
-    <div class="container">
-      <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
-      <div class="row">
-          <h5>내 정보</h5>
-          <h6 th:if="${userinfo.sns=='N'}">고객님은 <b style="color: #4285F4; background-color: #E6E6E6;">일반회원</b>입니다.</h6>
-          <h6 th:if="${userinfo.sns=='KAKAO'}">현재 <b style="color: #F7E600; background-color: #3A1D1D; letter-spacing: 0.5px; ">카카오톡</b> 계정 연동 중 입니다.</h6>
-          <h6 th:if="${userinfo.sns=='NAVER'}">현재 <b style="color: #FFFFFF; background-color: #2DB400; letter-spacing: 0.5px;">네이버</b> 계정 연동 중 입니다.</h6>
-          <h6 th:if="${userinfo.sns=='GOOGLE'}">현재 <b style="color: #DB4437; background-color: #E6E6E6; letter-spacing: 0.8px;">구글</b> 계정 연동 중 입니다.</h6>
-        <div id="myinfo">
-          <table th:if="${userinfo!=null}">
-            <tbody>
-              <tr>
-                <th>이메일</th>
-                <td th:text="${userinfo.email}">정보 없음</td>
-              </tr>
-              <tr>
-                <th>닉네임</th>
-                <td th:text="${userinfo.nickname}">정보 없음</td>
-              </tr>
-              <tr>
-                <th>전화번호</th>
-                <td th:text="${userinfo.phonenumber}">정보 없음</td>
-              </tr>
-              <tr>
-                <th>주소</th>
-                <td th:text="${userinfo.address}">정보 없음</td>
-              </tr>
-            </tbody>
-          </table>
+    <div class="mypage">
+      <div class="container">
+        <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
+        <div class="row">
+            <h5>내 정보</h5>
+            <h6 th:if="${userinfo.sns=='ADMIN'}"><b style="color: #b916ac; background-color: #E6E6E6;">관리자계정</b> 입니다.</h6>
+            <h6 th:if="${userinfo.sns=='N'}">고객님은 <b style="color: #4285F4; background-color: #E6E6E6;">일반회원</b>입니다.</h6>
+            <h6 th:if="${userinfo.sns=='KAKAO'}"><b style="color: #F7E600; background-color: #3A1D1D; letter-spacing: 0.5px; ">카카오톡</b> 연동 계정 입니다.</h6>
+            <h6 th:if="${userinfo.sns=='NAVER'}"><b style="color: #FFFFFF; background-color: #2DB400; letter-spacing: 0.5px;">네이버</b> 연동 계정 입니다.</h6>
+            <h6 th:if="${userinfo.sns=='GOOGLE'}"><b style="color: #DB4437; background-color: #E6E6E6; letter-spacing: 0.8px;">구글</b> 연동 계정 입니다.</h6>
+          <div id="myinfo">
+            <table th:if="${userinfo!=null}">
+              <tbody>
+                <tr>
+                  <th>이메일</th>
+                  <td th:text="${userinfo.email}">정보 없음</td>
+                </tr>
+                <tr>
+                  <th>닉네임</th>
+                  <td th:text="${userinfo.nickname}">정보 없음</td>
+                </tr>
+                <tr>
+                  <th>전화번호</th>
+                  <td th:text="${userinfo.phonenumber}">정보 없음</td>
+                </tr>
+                <tr>
+                  <th>주소</th>
+                  <td th:text="${userinfo.address}">정보 없음</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <a href="/member/pwok">정보 수정하기 ></a>
         </div>
-        <a href="/member/pwok">정보 수정하기 ></a>
       </div>
     </div>
 
+    <!-- JavaScript -->
     <script src="/js/default.js"></script>
     <script>
       document.querySelector("#menu-name").innerHTML = "> 내 정보";
