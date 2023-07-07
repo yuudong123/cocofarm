@@ -14,7 +14,11 @@
     <div class="container">
       <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
       <div class="row">
-        <h5>내 정보</h5>
+          <h5>내 정보</h5>
+          <h6 th:if="${userinfo.sns=='N'}">고객님은 <b style="color: #4285F4; background-color: #E6E6E6;">일반회원</b>입니다.</h6>
+          <h6 th:if="${userinfo.sns=='KAKAO'}">현재 <b style="color: #F7E600; background-color: #3A1D1D; letter-spacing: 0.5px; ">카카오톡</b> 계정 연동 중 입니다.</h6>
+          <h6 th:if="${userinfo.sns=='NAVER'}">현재 <b style="color: #FFFFFF; background-color: #2DB400; letter-spacing: 0.5px;">네이버</b> 계정 연동 중 입니다.</h6>
+          <h6 th:if="${userinfo.sns=='GOOGLE'}">현재 <b style="color: #DB4437; background-color: #E6E6E6; letter-spacing: 0.8px;">구글</b> 계정 연동 중 입니다.</h6>
         <div id="myinfo">
           <table th:if="${userinfo!=null}">
             <tbody>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/about/overview.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+
+    <div id="contents_wrap" class="company_contents">
+        <!-- OVERVIEW -->
+        <h3>개요</h3>
+        <ul class="about_coco_top">
+            <p class="ci_origin_txt">회사개요</p>
+            <!-- <p class="ft38_eng underline txt_c mt40">회사개요</p> -->
+            <li><p class="tit_about_coco">회사명</p><p>Cocofarm ( ㈜코코팜 )</p></li>
+            <li><p class="tit_about_coco">설립일</p><p>2023년 6월 5일</p></li>
+            <li><p class="tit_about_coco">본사</p><p>61928 광주광역시 서구 경열로 3 ( 농성동 271-4 )</p></li>
+            <li><p class="tit_about_coco">주요임원</p><p>CEO - Kim Youngmun<br>EVP and CFO – Jeong Jaeho<br></p></li>
+        </ul>
+        <p class="ci_origin_txt">사업분야</p>
+        <!-- <p class="ft38_eng underline txt_c mt40">사업분야</p> -->
+        <ul class="about_coco_list ir_about_coco_list">
+            <li class="li_1"><p><span>IoT</span></p>SMART 홈 &amp; 농장<br>관리기기</li>
+            <li class="li_2"><p><span>Farm</span></p>꽃, 씨앗 등 <br>코코팜 직접 재배 식물</li>
+            <li class="li_3"><p><span>Environment</span></p>GREENPEACE와 협동 사업, <br>지구 환경보호 캠페인</li>
+        </ul>
+
+        <div class="coco_ci_area mt40">
+            <p class="ci_origin_txt">Cocofarm CI</p>
+            <!-- <p class="ft38_eng underline txt_c mt40">Cocofarm CI</p> -->
+            <p class="txt4_coco mt20">편리한 농업·고부가가치 농업, 스마트팜을 실현하겠습니다!</p>
+            <p class="txt_coco_ci">코코팜의 스마트팜 사업의 도전은 계속되고 있습니다.<br> 빅데이터와 AI기술을 연계한 지능형 미래농업기술을 개발하여, <br>
+                편리하고 안전한 농작업 생산기반과 고품질 농산물을 안정적으로 생산할 수 있는 시스템을 구축하고자 합니다.<br><br>
+                스마트팜을 통해 우리 농산물의 부가가치를 높이며, 우리농업의 밝은 미래를 개척하겠습니다. <br>
+            </p>
+
+            <div class="coco_msg">
+                <img src="/images/main-logo.png" alt="COCOFARM CI">
+            </div>
+        </div>
+    </div>
+
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+          <!-- JavaScript -->
+          <script src="/js/default.js"></script>
+    </body>
+    </html>
