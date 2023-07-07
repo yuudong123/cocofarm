@@ -2,7 +2,6 @@ package com.cocofarm.andapp.home;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cocofarm.andapp.board.BoardReadActivity;
 import com.cocofarm.andapp.board.BoardVO;
-import com.cocofarm.andapp.databinding.FragmentHomeBinding;
 import com.cocofarm.andapp.databinding.ItemVpEventBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 
@@ -37,18 +35,17 @@ public class HomeEventAdapter extends RecyclerView.Adapter<HomeEventAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.binding.ivMain.setClipToOutline(true);
-            ImageUtil.load(holder.binding.ivMain, list.get(position).getMainimage());
-            holder.binding.ivMain.setOnClickListener(v -> {
-                Intent intent = new Intent(context, BoardReadActivity.class);
-                intent.putExtra("BoardVO", list.get(position));
-                context.startActivity(intent);
-            });
-        }
+        holder.binding.ivMain.setClipToOutline(true);
+        ImageUtil.load(holder.binding.ivMain, list.get(position).getMainimage());
+        holder.binding.ivMain.setOnClickListener(v -> {
+            Intent intent = new Intent(context, BoardReadActivity.class);
+            intent.putExtra("BoardVO", list.get(position));
+            context.startActivity(intent);
+        });
+    }
 
     @Override
     public int getItemCount() {
-
         return list.size();
     }
 
