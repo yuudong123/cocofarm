@@ -3,25 +3,6 @@
   <th:block th:fragment="footerFragment">
     <footer class="light-green lighten-4 page-footer z-depth-4">
       <div class="container row">
-        <div class="col s12 m12 l12 xl4">
-          <div class="container-fluid">
-            <a th:href="@{/termsofuse}">이용약관</a>
-            <span>|</span>
-            <a th:href="@{/privacypolicy}">개인정보취급방침</a>
-            <br /><br />
-            <span>
-              (주)코코팜&nbsp;&nbsp;대표 김영문&nbsp;&nbsp;TEL. 042-8282
-              <br />
-              사업자등록번호. 123-45-67890
-              <br />
-              주소. 광주광역시 서구 경열로 3 (농성동) 한울직업전문학교
-              <br /><br />
-              &copy;&nbsp;2023 코코팜 all rights reserved.
-              <br /><br />
-              '코코팜'은 등록상표가 아닙니다.
-            </span>
-          </div>
-        </div>
         <div class="container-fluid">
           <div class="col s12 m4 l4 xl2">
             <span class="footerTitle">QUICK</span>
@@ -30,7 +11,7 @@
             <br />
             <a th:href="@{/board/event}">이벤트</a>
             <br />
-            <a th:href="@{/mypage}">마이페이지</a>
+            <a th:href="@{/member/myinfo}">마이페이지</a>
             <br />
             <a th:href="@{/board/qna}">질문하기</a>
             <br />
@@ -67,6 +48,25 @@
               <br />
               <br />
               <a href="#" class="brand-logo center"><img class="whitelogo" src="/images/logo_white.png" /></a>
+            </span>
+          </div>
+        </div>
+        <div class="col s12 m12 l12 xl4">
+          <div class="container-fluid">
+            <a th:href="@{/termsofuse}">이용약관</a>
+            <span>|</span>
+            <a th:href="@{/privacypolicy}">개인정보취급방침</a>
+            <br /><br />
+            <span>
+              (주)코코팜&nbsp;&nbsp;대표 김영문&nbsp;&nbsp;TEL. 042-8282
+              <br />
+              사업자등록번호. 123-45-67890
+              <br />
+              주소. 광주광역시 서구 경열로 3 (농성동) 한울직업전문학교
+              <br /><br />
+              &copy;&nbsp;2023 코코팜 all rights reserved.
+              <br /><br />
+              '코코팜'은 등록상표가 아닙니다.
             </span>
           </div>
         </div>

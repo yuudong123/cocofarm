@@ -81,6 +81,12 @@
         const section2 = document.querySelector("#section2");
         const manageTabs = document.querySelectorAll("#section2 .tabs .tab a");
 
+        const reqDiv = document.querySelector("#reqDiv");
+        const inputPage = document.querySelector("#inputPage");
+        const pageFirst = document.querySelector("#pageFirst");
+        const pageLast = document.querySelector("#pageLast");
+        const pageNum = document.querySelectorAll(".pageNum");
+
         pageFirst.addEventListener("click", () => {
         inputPage.setAttribute("value", "1");
         reqDiv.submit();
@@ -98,15 +104,6 @@
             page.parentElement.classList.add("active");
             page.parentElement.classList.add("green");
             }
-        });
-        boardtitle.forEach((board) => {
-            board.addEventListener("click", () => {
-            if (location.href.includes("?")) {
-                location.href = location.href.substring(0, location.href.indexOf("?")) + "/" + board.dataset.no;
-            } else {
-                location.href = location.href + "/" + board.dataset.no;
-            }
-            });
         });
 
         function sortTable(n) {
