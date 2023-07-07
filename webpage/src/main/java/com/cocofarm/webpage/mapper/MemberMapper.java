@@ -25,6 +25,8 @@ public interface MemberMapper {
 
     public void pw_modify(String email, String password);
 
+    public ArrayList<BoardVO> myboard_list(int member_no);
+
     public int away(String email);
 
     public ArrayList<QnaDTO> myboard(QnaDTO dto);

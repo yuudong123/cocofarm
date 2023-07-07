@@ -38,6 +38,11 @@ public class MemberService {
     return mapper.login(vo);
   }
 
+  public ArrayList<BoardVO> myboard_list(int member_no) {
+    ArrayList<BoardVO> list = mapper.myboard_list(member_no);
+    return list;
+  }
+
   public void web_modify(MemberVO vo) {
     mapper.web_modify(vo);
   }
