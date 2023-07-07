@@ -2,15 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menuQnASeemoreDelete"
+        android:id="@+id/menuBoardSeemoreDelete"
         android:title="삭제"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menuQnASeemoreShare"
+        android:id="@+id/menuBoardSeemoreReport"
+        android:title="신고"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuBoardSeemoreShare"
         android:title="공유"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menuQnASeemoreBrowser"
+        android:id="@+id/menuBoardSeemoreBrowser"
         android:title="브라우저로 열기"
         app:showAsAction="never" />
 

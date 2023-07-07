@@ -10,6 +10,10 @@
         android:title="삭제"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menuBoardSeemoreReport"
+        android:title="신고"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menuBoardSeemoreShare"
         android:title="공유"
         app:showAsAction="never" />

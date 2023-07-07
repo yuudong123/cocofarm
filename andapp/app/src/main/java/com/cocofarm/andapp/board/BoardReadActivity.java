@@ -30,6 +30,7 @@ import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityBoardReadBinding;
+import com.cocofarm.andapp.report.ReportActivity;
 
 public class BoardReadActivity extends AppCompatActivity {
 
@@ -132,6 +133,7 @@ public class BoardReadActivity extends AppCompatActivity {
                 url += boardVO.getBoard_no();
 
                 int itemId = item.getItemId();
+                Log.d("더보기", "onCreate: "+itemId);
                 if (itemId == R.id.menuBoardSeemoreModify) {
                     Intent intent = new Intent(this, BoardModifyActivity.class);
                     intent.putExtra("BoardVO", boardVO);
@@ -149,6 +151,14 @@ public class BoardReadActivity extends AppCompatActivity {
                         });
                     }).setNegativeButton("취소", (dialogInterface, i1) -> {
                     }).create().show();
+                } else if (itemId == R.id.menuBoardSeemoreReport) {
+                    Intent intent = new Intent(this, ReportActivity.class);
+                    intent.putExtra("reported_board", boardVO.getBoard_no());
+                    intent.putExtra("reported_member", boardVO.getMember_no());
+                    intent.putExtra("reported_nickname", boardVO.getNickname());
+                    intent.putExtra("title", boardVO.getTitle());
+                    intent.putExtra("content", boardVO.getContent());
+                    startActivity(intent);
                 } else if (itemId == R.id.menuBoardSeemoreShare) {
                     Intent intentShare = new Intent(ACTION_SEND);
                     intentShare.setType("text/plain");
@@ -161,7 +171,6 @@ public class BoardReadActivity extends AppCompatActivity {
                 }
                 return false;
             });
-
             menu.show();
         });
     }

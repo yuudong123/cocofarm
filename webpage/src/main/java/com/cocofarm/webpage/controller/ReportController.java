@@ -42,6 +42,11 @@ public class ReportController {
         return 0;
     }
 
+    @PostMapping("/report.and")
+    public int insertReport(ReportVO reportVO) {
+        return reportService.insertReport(reportVO);
+    }
+
     @PostMapping("/getreportboard")
     public String selectReportBoard(@RequestBody int report_no) {
         ReportVO reportVO = reportService.selectReportBoard(report_no);

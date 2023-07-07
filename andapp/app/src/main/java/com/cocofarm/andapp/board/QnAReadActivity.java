@@ -25,13 +25,14 @@ import com.cocofarm.andapp.databinding.ActivityQnaReadBinding;
 import com.cocofarm.andapp.image.ImageUtil;
 import com.cocofarm.andapp.product.ProductActivity;
 import com.cocofarm.andapp.product.ProductVO;
+import com.cocofarm.andapp.report.ReportActivity;
 import com.google.gson.Gson;
 
 public class QnAReadActivity extends AppCompatActivity {
 
     ActivityQnaReadBinding binding;
     ProductVO productVO;
-    QnaDTO dto;
+    QnaDTO qnaDTO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,26 +40,26 @@ public class QnAReadActivity extends AppCompatActivity {
         binding = ActivityQnaReadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dto = (QnaDTO) getIntent().getSerializableExtra("QnaDTO");
+        qnaDTO = (QnaDTO) getIntent().getSerializableExtra("QnaDTO");
 
         if (loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
-            binding.btnAnswerConfirm.setOnClickListener(v -> writeAnswer(dto.getBoard_no()));
+            binding.btnAnswerConfirm.setOnClickListener(v -> writeAnswer(qnaDTO.getBoard_no()));
         }
-        loadAnswer(dto.getBoard_no());
-        binding.tvTitle.setText(dto.getTitle());
-        binding.tvQuestionNickname.setText(dto.getNickname());
-        binding.tvContentQ.setText(dto.getContent());
-        binding.tvRegdate.setText(yyyyMMddHHmmss.format(dto.getRegdate()));
+        loadAnswer(qnaDTO.getBoard_no());
+        binding.tvTitle.setText(qnaDTO.getTitle());
+        binding.tvQuestionNickname.setText(qnaDTO.getNickname());
+        binding.tvContentQ.setText(qnaDTO.getContent());
+        binding.tvRegdate.setText(yyyyMMddHHmmss.format(qnaDTO.getRegdate()));
 
-        if (dto.getProduct_id() != 0) {
-            binding.tvProductName.setText(dto.getProduct_name());
-            binding.tvProductContent.setText(dto.getProduct_content());
-            ImageUtil.load(binding.ivProductImage, dto.getMainimage());
+        if (qnaDTO.getProduct_id() != 0) {
+            binding.tvProductName.setText(qnaDTO.getProduct_name());
+            binding.tvProductContent.setText(qnaDTO.getProduct_content());
+            ImageUtil.load(binding.ivProductImage, qnaDTO.getMainimage());
             binding.qnaProduct.setVisibility(VISIBLE);
             binding.qnaProduct.setOnClickListener(v -> {
                 Intent intent = new Intent(QnAReadActivity.this, ProductActivity.class);
                 CommonConn conn = new CommonConn(this, "selectProductContent.and");
-                conn.addParam("product_id", dto.getProduct_id());
+                conn.addParam("product_id", qnaDTO.getProduct_id());
                 conn.onExcute((isResult, data) -> {
                     productVO = new Gson().fromJson(data, ProductVO.class);
                     intent.putExtra("productVO", productVO);
@@ -68,21 +69,21 @@ public class QnAReadActivity extends AppCompatActivity {
         }
 
         PopupMenu menu = new PopupMenu(binding.btnSeemore.getContext(), binding.btnSeemore);
-        if (loginMember.getMember_no() != dto.getMember_no() && loginMember.getMember_type_cd() != MEMBER_TYPE_ADMIN) {
+        if (loginMember.getMember_no() != qnaDTO.getMember_no() && loginMember.getMember_type_cd() != MEMBER_TYPE_ADMIN) {
             menu.getMenuInflater().inflate(R.menu.seemore_no_perm, menu.getMenu());
         } else {
             menu.getMenuInflater().inflate(R.menu.qna_seemore, menu.getMenu());
         }
         menu.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
-            if (itemId == R.id.menuQnASeemoreDelete) {
+            if (itemId == R.id.menuBoardSeemoreDelete) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("게시글 삭제")
                         .setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?")
                         .setCancelable(false)
                         .setPositiveButton("확인", (dialogInterface, i1) -> {
                             CommonConn conn = new CommonConn(this, "board/deleteboard.and");
-                            conn.addParam("board_no", dto.getBoard_no());
+                            conn.addParam("board_no", qnaDTO.getBoard_no());
                             conn.onExcute((isResult, data) -> {
                                 if (isResult) {
                                     Toast.makeText(this, "삭제되었습니다.", LENGTH_SHORT).show();
@@ -94,14 +95,22 @@ public class QnAReadActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("취소", (dialogInterface, i1) -> {
                         }).create().show();
-            } else if (itemId == R.id.menuQnASeemoreShare) {
+            } else if (itemId == R.id.menuBoardSeemoreReport) {
+                Intent intent = new Intent(this, ReportActivity.class);
+                intent.putExtra("reported_board", qnaDTO.getBoard_no());
+                intent.putExtra("reported_member", qnaDTO.getMember_no());
+                intent.putExtra("reported_nickname", qnaDTO.getNickname());
+                intent.putExtra("title", qnaDTO.getTitle());
+                intent.putExtra("content", qnaDTO.getContent());
+                startActivity(intent);
+            } else if (itemId == R.id.menuBoardSeemoreShare) {
                 Intent intentShare = new Intent(ACTION_SEND);
                 intentShare.setType("text/plain");
-                intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/" + dto.getBoard_no());
+                intentShare.putExtra(Intent.EXTRA_TEXT, "http://localhost:9090/board/" + qnaDTO.getBoard_no());
                 startActivity(Intent.createChooser(intentShare, "공유하기"));
-            } else if (itemId == R.id.menuQnASeemoreBrowser) {
+            } else if (itemId == R.id.menuBoardSeemoreBrowser) {
                 Intent intentBrowser = new Intent(ACTION_VIEW);
-                intentBrowser.setData(Uri.parse("http://localhost:9090/board/" + dto.getBoard_no()));
+                intentBrowser.setData(Uri.parse("http://localhost:9090/board/" + qnaDTO.getBoard_no()));
                 startActivity(intentBrowser);
             }
             return false;

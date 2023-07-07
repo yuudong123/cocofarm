@@ -46,9 +46,10 @@
     <select id="selectReportHistory" resultType="com.cocofarm.webpage.domain.ReportVO">
     select * from (
         select rownum rn, a.* from (
-            select  r.report_no, m.nickname, r.reason_cd, r.reportdate, r.isprocessed
+            select  r.report_no, m.nickname, rm.nickname reported_nickname, r.reason_cd, r.reportdate, r.isprocessed
             from    tbl_report r
                     left join tbl_member m on r.member_no = m.member_no
+                    left join tbl_member rm on r.reported_member = rm.member_no
             where   isprocessed != 'N'
             order by report_no desc ) a) <![CDATA[ 
     where   rn <= #{page} * #{boardPerPage}

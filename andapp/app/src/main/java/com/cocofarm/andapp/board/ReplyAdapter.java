@@ -1,6 +1,7 @@
 package com.cocofarm.andapp.board;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static android.view.View.VISIBLE;
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CodeTable.MEMBER_TYPE_ADMIN;
 import static com.cocofarm.andapp.common.CommonVal.HHmmss;
@@ -10,6 +11,7 @@ import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ItemReplyBinding;
+import com.cocofarm.andapp.report.ReportActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,14 +80,14 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
             binding.edtReplyModify.setText("");
         });
         if (loginMember.getMember_no() == replyVO.getMember_no() || loginMember.getMember_type_cd() == MEMBER_TYPE_ADMIN) {
-            holder.binding.btnSeemore.setVisibility(View.VISIBLE);
+            holder.binding.btnSeemore.setVisibility(VISIBLE);
             holder.binding.btnSeemore.setOnClickListener(v -> {
                 PopupMenu menu = new PopupMenu(v.getContext(), v);
                 menu.getMenuInflater().inflate(R.menu.reply_seemore, menu.getMenu());
                 menu.setOnMenuItemClickListener(item -> {
                     int itemId = item.getItemId();
                     if (itemId == R.id.menuReplySeemoreModify) {
-                        holder.binding.itemReplyModifyBar.setVisibility(View.VISIBLE);
+                        holder.binding.itemReplyModifyBar.setVisibility(VISIBLE);
                     } else if (itemId == R.id.menuReplySeemoreDelete) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setTitle("댓글 삭제")
@@ -101,7 +104,17 @@ public class ReplyAdapter extends RecyclerView.Adapter<ReplyAdapter.ViewHolder> 
                 menu.show();
             });
         }
-
+        if (loginMember != null) {
+            holder.binding.btnReport.setVisibility(VISIBLE);
+            holder.binding.btnReport.setOnClickListener(v -> {
+                Intent intent = new Intent(context, ReportActivity.class);
+                intent.putExtra("reported_reply", replyVO.getReply_no());
+                intent.putExtra("reported_member", replyVO.getMember_no());
+                intent.putExtra("reported_nickname", replyVO.getNickname());
+                intent.putExtra("content", replyVO.getContent());
+                context.startActivity(intent);
+            });
+        }
     }
 
     @Override
