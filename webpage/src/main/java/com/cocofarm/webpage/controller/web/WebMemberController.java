@@ -18,6 +18,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.common.PreviousPageHandler;
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.PageDTO;
@@ -107,7 +108,7 @@ public class WebMemberController {
     }
     // 정보 수정 처리
     @PostMapping(value = "/member/modifyinfo")
-    public String modifyinfo_POST(  MemberVO vo, Model model) {
+    public String modifyinfo_POST(MemberVO vo, Model model) {
         memberService.web_modify(vo);
         MemberVO result = memberService.login((MemberVO) model.getAttribute("userinfo"));
         model.addAttribute("userinfo", result);
@@ -126,8 +127,14 @@ public class WebMemberController {
     }
     // 내가 쓴 글
     @GetMapping(value = "/member/myboard")
-    public String myboard() {
-        return "member/myboard";
+    public ModelAndView myboard(SessionStatus sessionStatus, Model model) {
+        MemberVO member = (MemberVO) model.getAttribute("userinfo");
+        int member_no = member.getMember_no();
+        ModelAndView mav = new ModelAndView();
+        ArrayList<BoardVO> vo = memberService.myboard_list(member_no);
+        mav.addObject("vo", vo);
+        mav.setViewName("member/myboard");
+        return mav;
     }
     // 내 기기
     @GetMapping(value = "/member/mydevice")

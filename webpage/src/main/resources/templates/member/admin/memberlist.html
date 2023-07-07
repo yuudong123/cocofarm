@@ -55,7 +55,7 @@
                 <td th:text="${member.isactivated == 'Y' ? 'Y' : 'N (차단)'}" th:style="${member.isactivated == 'N' ? 'color:crimson; font-weight:700' : ''}" id="isactivated"></td>
                 <td th:text="${member.sns}"></td>
                 <td>
-                  <button class="btn" th:if="${member.isactivated=='Y'}" th:onclick="btn([[${member.email}]] , 'N')">차단</button>
+                  <button class="btn" th:if="${member.isactivated=='Y'}" th:onclick="btn([[${member.email}] ], 'N')">차단</button>
                   <button class="btn red accent-2" th:if="${member.isactivated=='N'}" th:onclick="btn([[${member.email}]] , 'Y')">해제</button>
                 </td>
               </tr>
@@ -78,6 +78,7 @@
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
 
     <!-- JavaScript -->
+    <script src="/js/default.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/js/category.js"></script>
     <script>

@@ -19,6 +19,16 @@
     margin: 0;
 }
 
+#board-title a {
+    color: black;
+    padding: 0;
+    display: block;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
 .grid {
     grid-template-columns: 150px 1fr;
     margin-right: 30px;
@@ -116,5 +126,20 @@
 .modi:hover, .search:hover {
     color : crimson;
     text-decoration: underline;
+}
+
+th {
+    background-color: aliceblue;
+    font-weight: 700;
+}
+
+.tt {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+#board-title a {
+    width: fit-content;
 }
 
