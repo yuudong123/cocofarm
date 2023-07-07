@@ -1,0 +1,18 @@
+.button-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .button-item {
+    margin-right: 10px; /* 버튼 사이 간격 조정 */
+  }
+  
+  .button-item:last-child {
+    margin-right: 0; /* 마지막 버튼 오른쪽 간격 제거 */
+  }
+  
+  .productImg{
+    width: 150px;
+  }
+  

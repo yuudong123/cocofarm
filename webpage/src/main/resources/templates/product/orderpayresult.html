@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/product/orderpayresult.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <!-- 결제완료 주문목록 창 -->
+        <div class="order_header">
+          <h3 class="order_payment"><span class="blind">주문결제내역</span></h3>
+          <!-- <form> -->
+          <div class="order_content">
+            <div class="order_cont" th:each="ordervo:${vo}">
+              <div th:text="${ordervo.orderdate}"></div>
+              <div th:text="${ordervo.price}"></div>
+              <div th:each="cart: ${list}">
+                <ul>
+                  <section id="section1" class="z-depth-1">
+                    <li>
+                      <img
+                        th:src="'/images/'+${cart.product_image}"
+                        style="width: 150px"
+                      />
+                    </li>
+                    <li th:text="${cart.product_name}"></li>
+                    <li th:text="${cart.product_price}" id="productPrice"></li>
+                    <li th:text="${cart.amount}" id="amount"></li>
+                    <ul class="button-list">
+                      <li class="button-item">
+                        <button>배송조회</button>
+                      </li>
+                      <li class="button-item">
+                        <button>주문취소</button>
+                      </li>
+                      <li class="button-item">
+                        <button>암튼 배송</button>
+                      </li>
+                    </ul>
+                    <div id="plantList" class="row"></div>
+                  </section>
+                </ul>
+                <!-- </div> -->
+              </div>
+              <!-- </form> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+  </body>
+  <script>
+    let totalPriceElements = document.querySelectorAll(".totalPrice");
+    let finalTotalPrice = 0;
+
+    for (let i = 0; i < totalPriceElements.length; i++) {
+      finalTotalPrice += Number(totalPriceElements[i].textContent);
+    }
+
+    // 결제 금액 업데이트
+    // let finalTotalPriceElement = document.getElementById("finalTotalPrice");
+    //  finalTotalPriceElement.textContent = finalTotalPrice;
+  </script>
+</html>
