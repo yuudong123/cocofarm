@@ -13,40 +13,49 @@
           <h3 class="order_payment"><span class="blind">주문결제내역</span></h3>
           <!-- <form> -->
           <div class="order_content">
-            <div class="order_cont" th:each="ordervo:${vo}">
-              <div th:text="${ordervo.orderdate}"></div>
-              <div th:text="${ordervo.price}"></div>
-              <div th:each="cart: ${list}">
-                <ul>
-                  <section id="section1" class="z-depth-1">
+            <div class="order_cont" th:each="dto:${list}">
+              <div>
+                <span
+                  th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"
+                ></span>
+                <span>결제</span>
+              </div>
+              <div th:text="${dto.price}"></div>
+              <section id="section1" class="z-depth-1">
+                <div class="order_cont" th:each="vo:${dto.orderproduct_list}">
+                  <ul
+                    class="order"
+                    th:data-order-status-cd="${vo.order_status_cd}"
+                  >
+                    <li th:text="${vo.value}"></li>
                     <li>
                       <img
-                        th:src="'/images/'+${cart.product_image}"
-                        style="width: 150px"
+                        th:src="'/images/'+${vo.filename}"
+                        style="width: 200px"
                       />
                     </li>
-                    <li th:text="${cart.product_name}"></li>
-                    <li th:text="${cart.product_price}" id="productPrice"></li>
-                    <li th:text="${cart.amount}" id="amount"></li>
-                    <ul class="button-list">
+                    <li th:text="${vo.name}"></li>
+                    <li th:text="${vo.price}"></li>
+                    <li th:text="${vo.amount}"></li>
+                    <ul id="button-list">
                       <li class="button-item">
-                        <button>배송조회</button>
+                        <button id="button-1"></button>
                       </li>
                       <li class="button-item">
-                        <button>주문취소</button>
+                        <button id="button-2"></button>
                       </li>
                       <li class="button-item">
-                        <button>암튼 배송</button>
+                        <button id="button-3"></button>
                       </li>
                     </ul>
                     <div id="plantList" class="row"></div>
-                  </section>
-                </ul>
-                <!-- </div> -->
-              </div>
-              <!-- </form> -->
+                  </ul>
+                </div>
+              </section>
             </div>
+            <!-- </div> -->
           </div>
+          <!-- </form> -->
         </div>
       </div>
     </main>
@@ -55,6 +64,8 @@
   <script>
     let totalPriceElements = document.querySelectorAll(".totalPrice");
     let finalTotalPrice = 0;
+    // const statusElement = document.querySelector("#status");
+    // statusElement = 301;
 
     for (let i = 0; i < totalPriceElements.length; i++) {
       finalTotalPrice += Number(totalPriceElements[i].textContent);
@@ -63,5 +74,78 @@
     // 결제 금액 업데이트
     // let finalTotalPriceElement = document.getElementById("finalTotalPrice");
     //  finalTotalPriceElement.textContent = finalTotalPrice;
+
+    //버튼 기능
+    // orderContElements 변수 선언
+    // 버튼 기능
+    let orderCont = document.querySelectorAll(".order");
+    for (let i = 0; i < orderCont.length; i++) {
+      const order_status_cd = orderCont[i].getAttribute("data-order-status-cd");
+      console.log(orderCont[i].getAttribute("data-order-status-cd"));
+      let button1 = orderCont[i].querySelector("#button-1");
+      let button2 = orderCont[i].querySelector("#button-2");
+      let button3 = orderCont[i].querySelector("#button-3");
+
+      if (order_status_cd === "300") {
+        button1.style.display = "block";
+        button2.style.display = "block";
+        button3.style.display = "none";
+
+        button1.innerText = "리뷰쓰기";
+        button1.addEventListener("click", () => {});
+        //배송조회 또는 재구매 버튼으로 ..?
+      } else if (order_status_cd === "301") {
+        button1.style.display = "block";
+        button2.style.display = "block";
+        button3.style.display = "none";
+
+        button1.innerText = "배송조회";
+        button1.addEventListener("click", () => {
+          // 배송조회 보여주는 화면 보여주기.
+        });
+        button2.innerText = "주문취소";
+        button2.addEventListener("click", () => {
+          // 주문취소로 변경하기
+        });
+      } else if (order_status_cd === "302") {
+        button1.style.display = "block";
+        button2.style.display = "block";
+        button3.style.display = "none";
+
+        button1.innerText = "배송조회";
+        button1.addEventListener("click", () => {
+          //배송조회
+        });
+        button2.innerText = "구매확정";
+        button2.addEventListener("click", () => {});
+      } else if (order_status_cd === "303") {
+        button1.style.display = "block";
+        button2.style.display = "block";
+        button3.style.display = "block";
+
+        button1.innerText = "구매확정";
+        button1.addEventListener("click", () => {});
+        button2.innerText = "반품요청";
+        button2.addEventListener("click", () => {});
+        button3.innerText = "교환요청";
+        button3.addEventListener("click", () => {});
+      }
+    }
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const dat = String(date.getDate()).padStart(2, "0");
+
+      return "${year}-${month}-${day}";
+    }
+
+    const orederDate = "2023-07-07";
+    const formattedDate = formatDate(orederDate);
+
+    //let orderStatusCd = orderCont.getAttribute("data-order-status-cd");
+
+    // statuscd에 따라 버튼 텍스트와 클릭 이벤트 설정
   </script>
 </html>
