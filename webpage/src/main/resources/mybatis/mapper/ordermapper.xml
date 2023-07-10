@@ -92,6 +92,34 @@ insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, r
     ]]>
     </select>
 
+
+    <select id = "MyOrder" parameterType="com.cocofarm.webpage.domain.OrderDTO">
+    select o.order_id, o.member_no, o.orderdate, o.price, o.address, o.order_status_cd, c.value
+        from tbl_order o
+        join (select code , value from tbl_code where codetype = 'ORDER_STATUS')c on o.order_status_cd = c.code
+        where member_no = #{member_no}
+        order by orderdate desc
+    </select>
+
+    <resultMap id="orderdetailmap" type="com.cocofarm.webpage.domain.OrderProductDTO">
+        <id property="order_id" column="order_id" />
+        <id property="member_no" column="member_no" />
+
+        <collection property="orderproduct_list" column="{order_id=order_id,member_no=member_no}" select="MyOrderProductList"/>
+        <!-- <collection property="orderproduct_list" column="order_id" select="MyOrderProductList"/> -->
+    </resultMap>
+
+    <!-- 내 주문목록 부르기 -->
+    <select id = "MyOrderDetail" resultMap="orderdetailmap">
+    select o.order_id, o.member_no, o.orderdate, o.price, o.address, o.order_status_cd, c.value
+    from tbl_order o
+    join (select code , value from tbl_code where codetype = 'ORDER_STATUS')c on o.order_status_cd = c.code
+    where member_no = #{member_no} and order_id = #{order_id}
+    order by orderdate desc
+    </select>
+
+
+
 </mapper>
 
 

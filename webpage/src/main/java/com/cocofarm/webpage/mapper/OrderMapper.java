@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
+import com.cocofarm.webpage.domain.OrderDTO;
 import com.cocofarm.webpage.domain.OrderProductDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
@@ -27,5 +28,9 @@ public interface OrderMapper {
     public ArrayList<OrderProductDTO> MyOrderList(int member_no);
 
     // public ArrayList<OrderProductVO> OrderProductLowerList(OrderVO vo);
+
+    public ArrayList<OrderDTO> MyOrder(int member_no);
+
+    public ArrayList<OrderProductDTO> MyOrderDetail(String order_id, int member_no);
 
 }
