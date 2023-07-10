@@ -15,6 +15,7 @@ import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.board.QnaDTO;
 import com.cocofarm.andapp.databinding.ItemProductQnaBinding;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.ViewHolder> {
@@ -36,11 +37,9 @@ public class ProductQnAAdapter extends RecyclerView.Adapter<ProductQnAAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         QnaDTO qnaDTO = list.get(i);
 
-        if (isToday(qnaDTO.getRegdate())) {
-            holder.binding.tvRegdate.setText(HHmmss.format(list.get(i).getRegdate()));
-        } else {
-            holder.binding.tvRegdate.setText(Md.format(list.get(i).getRegdate()));
-        }
+        SimpleDateFormat sdf = isToday(qnaDTO.getRegdate()) ? HHmmss : Md;
+        holder.binding.tvRegdate.setText(sdf.format(list.get(i).getRegdate()));
+
         holder.binding.tvContentQ.setText(qnaDTO.getContent());
         if (qnaDTO.getAnswer() != null) {
             holder.binding.tvTitle.setText("[답변완료] " + qnaDTO.getTitle());

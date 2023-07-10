@@ -17,9 +17,7 @@ public class ProductFragment extends Fragment {
     FragmentProductBinding binding;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProductBinding.inflate(inflater, container, false);
 
         getChildFragmentManager().beginTransaction().replace(R.id.containerProduct, new ProductPlantFragment()).commit();
@@ -35,26 +33,20 @@ public class ProductFragment extends Fragment {
                     fragment = new ProductPlantFragment();
                 } else if (i == 1) {
                     fragment = new ProductDeviceFragment();
-
                 }
                 getChildFragmentManager().beginTransaction().replace(R.id.containerProduct, fragment).commit();
-
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
-
         });
 
-        //마지막에 지워야 함. 장바구니로 바로 이동 버튼
-        binding.btnGOCART.setOnClickListener(v->{
+        binding.btnGOCART.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), CartActivity.class);
             startActivity(intent);
         });

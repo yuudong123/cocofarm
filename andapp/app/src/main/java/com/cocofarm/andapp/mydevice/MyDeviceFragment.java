@@ -17,7 +17,6 @@ public class MyDeviceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMyDeviceBinding.inflate(inflater, container, false);
 
-
         return binding.getRoot();
     }
 

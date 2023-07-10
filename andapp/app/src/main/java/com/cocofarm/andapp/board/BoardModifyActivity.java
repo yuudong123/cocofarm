@@ -57,9 +57,7 @@ public class BoardModifyActivity extends AppCompatActivity {
             updateBoard();
         });
 
-        binding.btnCancel.setOnClickListener(v -> {
-            finish();
-        });
+        binding.btnCancel.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -110,7 +108,6 @@ public class BoardModifyActivity extends AppCompatActivity {
                     Toast.makeText(this, "오류가 발생했습니다.", LENGTH_SHORT).show();
                 }
             });
-
         });
     }
 }

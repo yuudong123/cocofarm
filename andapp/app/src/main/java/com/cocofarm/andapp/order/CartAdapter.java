@@ -2,6 +2,7 @@ package com.cocofarm.andapp.order;
 
 import static com.cocofarm.andapp.common.CommonVal.cart;
 import static com.cocofarm.andapp.common.CommonVal.comma;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -62,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             int cartId = cart.get(i).getCart_id();
             CommonConn conn = new CommonConn(v.getContext(), "deletecartone.and");
             conn.addParam("cart_id", cartId + "");
-            conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+            conn.addParam("member_no", loginMember.getMember_no());
             conn.onExcute((isResult, data) -> {
                 if (isResult) {
                     cart.remove(i);

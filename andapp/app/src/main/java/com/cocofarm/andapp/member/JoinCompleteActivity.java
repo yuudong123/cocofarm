@@ -21,6 +21,7 @@ public class JoinCompleteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ResultCompleteLottieBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         MemberVO vo = (MemberVO) getIntent().getSerializableExtra("login");
 
@@ -42,8 +43,6 @@ public class JoinCompleteActivity extends AppCompatActivity {
                 }
             });
         });
-
-        setContentView(binding.getRoot());
     }
 
     @Override

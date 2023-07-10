@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.mypage;
 
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
+
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -36,22 +38,22 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMypageBinding.inflate(inflater, container, false);
 
-        binding.tvNickname.setText(CommonVal.loginMember.getNickname());
-        binding.tvEmail.setText(CommonVal.loginMember.getEmail());
+        binding.tvNickname.setText(loginMember.getNickname());
+        binding.tvEmail.setText(loginMember.getEmail());
         binding.tvSnsOut.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
-        if (CommonVal.loginMember.getSns().equals("KAKAO")) {
+        if (loginMember.getSns().equals("KAKAO")) {
             binding.ivKakao.setVisibility(View.VISIBLE);
-        } else if (CommonVal.loginMember.getSns().equals("NAVER")) {
+        } else if (loginMember.getSns().equals("NAVER")) {
             binding.ivNaver.setVisibility(View.VISIBLE);
-        } else if (CommonVal.loginMember.getSns().equals("GOOGLE")) {
+        } else if (loginMember.getSns().equals("GOOGLE")) {
             binding.ivGoogle.setVisibility(View.VISIBLE);
         } else {
             binding.tvSnsOut.setVisibility(View.GONE);
         }
 
         binding.btnLogout.setOnClickListener(v -> {
-            if (CommonVal.loginMember.getSns().equals("KAKAO")) {
+            if (loginMember.getSns().equals("KAKAO")) {
                 UserApiClient.getInstance().logout(throwable -> {
                     if (throwable != null) {
                         Log.e("카카오 로그아웃", "로그아웃 실패. SDK에서 토큰 삭제됨", throwable);
@@ -60,14 +62,14 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                     }
                     return null;
                 });
-            } else if (CommonVal.loginMember.getSns().equals("NAVER")) {
+            } else if (loginMember.getSns().equals("NAVER")) {
                 NaverIdLoginSDK.INSTANCE.logout();
-            } else if (CommonVal.loginMember.getSns().equals("GOOGLE")) {
+            } else if (loginMember.getSns().equals("GOOGLE")) {
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
                 GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
                 mGoogleSignInClient.signOut().addOnCompleteListener(getActivity(), task -> getActivity().finish());
-            } else if (CommonVal.loginMember.getSns().equals("N")) {
-                CommonVal.loginMember = null;
+            } else if (loginMember.getSns().equals("N")) {
+                loginMember = null;
                 Intent intent = getActivity().getIntent();
                 getActivity().finish();
                 startActivity(intent);
@@ -80,7 +82,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
         });
 
         binding.tvSnsOut.setOnClickListener(v -> {
-            if (CommonVal.loginMember.getSns().equals("KAKAO")) {
+            if (loginMember.getSns().equals("KAKAO")) {
                 UserApiClient.getInstance().unlink(throwable -> {
                     if (throwable != null) {
                         Log.e("카카오 연동해제", "연결 끊기 실패", throwable);
@@ -89,7 +91,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                     }
                     return null;
                 });
-            } else if (CommonVal.loginMember.getSns().equals("NAVER")) {
+            } else if (loginMember.getSns().equals("NAVER")) {
                 new NidOAuthLogin().callDeleteTokenApi(getActivity(), new OAuthLoginCallback() {
                     @Override
                     public void onSuccess() {
@@ -129,11 +131,6 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
             textView.setOnClickListener(this);
         }
         return binding.getRoot();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override

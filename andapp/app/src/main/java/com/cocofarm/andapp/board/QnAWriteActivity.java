@@ -1,6 +1,6 @@
 package com.cocofarm.andapp.board;
 
-import static android.view.View.*;
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static android.widget.Toast.LENGTH_SHORT;
 import static com.cocofarm.andapp.common.CodeTable.BOARD_CATEGORY_QNA;
@@ -8,8 +8,6 @@ import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -57,9 +55,7 @@ public class QnAWriteActivity extends AppCompatActivity {
                     }).create().show();
         });
 
-        binding.btnCancel.setOnClickListener(v -> {
-            finish();
-        });
+        binding.btnCancel.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -97,12 +93,11 @@ public class QnAWriteActivity extends AppCompatActivity {
         conn.addParam("content", binding.edtContent.getText().toString());
         conn.addParam("mainimage", qnaselectedproduct.getFilename());
         conn.onExcute((isResult, data) -> {
-            Log.d("글 작성", "onCreate: " + isResult);
-            if (isResult) {
-                finish();
-            } else {
+            if (!isResult) {
                 Toast.makeText(this, "오류가 발생했습니다.", LENGTH_SHORT).show();
+                return;
             }
+            finish();
         });
     }
 }

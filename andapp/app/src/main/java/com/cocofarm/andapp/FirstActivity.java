@@ -1,16 +1,12 @@
 package com.cocofarm.andapp;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
-import android.util.Base64;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -47,9 +43,6 @@ import com.navercorp.nid.oauth.OAuthLoginCallback;
 import com.navercorp.nid.profile.NidProfileCallback;
 import com.navercorp.nid.profile.data.NidProfileResponse;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 
@@ -59,12 +52,11 @@ public class FirstActivity extends AppCompatActivity {
     BtmSheetSnsBinding bindingSheet;
     BottomSheetDialog bottomSheetDialog;
     boolean isSheetVisible = false;
-    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getHashKey();
+//        getHashKey();
         binding = ActivityFirstBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         YoYo.with(Techniques.FadeInUp).duration(1300).repeat(0).playOn(binding.layoutFirst);
@@ -92,12 +84,8 @@ public class FirstActivity extends AppCompatActivity {
         bindingSheet = BtmSheetSnsBinding.inflate(getLayoutInflater(), null, false);
         bottomSheetDialog = new BottomSheetDialog(this);
         bottomSheetDialog.setContentView(bindingSheet.getRoot());
-        binding.btnSns.setOnClickListener(v -> {
-            toggleBottomSheet();
-        });
-        bindingSheet.btnDrop.setOnClickListener(v -> {
-            toggleBottomSheet();
-        });
+        binding.btnSns.setOnClickListener(v -> toggleBottomSheet());
+        bindingSheet.btnDrop.setOnClickListener(v -> toggleBottomSheet());
 
         // 카카오 로그인
         Function2 callback = (Function2<OAuthToken, Throwable, Unit>) (oAuthToken, throwable) -> {
@@ -135,21 +123,17 @@ public class FirstActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(int i, @NonNull String s) {
-
                 }
 
                 @Override
                 public void onError(int i, @NonNull String s) {
-
                 }
             });
             bindingSheet.buttonOAuthLoginImg.performClick();
         });
 
         // 구글 로그인
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         bindingSheet.tvGoogle.setOnClickListener(v -> {
@@ -266,7 +250,6 @@ public class FirstActivity extends AppCompatActivity {
                     } else if (data.equals("1")) {
                         CommonConn login_conn = new CommonConn(FirstActivity.this, "/member/sns_login.and");
                         login_conn.addParam("email", nidProfileResponse.getProfile().getEmail());
-
                         login_conn.onExcute((isResult1, data1) -> {
                             CommonVal.loginMember = new Gson().fromJson(data1, MemberVO.class);
                             if (CommonVal.loginMember == null) {
@@ -346,28 +329,27 @@ public class FirstActivity extends AppCompatActivity {
         });
     }
 
-
-    // HashKey
-    private void getHashKey() {
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("KeyHash", "KeyHash:null");
-
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
-            }
-        }
-    }
+//    // HashKey
+//    private void getHashKey() {
+//        PackageInfo packageInfo = null;
+//        try {
+//            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        if (packageInfo == null)
+//            Log.e("KeyHash", "KeyHash:null");
+//
+//        for (Signature signature : packageInfo.signatures) {
+//            try {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            } catch (NoSuchAlgorithmException e) {
+//                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+//            }
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -380,6 +362,7 @@ public class FirstActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }

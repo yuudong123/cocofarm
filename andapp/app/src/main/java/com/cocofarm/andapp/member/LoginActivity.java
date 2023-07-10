@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.member;
 
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -92,14 +94,14 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            CommonVal.loginMember = new Gson().fromJson(data, MemberVO.class);
-            if (CommonVal.loginMember.getIsactivated().equals("Y")) {
-                Log.d("로그인", "onCreate: " + CommonVal.loginMember.getNickname());
+            loginMember = new Gson().fromJson(data, MemberVO.class);
+            if (loginMember.getIsactivated().equals("Y")) {
+                Log.d("로그인", "onCreate: " + loginMember.getNickname());
                 Intent intent = new Intent(activity, MainActivity.class);
                 activity.startActivity(intent);
             } else {
                 Intent intent = new Intent(activity, BannedActivity.class);
-                CommonVal.loginMember = null;
+                loginMember = null;
                 activity.startActivity(intent);
             }
             activity.finish();

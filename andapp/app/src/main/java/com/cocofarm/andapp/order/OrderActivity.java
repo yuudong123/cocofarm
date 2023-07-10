@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.order;
 
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,7 +43,7 @@ public class OrderActivity extends AppCompatActivity {
             int number = intent.getIntExtra("number", 0);
             CartDTO cartDTO = new CartDTO();
             cartDTO.setChecked(true);
-            cartDTO.setMember_no(CommonVal.loginMember.getMember_no());
+            cartDTO.setMember_no(loginMember.getMember_no());
             cartDTO.setAmount(number);
             cartDTO.setProduct_name(productVO.getName());
             cartDTO.setProduct_price(productVO.getPrice());
@@ -56,8 +58,8 @@ public class OrderActivity extends AppCompatActivity {
             }
         }
         binding.tvOrderAllPrice.setText("￦ " + CommonVal.comma(getAllPrice(list)) + "원"); //전체 값이 나옴.
-        binding.etOrderAddress.setText(CommonVal.loginMember.getAddress());
-        binding.tvOrderPersonname.setText(CommonVal.loginMember.getNickname());
+        binding.etOrderAddress.setText(loginMember.getAddress());
+        binding.tvOrderPersonname.setText(loginMember.getNickname());
 
         OrderAdapter adapter = new OrderAdapter(list);
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -74,9 +76,7 @@ public class OrderActivity extends AppCompatActivity {
             //결제하기로 넘어가면서 cart에 있던것들 삭제
         });
 
-        binding.btnClose.setOnClickListener(v -> {
-            finish();
-        });
+        binding.btnClose.setOnClickListener(v -> finish());
     }
 
 
@@ -95,10 +95,10 @@ public class OrderActivity extends AppCompatActivity {
         //결제 메소드
         conn = new CommonConn(this, "orderinsert.and");
         OrderVO vo = new OrderVO();
-        vo.setMember_no(CommonVal.loginMember.getMember_no());
+        vo.setMember_no(loginMember.getMember_no());
         vo.setPrice(getAllPrice(list));
         vo.setOrderProductVOList(list);
-        vo.setAddress(CommonVal.loginMember.getAddress());
+        vo.setAddress(loginMember.getAddress());
 
         conn.addParam("vo", new Gson().toJson(vo)); //장바구니 리스트로 amount
         conn.onExcute((isResult, data) -> {
@@ -112,9 +112,8 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private String makeOrderId(Date date) {
-        //주문번호(문자열) 만드는 메소드
         String sDate = new SimpleDateFormat("yyyyMMddHHmmss").format(date);
-        String member_no = CommonVal.loginMember.getMember_no() + "";
+        String member_no = loginMember.getMember_no() + "";
         String random = generateRandomNumber(1000, 9999) + "";
         String result = sDate + member_no + random;
         return result;

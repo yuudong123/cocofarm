@@ -37,14 +37,13 @@ public class ReportActivity extends AppCompatActivity {
             binding.reportReplyContent.setText("댓글 내용 : " + getIntent().getStringExtra("content"));
             binding.reportReplyContent.setVisibility(VISIBLE);
         }
-        binding.reportedNickname.setText("작성자 : "+getIntent().getStringExtra("reported_nickname"));
+        binding.reportedNickname.setText("작성자 : " + getIntent().getStringExtra("reported_nickname"));
 
         binding.btnCancel.setOnClickListener(v -> finish());
         binding.btnConfirm.setOnClickListener(v -> sendReport());
     }
 
     private void sendReport() {
-
         int reason_cd = 0;
         int checked = binding.radioGroupReport.getCheckedRadioButtonId();
         if (checked == R.id.radioBtnReport511) reason_cd = 511;

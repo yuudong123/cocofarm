@@ -43,9 +43,7 @@ public class QnAProductSelectActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnConfirm.setOnClickListener(v -> {
-            finish();
-        });
+        binding.btnConfirm.setOnClickListener(v -> finish());
         binding.btnCancel.setOnClickListener(v -> {
             qnaselectedproduct = null;
             finish();

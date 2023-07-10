@@ -28,8 +28,6 @@ public class MainActivity extends AppCompatActivity {
     public static Context mContext;
     public ActivityMainBinding binding;
 
-    private BackPressedHandler backPressedHandler = new BackPressedHandler(this);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.END);
             return;
         }
+        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }

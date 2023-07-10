@@ -16,6 +16,7 @@ public class SplashActivity extends AppCompatActivity {
 
     ActivitySplashBinding binding;
     public static SharedPreferences preferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

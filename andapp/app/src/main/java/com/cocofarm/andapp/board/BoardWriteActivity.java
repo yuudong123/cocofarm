@@ -42,9 +42,7 @@ public class BoardWriteActivity extends AppCompatActivity {
             }
             writeBoard();
         });
-        binding.btnCancel.setOnClickListener(v -> {
-            finish();
-        });
+        binding.btnCancel.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -76,11 +74,11 @@ public class BoardWriteActivity extends AppCompatActivity {
         conn.addParam("content", binding.edtContent.getText().toString());
         conn.addParam("mainimage", boardselectedImage);
         conn.onExcute((isResult, data) -> {
-            if (isResult) {
-                finish();
-            } else {
+            if (!isResult) {
                 Toast.makeText(this, "오류가 발생했습니다.", LENGTH_SHORT).show();
+                return;
             }
+            finish();
         });
     }
 }

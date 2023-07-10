@@ -1,28 +1,22 @@
 package com.cocofarm.andapp.order;
 
+import static com.cocofarm.andapp.common.CommonVal.Md;
+import static com.cocofarm.andapp.common.CommonVal.comma;
+
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.cocofarm.andapp.common.CommonVal;
-import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ItemOrderAddProductBinding;
-import com.cocofarm.andapp.image.ImageUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-public class OrderProductAddAdapter extends RecyclerView.Adapter<OrderProductAddAdapter.ViewHolder>{
+public class OrderProductAddAdapter extends RecyclerView.Adapter<OrderProductAddAdapter.ViewHolder> {
     ItemOrderAddProductBinding binding;
-
-    CommonConn conn;
 
     Context context;
     ArrayList<OrderProductDTO> list;
@@ -34,9 +28,10 @@ public class OrderProductAddAdapter extends RecyclerView.Adapter<OrderProductAdd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = ItemOrderAddProductBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        binding = ItemOrderAddProductBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new ViewHolder(binding);
     }
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -47,24 +42,18 @@ public class OrderProductAddAdapter extends RecyclerView.Adapter<OrderProductAdd
         return position;
     }
 
-
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String orderDate = CommonVal.Md.format(list.get(position).getOrderdate());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
+        OrderProductDTO dto = list.get(i);
+        String orderDate = Md.format(dto.getOrderdate());
         holder.binding.tvOrderDate.setText(orderDate + " 결제");
-        holder.binding.tvOrderPrice.setText("주문금액 "+CommonVal.comma(list.get(position).getPrice()));
+        holder.binding.tvOrderPrice.setText("주문금액 " + comma(dto.getPrice()));
 
-        //holder.binding.tvOrderAmount.setText(list.get(position).getAmount());
-
-        ArrayList<OrderProductVO> OrderProductList = list.get(position).getOrderproduct_list();
-
-        OrderProductAdapter adapter = new OrderProductAdapter(OrderProductList);
+        OrderProductAdapter adapter = new OrderProductAdapter(dto.getOrderproduct_list());
         LinearLayoutManager manager = new LinearLayoutManager(context);
         binding.recvOrderList.setAdapter(adapter);
         binding.recvOrderList.setLayoutManager(manager);
-
     }
-
 
     @Override
     public int getItemCount() {

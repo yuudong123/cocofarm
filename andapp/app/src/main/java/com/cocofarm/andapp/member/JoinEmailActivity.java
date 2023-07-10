@@ -25,6 +25,7 @@ public class JoinEmailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = InputInfoEmailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         binding.tvSend.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 
         YoYo.with(Techniques.FadeInUp).duration(1000).repeat(0).playOn(binding.tvTitle);
@@ -80,7 +81,6 @@ public class JoinEmailActivity extends AppCompatActivity {
                 });
             });
         });
-
     }
 
     // 인증번호 생성

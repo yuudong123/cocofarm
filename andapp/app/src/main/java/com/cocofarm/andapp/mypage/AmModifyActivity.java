@@ -121,7 +121,6 @@ public class AmModifyActivity extends AppCompatActivity {
             }
 
             conn.addParam("email", CommonVal.loginMember.getEmail());
-
             conn.onExcute((isResult, data) -> {
                 if (isResult) {
                     Log.d("정보수정", "onCreate: " + data);

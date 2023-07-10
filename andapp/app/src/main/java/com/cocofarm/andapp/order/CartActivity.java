@@ -1,5 +1,8 @@
 package com.cocofarm.andapp.order;
 
+import static com.cocofarm.andapp.common.CommonVal.cart;
+import static com.cocofarm.andapp.common.CommonVal.loginMember;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,8 +42,8 @@ public class CartActivity extends AppCompatActivity {
     CompoundButton.OnCheckedChangeListener listenerAll = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-            for (int i = 0; i < CommonVal.cart.size(); i++) {
-                CommonVal.cart.get(i).setChecked(isChecked);
+            for (int i = 0; i < cart.size(); i++) {
+                cart.get(i).setChecked(isChecked);
             }
             totalSum();
             adapter.notifyDataSetChanged();
@@ -49,9 +52,9 @@ public class CartActivity extends AppCompatActivity {
 
     public void isAllCheckChange() {
         boolean allCheck = false;
-        for (int i = 0; i < CommonVal.cart.size(); i++) {
+        for (int i = 0; i < cart.size(); i++) {
             allCheck = true;
-            if (!CommonVal.cart.get(i).isChecked()) {
+            if (!cart.get(i).isChecked()) {
                 allCheck = false;
                 break;
             }
@@ -64,9 +67,9 @@ public class CartActivity extends AppCompatActivity {
 
     public void totalSum() {
         int total = 0;
-        for (int i = 0; i < CommonVal.cart.size(); i++) {
-            if (CommonVal.cart.get(i).isChecked()) {
-                total += (CommonVal.cart.get(i).getProduct_price() * CommonVal.cart.get(i).getAmount());
+        for (int i = 0; i < cart.size(); i++) {
+            if (cart.get(i).isChecked()) {
+                total += (cart.get(i).getProduct_price() * cart.get(i).getAmount());
             }
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###");
@@ -93,7 +96,7 @@ public class CartActivity extends AppCompatActivity {
                 .setTitle("").setMessage("상품 전체를 삭제하시겠습니까?").setCancelable(false)
                 .setPositiveButton("확인", (dialogInterface, i1) -> {
                     conn = new CommonConn(this, "deletecartlist.and");
-                    conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+                    conn.addParam("member_no", loginMember.getMember_no());
                     conn.onExcute((isResult, data) -> {
                         if (isResult) {
                             adapter.notifyDataSetChanged();
@@ -112,8 +115,8 @@ public class CartActivity extends AppCompatActivity {
 
         binding.btnOrder.setOnClickListener(v -> {
             boolean isChecked = false;
-            for (int i = 0; i < CommonVal.cart.size(); i++) {
-                if (CommonVal.cart.get(i).isChecked()) {
+            for (int i = 0; i < cart.size(); i++) {
+                if (cart.get(i).isChecked()) {
                     isChecked = true;
                     break;
                 }
@@ -132,17 +135,17 @@ public class CartActivity extends AppCompatActivity {
 
     protected void load() {
         conn = new CommonConn(this, "selectCartList.and");
-        conn.addParam("member_no", CommonVal.loginMember.getMember_no());
+        conn.addParam("member_no", loginMember.getMember_no());
         conn.onExcute((isResult, data) -> {
             if (isResult) {
-                CommonVal.cart = new Gson().fromJson(data, new TypeToken<ArrayList<CartDTO>>() {
+                cart = new Gson().fromJson(data, new TypeToken<ArrayList<CartDTO>>() {
                 }.getType());
                 adapter = new CartAdapter(this);
                 LinearLayoutManager manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
                 binding.recvCart.setAdapter(adapter);
                 binding.recvCart.setLayoutManager(manager);
 
-                if (CommonVal.cart.size() > 0) {
+                if (cart.size() > 0) {
                     binding.layoutCart.setVisibility(View.VISIBLE);
                     binding.layoutCartEmpty.setVisibility(View.GONE);
                 } else {

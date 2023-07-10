@@ -66,6 +66,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
         holder.binding.tvOrderproductAmount.setText(orderProduct.getAmount() + "개");
 
         switch (orderStatus) {
+
             case CodeTable.ORDER_STATUS_SUCCESS:
                 status("리뷰쓰기", "배송조회", holder);
                 int reviewTo = list.get(position).getCheckreview();
@@ -129,7 +130,6 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             case CodeTable.ORDER_STATUS_ONREADY:
                 //주문하고 바로 배송 시작301
                 status("취소", "배송조회", holder);
-                //보여줄 버튼은 두개 취소, 배송조회
                 holder.binding.btn2.setOnClickListener(v -> {
                     deliveryActivity(orderProduct);
                 });

@@ -76,7 +76,6 @@ public class HomeFragment extends Fragment {
             thread.start();
         });
 
-
         // 인기 제품
         CommonConn p_conn = new CommonConn(getContext(), "/selectProductList.and");
         p_conn.addParam("category_cd", PRODUCT_CATEGORY_DEVICE);

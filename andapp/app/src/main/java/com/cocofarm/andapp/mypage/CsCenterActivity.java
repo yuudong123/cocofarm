@@ -53,6 +53,5 @@ public class CsCenterActivity extends AppCompatActivity {
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
-
     }
 }

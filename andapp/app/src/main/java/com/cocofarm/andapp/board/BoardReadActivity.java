@@ -46,6 +46,7 @@ public class BoardReadActivity extends AppCompatActivity {
         instance = this;
 
         boardVO = (BoardVO) getIntent().getSerializableExtra("BoardVO");
+
         binding.title.setText(boardVO.getTitle());
         String category = "";
         int code = boardVO.getBoard_category_cd();
@@ -57,10 +58,12 @@ public class BoardReadActivity extends AppCompatActivity {
             category = "이벤트";
         }
         binding.tvCategory.setText(category);
+
         binding.regdate.setText(yyyyMMddHHmmss.format(boardVO.getRegdate()));
         if (boardVO.getRegdate().getTime() != boardVO.getUpddate().getTime()) {
             binding.tvUpdated.setText(yyyyMMddHHmmss.format(boardVO.getUpddate()) + " 에 수정됨");
         }
+
         Fragment readFragment = new BoardReadFragment();
         Bundle readBundle = new Bundle();
         readBundle.putSerializable("BoardVO", boardVO);
@@ -133,24 +136,27 @@ public class BoardReadActivity extends AppCompatActivity {
                 url += boardVO.getBoard_no();
 
                 int itemId = item.getItemId();
-                Log.d("더보기", "onCreate: "+itemId);
+                Log.d("더보기", "onCreate: " + itemId);
                 if (itemId == R.id.menuBoardSeemoreModify) {
                     Intent intent = new Intent(this, BoardModifyActivity.class);
                     intent.putExtra("BoardVO", boardVO);
                     startActivity(intent);
                 } else if (itemId == R.id.menuBoardSeemoreDelete) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("게시글 삭제").setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?").setCancelable(false).setPositiveButton("확인", (dialogInterface, i1) -> {
-                        CommonConn conn = new CommonConn(this, "board/deleteboard.and");
-                        conn.addParam("board_no", boardVO.getBoard_no());
-                        conn.onExcute((isResult, data) -> {
-                            if (isResult) {
-                                Toast.makeText(this, "삭제되었습니다.", LENGTH_SHORT).show();
-                                this.finish();
-                            }
-                        });
-                    }).setNegativeButton("취소", (dialogInterface, i1) -> {
-                    }).create().show();
+                    builder.setTitle("게시글 삭제")
+                            .setMessage("삭제하면 다시 복구할 수 없습니다. 정말 삭제하시겠습니까?")
+                            .setCancelable(false)
+                            .setPositiveButton("확인", (dialogInterface, i1) -> {
+                                CommonConn conn = new CommonConn(this, "board/deleteboard.and");
+                                conn.addParam("board_no", boardVO.getBoard_no());
+                                conn.onExcute((isResult, data) -> {
+                                    if (isResult) {
+                                        Toast.makeText(this, "삭제되었습니다.", LENGTH_SHORT).show();
+                                        this.finish();
+                                    }
+                                });
+                            }).setNegativeButton("취소", (dialogInterface, i1) -> {
+                            }).create().show();
                 } else if (itemId == R.id.menuBoardSeemoreReport) {
                     Intent intent = new Intent(this, ReportActivity.class);
                     intent.putExtra("reported_board", boardVO.getBoard_no());
