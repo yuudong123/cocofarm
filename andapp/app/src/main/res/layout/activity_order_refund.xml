@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".order.OrderRefundActivity">
 
     <LinearLayout
@@ -31,12 +29,13 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:src="@drawable/icon_close" />
+
     </LinearLayout>
 
     <ScrollView
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,6 +81,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
                             android:text="1개" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -91,7 +91,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_margin="10dp"
                 android:text="환불 사유를 입력해주세요."
                 android:textStyle="bold" />
 
@@ -192,6 +192,7 @@
                         android:layout_height="1dp"
                         android:layout_marginBottom="10dp"
                         android:background="#90595959" />
+
                 </RadioGroup>
 
                 <TextView
@@ -201,19 +202,22 @@
 
                 <EditText
                     android:id="@+id/et_Refund_detailed_reason"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="상세사유를 입력해주세요." />
+
             </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
     <Button
-        android:layout_marginRight="10dp"
-        android:layout_gravity="right"
         android:id="@+id/btn_order_Refund_submit"
-        android:text="신청하기"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:text="신청하기" />
 
 </LinearLayout>

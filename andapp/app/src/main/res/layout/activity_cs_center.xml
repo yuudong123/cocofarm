@@ -1,88 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:paddingHorizontal="20dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
 
     <TextView
-        android:layout_marginVertical="15dp"
-        android:textSize="16dp"
-        android:textColor="#666666"
-        android:text="고객 서비스"
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp"
+        android:layout_marginVertical="15dp"
+        android:text="고객 서비스"
+        android:textColor="#666666"
+        android:textSize="16dp" />
 
     <View
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center"
-        android:background="#E0E0E0"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="#E0E0E0" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:text="고객센터 "
-            android:layout_width="match_parent"
-            android:layout_height="30dp"/>
-        <TextView
-            android:textStyle="bold"
+            android:textColor="@color/black"
             android:textSize="20dp"
-            android:textColor="@color/primary"
-            android:text="09:00 ~ 18:00"
+            android:textStyle="bold" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"/>
+            android:layout_height="30dp"
+            android:text="09:00 ~ 18:00"
+            android:textColor="@color/primary"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
     <TextView
-        android:text="ㆍ 평일 : 전체 문의 상담 가능"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="ㆍ 평일 : 전체 문의 상담 가능" />
+
     <TextView
-        android:text="ㆍ 주말/공휴일 : 전화 문의 불가"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="ㆍ 주말/공휴일 : 전화 문의 불가" />
 
     <Button
         android:id="@+id/btn_qna"
-        android:layout_marginTop="20dp"
-        android:text="QnA 1:1 상담하기"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="QnA 1:1 상담하기" />
+
     <Button
         android:id="@+id/btn_call"
-        android:text="전화로 문의하기"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-<!--    <Button-->
-<!--        android:id="@+id/btn_notice"-->
-<!--        android:backgroundTint="#D7F1DE"-->
-<!--        android:textColor="@color/primary"-->
-<!--        android:text="공지사항 바로가기"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
+        android:layout_height="wrap_content"
+        android:text="전화로 문의하기" />
 
     <View
-        android:layout_marginVertical="20dp"
-        android:layout_gravity="center"
-        android:background="#E0E0E0"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
+        android:background="#E0E0E0" />
 
     <ExpandableListView
         android:id="@+id/expandableListView"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:layout_height="match_parent"
         android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp" />
+        android:dividerHeight="0.5dp"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
 
 </LinearLayout>

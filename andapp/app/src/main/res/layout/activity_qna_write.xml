@@ -93,6 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+ 관련 상품 선택" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -128,6 +129,7 @@
                     android:maxLines="1"
                     android:text="안녕"
                     android:textStyle="bold" />
+
             </LinearLayout>
 
             <TextView
@@ -144,6 +146,7 @@
                 android:layout_gravity="end|bottom"
                 android:text="변경하기"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -164,6 +167,9 @@
             android:background="@color/white"
             android:hint="문의하고자 하는 내용을 적어주세요. 주소, 전화번호 등의 민감한 정보는 삼가주세요.\n\n예) 상품에 대한 문의, 배송 관련 질문, 교환/반품 요청 등"
             android:inputType="textMultiLine"
+            android:textAlignment="start|top"
             android:textSize="15dp" />
+
     </LinearLayout>
+
 </LinearLayout>

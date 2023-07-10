@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="145dp"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_margin="6dp"
         android:id="@+id/iv_pd"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:scaleType="fitXY"/>
+        android:layout_margin="6dp"
+        android:scaleType="fitXY" />
 
     <TextView
-        android:textColor="@color/black"
-        android:text="로즈마리"
-        android:layout_marginHorizontal="8dp"
         android:id="@+id/tv_name"
-        android:textStyle="bold"
-        android:layout_gravity="left"
-        android:textSize="13dp"
         android:layout_width="match_parent"
-        android:layout_height="36dp"/>
+        android:layout_height="36dp"
+        android:layout_gravity="left"
+        android:layout_marginHorizontal="8dp"
+        android:text="로즈마리"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        android:textStyle="bold" />
 
     <TextView
-        android:textColor="#323131"
-        android:layout_marginVertical="3dp"
-        android:text="10000"
-        android:layout_marginLeft="8dp"
         android:id="@+id/tv_price"
-        android:layout_gravity="left"
-        android:textSize="15dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginVertical="3dp"
+        android:layout_marginLeft="8dp"
+        android:text="10000"
+        android:textColor="#323131"
+        android:textSize="15dp" />
+
 </LinearLayout>

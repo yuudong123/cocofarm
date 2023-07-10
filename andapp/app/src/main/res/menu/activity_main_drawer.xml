@@ -2,41 +2,40 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-        <item
-            android:id="@+id/right_nav_home"
-            android:icon="@drawable/icon_home"
-            android:title="홈" />
-        <item
-            android:id="@+id/right_nav_login"
-            android:icon="@drawable/icon_login"
-            android:title="로그인" />
-        <item
-            android:id="@+id/right_nav_logout"
-            android:icon="@drawable/icon_logout"
-            android:title="로그아웃" />
-        <item
-            android:id="@+id/right_nav_cocomall"
-            android:icon="@drawable/icon_shop"
-            android:title="코코몰" />
-        <item
-            android:id="@+id/right_nav_cart"
-            android:icon="@drawable/icon_cart"
-            android:title="장바구니" />
-        <item
-            android:id="@+id/right_nav_board"
-            android:icon="@drawable/icon_board"
-            android:title="게시판" />
-        <item
-            android:id="@+id/right_nav_mypage"
-            android:icon="@drawable/icon_mypage"
-            android:title="마이페이지" />
-        <item
-            android:id="@+id/right_nav_mydevice"
-            android:icon="@drawable/icon_mydevice"
-            android:title="기기 관리" />
-        <item
-            android:id="@+id/right_nav_cs"
-            android:icon="@drawable/icon_mp_cs"
-            android:title="고객센터" />
-
+    <item
+        android:id="@+id/right_nav_home"
+        android:icon="@drawable/icon_home"
+        android:title="홈" />
+    <item
+        android:id="@+id/right_nav_login"
+        android:icon="@drawable/icon_login"
+        android:title="로그인" />
+    <item
+        android:id="@+id/right_nav_logout"
+        android:icon="@drawable/icon_logout"
+        android:title="로그아웃" />
+    <item
+        android:id="@+id/right_nav_cocomall"
+        android:icon="@drawable/icon_shop"
+        android:title="코코몰" />
+    <item
+        android:id="@+id/right_nav_cart"
+        android:icon="@drawable/icon_cart"
+        android:title="장바구니" />
+    <item
+        android:id="@+id/right_nav_board"
+        android:icon="@drawable/icon_board"
+        android:title="게시판" />
+    <item
+        android:id="@+id/right_nav_mypage"
+        android:icon="@drawable/icon_mypage"
+        android:title="마이페이지" />
+    <item
+        android:id="@+id/right_nav_mydevice"
+        android:icon="@drawable/icon_mydevice"
+        android:title="기기 관리" />
+    <item
+        android:id="@+id/right_nav_cs"
+        android:icon="@drawable/icon_mp_cs"
+        android:title="고객센터" />
 </menu>

@@ -95,6 +95,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:hint="내용을 입력하세요" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -111,6 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+ 메인 이미지 선택" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -150,7 +152,9 @@
                 android:layout_gravity="end|bottom"
                 android:text="변경하기"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

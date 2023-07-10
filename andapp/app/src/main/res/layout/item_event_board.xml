@@ -26,7 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:text=""
             android:textStyle="bold" />
 
         <View
@@ -37,7 +36,8 @@
         <TextView
             android:id="@+id/tvRegdate"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
+
 </LinearLayout>

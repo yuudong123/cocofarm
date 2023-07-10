@@ -4,6 +4,5 @@
     <item
         android:drawable="@drawable/icon_join_mail"
         android:left="15dp"
-        android:right="8dp"
-        />
+        android:right="8dp" />
 </layer-list>

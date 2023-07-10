@@ -60,7 +60,9 @@
                 android:maxLines="1"
                 android:text="작성일"
                 android:textAlignment="center" />
+
         </LinearLayout>
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -115,4 +117,5 @@
             android:src="@drawable/icon_right_arrow" />
 
     </LinearLayout>
+
 </LinearLayout>

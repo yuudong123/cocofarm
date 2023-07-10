@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,150 +11,161 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
-            android:clipToPadding="false"
-            android:clipChildren="false"
             android:layout_width="match_parent"
-            android:layout_height="180dp" />
+            android:layout_height="180dp"
+            android:clipChildren="false"
+            android:clipToPadding="false" />
+
         <TextView
-            android:textStyle="bold"
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="3dp"
             android:paddingHorizontal="8dp"
             android:paddingVertical="3dp"
             android:text="1 / 4"
-            android:id="@+id/tv_number"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold" />
+
         <View
-            android:layout_marginBottom="8dp"
-            android:layout_gravity="center"
-            android:background="#E0E0E0"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:background="#E0E0E0" />
 
         <LinearLayout
-            android:layout_marginVertical="15dp"
-            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="15dp"
             android:orientation="vertical">
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:textStyle="bold"
-                android:textColor="#111111"
-                android:textSize="18dp"
-                android:text="인기 제품"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1"/>
-            <TextView
-                android:textSize="13dp"
-                android:id="@+id/tv_cocomall"
-                android:clickable="true"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textColor="@color/primary"
-                android:text="더보기 >"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="인기 제품"
+                    android:textColor="#111111"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tv_cocomall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:text="더보기 >"
+                    android:textColor="@color/primary"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
+
             <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="8dp"
-                android:layout_gravity="center"
-                android:background="#E0E0E0"
+                android:background="#E0E0E0" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recv_contents"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recv_contents"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <View
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center"
-                android:background="#E0E0E0"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="#E0E0E0" />
 
         </LinearLayout>
 
         <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:adjustViewBounds="true"
             android:paddingHorizontal="10dp"
-            android:src="@drawable/subbanner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:src="@drawable/subbanner" />
 
         <LinearLayout
-            android:layout_marginVertical="15dp"
-            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="15dp"
             android:orientation="vertical">
+
             <LinearLayout
-                android:layout_marginBottom="5dp"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:textStyle="bold"
+                    android:text="공지사항"
                     android:textColor="#111111"
                     android:textSize="18dp"
-                    android:text="공지사항"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textStyle="bold" />
+
                 <View
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
+
                 <TextView
-                    android:textSize="13dp"
                     android:id="@+id/tv_notice"
-                    android:clickable="true"
-                    android:layout_gravity="right"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary"
-                    android:text="더보기 >"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:clickable="true"
+                    android:text="더보기 >"
+                    android:textColor="@color/primary"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
+
             <View
-                android:layout_marginBottom="8dp"
-                android:layout_gravity="center"
-                android:background="#E0E0E0"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:background="#E0E0E0" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recvBoardList"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
+
             <View
-                android:layout_marginTop="8dp"
-                android:layout_gravity="center"
-                android:background="#E0E0E0"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="#E0E0E0" />
+
         </LinearLayout>
+
     </LinearLayout>
-
-
-
 
 </androidx.core.widget.NestedScrollView>

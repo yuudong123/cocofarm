@@ -17,5 +17,4 @@
         android:id="@+id/menuBoardSeemoreBrowser"
         android:title="브라우저로 열기"
         app:showAsAction="never" />
-
 </menu>

@@ -1,40 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mydevice_header2"
     android:orientation="vertical">
 
-
-        <TextView
-            android:layout_marginTop="35dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp"
-            android:gravity="center"
-            android:text="일이삼사오육"
-            android:textColor="@color/white"
-            android:textSize="45dp" />
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="80dp"
+        android:gravity="center"
+        android:text="일이삼사오육"
+        android:textColor="@color/white"
+        android:textSize="45dp" />
 
     <TextView
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/white"
-        android:textSize="18dp"
-        android:text="C123456"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="C123456"
+        android:textColor="@color/white"
+        android:textSize="18dp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -45,13 +41,13 @@
         android:padding="16dp">
 
         <RadioButton
-            android:checked="true"
             android:id="@+id/humanRadioButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/btn_segmented_left"
             android:button="@android:color/transparent"
+            android:checked="true"
             android:gravity="center"
             android:padding="8dp"
             android:text="기기 상태"
@@ -80,24 +76,25 @@
             android:padding="8dp"
             android:text="기기 정보"
             android:textColor="@drawable/txt_segmented" />
+
     </RadioGroup>
 
     <LinearLayout
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
         android:orientation="vertical">
 
         <LinearLayout
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_marginHorizontal="15dp"
                 android:background="@drawable/bg_dv_info_box">
 
                 <TextView
@@ -110,7 +107,6 @@
                     android:text="온도" />
 
                 <TextView
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -119,16 +115,17 @@
                     android:layout_marginBottom="48dp"
                     android:text="00℃"
                     android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
+                    android:clickable="true"
                     android:text="> 온도 관리"
                     android:textColor="@color/primary"
                     android:textSize="10dp" />
@@ -136,9 +133,9 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_marginHorizontal="15dp"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                android:layout_marginHorizontal="15dp"
                 android:background="@drawable/bg_dv_info_box">
 
                 <TextView
@@ -151,7 +148,6 @@
                     android:text="습도" />
 
                 <TextView
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
@@ -160,16 +156,17 @@
                     android:layout_marginBottom="48dp"
                     android:text="00%"
                     android:textColor="@color/black"
-                    android:textSize="30dp" />
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:clickable="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
+                    android:clickable="true"
                     android:text="> 습도 관리"
                     android:textColor="@color/primary"
                     android:textSize="10dp" />
@@ -179,9 +176,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
-
 
 </LinearLayout>

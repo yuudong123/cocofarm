@@ -49,4 +49,5 @@
         android:text="+ 더 불러오기"
         android:textAlignment="center"
         android:visibility="gone" />
+
 </LinearLayout>

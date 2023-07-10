@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".order.OrderProductActivity">
 
-
-        <TextView
-            android:textStyle="bold"
-            android:layout_margin="10dp"
-            android:textSize="20dp"
-            android:text="주문목록"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="주문목록"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <androidx.appcompat.widget.SearchView
-        android:hint="주문한 상품을 검색할 수 있어요"
         android:id="@+id/order_content_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:hint="주문한 상품을 검색할 수 있어요" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recv_order_finish"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
-
-    </LinearLayout>
+</LinearLayout>
 

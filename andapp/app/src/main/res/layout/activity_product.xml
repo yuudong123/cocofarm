@@ -39,9 +39,10 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="20dp"
                 android:src="@drawable/icon_close" />
-        </LinearLayout>
-    </LinearLayout>
 
+        </LinearLayout>
+
+    </LinearLayout>
 
 
     <androidx.core.widget.NestedScrollView
@@ -63,15 +64,13 @@
                 android:id="@+id/tv_productA_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="로즈마리" />
+                android:layout_margin="10dp" />
 
             <TextView
                 android:id="@+id/tv_productA_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="￦33,000" />
+                android:layout_margin="10dp" />
 
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
@@ -89,8 +88,8 @@
                     app:tabMode="fixed"
                     app:tabSelectedTextColor="@color/primary"
                     app:tabTextColor="@color/black" />
-            </com.google.android.material.appbar.AppBarLayout>
 
+            </com.google.android.material.appbar.AppBarLayout>
 
             <FrameLayout
                 android:id="@+id/product_detail_container"

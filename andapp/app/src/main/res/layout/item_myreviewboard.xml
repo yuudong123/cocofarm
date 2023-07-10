@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="#ddd"
-    android:layout_margin="10dp"
-    android:elevation="10dp"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_review"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/item_review">
+    android:layout_margin="10dp"
+    android:background="#ddd"
+    android:elevation="10dp"
+    android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#e0e0e0"/>
+        android:background="#e0e0e0" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,14 +20,12 @@
         android:elevation="5dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingHorizontal="10dp">
-    </LinearLayout>
+        android:paddingHorizontal="10dp"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/qnaProductSelected"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ivProductImage"
@@ -53,10 +50,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:maxLines="1"
-                    android:text="안녕"
                     android:textStyle="bold" />
             </LinearLayout>
-
 
         </LinearLayout>
 
@@ -67,20 +62,18 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingHorizontal="11dp"
-        >
+        android:paddingHorizontal="11dp">
 
         <TextView
-            android:textSize="20dp"
-            android:textStyle="bold"
             android:id="@+id/tv_reviewview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
 
 </LinearLayout>

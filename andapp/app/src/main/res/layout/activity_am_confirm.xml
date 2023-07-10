@@ -1,100 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:paddingHorizontal="20dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
 
     <TextView
-        android:textStyle="bold"
-            android:id="@+id/tv_title"
-            android:layout_marginVertical="15dp"
-            android:textSize="16dp"
-            android:textColor="#666666"
-            android:text="정보 수정"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"/>
-
-    <View
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:background="#E0E0E0"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"/>
-
-    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginVertical="15dp"
+        android:text="정보 수정"
+        android:textColor="#666666"
         android:textSize="16dp"
-        android:textColor="#121212"
-        android:text="본인 확인을 위해 비밀번호를 입력해주세요."
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textStyle="bold" />
 
     <View
-        android:layout_marginVertical="20dp"
-        android:layout_gravity="center"
-        android:background="#121212"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="#E0E0E0" />
 
-    <LinearLayout
-        android:paddingVertical="10dp"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="본인 확인을 위해 비밀번호를 입력해주세요."
+        android:textColor="#121212"
+        android:textSize="16dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginVertical="20dp"
+        android:background="#121212" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+
         <TextView
-            android:textSize="15dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:textColor="#121212"
             android:text="이메일"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"/>
+            android:textColor="#121212"
+            android:textSize="15dp" />
+
         <TextView
             android:id="@+id/tv_email"
-            android:textSize="15dp"
-            android:layout_marginLeft="20dp"
-            android:gravity="center_vertical"
-            android:textColor="#666666"
-            android:text="unknown@email.com"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="#666666"
+            android:textSize="15dp" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
-            android:textSize="15dp"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:textColor="#121212"
             android:text="비밀번호"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"/>
+            android:textColor="#121212"
+            android:textSize="15dp" />
+
         <EditText
-            android:inputType="textPassword"
             android:id="@+id/edt_pw"
-            android:textSize="15dp"
-            android:hint="비밀번호를 입력하세요."
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="50dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="50dp"
+            android:layout_weight="1"
+            android:hint="비밀번호를 입력하세요."
+            android:inputType="textPassword"
+            android:textSize="15dp" />
 
     </LinearLayout>
 
     <Button
-        android:layout_gravity="center"
-        android:textColor="@color/white"
         android:id="@+id/btn_ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/primary"
         android:text="확인"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textColor="@color/white" />
 
-    </LinearLayout>
+</LinearLayout>

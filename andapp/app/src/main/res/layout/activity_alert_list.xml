@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:paddingHorizontal="20dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
 
     <TextView
-        android:textStyle="bold"
-        android:layout_marginVertical="15dp"
-        android:textSize="16dp"
-        android:textColor="#666666"
-        android:text="알림 내역"
         android:layout_width="match_parent"
-        android:layout_height="30dp"/>
+        android:layout_height="30dp"
+        android:layout_marginVertical="15dp"
+        android:text="알림 내역"
+        android:textColor="#666666"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
     <View
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center"
-        android:background="#E0E0E0"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:background="#E0E0E0" />
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

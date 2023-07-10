@@ -1,59 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:paddingHorizontal="45dp"
-    android:gravity="center_horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="45dp">
 
     <ImageView
-        android:layout_marginTop="70dp"
-        android:src="@drawable/logo_main"
         android:layout_width="250dp"
-        android:layout_height="250dp"/>
+        android:layout_height="250dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/logo_main" />
 
     <Button
-        android:textColor="@color/white"
         android:id="@+id/btn_join"
-        android:layout_marginVertical="10dp"
-        android:text="코코팜 회원가입"
-        android:backgroundTint="@color/primary"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:backgroundTint="@color/primary"
+        android:text="코코팜 회원가입"
+        android:textColor="@color/white" />
 
     <LinearLayout
-        android:layout_marginVertical="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
         android:orientation="horizontal">
-        <View
-            android:layout_gravity="center"
-            android:background="#E0E0E0"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"/>
-        <TextView
-            android:layout_marginHorizontal="10dp"
-            android:text="OR"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <View
-            android:layout_gravity="center"
-            android:background="#E0E0E0"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"/>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#E0E0E0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="OR" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="#E0E0E0" />
 
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="50dp"
-        android:text="SNS 계정으로 회원가입"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="SNS 계정으로 회원가입" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,25 +62,25 @@
 
         <ImageView
             android:id="@+id/iv_joinKakao"
-            android:layout_margin="10dp"
-            android:src="@drawable/logo_kakao"
             android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/logo_kakao" />
 
         <ImageView
             android:id="@+id/iv_joinNaver"
-            android:layout_margin="10dp"
-            android:src="@drawable/logo_naver"
             android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/logo_naver" />
 
-        <!-- google 로고 못찾음 -->
         <ImageView
             android:id="@+id/iv_joinGoogle"
-            android:layout_margin="10dp"
-            android:src="@drawable/logo_google"
             android:layout_width="50dp"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/logo_google" />
 
     </LinearLayout>
+
 </LinearLayout>

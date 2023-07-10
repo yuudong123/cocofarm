@@ -37,7 +37,8 @@ public class WebMemberController {
     @Autowired
     MemberService memberService;
 
-    // 로그인 ( Login ) --------------------------------------------------------------------------------------------
+    // 로그인 ( Login )
+    // --------------------------------------------------------------------------------------------
     // 로그인 화면
     @GetMapping(value = "/member/login")
     public ModelAndView loginGET(HttpServletRequest request) {
@@ -46,6 +47,7 @@ public class WebMemberController {
         mav.setViewName("member/login");
         return mav;
     }
+
     // 로그인 처리
     @ResponseBody
     @PostMapping(value = "/member/login")
@@ -53,21 +55,23 @@ public class WebMemberController {
         MemberVO userinfo = memberService.login(emailAndPassword);
         if (userinfo != null) {
             model.addAttribute("userinfo", userinfo);
-           if (userinfo.getIsactivated().toString().equals("Y")) {
+            if (userinfo.getIsactivated().toString().equals("Y")) {
                 return model.getAttribute("prevPage") + "";
-           } else { // 차단회원 로그인 시
+            } else { // 차단회원 로그인 시
                 model.addAttribute("userinfo", null);
                 return "/member/refused";
-           }
+            }
         } else {
             return "false";
         }
     }
+
     // 비밀번호 찾기
     @GetMapping(value = "/member/findpw")
     public String findpw() {
         return "member/findpw";
     }
+
     // 비밀번호 찾기 > 비밀번호 변경
     @GetMapping(value = "/member/modifypw")
     public ModelAndView modifypwGET(Model model) {
@@ -77,11 +81,13 @@ public class WebMemberController {
         mav.setViewName("member/modifypw");
         return mav;
     }
+
     // 차단회원 안내페이지
     @GetMapping(value = "/member/refused")
     public String refused() {
         return "member/refused";
     }
+
     // 로그아웃
     @ResponseBody
     @PostMapping(value = "/member/logout")
@@ -89,23 +95,23 @@ public class WebMemberController {
         sessionStatus.setComplete();
         return "/";
     }
-    //------------------------------------------------------------------------------------------------로그인 ( Login ) end
+    // ------------------------------------------------------------------------------------------------로그인
+    // ( Login ) end
 
-
-
-
-
-    // 마이페이지 -------------------------------------------------------------------------------------------------------
+    // 마이페이지
+    // -------------------------------------------------------------------------------------------------------
     // 내 정보
     @GetMapping(value = "/member/myinfo")
     public String myinfo() {
         return "member/myinfo";
     }
+
     // 정보 수정 화면
     @GetMapping(value = "/member/modifyinfo")
     public String modifyinfo_GET() {
         return "member/modifyinfo";
     }
+
     // 정보 수정 처리
     @PostMapping(value = "/member/modifyinfo")
     public String modifyinfo_POST(MemberVO vo, Model model) {
@@ -114,6 +120,7 @@ public class WebMemberController {
         model.addAttribute("userinfo", result);
         return "redirect:/member/myinfo";
     }
+
     // 비밀번호 확인
     @ResponseBody
     @PostMapping(value = "/member/pwconfirm")
@@ -125,27 +132,33 @@ public class WebMemberController {
             return "failure";
         }
     }
+
     // 내가 쓴 글
     @GetMapping(value = "/member/myboard")
     public ModelAndView myboard(SessionStatus sessionStatus, Model model) {
         MemberVO member = (MemberVO) model.getAttribute("userinfo");
-        int member_no = member.getMember_no();
         ModelAndView mav = new ModelAndView();
-        ArrayList<BoardVO> vo = memberService.myboard_list(member_no);
-        mav.addObject("vo", vo);
+        if (member != null) {
+            int member_no = member.getMember_no();
+            ArrayList<BoardVO> vo = memberService.myboard_list(member_no);
+            mav.addObject("vo", vo);
+        }
         mav.setViewName("member/myboard");
         return mav;
     }
+
     // 내 기기
     @GetMapping(value = "/member/mydevice")
     public String mydevice() {
         return "member/mydevice";
     }
+
     // 회원탈퇴
     @GetMapping(value = "/member/away")
     public String away_GET() {
         return "member/away";
     }
+
     // 회원탈퇴 처리
     @ResponseBody
     @PostMapping(value = "/member/away/approval")
@@ -155,6 +168,7 @@ public class WebMemberController {
         sessionStatus.setComplete();
         return memberService.away(vo.getEmail());
     }
+
     // 비밀번호 변경 화면
     @GetMapping(value = "/member/modifypw_mp")
     public ModelAndView modifypw_GET(Model model) {
@@ -164,6 +178,7 @@ public class WebMemberController {
         mav.setViewName("member/modifypw_mp");
         return mav;
     }
+
     // 비밀번호 변경 처리
     @ResponseBody
     @PostMapping(value = "/member/modifypw")
@@ -173,35 +188,36 @@ public class WebMemberController {
         memberService.pw_modify(email, password);
         return "success";
     }
+
     // 비밀번호 확인
     @GetMapping(value = "/member/pwok")
     public String pwok() {
         return "member/pwok";
     }
-    // ------------------------------------------------------------------------------------------------------ 마이페이지 end
+    // ------------------------------------------------------------------------------------------------------
+    // 마이페이지 end
 
-
-
-
-
-
-    // 회원가입 --------------------------------------------------------------------------------------------------------------------
+    // 회원가입
+    // --------------------------------------------------------------------------------------------------------------------
     // 회원가입 화면
     @GetMapping(value = "/member/join")
     public String join_GET(MemberVO vo) {
         return "member/join";
     }
+
     // 회원가입 처리
     @ResponseBody
     @PostMapping(value = "/member/createMember")
     public int join_POST(@RequestBody MemberVO vo) {
         return memberService.join(vo);
     }
+
     // SNS 회원가입 화면
     @GetMapping(value = "/member/snsjoin")
     public String snsjoin_GET(MemberVO vo) {
         return "member/snsjoin";
     }
+
     // SNS 회원가입 처리
     @PostMapping(value = "/member/createMembersns")
     public String snsjoin_POST(MemberVO vo, HttpSession session) {
@@ -211,6 +227,7 @@ public class WebMemberController {
         session.setAttribute("userinfo", userinfo);
         return "redirect:/";
     }
+
     // 이메일 가입여부 체크
     @ResponseBody
     @PostMapping(value = "/member/email_search")
@@ -219,13 +236,11 @@ public class WebMemberController {
         System.out.println(vo.getEmail());
         return memberService.email_search(vo.getEmail());
     }
-    // ----------------------------------------------------------------------------------------------------------- 회원가입 end
+    // -----------------------------------------------------------------------------------------------------------
+    // 회원가입 end
 
-
-
-    
-
-    // 관리자 기능 ( Admin ) ---------------------------------------------------------------------------------------------
+    // 관리자 기능 ( Admin )
+    // ---------------------------------------------------------------------------------------------
     // 전체 회원 리스트
     @GetMapping(value = "/admin/member")
     public ModelAndView admin_member(CriteriaDTO cri) {
@@ -238,6 +253,7 @@ public class WebMemberController {
         mav.setViewName("/member/admin/memberlist");
         return mav;
     }
+
     // 차단 회원 리스트
     @GetMapping(value = "/admin/memberbanned")
     public ModelAndView admin_memberBanned(CriteriaDTO cri) {
@@ -250,6 +266,7 @@ public class WebMemberController {
         mav.setViewName("/member/admin/bannedlist");
         return mav;
     }
+
     // 회원 IsActivated 처리
     @ResponseBody
     @PostMapping(value = "/admin/member")
@@ -259,5 +276,6 @@ public class WebMemberController {
         memberService.banned(email, isactivated);
         return "success";
     }
-    // -------------------------------------------------------------------------------------------- 관리자 기능 ( Admin ) end
+    // --------------------------------------------------------------------------------------------
+    // 관리자 기능 ( Admin ) end
 }
