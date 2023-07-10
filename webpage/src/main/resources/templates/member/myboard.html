@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/member/mypage.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/member/mypage.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <th:block th:replace="~{fragments/mypagetopbar :: mypagetopbarFragment}"></th:block>
 
     <div class="container">
-        <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
-        <div class="row">
-          <div class="tt">
-            <h5>내가 쓴 글</h5>
-            <h6 style="color: gray">최근 30일</h6>
-          </div>
-          <table id="boardlist" class="highlight">
-            <thead>
-              <tr>
-                <th>게시판</th>
-                <th>제목</th>
-                <th>작성일</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr th:each="board:${vo}" id="list" class="collection">
-                <td th:if="${board.board_category_cd == 201}" th:text="QnA"></td>
-                <td th:if="${board.board_category_cd == 202}" th:text="공지"><a href="/board/notice?" ></a></td>
-                <td th:if="${board.board_category_cd == 203}" th:text="리뷰"></td>
-                <td th:if="${board.board_category_cd == 204}" th:text="이벤트"></td>
-                <td id="board-title"><a th:if="${board.board_category_cd != 203}" th:text="${board.title}" th:href="@{/board/qna/{board_no}(board_no = ${board.board_no})}"></a><a th:if="${board.board_category_cd == 203}" th:text="${board.content}" th:href="@{/board/qna/{board_no}(board_no = ${board.board_no})}"></a></td>
-                <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
-              </tr>
-            </tbody>
-          </table>
+      <th:block th:replace="~{fragments/mypagesidebar :: mypagesidebarFragment}"></th:block>
+      <div class="row">
+        <div class="tt">
+          <h5>내가 쓴 글</h5>
+          <h6 style="color: gray">최근 30일</h6>
         </div>
+        <table id="boardlist" class="highlight">
+          <thead>
+            <tr>
+              <th>게시판</th>
+              <th>제목</th>
+              <th>작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="board:${vo}" id="list" class="collection">
+              <td th:switch="${board.board_category_cd}">
+                <span th:case="201">QnA</span>
+                <span th:case="202">공지</span>
+                <span th:case="203">리뷰</span>
+                <span th:case="204">이벤트</span>
+              </td>
+              <td id="board-title" th:switch="${board.board_category_cd}">
+                <a th:case="201" th:text="${board.title}" th:href="@{'/board/qna/' + ${board.board_no}}"></a>
+                <a th:case="202" th:text="${board.title}" th:href="@{'/board/notice/' + ${board.board_no}}"></a>
+                <a th:case="203" th:text="${board.content}"></a>
+                <a th:case="204" th:text="${board.title}" th:href="@{'/board/event/' + ${board.board_no}}"></a>
+              </td>
+              <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script src="/js/default.js"></script>
     <script>
-        document.querySelector('#menu-name').innerHTML = '> 내가 쓴 글';
+      document.querySelector("#menu-name").innerHTML = "> 내가 쓴 글";
     </script>
-</body>
+  </body>
 </html>
