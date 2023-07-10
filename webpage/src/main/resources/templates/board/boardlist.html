@@ -14,8 +14,8 @@
             <a data-category="event" th:style="${category == 'event'?'color: #429f5d':''}">이벤트</a>
             <a data-category="qna">Qna</a>
             <a data-category="review">리뷰</a>
+            <div id="categorySelectBar"></div>
           </div>
-          <div id="categorySelectBar"></div>
           <div id="reqDivInner">
             <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
             <select name="boardPerPage" id="selectBoardPerPage">
@@ -82,6 +82,11 @@
           selectBoardPerPage.selectedIndex = 2;
           break;
       }
+
+      selectBoardPerPage.addEventListener("change",()=>{
+        inputPage.setAttribute("value", "1");
+        reqDiv.submit();
+      })
 
       if (pageFirst != null) {
         pageFirst.addEventListener("click", () => {

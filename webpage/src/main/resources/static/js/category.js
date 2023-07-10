@@ -11,6 +11,7 @@ if (categorys != null) {
       });
     }
     var width = category.offsetWidth;
+    var height = category.offsetBottom;
     var offsetLeft = category.offsetLeft;
     category.addEventListener("mouseenter", function () {
       selectBar.style.width = width + "px";
