@@ -38,6 +38,7 @@
           <tbody>
             <tr th:each="board : ${boardlist}">
               <td>
+                <span>[[${board.board_no}]]&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
                 <small th:if="${board.regdate != board.upddate}" style="color: #aaa; margin-left: 5px">수정됨</small>
               </td>

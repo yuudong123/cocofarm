@@ -42,8 +42,7 @@ function fetchTEXT(url, data, callback) {
     .catch((error) => console.error("Error : " + error));
 }
 
-const btnLogout = document.querySelector("#btnHeaderLogout");
-
+btnLogout = document.querySelector("#btnHeaderLogout");
 if (btnLogout != null) {
   btnLogout.addEventListener("click", (e) => {
     e.preventDefault();
@@ -63,5 +62,5 @@ function toast(message) {
   M.toast({ html: message });
 }
 
-const dropdown = M.Dropdown.init(document.querySelector(".dropdown-trigger"), {});
-const mobileBurger = M.Sidenav.init(document.querySelector("#mobileBurger"), {});
+dropdown = M.Dropdown.init(document.querySelector(".dropdown-trigger"), {});
+mobileBurger = M.Sidenav.init(document.querySelector("#mobileBurger"), {});

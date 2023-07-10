@@ -10,7 +10,7 @@
       <div class="container">
         <form id="reqDiv" method="get" action="/admin/member">
           <div id="category">
-            <a href="/admin/member" style="color: #429f5d; text-decoration: underline">전체 회원</a>
+            <a href="/admin/member" style="color: #429f5d">전체 회원</a>
             <a href="/admin/memberbanned">차단된 회원</a>
           </div>
           <div id="categorySelectBar"></div>
@@ -81,7 +81,7 @@
     <script src="/js/default.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="/js/category.js"></script>
-    <script>
+    <script th:inline="javascript">
       M.AutoInit();
       const memberListAll = document.querySelector("#memberListAll");
       const memberListBanned = document.querySelector("#memberListBanned");
@@ -101,7 +101,7 @@
         reqDiv.submit();
       });
       pageLast.addEventListener("click", () => {
-        inputPage.setAttribute("value", page.length - 1);
+        inputPage.setAttribute("value", /*[[${pager.lastPage}]]*/ "");
         reqDiv.submit();
       });
       pageNum.forEach((page) => {
@@ -187,13 +187,6 @@
           }
         );
       }
-
-      // document.querySelector(".search_area button").addEventListener("click", (e) => {
-      //   e.preventDefault();
-      //   let val = document.querySelector("#inputKeyword").value;
-      //   moveForm.find(val);
-      //   moveForm.submit();
-      // })
     </script>
   </body>
 </html>
