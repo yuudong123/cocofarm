@@ -59,3 +59,7 @@ footer a:hover {
   align-items: center;
   justify-content: center;
 }
+
+.sidenav-overlay {
+  z-index: 996 !important;
+}

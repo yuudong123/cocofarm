@@ -59,8 +59,9 @@ function logout() {
   });
 }
 
-function toast(message){
+function toast(message) {
   M.toast({ html: message });
 }
 
-const dropdown = M.Dropdown.init(document.querySelector(".dropdown-trigger"),{});
+const dropdown = M.Dropdown.init(document.querySelector(".dropdown-trigger"), {});
+const mobileBurger = M.Sidenav.init(document.querySelector("#mobileBurger"), {});
