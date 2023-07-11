@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.cocofarm.webpage.PhoneHyphen;
 import com.cocofarm.webpage.domain.MemberVO;
@@ -13,7 +12,6 @@ import com.cocofarm.webpage.service.MemberService;
 import com.google.gson.Gson;
 
 @RestController
-@SessionAttributes("userinfo")
 public class AndMemberController {
 
     @Autowired

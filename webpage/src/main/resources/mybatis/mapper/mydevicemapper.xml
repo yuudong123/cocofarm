@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cocofarm.webpage.mapper.MyDeviceMapper">
+
+<select id="mydevice" resultType="com.cocofarm.webpage.domain.MyDeviceVO">
+    select *
+    from tbl_mydevice
+    where member_no = #{member_no}
+</select>
+
+<insert id="add_device">
+    insert into TBL_MYDEVICE (mydevice_id, member_no, product_id, mydevice_name, regdate)
+    values (#{mydevice_id}, #{member_no}, #{product_id}, #{mydevice_name}, sysdate)
+</insert>
+
+</mapper>
