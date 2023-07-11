@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/product/orderpayresult.css" />
+  </head>
+  <body>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <div class="container">
+        <!-- 결제완료 주문목록 창 -->
+        <div class="order_header">
+          <h3 class="order_payment"><span class="blind">주문결제내역</span></h3>
+          <!-- <form> -->
+
+          <div class="order_content">
+            <div class="order_cont" th:each="dto:${list}">
+              <div>
+                <span
+                  th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"
+                ></span>
+                <span>결제</span>
+                <div th:text="${dto.value}"></div>
+              </div>
+              <div>
+                <span>결제금액 : </span><span th:text="${dto.price}"></span
+                ><span>원</span>
+              </div>
+
+              <button class="detail" th:data-order-id="${dto.order_id}">
+                상세보기
+              </button>
+            </div>
+            <!-- </div> -->
+          </div>
+          <!-- </form> -->
+        </div>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <form id="orderForm" method="POST" action="orderdetail">
+      <input type="hidden" name="order_id" />
+    </form>
+  </body>
+  <script>
+    const details = document.querySelectorAll(".detail");
+
+    console.log(details);
+
+    let viewDetail = function (e) {
+      var a = e.target;
+      //alert(a.getAttribute("data-order-id"));
+      let orderForm = document.querySelector("#orderForm");
+      orderForm.order_id.value = a.getAttribute("data-order-id");
+      orderForm.submit();
+    };
+
+    [].forEach.call(details, function (detail) {
+      //console.log(detail);
+      detail.addEventListener("click", viewDetail, false);
+      //console.log(detail.getAttribute("data-order-id"));
+    });
+  </script>
+</html>

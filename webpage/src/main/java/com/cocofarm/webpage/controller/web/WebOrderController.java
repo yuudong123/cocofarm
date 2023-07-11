@@ -10,8 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,50 +75,49 @@ public class WebOrderController {
     }
 
     // 주문 결제 버튼 눌렀을때 14:38 주석 다른걸로 테스트해봄.
-    // @PostMapping("order/payresult")
-    // public ModelAndView insertOrderPage(@RequestParam(value = "cart", required =
-    // false) String[] order,
-    // HttpSession session) {
-    // OrderVO vo = new OrderVO();
-    // ModelAndView mav = new ModelAndView();
-    // ArrayList<CartDTO> cartList = null ;
-    // int total= 0;
-    // if(order != null){
-    // List<String> list = Arrays.asList(order);
-    // cartList= cartService.selectCartList(list);
-    // }else{
-    // //cartList = // cartService.
-    // //cartList= cartService.selectCartList(list);
-    // }
-    // total = cartList.stream().mapToInt(cart -> cart.getProduct_price() *
-    // cart.getAmount()).sum();
-    // MemberVO member = (MemberVO) session.getAttribute("userinfo");
-    // vo.setMember_no(member.getMember_no());
-    // vo.setAddress(member.getAddress());
+    @PostMapping("order/payresult")
+    public ModelAndView insertOrderPage(@RequestParam(value = "cart", required = false) String[] order,
+            HttpSession session) {
+        OrderVO vo = new OrderVO();
+        ModelAndView mav = new ModelAndView();
+        ArrayList<CartDTO> cartList = null;
+        int total = 0;
+        if (order != null) {
+            List<String> list = Arrays.asList(order);
+            cartList = cartService.selectCartList(list);
+        } else {
+            // cartList = // cartService.
+            // cartList= cartService.selectCartList(list);
+        }
+        total = cartList.stream().mapToInt(cart -> cart.getProduct_price() *
+                cart.getAmount()).sum();
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        vo.setMember_no(member.getMember_no());
+        vo.setAddress(member.getAddress());
 
-    // vo.setPrice(total);
-    // vo.setOrderProductVOList(cartList);
-    // vo.setOrderdate(new Date());
-    // OrderProductVO orderProductVO = new OrderProductVO();
+        vo.setPrice(total);
+        vo.setOrderProductVOList(cartList);
+        vo.setOrderdate(new Date());
+        OrderProductVO orderProductVO = new OrderProductVO();
 
-    // int ok = orderService.OrderInsert(vo);
-    // if (order.length == (ok - 1)) {
-    // vo.setOrder_status_cd(CodeTable.ORDER_STATUS_ONREADY);
-    // } else {
-    // System.out.println("주문 실패");
-    // }
-    // orderProductVO.setOrder_status_cd(vo.getOrder_status_cd());
-    // orderProductVO.setValue("배송준비");
+        int ok = orderService.OrderInsert(vo);
+        if (order.length == (ok - 1)) {
+            vo.setOrder_status_cd(CodeTable.ORDER_STATUS_ONREADY);
+        } else {
+            System.out.println("주문 실패");
+        }
+        orderProductVO.setOrder_status_cd(vo.getOrder_status_cd());
+        orderProductVO.setValue("배송준비");
 
-    // mav.addObject("orderproductvo", orderProductVO);
-    // mav.addObject("vo", vo);
-    // mav.addObject("ok", ok);
-    // mav.addObject("list", cartList);
-    // mav.addObject("member", member);
-    // mav.addObject("allTotalPrice", total);
-    // mav.setViewName("product/orderpayresult");// 경로
-    // return mav;
-    // }
+        mav.addObject("orderproductvo", orderProductVO);
+        mav.addObject("vo", vo);
+        mav.addObject("ok", ok);
+        mav.addObject("list", cartList);
+        mav.addObject("member", member);
+        mav.addObject("allTotalPrice", total);
+        mav.setViewName("product/orderpayresult1");// 경로
+        return mav;
+    }
 
     public void insertOrderPage(HttpSession session, String[] order) {
         OrderVO vo = new OrderVO();
@@ -135,14 +136,14 @@ public class WebOrderController {
     }
 
     // 결제 상세 내역
-    @RequestMapping("order/payresult")
+    @RequestMapping("order/orderdetail")
     public ModelAndView insertOrderPage(@RequestParam(value = "order_id", required = false) String order_id,
             HttpSession session) {
         ModelAndView mav = new ModelAndView();
         // if (order != null) {
         // insertOrderPage(session, order);
         // }
-        System.out.println(order_id + "오더 아이디 찍힘");
+
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
         ArrayList<OrderProductDTO> list = orderService.MyOrderDetail(order_id,
                 member.getMember_no());
@@ -159,6 +160,20 @@ public class WebOrderController {
         mav.addObject("list", list);
         mav.setViewName("product/orderlist");// 경로
         return mav;
+    }
+
+    // status_cd 바꾸는처리
+    @ResponseBody
+    @RequestMapping("order/update")
+    public void updateStatusCode(@RequestBody OrderProductVO dto, HttpSession session) {
+        // System.out.println(dto);
+        // System.out.println(dto.getOrderproduct_id());
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        dto.setMember_no(member.getMember_no());
+
+        orderService.OrderProductStatusUpdate(dto);
+        System.out.println(dto);
+
     }
 
     /*
