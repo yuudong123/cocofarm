@@ -26,7 +26,7 @@
           </div>
           <div id="hr"></div>
           <img id="mainimage" class="responsive-img" th:src="'/images/'+${boardvo.mainimage}" alt="메인 이미지" />
-          <p th:text="${boardvo.content}"></p>
+          <textarea class="materialize-textarea" style="border-bottom: 0 !important;" readonly th:text="${boardvo.content}"></textarea>
         </section>
         <section class="z-depth-1">
           <h6>댓글</h6>
