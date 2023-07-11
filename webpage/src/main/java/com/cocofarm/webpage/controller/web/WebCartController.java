@@ -93,6 +93,19 @@ public class WebCartController {
         return cartService.deleteCartProductOne(dto);
     }
 
+    // Ajax로 받아서 처리 할려ㅑ고 만들어놓음.
+    // html을 그대로보낼거임 그래서 리턴값이 String
+    @GetMapping(value = "/cart2")
+    @ResponseBody
+    public String cartPage2(HttpSession session) {
+        // ModelAndView mav = new ModelAndView();
+        // MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        // ArrayList<CartDTO> list = cartService.selectCartList(member.getMember_no());
+        // mav.addObject("list", list);
+        // mav.setViewName("product/cart");
+        return "ddsda";
+    }
+
     // 장바구니 전체 삭제
     @PostMapping(value = "/cart/alldelete")
     @ResponseBody
