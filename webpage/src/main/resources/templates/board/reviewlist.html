@@ -19,14 +19,14 @@
           <div id="reqDivInner">
             <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
             <select name="boardPerPage" id="selectBoardPerPage">
-              <option value="10" selected>10개씩 보기</option>
-              <option value="30">30개씩 보기</option>
-              <option value="50">50개씩 보기</option>
+              <option value="10" th:selected="${pager.cri.boardPerPage == 10 ? 'true' : 'false'}">10개씩 보기</option>
+              <option value="30" th:selected="${pager.cri.boardPerPage == 30 ? 'true' : 'false'}">30개씩 보기</option>
+              <option value="50" th:selected="${pager.cri.boardPerPage == 50 ? 'true' : 'false'}">50개씩 보기</option>
             </select>
             <select name="productId" id="selectProduct">
               <option value="0">-- 모든 결과 --</option>
               <th:block th:each="product : ${productlist}">
-                <option th:value="${product.product_id}" th:text="${product.name}"></option>
+                <option th:selected="${pager.cri.productId == product.product_id ? 'true' : 'false'}" th:value="${product.product_id}" th:text="${product.name}"></option>
               </th:block>
             </select>
             <button id="btnSearch" class="btn green" type="submit">검색</button>
@@ -80,23 +80,10 @@
       const pageNum = document.querySelectorAll(".pageNum");
       const boardtitle = document.querySelectorAll(".boardtitle");
 
-      switch (/*[[${pager.cri.boardPerPage}]]*/ "") {
-        case 10:
-          selectBoardPerPage.selectedIndex = 0;
-          break;
-        case 30:
-          selectBoardPerPage.selectedIndex = 1;
-          break;
-        case 50:
-          selectBoardPerPage.selectedIndex = 2;
-          break;
-      }
-
-      for (let i = 0; i < selectProduct.options.length; i++) {
-        if (selectProduct.options[i].value == /*[[${pager.cri.productId}]]*/ "") {
-          selectProduct.options[i].selected = true;
-        }
-      }
+      selectBoardPerPage.addEventListener("change", () => {
+        inputPage.value = 1;
+        reqDiv.submit();
+      });
 
       selectProduct.addEventListener("change", () => {
         inputPage.value = 1;

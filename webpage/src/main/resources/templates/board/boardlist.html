@@ -19,9 +19,9 @@
           <div id="reqDivInner">
             <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
             <select name="boardPerPage" id="selectBoardPerPage">
-              <option value="10" selected>10개씩 보기</option>
-              <option value="30">30개씩 보기</option>
-              <option value="50">50개씩 보기</option>
+              <option value="10" th:selected="${pager.cri.boardPerPage == 10 ? 'true' : 'false'}">10개씩 보기</option>
+              <option value="30" th:selected="${pager.cri.boardPerPage == 30 ? 'true' : 'false'}">30개씩 보기</option>
+              <option value="50" th:selected="${pager.cri.boardPerPage == 50 ? 'true' : 'false'}">50개씩 보기</option>
             </select>
             <input type="text" id="inputKeyword" name="keyword" th:value="${pager.cri.keyword}" />
             <button id="btnSearch" class="btn green" type="submit">검색</button>
@@ -31,14 +31,15 @@
         <table th:if="${boardlist.size != 0}">
           <thead>
             <tr>
+              <th>번호</th>
               <th>제목</th>
               <th>작성일</th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="board : ${boardlist}">
+              <td th:text="${board.board_no}"></td>
               <td>
-                <span>[[${board.board_no}]]&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
                 <small th:if="${board.regdate != board.upddate}" style="color: #aaa; margin-left: 5px">수정됨</small>
               </td>
@@ -71,22 +72,10 @@
       const pageNum = document.querySelectorAll(".pageNum");
       const boardtitle = document.querySelectorAll(".boardtitle");
 
-      switch (/*[[${pager.cri.boardPerPage}]]*/ "") {
-        case 10:
-          selectBoardPerPage.selectedIndex = 0;
-          break;
-        case 30:
-          selectBoardPerPage.selectedIndex = 1;
-          break;
-        case 50:
-          selectBoardPerPage.selectedIndex = 2;
-          break;
-      }
-
-      selectBoardPerPage.addEventListener("change",()=>{
+      selectBoardPerPage.addEventListener("change", () => {
         inputPage.setAttribute("value", "1");
         reqDiv.submit();
-      })
+      });
 
       if (pageFirst != null) {
         pageFirst.addEventListener("click", () => {

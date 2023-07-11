@@ -37,17 +37,20 @@
 }
 
 tr {
-  display: flex;
   position: relative;
-  justify-content: space-between;
-  align-items: center;
+}
+
+tr th:nth-child(1) {
+  width: 5%;
+}
+tr th:nth-child(2) {
   width: 100%;
 }
-td:nth-child(1) {
-  display: flex;
-  width: 100%;
-  align-items: baseline;
+tr th:nth-child(3) {
+  width: 0%;
+  text-align: end;
 }
+
 td:nth-child(1) div:nth-child(3) {
   display: flex;
   position: absolute;

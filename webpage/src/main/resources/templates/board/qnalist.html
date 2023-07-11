@@ -16,17 +16,18 @@
             <a data-category="review">리뷰</a>
             <div id="categorySelectBar"></div>
           </div>
+          <a th:if="${userinfo != null}" th:href="@{/board/qnawrite}" id="btnQnaWrite" class="btn right blue">Qna 쓰기<i class="material-icons">edit</i></a>
           <div id="reqDivInner">
             <input type="hidden" id="inputPage" name="page" th:value="${pager.cri.page}" />
             <select name="boardPerPage" id="selectBoardPerPage">
-              <option value="10" selected>10개씩 보기</option>
-              <option value="30">30개씩 보기</option>
-              <option value="50">50개씩 보기</option>
+              <option value="10" th:selected="${pager.cri.boardPerPage == 10 ? 'true' : 'false'}">10개씩 보기</option>
+              <option value="30" th:selected="${pager.cri.boardPerPage == 30 ? 'true' : 'false'}">30개씩 보기</option>
+              <option value="50" th:selected="${pager.cri.boardPerPage == 50 ? 'true' : 'false'}">50개씩 보기</option>
             </select>
             <select name="productId" id="selectProduct">
               <option value="0">-- 모든 결과 --</option>
               <th:block th:each="product : ${productlist}">
-                <option th:value="${product.product_id}" th:text="${product.name}"></option>
+                <option th:selected="${pager.cri.productId == product.product_id ? 'true' : 'false'}" th:value="${product.product_id}" th:text="${product.name}"></option>
               </th:block>
             </select>
             <input type="text" id="inputKeyword" name="keyword" th:value="${pager.cri.keyword}" />
@@ -34,16 +35,17 @@
           </div>
         </form>
         <p id="noresultmsg" th:if="${boardlist.size == 0}">조건에 맞는 QnA가 없습니다.</p>
-        <a th:if="${userinfo != null}" th:href="@{/board/qnawrite}" id="btnQnaWrite" class="btn right blue">Qna 쓰기<i class="material-icons">edit</i></a>
         <table th:if="${boardlist.size != 0}">
           <thead>
             <tr>
+              <th>번호</th>
               <th>질문</th>
               <th>작성일</th>
             </tr>
           </thead>
           <tbody>
             <tr th:each="board : ${boardlist}">
+              <td th:text="${board.board_no}"></td>
               <td>
                 <small th:if="${board.replycnt != 0}" style="color: #aaa; margin-right: 5px">[답변완료]</small>
                 <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
@@ -80,23 +82,10 @@
       const pageNum = document.querySelectorAll(".pageNum");
       const boardtitle = document.querySelectorAll(".boardtitle");
 
-      switch (/*[[${pager.cri.boardPerPage}]]*/ "") {
-        case 10:
-          selectBoardPerPage.selectedIndex = 0;
-          break;
-        case 30:
-          selectBoardPerPage.selectedIndex = 1;
-          break;
-        case 50:
-          selectBoardPerPage.selectedIndex = 2;
-          break;
-      }
-
-      for (let i = 0; i < selectProduct.options.length; i++) {
-        if (selectProduct.options[i].value == /*[[${pager.cri.productId}]]*/ "") {
-          selectProduct.options[i].selected = true;
-        }
-      }
+      selectBoardPerPage.addEventListener("change", () => {
+        inputPage.setAttribute("value", "1");
+        reqDiv.submit();
+      });
 
       selectProduct.addEventListener("change", () => {
         inputPage.value = 1;
@@ -110,8 +99,8 @@
           reqDiv.submit();
         });
 
-        var width = category.offsetWidth;
-        var offsetLeft = category.offsetLeft;
+        let width = category.offsetWidth;
+        let offsetLeft = category.offsetLeft;
         category.addEventListener("mouseenter", function () {
           selectBar.style.width = width + "px";
           selectBar.style.transform = "translateX(" + offsetLeft + "px)";
