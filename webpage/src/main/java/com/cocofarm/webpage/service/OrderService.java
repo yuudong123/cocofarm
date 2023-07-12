@@ -63,6 +63,18 @@ public class OrderService {
         return vo;
     }
 
+    // 배송조회용
+    public OrderVO selectorder(String order_id, int member_no) {
+        OrderVO vo = ordermapper.selectorder(order_id, member_no);
+        return vo;
+    }
+
+    // 리뷰쓰기용
+    public OrderProductVO selectorderproduct(int orderproduct_id, int member_no) {
+        OrderProductVO vo = ordermapper.selectorderproduct(orderproduct_id, member_no);
+        return vo;
+    }
+
     // public ArrayList<OrderProductVO> OrderProductLowerList(OrderVO vo){
     // return ordermapper.OrderProductLowerList(vo);
     // }

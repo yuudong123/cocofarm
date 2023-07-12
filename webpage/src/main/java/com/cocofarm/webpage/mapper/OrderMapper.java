@@ -25,6 +25,12 @@ public interface OrderMapper {
     // public OrderProductVO OrderProductReviewWritePage(int orderproduct_id);
     public BoardVO selectreviewboard(int orderproduct_id);
 
+    // 배송조회용
+    public OrderVO selectorder(String order_id, int member_no);
+
+    // 리뷰쓰기용
+    public OrderProductVO selectorderproduct(int orderproduct_id, int member_no);
+
     public ArrayList<OrderProductDTO> MyOrderList(int member_no);
 
     // public ArrayList<OrderProductVO> OrderProductLowerList(OrderVO vo);

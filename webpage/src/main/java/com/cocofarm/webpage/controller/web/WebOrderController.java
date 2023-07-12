@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.common.CodeTable;
+import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CartDTO;
 import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
@@ -137,7 +138,6 @@ public class WebOrderController {
 
     // 결제 상세 내역
     @RequestMapping("order/orderdetail")
-
     public ModelAndView insertOrderPage(@RequestParam(value = "order_id", required = false) String order_id,
             HttpSession session) {
         ModelAndView mav = new ModelAndView();
@@ -175,6 +175,49 @@ public class WebOrderController {
         orderService.OrderProductStatusUpdate(dto);
         System.out.println(dto);
 
+    }
+
+    // 배송조회용 controller
+    @ResponseBody
+    @RequestMapping("order/deliberystatus")
+    public ModelAndView deliberyStatus(@RequestBody OrderVO v, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        System.out.println(v.getOrder_id());
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        System.out.println(member.getMember_no());
+        OrderVO vo = orderService.selectorder(v.getOrder_id(), member.getMember_no());
+        mav.addObject("ordervo", vo);
+        mav.setViewName("product/orderdeliberypage");
+        return mav;
+    }
+
+    // 리뷰쓰기용 controller
+    @ResponseBody
+    @RequestMapping("order/reviewwritepage")
+    public ModelAndView reviewWrite(@RequestBody OrderProductVO v, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        System.out.println(v.getOrder_id());
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        System.out.println(member.getMember_no());
+        OrderProductVO vo = orderService.selectorderproduct(v.getOrderproduct_id(), member.getMember_no());
+        mav.addObject("orderproductvo", vo);
+        mav.setViewName("product/reviewwritepage");
+        return mav;
+    }
+
+    // 리뷰저장용 controller
+    @ResponseBody
+    @RequestMapping("order/reviewsave")
+    public ModelAndView reviewSave(@RequestBody BoardVO v, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        System.out.println(v);
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        System.out.println(member.getMember_no());
+        // OrderProductVO vo = orderService.selectorderproduct(v.getOrderproduct_id(),
+        // member.getMember_no());
+        // mav.addObject("orderproductvo", vo);
+        mav.setViewName("product/reviewsave");
+        return mav;
     }
 
     /*

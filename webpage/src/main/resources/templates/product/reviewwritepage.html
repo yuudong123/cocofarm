@@ -1,0 +1,10 @@
+<!-- 리뷰쓰기용 페이지 -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <form id="reviewForm">
+    <input type="hidden" name="product_id" th:value="${orderproductvo.product_id}" />
+    <input type="hidden" name="orderproduct_id" th:value="${orderproductvo.orderproduct_id}" />
+    <input type="text" name="title" />
+    <textarea name="content" row="5" cols="70"></textarea>
+  </form>
+</html>

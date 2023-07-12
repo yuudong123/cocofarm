@@ -118,8 +118,21 @@ insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, r
     order by orderdate desc
     </select>
 
+    <!-- 주문배송용 order_id로 찾기 -->
+    <select id="selectorder" resultType="com.cocofarm.webpage.domain.OrderVO">
+        select order_id, member_no, orderdate, price, address, order_status_cd
+        from tbl_order 
+        where order_id = #{order_id} and member_no= #{member_no}
+    </select>
 
-
+    <!-- 리뷰쓰기용 -->
+    <select id="selectorderproduct" resultType="com.cocofarm.webpage.domain.OrderProductVO">
+        select op.orderproduct_id, op.product_id, op.order_id, op.member_no, op.amount, op.price, op.order_status_cd
+                , c.value
+        from tbl_orderproduct op
+        join (select code , value from tbl_code where codetype = 'ORDER_STATUS')c on op.order_status_cd = c.code
+        where orderproduct_id = #{orderproduct_id} and member_no= #{member_no}
+    </select>
 </mapper>
 
 
