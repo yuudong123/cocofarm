@@ -3,7 +3,7 @@ var sendServerData = function(method, url, type, sendData, callBack){
 
     const xhr = new XMLHttpRequest();
       xhr.onload = function () {
-        console.error("Request failed. Status code: " + xhr.status);
+       // console.error("Request failed. Status code: " + xhr.status);
         if (xhr.status === 200) {
 
           // 요청이 성공적으로 완료됐을 때 실행할 코드

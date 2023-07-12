@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="/css/product/orderpayresult.css" />
   </head>
   <body>
+    <!-- 주문 상세 보여주는 html임. url은 order/orderdetail-->
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
@@ -21,37 +22,72 @@
                 <span>결제</span>
               </div>
               <div th:text="${dto.price}"></div>
-              <section id="section1" class="z-depth-1">
-                <div class="order_cont" th:each="vo:${dto.orderproduct_list}">
-                  <ul
-                    class="order"
-                    th:data-order-status-cd="${vo.order_status_cd}"
-                  >
-                    <li th:text="${vo.value}"></li>
-                    <li>
-                      <img
-                        th:src="'/images/'+${vo.filename}"
-                        style="width: 200px"
-                      />
-                    </li>
-                    <li th:text="${vo.name}"></li>
-                    <li th:text="${vo.price}"></li>
-                    <li th:text="${vo.amount}"></li>
-                    <ul id="button-list">
-                      <li class="button-item">
-                        <button id="button-1"></button>
-                      </li>
-                      <li class="button-item">
-                        <button id="button-2"></button>
-                      </li>
-                      <li class="button-item">
-                        <button id="button-3"></button>
-                      </li>
+
+              <div class="order_cont" th:each="vo:${dto.orderproduct_list}">
+                <div
+                  id="order_status_cd"
+                  th:data-order-status-cd="${vo.order_status_cd}"
+                  th:data-orderproduct-id="${vo.orderproduct_id}"
+                >
+                  <div th:text="${vo.value}"></div>
+                  <div>
+                    <img
+                      th:src="'/images/'+${vo.filename}"
+                      style="width: 200px"
+                    />
+                  </div>
+                  <div th:text="${vo.name}"></div>
+                  <div th:text="${vo.price}"></div>
+                  <div th:text="${vo.amount}"></div>
+                  <div id="button-list" th:switch="${vo.order_status_cd}">
+                    <ul th:case="301">
+                      <button
+                        class="button_deliberyinfo"
+                        th:data-orderproduct-id="${vo.orderproduct_id}"
+                        th:data-order-status-cd="${vo.order_status_cd}"
+                        th:data-order-id="${dto.order_id}"
+                      >
+                        배송조회
+                      </button>
+                      <button class="button_cancel">주문 취소</button>
                     </ul>
-                    <div id="plantList" class="row"></div>
-                  </ul>
+                    <ul th:case="302">
+                      <button class="button_deliberyinfo">배송조회</button>
+                      <button
+                        class="button_buyconfirm"
+                        th:data-orderproduct-id="${vo.orderproduct_id}"
+                        th:data-order-status-cd="${vo.order_status_cd}"
+                        th:data-order-id="${dto.order_id}"
+                      >
+                        구매확정
+                      </button>
+                    </ul>
+                    <ul th:case="303">
+                      <button
+                        class="button_buyconfirm"
+                        th:data-orderproduct-id="${vo.orderproduct_id}"
+                        th:data-order-status-cd="${vo.order_status_cd}"
+                        th:data-order-id="${dto.order_id}"
+                      >
+                        구매확정
+                      </button>
+                      <button class="button_changeapply">교환신청</button>
+                      <button class="button_refundapply">환불신청</button>
+                    </ul>
+                    <ul th:case="304">
+                      <button class="button_deliberyinfo">배송조회</button>
+                    </ul>
+                    <ul th:case="305">
+                      <button class="button_deliberyinfo">배송조회</button>
+                    </ul>
+                    <ul th:case="310">
+                      <button class="button_deliberyinfo">배송조회</button>
+                      <button class="button_reviewwrite">리뷰쓰기</button>
+                    </ul>
+                    <ul th:case="*"></ul>
+                  </div>
                 </div>
-              </section>
+              </div>
             </div>
             <!-- </div> -->
           </div>
@@ -60,92 +96,114 @@
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="/js/cocofarm.js"></script>
   </body>
   <script>
-    let totalPriceElements = document.querySelectorAll(".totalPrice");
-    let finalTotalPrice = 0;
-    // const statusElement = document.querySelector("#status");
-    // statusElement = 301;
+    let buttonDeliberyinfo = document.querySelectorAll(".button_deliberyinfo");
+    let buttonCancel = document.querySelectorAll(".button_cancel");
+    let buttonBuyconfirm = document.querySelectorAll(".button_buyconfirm");
+    let buttonChangeapply = document.querySelectorAll(".button_changeapply");
+    let buttonRefundapply = document.querySelectorAll(".button_refundapply");
+    let buttonReviewWrite = document.querySelectorAll(".button_reviewwrite");
 
-    for (let i = 0; i < totalPriceElements.length; i++) {
-      finalTotalPrice += Number(totalPriceElements[i].textContent);
-    }
+    buttonDeliberyinfo.forEach((button) => {
+      button.addEventListener("click", () => {
+        alert("버튼 눌림");
+      });
+    });
 
-    // 결제 금액 업데이트
-    // let finalTotalPriceElement = document.getElementById("finalTotalPrice");
-    //  finalTotalPriceElement.textContent = finalTotalPrice;
+    //버튼 처리 300부분
+    buttonCancel.forEach((button) => {
+      let orderproduct_id = button.getAttribute("data-orderproduct-id");
+      let order_status_cd = button.getAttribute("data-order-status-cd");
+      let order_id = button.getAttribute("data-order-id");
+      button.addEventListener("click", () => {
+        if (confirm("주문 취소를 원하시면 확인을 눌러주세요. ")) {
+          console.log(button);
+          const data = {
+            orderproduct_id: orderproduct_id,
+            order_status_cd: 300,
+            order_id: order_id,
+          };
+          console.log(data);
+          sendServerData(
+            "POST",
+            "update",
+            "application/json",
+            JSON.stringify(data),
+            function (data) {
+              //data = JSON.parse(data);
+              if ((data.status = "OK")) {
+                //
+                alert("주문 취소 처리 되었습니다.");
+                location.reload();
+              } else {
+                alert("삭제하지 못했습니다.");
+              }
+            }
+          );
+        }
+      });
+    });
 
-    //버튼 기능
-    // orderContElements 변수 선언
-    // 버튼 기능
-    let orderCont = document.querySelectorAll(".order");
-    for (let i = 0; i < orderCont.length; i++) {
-      const order_status_cd = orderCont[i].getAttribute("data-order-status-cd");
-      console.log(orderCont[i].getAttribute("data-order-status-cd"));
-      let button1 = orderCont[i].querySelector("#button-1");
-      let button2 = orderCont[i].querySelector("#button-2");
-      let button3 = orderCont[i].querySelector("#button-3");
+    //303 배송완료에서 310구매 확정으로 변경
+    buttonBuyconfirm.forEach((button) => {
+      let orderproduct_id = button.getAttribute("data-orderproduct-id");
+      let order_status_cd = button.getAttribute("data-order-status-cd");
+      let order_id = button.getAttribute("data-order-id");
+      button.addEventListener("click", () => {
+        if (confirm("구매확정을 원하시면 확인을 눌러주세요. ")) {
+          console.log(button);
+          const data = {
+            orderproduct_id: orderproduct_id,
+            order_status_cd: 310,
+            order_id: order_id,
+          };
+          console.log(data);
+          sendServerData(
+            "POST",
+            "update",
+            "application/json",
+            JSON.stringify(data),
+            function (data) {
+              //data = JSON.parse(data);
+              if ((data.status = "OK")) {
+                //
+                alert("구매확정 처리 되었습니다.");
+                location.reload();
+              } else {
+                alert("처리하지 못했습니다.");
+              }
+            }
+          );
+        }
+      });
+    });
 
-      if (order_status_cd === "300") {
-        button1.style.display = "block";
-        button2.style.display = "block";
-        button3.style.display = "none";
-
-        button1.innerText = "리뷰쓰기";
-        button1.addEventListener("click", () => {});
-        //배송조회 또는 재구매 버튼으로 ..?
-      } else if (order_status_cd === "301") {
-        button1.style.display = "block";
-        button2.style.display = "block";
-        button3.style.display = "none";
-
-        button1.innerText = "배송조회";
-        button1.addEventListener("click", () => {
-          // 배송조회 보여주는 화면 보여주기.
-        });
-        button2.innerText = "주문취소";
-        button2.addEventListener("click", () => {
-          // 주문취소로 변경하기
-        });
-      } else if (order_status_cd === "302") {
-        button1.style.display = "block";
-        button2.style.display = "block";
-        button3.style.display = "none";
-
-        button1.innerText = "배송조회";
-        button1.addEventListener("click", () => {
-          //배송조회
-        });
-        button2.innerText = "구매확정";
-        button2.addEventListener("click", () => {});
-      } else if (order_status_cd === "303") {
-        button1.style.display = "block";
-        button2.style.display = "block";
-        button3.style.display = "block";
-
-        button1.innerText = "구매확정";
-        button1.addEventListener("click", () => {});
-        button2.innerText = "반품요청";
-        button2.addEventListener("click", () => {});
-        button3.innerText = "교환요청";
-        button3.addEventListener("click", () => {});
-      }
-    }
-
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const dat = String(date.getDate()).padStart(2, "0");
-
-      return "${year}-${month}-${day}";
-    }
-
-    const orederDate = "2023-07-07";
-    const formattedDate = formatDate(orederDate);
-
-    //let orderStatusCd = orderCont.getAttribute("data-order-status-cd");
-
-    // statuscd에 따라 버튼 텍스트와 클릭 이벤트 설정
+    // buttonCancel.forEach((button) => {
+    //   let orderproduct_id = button.getAttribute("data-orderproduct_id");
+    //   button.addEventListener("click", () => {
+    //     const data = {
+    //       orderproduct_id: orderproduct_id,
+    //     };
+    //     sendServerData(
+    //       "POST",
+    //       "/order/payresult",
+    //       "application/json",
+    //       JSON.stringify(data),
+    //       function (data) {
+    //         data = JSON.parse(data);
+    //         if ((data.status = "OK")) {
+    //           if (confirm("주문 취소를 원하시면 취소를 눌러주세요. ")) {
+    //             alert("주문 취소 처리 되었습니다.");
+    //             location.reload();
+    //           } else {
+    //             alert("삭제하지 못했습니다.");
+    //           }
+    //         }
+    //       }
+    //     );
+    //   });
+    // });
   </script>
 </html>

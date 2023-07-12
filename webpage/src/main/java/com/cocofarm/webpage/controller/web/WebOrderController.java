@@ -137,6 +137,7 @@ public class WebOrderController {
 
     // 결제 상세 내역
     @RequestMapping("order/orderdetail")
+
     public ModelAndView insertOrderPage(@RequestParam(value = "order_id", required = false) String order_id,
             HttpSession session) {
         ModelAndView mav = new ModelAndView();
@@ -167,7 +168,7 @@ public class WebOrderController {
     @RequestMapping("order/update")
     public void updateStatusCode(@RequestBody OrderProductVO dto, HttpSession session) {
         // System.out.println(dto);
-        // System.out.println(dto.getOrderproduct_id());
+        System.out.println(dto.getOrderproduct_id());
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
         dto.setMember_no(member.getMember_no());
 
