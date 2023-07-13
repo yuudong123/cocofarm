@@ -1,0 +1,60 @@
+<!-- 교환환불 화면 페이지 -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <div>
+    <img th:src="'/images/'+${orderproductvo.filename}" style="width: 100px" />
+  </div>
+  <div th:text="${orderproductvo.name}"></div>
+  <div th:text="${orderproductvo.amount}"></div>
+  <div>교환 · 환불 사유를 입력해주세요.</div>
+  <div>
+    <form id="applicationForm" action="#">
+      <p>
+        단순변심<br />
+        <label>
+          <input class="with-gap" name="changeandrefund" type="radio" />
+          <span>상품이 마음에 들지 않음</span>
+        </label>
+      </p>
+      <p>
+        배송문제 <br />
+        <label>
+          <input class="with-gap" name="changeandrefund" type="radio" />
+          <span>상품을 받지 못함</span>
+        </label>
+      </p>
+      <p>
+        상품문제 <br />
+        <label>
+          <input class="with-gap" name="changeandrefund" type="radio" />
+          <span>상품의 구성품/부속품이 들어있지 않음</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input class="with-gap" name="changeandrefund" type="radio" />
+          <span>상품이 설명과 다름</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input class="with-gap" name="changeandrefund" type="radio" />
+          <span>다른 상품이 배송됨</span>
+        </label>
+      </p>
+      <p>
+        <label>
+          <input class="with-gap" name="changeandrefund" type="radio" />
+          <span>상품이 파손됨/기능 오동작</span>
+        </label>
+      </p>
+      상세사유를 적어주세요.
+      <textarea
+        id="reasonInput"
+        name="changeandrefundcontent"
+        row="5"
+        cols="70"
+      ></textarea>
+    </form>
+  </div>
+</html>

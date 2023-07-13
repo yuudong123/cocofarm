@@ -27,6 +27,7 @@ import com.cocofarm.webpage.domain.OrderProductDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
 import com.cocofarm.webpage.domain.ProductVO;
+import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.CartService;
 import com.cocofarm.webpage.service.ImageService;
 import com.cocofarm.webpage.service.OrderService;
@@ -44,6 +45,8 @@ public class WebOrderController {
     ImageService imageService;
     @Autowired
     CartService cartService;
+    @Autowired
+    BoardService boardService;
 
     @PostMapping(value = "order/page") // url
     public ModelAndView getSelectProduct(CartDTO dto, HttpSession session) {
@@ -182,9 +185,9 @@ public class WebOrderController {
     @RequestMapping("order/deliberystatus")
     public ModelAndView deliberyStatus(@RequestBody OrderVO v, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        System.out.println(v.getOrder_id());
+        // System.out.println(v.getOrder_id());
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
-        System.out.println(member.getMember_no());
+        // System.out.println(member.getMember_no());
         OrderVO vo = orderService.selectorder(v.getOrder_id(), member.getMember_no());
         mav.addObject("ordervo", vo);
         mav.setViewName("product/orderdeliberypage");
@@ -196,10 +199,11 @@ public class WebOrderController {
     @RequestMapping("order/reviewwritepage")
     public ModelAndView reviewWrite(@RequestBody OrderProductVO v, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        System.out.println(v.getOrder_id());
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
-        System.out.println(member.getMember_no());
+        // System.out.println(member.getMember_no());
         OrderProductVO vo = orderService.selectorderproduct(v.getOrderproduct_id(), member.getMember_no());
+        // System.out.println(v.getOrder_id());
+        // System.out.println(v);
         mav.addObject("orderproductvo", vo);
         mav.setViewName("product/reviewwritepage");
         return mav;
@@ -210,15 +214,51 @@ public class WebOrderController {
     @RequestMapping("order/reviewsave")
     public ModelAndView reviewSave(@RequestBody BoardVO v, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        System.out.println(v);
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
-        System.out.println(member.getMember_no());
         // OrderProductVO vo = orderService.selectorderproduct(v.getOrderproduct_id(),
         // member.getMember_no());
-        // mav.addObject("orderproductvo", vo);
+        // System.out.println(vo);
+        v.setMember_no(member.getMember_no());
+        v.setBoard_category_cd(203);
+        v.setMainimage("");
+        v.setNickname(member.getNickname());
+        // v.setMainimage(vo.getFilename());
+
+        // System.out.println(v);
+
+        int ok = boardService.insert(v);
+        String ment = "정상적으로 저장되지 않았습니다. 다시 시도해주세요";
+        if (ok > 0) {
+            ment = "정상적으로 저장이 되었습니다";
+        }
+        mav.addObject("ment", ment);
+        mav.addObject("ok", ok);
         mav.setViewName("product/reviewsave");
         return mav;
     }
+
+    // 교환환불 페이지 보여주기용
+    @ResponseBody
+    @RequestMapping("order/changeandrefundpage")
+    public ModelAndView ChangeAndRefundPage(@RequestBody OrderProductVO v, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        System.out.println(member.getMember_no());
+        System.out.println(v);
+        OrderProductVO vo = orderService.selectorderproduct(v.getOrderproduct_id(), member.getMember_no());
+        vo.setName(v.getName());
+        vo.setFilename(v.getFilename());
+        mav.addObject("orderproductvo", vo);
+        mav.setViewName("product/changeandrefundpage");
+        return mav;
+    }
+
+    /*
+     * public int ChangeAndRefundInsert(ChangeAndRefundDTO dto) {
+     * return ordermapper.ChangeAndRefundInsert(dto);
+     * }
+     */
 
     /*
      * public ArrayList<OrderProductDTO> MyOrderList(int member_no) {
