@@ -13,4 +13,16 @@
     values (#{mydevice_id}, #{member_no}, #{product_id}, #{mydevice_name}, sysdate)
 </insert>
 
+<select id="cnt_device" resultType="int">
+    select count(*)
+    from tbl_mydevice
+    where member_no = #{member_no}
+</select>
+
+<update id="dvname_modify">
+    update tbl_mydevice
+    set mydevice_name = #{mydevice_name}
+    where mydevice_id = #{mydevice_id}
+</update>
+
 </mapper>

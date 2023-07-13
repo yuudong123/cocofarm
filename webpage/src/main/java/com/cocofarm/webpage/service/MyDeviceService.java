@@ -20,4 +20,12 @@ public class MyDeviceService {
   public int add_device(MyDeviceVO vo) {
     return mapper.add_device(vo);
   }
+
+  public int cnt_device(int member_no) {
+    return mapper.cnt_device(member_no);
+  }
+
+  public void dvname_modify(String mydevice_name, int mydevice_id) {
+    mapper.dvname_modify(mydevice_name, mydevice_id);
+  }
 }
