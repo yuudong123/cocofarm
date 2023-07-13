@@ -24,4 +24,5 @@ public class AndMyDeviceController {
     public int add_device(String vo) {
         return service.add_device(new Gson().fromJson(vo, MyDeviceVO.class));
     }
+
 }
