@@ -5,13 +5,13 @@
     select  count(*)
     from    tbl_board
     where   board_category_cd = #{code}
-    <if test="code != 203">
+        <if test="code != 203">
     and     title like '%'||#{keyword}||'%'</if>
-    <if test="productId != 0">
+        <if test="productId != 0">
     and     product_id = #{productId}</if>
     </select>
     <select id="selectList" resultType="com.cocofarm.webpage.domain.BoardVO">
-    <![CDATA[ 
+        <![CDATA[ 
     select * from (
         select rownum as rn, a.* from (
             select  b.*, coalesce(r.replycnt, 0) as replycnt
@@ -29,7 +29,7 @@
     ]]>
     </select>
     <select id="selectQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
-    <![CDATA[
+        <![CDATA[
     select * from (
         select rownum as rn, a.* from (   
             select  b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
@@ -41,7 +41,7 @@
                     group by board_no ) r on b.board_no = r.board_no
             where   board_category_cd = 201
             and     title like '%'||#{keyword}||'%' ]]>
-            <if test="productId != 0"> 
+        <if test="productId != 0"> 
             and     p.product_id = #{productId} </if><![CDATA[
             order by b.board_no desc ) a
         order by rownum )
@@ -50,7 +50,7 @@
     ]]>
     </select>
     <select id="selectReviewList" resultType="com.cocofarm.webpage.domain.QnaDTO">
-    <![CDATA[
+        <![CDATA[
     select * from (
         select rownum as rn, a.* from (   
             select  b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
@@ -61,7 +61,7 @@
                     from tbl_reply
                     group by board_no ) r on b.board_no = r.board_no
             where   board_category_cd = 203 ]]>
-            <if test="productId != 0">
+        <if test="productId != 0">
             and p.product_id = #{productId} </if><![CDATA[
             order by b.board_no desc ) a
         order by rownum )
@@ -70,7 +70,7 @@
     ]]>
     </select>
     <select id="selectNoAnsweredQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
-    <![CDATA[
+        <![CDATA[
     select rownum as rn, a.* from (   
         select b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
         from    tbl_board b
@@ -101,10 +101,10 @@
     <insert id="insert" parameterType="com.cocofarm.webpage.domain.BoardVO">
     insert into tbl_board (
         board_no, member_no, nickname, board_category_cd, product_id,
-        title, content, regdate, upddate, mainimage )
+        title, content, regdate, upddate, mainimage, orderproduct_id )
     values  (
         seq_board_no.nextval, #{member_no}, #{nickname}, #{board_category_cd}, #{product_id},
-        #{title}, #{content}, sysdate, sysdate, #{mainimage})
+        #{title}, #{content}, sysdate, sysdate, #{mainimage}, #{orderproduct_id})
     </insert>
     <update id="update" parameterType="com.cocofarm.webpage.domain.BoardVO">
     update  tbl_board
