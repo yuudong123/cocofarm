@@ -49,6 +49,29 @@
     and rn > (#{page}-1) * #{boardPerPage}
     ]]>
     </select>
+
+    <!-- 제품쪽 -->
+    <select id="selectQnaListByProduct" resultType="com.cocofarm.webpage.domain.BoardQnAProductDTO">
+        <![CDATA[
+    select * from (
+        select rownum as rn, a.* from (   
+            select  b.*, p.name product_name, p.content product_content, r.answercontent
+            from    tbl_board b
+                    left join tbl_product p on b.product_id = p.product_id
+                     left join (
+                    select board_no, content as answercontent
+                    from tbl_reply
+                    ) r on b.board_no = r.board_no
+            where   board_category_cd = 201 
+            and b.product_id =#{productId}
+       
+            order by b.board_no desc ) a
+        order by rownum )
+    where rn <= #{page} * #{boardPerPage}
+    and rn > (#{page}-1) * #{boardPerPage}
+    ]]>
+    </select>
+
     <select id="selectReviewList" resultType="com.cocofarm.webpage.domain.QnaDTO">
         <![CDATA[
     select * from (
@@ -69,6 +92,29 @@
     and rn > (#{page}-1) * #{boardPerPage}
     ]]>
     </select>
+
+    <!-- 제품쪽  -->
+    <select id="selectReviewListByProduct" resultType="com.cocofarm.webpage.domain.QnaDTO">
+        <![CDATA[
+    select * from (
+        select rownum as rn, a.* from (   
+            select  b.*, p.name product_name, p.content product_content, coalesce(r.replycnt,0) as replycnt
+            from    tbl_board b
+                    left join tbl_product p on b.product_id = p.product_id
+                    left join (
+                    select board_no, count(*) as replycnt
+                    from tbl_reply
+                    group by board_no ) r on b.board_no = r.board_no
+            where   board_category_cd = 203 and b.product_id =#{productId} ]]>
+        <if test="productId != 0">
+            and p.product_id = #{productId} </if><![CDATA[
+            order by b.board_no desc ) a
+        order by rownum )
+    where rn <= #{page} * #{boardPerPage}
+    and rn > (#{page}-1) * #{boardPerPage}
+    ]]>
+    </select>
+
     <select id="selectNoAnsweredQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
         <![CDATA[
     select rownum as rn, a.* from (   

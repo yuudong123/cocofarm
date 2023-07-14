@@ -37,7 +37,7 @@
       </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
-    <form id="orderForm" method="POST" action="orderdetail">
+    <form id="orderForm" method="GET" action="orderdetail">
       <input type="hidden" name="order_id" />
     </form>
   </body>

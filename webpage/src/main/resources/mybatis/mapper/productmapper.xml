@@ -19,6 +19,12 @@
         r.product_id inner join( select product_id, min(filename) as filename from tbl_image group
         by product_id ) i on p.product_id = i.product_id </select>
 
+    <!-- : 이미지만 하나씩+ 상품 다 불러오기-->
+    <select id="selectProductWithImage" resultType="com.cocofarm.webpage.domain.ProductVO">
+        select p.*, i.filename FROM tbl_product p inner join tbl_product r on p.product_id =
+        r.product_id inner join( select product_id, min(filename) as filename from tbl_image group
+        by product_id ) i on p.product_id = i.product_id where r.product_id=#{product_id} </select>
+
     <!-- 바로 아래 쿼리와 세트, 답변은 ProductService에서 붙임 -->
     <select id="selectProductQnaList" resultType="com.cocofarm.webpage.domain.QnaDTO">
         <![CDATA[ 

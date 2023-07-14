@@ -8,6 +8,7 @@
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
+        <h3 class="order_payment"><span class="blind">주문/결제</span></h3>
         <section id="section1" class="z-depth-1">
           <form id="orderForm">
             <table id="cartListAll" class="highlight">
@@ -39,6 +40,49 @@
                 </tr>
               </tbody>
             </table>
+            <!-- 배송정보 -->
+            <div class="orderinfo">
+              <!-- 줄효과 제거  -->
+              <style>
+                .orderinfo table tr {
+                  border-bottom: none;
+                }
+              </style>
+              <table>
+                <thead>
+                  <tr>
+                    <th><h5>배송정보</h5></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      이름
+                      <br />
+                      <span th:text="${member.nickname}"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      전화번호
+                      <br />
+                      <span th:text="${member.phonenumber}"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      주소
+                      <br />
+                      <span th:text="${member.address}"></span>
+                    </td>
+                  </tr>
+                  <!-- 가능 하다면 배송메세지 기능 -->
+                </tbody>
+              </table>
+            </div>
+
+            <hr />
+            <div>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</div>
 
             <span></span>
           </form>
@@ -59,11 +103,12 @@
   <script>
     const btnAllPayment = document.querySelector("#btnAllPayment");
     const orderForm = document.querySelector("#orderForm");
-
     btnAllPayment.addEventListener("click", () => {
-      orderForm.action = "/order/payresult";
-      orderForm.method = "POST";
-      orderForm.submit();
+      if (confirm("결제 하시겠습니까?")) {
+        orderForm.action = "/order/payresult";
+        orderForm.method = "POST";
+        orderForm.submit();
+      }
     });
   </script>
 </html>

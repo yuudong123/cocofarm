@@ -18,6 +18,8 @@ public interface ProductMapper {
 
     public ArrayList<ProductVO> selectProductListWithImage(); // 현재's : 이미지만 하나씩+ 상품 다 불러오기
 
+    public ProductVO selectProductWithImage(int product_id);
+
     public ArrayList<QnaDTO> selectProductQnaList(int product_id, int page);
 
     public ReplyVO selectProductQnaAnswer(int board_no);

@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cocofarm.webpage.common.CodeTable;
+import com.cocofarm.webpage.domain.BoardQnAProductDTO;
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CartDTO;
 import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
+import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.OrderDTO;
@@ -28,6 +30,7 @@ import com.cocofarm.webpage.domain.OrderProductDTO;
 import com.cocofarm.webpage.domain.OrderProductVO;
 import com.cocofarm.webpage.domain.OrderVO;
 import com.cocofarm.webpage.domain.ProductVO;
+import com.cocofarm.webpage.domain.QnaDTO;
 import com.cocofarm.webpage.service.BoardService;
 import com.cocofarm.webpage.service.CartService;
 import com.cocofarm.webpage.service.ImageService;
@@ -49,12 +52,91 @@ public class WebOrderController {
     @Autowired
     BoardService boardService;
 
+    // 제품페이지 3가지
+    @ResponseBody
+    @RequestMapping("product/productdetailcontent")
+    public ModelAndView productdetailcontent(@RequestBody CartDTO dto,
+            HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        System.out.println(dto);
+        ProductVO productvo = productService.selectProduct(dto.getProduct_id());
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        mav.addObject("member", member);
+        mav.addObject("productvo", productvo);
+        mav.setViewName("product/productdetailcontent");// 경로
+        return mav;
+    }
+
+    @ResponseBody
+    @RequestMapping("product/reviewcontent")
+    public ModelAndView reviewcontent(@RequestBody CartDTO dto,
+            HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        CriteriaDTO cri = new CriteriaDTO(203, null);
+        cri.setProductId(dto.getProduct_id());
+        ArrayList<QnaDTO> boardList = boardService.selectReviewListByProduct(cri);
+        // System.out.println(boardList);
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        mav.addObject("member", member);
+        mav.addObject("boardlist", boardList);
+        mav.setViewName("product/reviewcontent");// 경로
+        return mav;
+    }
+
+    @ResponseBody
+    @RequestMapping("product/qnacontent")
+    public ModelAndView qnacontent(@RequestBody CartDTO dto,
+            HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        CriteriaDTO cri = new CriteriaDTO(201, null);
+        cri.setProductId(dto.getProduct_id());
+        ArrayList<BoardQnAProductDTO> boardList = boardService.selectQnaListByProduct(cri);
+
+        System.out.println(boardList);
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        mav.addObject("boardlist", boardList);
+        mav.addObject("member", member);
+        mav.setViewName("product/qnacontent");// 경로
+        return mav;
+    }
+
+    // 제품 바로 구매
+    @PostMapping(value = "order/orderbuypage") // url
+    public ModelAndView buyOneProductPage(CartDTO dto, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        ProductVO vo = productService.selectProductWithImage(dto.getProduct_id());
+        ArrayList<CartDTO> cartList = new ArrayList<>();
+        OrderVO ordervo = new OrderVO();
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        ordervo.setMember_no(member.getMember_no());
+        ordervo.setAddress(member.getAddress());
+        System.out.println(dto);
+        int total = dto.getAmount() * vo.getPrice();
+
+        dto.setMember_no(member.getMember_no());
+        dto.setProduct_price(vo.getPrice());
+        cartList.add(dto);
+        ordervo.setPrice(total);
+        ordervo.setOrderProductVOList(cartList);
+        ordervo.setOrderdate(new Date());
+        int result = orderService.OrderInsert(ordervo);
+
+        mav.addObject("member", member);
+        mav.setViewName("product/orderbuypage");
+        return mav;
+    }
+
     @PostMapping(value = "order/page") // url
     public ModelAndView getSelectProduct(CartDTO dto, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        ProductVO vo = productService.selectProduct(dto.getProduct_id());
+        ProductVO vo = productService.selectProductWithImage(dto.getProduct_id());
+
+        OrderProductVO orderproductvo = new OrderProductVO();
+        orderproductvo.setAmount(dto.getAmount());
+        orderproductvo.setProduct_id(dto.getProduct_id());
         ArrayList<ImageDTO> list = imageService.selectAllImageWithProductId(dto.getProduct_id());
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        mav.addObject("orderproductvo", orderproductvo);
         mav.addObject("vo", vo);
         mav.addObject("list", list);
         mav.addObject("member", member);
@@ -62,16 +144,18 @@ public class WebOrderController {
         return mav;
     }
 
-    @PostMapping("order/cartorderpage")
+    @RequestMapping("order/cartorderpage")
     public ModelAndView getSelectProduct2(@RequestParam(value = "cart", required = false) String[] order,
             HttpSession session) {
         ModelAndView mav = new ModelAndView();
         List<String> list = Arrays.asList(order);
         ArrayList<CartDTO> cartList = cartService.selectCartList(list);
         int total = cartList.stream().mapToInt(cart -> cart.getProduct_price() * cart.getAmount()).sum();
+        System.out.println(cartList);
 
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
         mav.addObject("list", cartList);
+
         mav.addObject("member", member);
         mav.addObject("allTotalPrice", total);
         mav.setViewName("product/cartorderpage");// 경로

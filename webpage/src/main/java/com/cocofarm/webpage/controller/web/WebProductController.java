@@ -48,15 +48,15 @@ public class WebProductController {
 
     @GetMapping("/productdetail")
     public ModelAndView getSelectProduct(int product_id, HttpSession session) {
-    ModelAndView mav = new ModelAndView();
-    ProductVO vo = productService.selectProduct(product_id);
-    ArrayList<ImageDTO> list = imageService.selectAllImageWithProductId(product_id);
-    MemberVO member = (MemberVO) session.getAttribute("userinfo");
-    mav.addObject("vo", vo);
-    mav.addObject("list", list);
-    mav.addObject("member", member);
-    mav.setViewName("product/productdetail");
-    return mav;
+        ModelAndView mav = new ModelAndView();
+        ProductVO vo = productService.selectProduct(product_id);
+        ArrayList<ImageDTO> list = imageService.selectAllImageWithProductId(product_id);
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        mav.addObject("vo", vo);
+        mav.addObject("list", list);
+        mav.addObject("member", member);
+        mav.setViewName("product/productdetail");
+        return mav;
     }
 
     /**

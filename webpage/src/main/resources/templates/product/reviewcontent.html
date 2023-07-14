@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<p id="noresultmsg" th:if="${boardlist.size == 0}"></p>
+<table th:if="${boardlist.size != 0}">
+  <tbody>
+    <tr th:each="board : ${boardlist}">
+      <td>
+        <div id="productBox">
+          <div>
+            <h6 th:text="${board.product_name}"></h6>
+            <p id="productContent" th:text="${board.content}"></p>
+          </div>
+          <div>
+            <span
+              th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"
+            ></span>
+            <span th:text="${board.nickname}"></span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</html>

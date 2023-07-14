@@ -7,8 +7,106 @@
   </head>
   <body>
     주문 목록
-  </body>
+    <div th:text="${vo.product_id}"></div>
+    <div th:text="${orderproductvo.amount}"></div>
 
+    <div class="container">
+      <h3 class="order_payment"><span class="blind">주문/결제</span></h3>
+      <section id="section1" class="z-depth-1">
+        <form id="orderForm" method="POST" action="/order/orderbuypage">
+          <input type="hidden" name="product_id" th:value="${vo.product_id}"/>
+          <input type="hidden" name="amount" th:value="${orderproductvo.amount}"/>
+          <table class="highlight">
+            <tbody>
+              <tr>
+                <td>
+                  <img
+                    th:src="'/images/'+${vo.filename}"
+                    style="width: 150px"
+                  />
+                </td>
+                <td th:text="${vo.name}"></td>
+                <td>상품금액</td>
+                <td th:text="${vo.price}" id="productPrice"></td>
+                <td>주문개수 :</td>
+                <td th:text="${orderproductvo.amount}" id="amount"></td>
+                <td th:text="${vo.filename}"></td>
+                <td>주문금액</td>
+                <td
+                  th:with="totalPrice=${orderproductvo.amount*vo.price}"
+                  class="onePayPrice"
+                >
+                  <span th:text="${totalPrice}"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- 배송정보 -->
+          <div class="orderinfo">
+            <!-- 줄효과 제거  -->
+            <style>
+              .orderinfo table tr {
+                border-bottom: none;
+              }
+            </style>
+            <table>
+              <thead>
+                <tr>
+                  <th><h5>배송정보</h5></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    이름
+                    <br />
+                    <span th:text="${member.nickname}"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    전화번호
+                    <br />
+                    <span th:text="${member.phonenumber}"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    주소
+                    <br />
+                    <span th:text="${member.address}"></span>
+                  </td>
+                </tr>
+                <!-- 가능 하다면 배송메세지 기능 -->
+              </tbody>
+            </table>
+          </div>
+
+          <hr />
+          <div>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</div>
+
+          <span></span>
+        </form>
+      </section>
+      <section id="section2" class="z-depth-1">
+        <table id="orderpalce" class="order">
+          <td>총상품금액</td>
+          <td th:with="totalPrice=${orderproductvo.amount*vo.price}">
+            <span th:text="${totalPrice}"></span>
+          </td>
+          <td><button id="btnAllPayment">결제하기</button></td>
+        </table>
+      </section>
+    </div>
+  </body>
+  <script>
+    let btnAllPayment = document.querySelector("#btnAllPayment");
+
+    btnAllPayment.addEventListener("click", () => {
+      let orderForm = document.querySelector("#orderForm");
+      orderForm.submit();
+    });
+  </script>
   <!-- <script th:inline="javascript">
     fetchTEXT(
       "/product/orderpage/insert",

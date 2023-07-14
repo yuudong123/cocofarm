@@ -60,16 +60,72 @@
           </div>
         </div>
       </div>
-      <form action="order/cartorderpage" method="post" id="cartinsert">
+      <form action="order/page" method="post" id="cartinsert">
         <input type="hidden" name="product_id" />
         <input type="hidden" name="amount" />
       </form>
       <!-- 제품상세, 리뷰, QnA추가 필요 -->
+      <button id="btnproductdetail">제품상세</button>
+      <button id="btnreview">리뷰</button>
+      <button id="btnqna">QnA</button>
+      <div id="detailcontent"></div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
     <script src="/js/cocofarm.js"></script>
   </body>
   <script>
+    const btnproductdetail = document.querySelector("#btnproductdetail");
+    const btnreview = document.querySelector("#btnreview");
+    const btnqna = document.querySelector("#btnqna");
+    const detailcontent = document.querySelector("#detailcontent");
+
+    btnproductdetail.addEventListener("click", () => {
+      let product_id = btnInsertCart.getAttribute("data-product_id");
+      console.log(product_id);
+      const data = {
+        product_id: product_id,
+      };
+      sendServerData(
+        "POST",
+        "/product/productdetailcontent",
+        "application/json",
+        JSON.stringify(data),
+        function (data) {
+          detailcontent.innerHTML = data;
+        }
+      );
+    });
+    btnreview.addEventListener("click", () => {
+      let product_id = btnInsertCart.getAttribute("data-product_id");
+      const data = {
+        product_id: product_id,
+      };
+      sendServerData(
+        "POST",
+        "/product/reviewcontent",
+        "application/json",
+        JSON.stringify(data),
+        function (data) {
+          detailcontent.innerHTML = data;
+        }
+      );
+    });
+    btnqna.addEventListener("click", () => {
+      let product_id = btnInsertCart.getAttribute("data-product_id");
+      const data = {
+        product_id: product_id,
+      };
+      sendServerData(
+        "POST",
+        "/product/qnacontent",
+        "application/json",
+        JSON.stringify(data),
+        function (data) {
+          detailcontent.innerHTML = data;
+        }
+      );
+    });
+
     const btnMinus = document.querySelector("#btnMinus");
     const btnPlus = document.querySelector("#btnPlus");
     const countElement = document.querySelector("#count");

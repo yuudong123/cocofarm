@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cocofarm.webpage.domain.BoardQnAProductDTO;
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CriteriaDTO;
 import com.cocofarm.webpage.domain.QnaDTO;
@@ -53,10 +54,23 @@ public class BoardService {
         ArrayList<QnaDTO> list = boardMapper.selectQnaList(cri);
         return list;
     }
+    //제품쪽
+       public ArrayList<BoardQnAProductDTO> selectQnaListByProduct(CriteriaDTO cri) {
+        cri.setCode(BOARD_CATEGORY_QNA);
+        ArrayList<BoardQnAProductDTO> list = boardMapper.selectQnaListByProduct(cri);
+        return list;
+    }
 
     public ArrayList<QnaDTO> selectReviewList(CriteriaDTO cri) {
         cri.setCode(BOARD_CATEGORY_REVIEW);
         ArrayList<QnaDTO> list = boardMapper.selectReviewList(cri);
+        return list;
+    }
+
+    // 제품쪽
+    public ArrayList<QnaDTO> selectReviewListByProduct(CriteriaDTO cri) {
+        cri.setCode(BOARD_CATEGORY_REVIEW);
+        ArrayList<QnaDTO> list = boardMapper.selectReviewListByProduct(cri);
         return list;
     }
 

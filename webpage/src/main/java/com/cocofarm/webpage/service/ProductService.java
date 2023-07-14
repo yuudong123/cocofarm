@@ -32,6 +32,11 @@ public class ProductService {
         return list;
     }
 
+    public ProductVO selectProductWithImage(int product_id) {
+        ProductVO productvo = productMapper.selectProductWithImage(product_id);
+        return productvo;
+    }
+
     public ArrayList<QnaDTO> selectProductQnaList(int product_id, int page) {
         ArrayList<QnaDTO> list = productMapper.selectProductQnaList(product_id, page);
         for (QnaDTO qnaDTO : list) {
