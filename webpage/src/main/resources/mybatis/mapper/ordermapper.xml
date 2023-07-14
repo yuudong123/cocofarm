@@ -133,8 +133,8 @@ insert into tbl_changeandrefund(changeandrefund_id,orderproduct_id, candrdate, r
         join (select code , value from tbl_code where codetype = 'ORDER_STATUS')c on op.order_status_cd = c.code
         where orderproduct_id = #{orderproduct_id} and member_no= #{member_no}
     </select>
-    
-     
+
+
 
 
 </mapper>

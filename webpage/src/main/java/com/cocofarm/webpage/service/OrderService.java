@@ -58,6 +58,8 @@ public class OrderService {
     // OrderProductVO vo = ordermapper.OrderProductReviewWritePage(orderproduct_id);
     // return vo;
     // }
+
+    // 리뷰 읽기
     public BoardVO selectreviewboard(int orderproduct_id) {
         BoardVO vo = ordermapper.selectreviewboard(orderproduct_id);
         return vo;

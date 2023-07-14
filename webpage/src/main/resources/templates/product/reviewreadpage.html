@@ -1,10 +1,9 @@
-<!-- 리뷰읽기용 페이지 -->
+리뷰읽기
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <!-- <p th:text="${ment}"></p> -->
   <div>
     <img th:src="'/images/'+${boardvo.mainimage}" style="width: 100px" />
   </div>
-  <div th:text="${orderproductvo.name}"></div>
+  <div th:text="${productvo.name}"></div>
   <div th:text="${boardvo.content}"></div>
 </html>

@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cocofarm.webpage.common.CodeTable;
 import com.cocofarm.webpage.domain.BoardVO;
 import com.cocofarm.webpage.domain.CartDTO;
+import com.cocofarm.webpage.domain.ChangeAndRefundDTO;
 import com.cocofarm.webpage.domain.ImageDTO;
 import com.cocofarm.webpage.domain.MemberVO;
 import com.cocofarm.webpage.domain.OrderDTO;
@@ -58,7 +59,6 @@ public class WebOrderController {
         mav.addObject("list", list);
         mav.addObject("member", member);
         mav.setViewName("product/orderpage");// 경로
-
         return mav;
     }
 
@@ -212,18 +212,20 @@ public class WebOrderController {
     // 리뷰저장용 controller
     @ResponseBody
     @RequestMapping("order/reviewsave")
-    public ModelAndView reviewSave(@RequestBody BoardVO v, HttpSession session) {
+    public ModelAndView reviewSave(@RequestBody BoardVO v, OrderProductVO vo, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
-        // OrderProductVO vo = orderService.selectorderproduct(v.getOrderproduct_id(),
-        // member.getMember_no());
+        OrderProductVO orderproductvo = orderService.selectorderproduct(v.getOrderproduct_id(),
+                member.getMember_no());
         // System.out.println(vo);
         v.setMember_no(member.getMember_no());
         v.setBoard_category_cd(203);
-        v.setMainimage("");
+        v.setMainimage(v.getMainimage());
+        // 메인이미지 자바스크립트쪽에서 filename으로 보내서 메인 이미지로 넣어줌 문제될 시 삭제.
         v.setNickname(member.getNickname());
         // v.setMainimage(vo.getFilename());
-
+        orderproductvo.setName(vo.getName());
+        System.out.println(orderproductvo);
         // System.out.println(v);
 
         int ok = boardService.insert(v);
@@ -232,8 +234,27 @@ public class WebOrderController {
             ment = "정상적으로 저장이 되었습니다";
         }
         mav.addObject("ment", ment);
+        mav.addObject("orderproductvo", orderproductvo);
+        mav.addObject("boardvo", v);
         mav.addObject("ok", ok);
         mav.setViewName("product/reviewsave");
+        return mav;
+    }
+
+    // 리뷰읽기용
+    @ResponseBody
+    @RequestMapping("order/reviewreadpage")
+    public ModelAndView reviewRead(@RequestBody BoardVO vo, HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        ProductVO productvo = new ProductVO();
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        // System.out.println(member.getMember_no());
+        BoardVO boardvo = orderService.selectreviewboard(vo.getOrderproduct_id());
+        productvo = productService.selectProduct(boardvo.getProduct_id());
+        System.out.println(boardvo);
+        mav.addObject("boardvo", boardvo);
+        mav.addObject("productvo", productvo);
+        mav.setViewName("product/reviewreadpage");
         return mav;
     }
 
@@ -252,6 +273,19 @@ public class WebOrderController {
         mav.addObject("orderproductvo", vo);
         mav.setViewName("product/changeandrefundpage");
         return mav;
+    }
+
+    // 교환환불 페이지 저장용.
+    @ResponseBody
+    @RequestMapping("order/insertchangeandrefund")
+    public void ChangeAndRefundInsert(@RequestBody ChangeAndRefundDTO dto, HttpSession session) {
+        MemberVO member = (MemberVO) session.getAttribute("userinfo");
+        dto.setOrderproduct_id(dto.getOrderproduct_id());
+        dto.setReasoncode(dto.getReasoncode());
+        dto.setTextreason(dto.getTextreason());
+        dto.setOrder_status_cd(dto.getOrder_status_cd());
+        dto.setMember_no(member.getMember_no());
+        orderService.ChangeAndRefundInsert(dto);
     }
 
     /*

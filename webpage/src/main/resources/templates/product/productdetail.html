@@ -50,7 +50,7 @@
                 th:if="${userinfo != null}"
                 id="btnDirectBuy"
                 th:data-product_id="${vo.product_id}"
-                class="btnBuy"
+                class="btnBuy btn"
                 >바로 구매하기</a
               >
               <a th:if="${userinfo == null}" id="notlogin2" class="btn"
@@ -60,7 +60,7 @@
           </div>
         </div>
       </div>
-      <form action="orde/page" method="post" id="cartinsert">
+      <form action="order/cartorderpage" method="post" id="cartinsert">
         <input type="hidden" name="product_id" />
         <input type="hidden" name="amount" />
       </form>
@@ -192,6 +192,8 @@
         }
       });
     }
+
+    //바로구매 버튼 처리
     if (btnDirectBuy) {
       btnDirectBuy.addEventListener("click", () => {
         if (count <= 0) {
@@ -199,10 +201,10 @@
           return false;
         }
         let product_id = btnInsertCart.getAttribute("data-product_id");
-        // const data = {
-        //   product_id: product_id,
-        //   amount: count,
-        // };
+        const data = {
+          product_id: product_id,
+          amount: count,
+        };
         var cartinsert = document.querySelector("#cartinsert"); //폼태그
         //페이지바꾸기
 
