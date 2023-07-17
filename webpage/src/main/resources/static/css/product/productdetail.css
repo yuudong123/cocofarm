@@ -1,27 +1,98 @@
 .containerCenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
 .containerPlace {
-    display: flex;
-    align-items: center;
-  }
-  
-  .leftPlace {
-    margin-right: 20px; /* 원하는 간격 설정 */
-  }
-  
-  .rightPlace {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  
-  .rightContent {
-    font-size: large;
-    margin: 20px; /* 원하는 간격 설정 */
-  }
-  
+  display: flex;
+  align-items: center;
+}
+
+.leftPlace {
+  margin-right: 20px; /* 원하는 간격 설정 */
+}
+
+.rightPlace {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px;
+}
+
+/* 제품 이름 */
+.productName {
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+/* 제품 가격 */
+.productPrice {
+display: inline-block;
+font-size: 25px;
+margin-left: 50%;
+}
+
+.productPrice::after {
+content: "원";
+display: inline-block;
+
+}
+
+.rightContent {
+  right: -40px;
+  font-size: large;
+  margin: 10px; /* 원하는 간격 설정 */
+}
+
+/* - 0 + 부분 */
+.btnBoxSpace{
+  margin: 10px;
+}
+/* 버튼 부분 */
+.btnA{
+  background-color: green;
+}
+
+/* 0부분 */
+.numZero{
+  font-size: 20px
+}
+
+
+/* 여기부터 수정 */
+.btnspace{
+  display: flex;
+justify-content: center;
+align-items: center;
+margin: 20px;
+
+}
+
+/* 아래 제품상세 ~ QnA부분 */
+.btncontentspace {
+  max-width: 1300px; /* 최대 너비 설정 */
+  margin: 0 auto; /* 수평 가운데 정렬을 위한 자동 마진 설정 */
+}
+
+/* 제품상세 버튼부분 */
+.btnS{
+  display: inline-block;
+  padding: 0px 60px;
+  font-size: 20px;
+  margin-right: 10px; /* 간격 조정 */
+  background-color: gainsboro;
+}
+
+/* 총상품금액 표시하는 공간 */
+.allP{
+  margin: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/*총상품 금액 가격 표시 */
+.allpriceSpace{
+  margin-left: 40px;
+}

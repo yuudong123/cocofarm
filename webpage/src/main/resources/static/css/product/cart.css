@@ -1,0 +1,56 @@
+/* 전체선택 체크박스 */
+.checkbox1{
+    margin: 20px;
+}
+/* 전체선택 체크박스 */
+.textAllSelect{
+
+    font-weight: bold;
+    color: black;
+    font-size: 25px !important;
+}
+
+.cssAllDelete{
+    float: right;
+    margin-top: -7px;
+
+}
+/* 아래 체크박스 공간 */
+.chplace{
+    margin: 10px;
+} 
+
+/* 장바구니 안쪽 */
+.cartPlace{
+    font-size: 18px;
+    padding: 0 10px;
+}
+/* 아래에 뜨는 총 상품 금액 부분 띄워둠 */
+.orderCart{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #caf4ca;
+    padding: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+/* 총 상품 금액 부분 */
+.section10{
+    position: absolute;
+    left: 16%;
+ 
+}
+.textZero{
+    margin-left: 10px;
+}
+.section11{
+    position: absolute;
+    left: 45%;
+}
+.section12{
+    position: relative;
+    text-align: center;
+   left: 30%;
+}

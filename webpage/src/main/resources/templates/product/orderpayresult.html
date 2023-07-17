@@ -15,13 +15,21 @@
           <!-- <form> -->
           <div class="order_content">
             <div class="order_cont" th:each="dto:${list}">
-              <div>
-                <span
-                  th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"
-                ></span>
-                <span>결제</span>
+              <div class="buyContentP">
+                <div>
+                  <span
+                    th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"
+                  ></span>
+                  <span>결제</span>
+                </div>
+                <div class="detailPricePlace">
+                  <span>결제금액 : </span
+                  ><span
+                    th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"
+                  ></span
+                  ><span>원</span>
+                </div>
               </div>
-              <div th:text="${dto.price}"></div>
 
               <div class="order_cont" th:each="vo:${dto.orderproduct_list}">
                 <div
@@ -29,106 +37,129 @@
                   th:data-order-status-cd="${vo.order_status_cd}"
                   th:data-orderproduct-id="${vo.orderproduct_id}"
                 >
-                  <div th:text="${vo.value}"></div>
-                  <div>
+                  <div class="status" th:text="${vo.value}"></div>
+                  <div class="imageSpace">
                     <img
                       th:src="'/images/'+${vo.filename}"
                       style="width: 200px"
                     />
                   </div>
-                  <div th:text="${vo.name}"></div>
-                  <div th:text="${vo.price}"></div>
-                  <div th:text="${vo.amount}"></div>
-                  <div id="button-list" th:switch="${vo.order_status_cd}">
-                    <ul th:case="301">
-                      <button
-                        class="button_deliberyinfo"
-                        th:onclick="deliberyinfo([[${dto.order_id}]])"
+                  <br />
+                  <div class="rightPlaceP">
+                    <div>
+                      <span>상품명: <span th:text="${vo.name}"></span></span>
+                    </div>
+
+                    <div>
+                      <span
+                        >개당 상품 가격:
+                        <span
+                          th:text="${#numbers.formatInteger(vo.price,3,'COMMA')}"
+                        ></span
+                        >원</span
                       >
-                        배송조회
-                      </button>
-                      <button
-                        class="button_cancel"
-                        th:onclick="cancel([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
+                    </div>
+                    <div>
+                      <span
+                        >구매 개수: <span th:text="${vo.amount}"></span>개</span
                       >
-                        주문 취소
-                      </button>
-                    </ul>
-                    <ul th:case="302">
-                      <button
-                        class="button_deliberyinfo"
-                        th:onclick="deliberyinfo([[${dto.order_id}]])"
-                      >
-                        배송조회
-                      </button>
-                      <button
-                        class="button_buyconfirm"
-                        th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
-                      >
-                        구매확정
-                      </button>
-                    </ul>
-                    <ul th:case="303">
-                      <button
-                        class="button_buyconfirm"
-                        th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
-                      >
-                        구매확정
-                      </button>
-                      <button
-                        class="button_changeapply"
-                        th:onclick="change([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]]
-                        ,[[${vo.name}]],[[${vo.filename}]],[[${vo.amount}]])"
-                      >
-                        교환신청
-                      </button>
-                      <button
-                        class="button_refundapply"
-                        th:onclick="refund([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]]
-                        ,[[${vo.name}]],[[${vo.filename}]],[[${vo.amount}]])"
-                      >
-                        환불신청
-                      </button>
-                    </ul>
-                    <ul th:case="304">
-                      <button
-                        class="button_deliberyinfo"
-                        th:onclick="deliberyinfo([[${dto.order_id}]])"
-                      >
-                        배송조회
-                      </button>
-                    </ul>
-                    <ul th:case="305">
-                      <button
-                        class="button_deliberyinfo"
-                        th:onclick="deliberyinfo([[${dto.order_id}]])"
-                      >
-                        배송조회
-                      </button>
-                    </ul>
-                    <ul th:case="310">
-                      <button
-                        class="button_deliberyinfo"
-                        th:onclick="deliberyinfo([[${dto.order_id}]])"
-                      >
-                        배송조회
-                      </button>
-                      <button
-                        class="button_reviewwrite"
-                        th:if="${vo.checkreview eq  0}"
-                        th:onclick="reviewwrite([[${vo.orderproduct_id}]],[[${vo.filename}]],[[${vo.name}]])"
-                      >
-                        리뷰쓰기
-                      </button>
-                      <button
-                        class="button_reviewwrite"
-                        th:if="${vo.checkreview ne 0}"
-                        th:onclick="reviewread([[${vo.orderproduct_id}]])"
-                      >
-                        리뷰확인
-                      </button>
-                    </ul>
-                    <ul th:case="*"></ul>
+                    </div>
+                  </div>
+                  <br />
+                  <div></div>
+                  <br />
+                  <div class="buttonContainer">
+                    <div id="button-list" th:switch="${vo.order_status_cd}">
+                      <ul th:case="301">
+                        <a
+                          class="button_deliberyinfo btn"
+                          th:onclick="deliberyinfo([[${dto.order_id}]])"
+                        >
+                          배송조회
+                        </a>
+                        <a
+                          class="button_cancel btn red"
+                          th:onclick="cancel([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
+                        >
+                          주문 취소
+                        </a>
+                      </ul>
+                      <ul th:case="302">
+                        <a
+                          class="button_deliberyinfo btn"
+                          th:onclick="deliberyinfo([[${dto.order_id}]])"
+                        >
+                          배송조회
+                        </a>
+                        <a
+                          class="button_buyconfirm btn green"
+                          th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
+                        >
+                          구매확정
+                        </a>
+                      </ul>
+                      <ul th:case="303">
+                        <a
+                          class="button_buyconfirm btn green"
+                          th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
+                        >
+                          구매확정
+                        </a>
+                        <a
+                          class="button_changeapply btn orange"
+                          th:onclick="change([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]]
+                          ,[[${vo.name}]],[[${vo.filename}]],[[${vo.amount}]])"
+                        >
+                          교환신청
+                        </a>
+                        <a
+                          class="button_refundapply btn orange"
+                          th:onclick="refund([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]]
+                          ,[[${vo.name}]],[[${vo.filename}]],[[${vo.amount}]])"
+                        >
+                          환불신청
+                        </a>
+                      </ul>
+                      <ul th:case="304">
+                        <a
+                          class="button_deliberyinfo btn"
+                          th:onclick="deliberyinfo([[${dto.order_id}]])"
+                        >
+                          배송조회
+                        </a>
+                      </ul>
+                      <ul th:case="305">
+                        <a
+                          class="button_deliberyinfo btn"
+                          th:onclick="deliberyinfo([[${dto.order_id}]])"
+                        >
+                          배송조회
+                        </a>
+                      </ul>
+                      <ul th:case="310">
+                        <a
+                          class="button_deliberyinfo btn"
+                          th:onclick="deliberyinfo([[${dto.order_id}]])"
+                        >
+                          배송조회
+                        </a>
+                        <a
+                          class="button_reviewwrite btn green"
+                          th:if="${vo.checkreview eq  0}"
+                          th:onclick="reviewwrite([[${vo.orderproduct_id}]],[[${vo.filename}]],[[${vo.name}]])"
+                        >
+                          리뷰쓰기
+                        </a>
+                        <a
+                          class="button_reviewwrite btn"
+                          th:if="${vo.checkreview ne 0}"
+                          th:onclick="reviewread([[${vo.orderproduct_id}]])"
+                        >
+                          리뷰확인
+                        </a>
+                      </ul>
+                      <ul th:case="*"></ul>
+                    </div>
                   </div>
                 </div>
               </div>

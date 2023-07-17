@@ -1,0 +1,26 @@
+/* 전체 */
+.orderPlaceP{
+    font-size: 18px;
+    padding: 0 10px;
+}
+
+/* 배송정보 */
+.text{
+    text-align: center;
+}
+.info{
+    text-align: center;
+    font-weight: bold;
+    margin: 10px;
+    margin-bottom: -10px;
+   
+}
+.orderBuyPageP{
+    font-size: 18px;
+}
+.text{
+    margin-left: 20px;
+}
+.priceInfo{
+    font-weight: bold;
+}

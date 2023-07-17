@@ -1,60 +1,59 @@
 section {
-    position: relative;
-    margin: 10px;
-    padding: 15px;
-    flex: 1 0;
-    border-radius: 10px;
-    border: 2px solid #eee;
-  }
+  position: relative;
+  margin: 10px;
+  padding: 15px;
+  flex: 1 0;
+  border-radius: 10px;
+  border: 2px solid #eee;
+}
 
-  .tabs {
-    flex-grow: 0;
-    margin: 0;
-    width: fit-content;
-  }
-  
-  .tabs a {
-    color: green !important;
-  }
-  
-  .tabs .indicator {
-    background-color: green;
-  }
-  .tabs .tab a:focus,
-  .tabs .tab a:focus.active {
-    background-color: rgba(156, 255, 147, 0.2);
-    outline: none;
-  }
-  
-  .card-image img{
-    height: 200px;
-   width: max-content;
-  }
-  .card-content{
-    width:fit-content;
-  }
-  .card-content p{
-    padding: 0 !important;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-    overflow: hidden;
-    max-width: 200px;
-  }
+.tabs {
+  flex-grow: 0;
+  margin: 0;
+  width: fit-content;
+}
 
-  .card{
-    width:fit-content;
-    
-  }
+.tabs a {
+  color: green !important;
+}
 
-  .card-title{
-    white-space: nowrap;
-    width: fit-content;
-  }
+.tabs .indicator {
+  background-color: green;
+}
+.tabs .tab a:focus,
+.tabs .tab a:focus.active {
+  background-color: rgba(156, 255, 147, 0.2);
+  outline: none;
+}
 
-  #plantList, #deviceList{
-    display: flex;
-    flex-wrap: wrap;
-  }
+.card-image img{
+  height: 200px;
+ width: max-content;
+}
+.card-content{
+  width:fit-content;
+}
+.card-content p{
+  padding: 0 !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+.card{
+  width:fit-content;
   
-  
+}
+
+.card-title{
+  white-space: nowrap;
+  width: fit-content;
+}
+
+#plantList, #deviceList{
+  display: flex;
+  flex-wrap: wrap;
+}
+

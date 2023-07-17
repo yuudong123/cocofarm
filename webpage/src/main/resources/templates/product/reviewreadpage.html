@@ -1,9 +1,11 @@
-리뷰읽기
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <h6>내가 쓴 리뷰 읽기</h6>
   <div>
     <img th:src="'/images/'+${boardvo.mainimage}" style="width: 100px" />
   </div>
   <div th:text="${productvo.name}"></div>
+  <br />
+  <h6>리뷰 내용:</h6>
   <div th:text="${boardvo.content}"></div>
 </html>

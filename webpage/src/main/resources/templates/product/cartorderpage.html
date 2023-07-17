@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
-    <link rel="stylesheet" href="/css/product/cart.css" />
+    <link rel="stylesheet" href="/css/product/cartorderpage.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
       <div class="container">
         <h3 class="order_payment"><span class="blind">주문/결제</span></h3>
-        <section id="section1" class="z-depth-1">
+        <section id="section1" class="orderPlaceP z-depth-1">
           <form id="orderForm">
             <table id="cartListAll" class="highlight">
               <tbody>
@@ -20,22 +20,29 @@
                   <input type="hidden" name="cart" th:value="${cart.cart_id}" />
                   <td>
                     <img
+                      class="imageSpace"
                       th:src="'/images/'+${cart.product_image}"
                       style="width: 150px"
                     />
                   </td>
-                  <td th:text="${cart.product_name}"></td>
+                  <td class="namePlace" th:text="${cart.product_name}"></td>
                   <td>상품금액</td>
-                  <td th:text="${cart.product_price}" id="productPrice"></td>
+                  <td>
+                    <span
+                      th:text="${#numbers.formatInteger(cart.product_price, 3, 'COMMA') }"
+                      id="productPrice"
+                    ></span
+                    >원
+                  </td>
                   <td>주문개수 :</td>
-                  <td th:text="${cart.amount}" id="amount"></td>
+                  <td><sapn th:text="${cart.amount}" id="amount"> </sapn>개</td>
 
                   <td>주문금액</td>
                   <td
-                    th:with="totalPrice=${cart.amount*cart.product_price}"
+                    th:with="totalPrice=${#numbers.formatInteger(cart.amount*cart.product_price,3,'COMMA')}"
                     class="onePayPrice"
                   >
-                    <span th:text="${totalPrice}"></span>
+                    <span th:text="${totalPrice}"></span>원
                   </td>
                 </tr>
               </tbody>
@@ -51,47 +58,61 @@
               <table>
                 <thead>
                   <tr>
-                    <th><h5>배송정보</h5></th>
+                    <th><h5 class="text">배송정보</h5></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>
-                      이름
-                      <br />
-                      <span th:text="${member.nickname}"></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      전화번호
-                      <br />
-                      <span th:text="${member.phonenumber}"></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      주소
-                      <br />
-                      <span th:text="${member.address}"></span>
-                    </td>
-                  </tr>
+                  <div class="addressPlace">
+                    <tr>
+                      <td>
+                        이름
+                        <br />
+                        <span th:text="${member.nickname}"></span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        전화번호
+                        <br />
+                        <span th:text="${member.phonenumber}"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        주소
+                        <br />
+                        <span th:text="${member.address}"></span>
+                      </td>
+                    </tr>
+                  </div>
                   <!-- 가능 하다면 배송메세지 기능 -->
                 </tbody>
               </table>
             </div>
 
             <hr />
-            <div>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</div>
-
+            <div class="info">
+              주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+            </div>
+            <br />
             <span></span>
           </form>
         </section>
         <section id="section2" class="z-depth-1">
-          <table id="orderpalce" class="order">
-            <td>총상품금액</td>
-            <td id="allprice" th:text="${allTotalPrice}">0</td>
-            <td><button id="btnAllPayment">결제하기</button></td>
+          <table id="orderpalce" class="orderBuyPageP">
+            <td>
+              <div class="text">총주문금액</div>
+            </td>
+            <td>
+              <span
+                class="priceInfo"
+                id="allprice"
+                th:text="${#numbers.formatInteger(allTotalPrice,3,'COMMA')}"
+              ></span>
+              <sqan class="priceInfo">원</sqan>
+            </td>
+            <td><a class="btn green" id="btnAllPayment">결제하기</a></td>
           </table>
         </section>
       </div>

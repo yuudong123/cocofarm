@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
     <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
-    <link rel="stylesheet" href="/css/product/orderpayresult.css" />
+    <link rel="stylesheet" href="/css/product/orderlist.css" />
   </head>
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
@@ -10,25 +10,28 @@
       <div class="container">
         <!-- 결제완료 주문목록 창 -->
         <div class="order_header">
-          <h3 class="order_payment"><span class="blind">주문결제내역</span></h3>
+          <h4 class="order_payment"><span class="blind">주문결제내역</span></h4>
           <!-- <form> -->
 
           <div class="order_content">
             <div class="order_cont" th:each="dto:${list}">
-              <div>
+              <div class="detailDatePlace">
                 <span
                   th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"
                 ></span>
                 <span>결제</span>
               </div>
-              <div>
-                <span>결제금액 : </span><span th:text="${dto.price}"></span
+              <div class="detailPricePlace">
+                <span>결제금액 : </span
+                ><span
+                  th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"
+                ></span
                 ><span>원</span>
               </div>
 
-              <button class="detail" th:data-order-id="${dto.order_id}">
+              <a class="detail btn" th:data-order-id="${dto.order_id}">
                 상세보기
-              </button>
+              </a>
             </div>
             <!-- </div> -->
           </div>

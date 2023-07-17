@@ -13,7 +13,7 @@
             <img
               th:each="image : ${list}"
               th:src="'/images/'+${image.filename}"
-              style="width: 150px"
+              style="width: 300px"
             />
           </div>
           <div class="rightPlace">
@@ -25,16 +25,23 @@
                 id="member_no"
                 value="[[${member.member_no}]]"
               />
-              <div id="btnBox">
+              <div id="btnBox" class="btnBoxSpace">
                 <span>
-                  <button id="btnMinus">-</button>
-                  <span id="count" th:data-amount="${vo.amount}">0</span>
-                  <button id="btnPlus">+</button>
+                  <a id="btnMinus" class="btnA btn">-</a>
+                  <span id="count" class="numZero" th:data-amount="${vo.amount}"
+                    >0</span
+                  >
+                  <a id="btnPlus" class="btnA btn">+</a>
                 </span>
               </div>
             </div>
-            총상품금액
-            <div id="allprice">0</div>
+
+            <span class="allP"
+              >총상품금액
+              <span
+                ><span id="allprice" class="allpriceSpace">0 </span> 원</span
+              ></span
+            >
             <span>
               <a
                 th:if="${userinfo != null}"
@@ -64,11 +71,20 @@
         <input type="hidden" name="product_id" />
         <input type="hidden" name="amount" />
       </form>
+      <br />
       <!-- 제품상세, 리뷰, QnA추가 필요 -->
-      <button id="btnproductdetail">제품상세</button>
-      <button id="btnreview">리뷰</button>
-      <button id="btnqna">QnA</button>
-      <div id="detailcontent"></div>
+      <!-- css연결해서 바꾸는 중  -->
+      <div class="btnspace">
+        <span
+          ><a id="btnproductdetail" class="btnS btn">제품상세</a>
+          <a id="btnreview" class="btnS btn">리뷰</a>
+          <a id="btnqna" class="btnS btn">QnA</a>
+        </span>
+      </div>
+
+      <div class="btncontentspace">
+        <div id="detailcontent"></div>
+      </div>
     </main>
     <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
     <script src="/js/cocofarm.js"></script>
@@ -125,7 +141,6 @@
         }
       );
     });
-
     const btnMinus = document.querySelector("#btnMinus");
     const btnPlus = document.querySelector("#btnPlus");
     const countElement = document.querySelector("#count");
@@ -141,7 +156,7 @@
 
     var totalPrice = function (id, price, count) {
       const totalPrice = Number(price) * Number(count);
-      id.textContent = totalPrice;
+      id.textContent = totalPrice.toLocaleString();
     };
 
     btnMinus.addEventListener("click", () => {

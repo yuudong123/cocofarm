@@ -56,7 +56,7 @@
             let product_id = item.product_id;
             let image = item.filename;
             let name = item.name;
-            let price = item.price;
+            let price = item.price.toLocaleString();
             let content = item.content;
             let link =
               "<div class='card' onclick='redirectToProductDetail(" +
@@ -67,6 +67,7 @@
               name +
               "</span><p>" +
               price +
+              "원" +
               "</p><p>" +
               content +
               "</p></div></div>";

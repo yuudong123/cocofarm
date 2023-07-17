@@ -2,9 +2,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <form id="reviewForm">
-    <input type="hidden" name="product_id" th:value="${orderproductvo.product_id}" />
-    <input type="hidden" name="orderproduct_id" th:value="${orderproductvo.orderproduct_id}" />
+    <input
+      type="hidden"
+      name="product_id"
+      th:value="${orderproductvo.product_id}"
+    />
+    <input
+      type="hidden"
+      name="orderproduct_id"
+      th:value="${orderproductvo.orderproduct_id}"
+    />
     <input type="hidden" name="title" />
-    <textarea name="content" row="5" cols="70"></textarea>
+    <textarea
+      name="content"
+      row="5"
+      cols="70"
+      placeholder="여기에 작성해주세요. 박스를 늘리시면 늘어납니다."
+    ></textarea>
   </form>
 </html>

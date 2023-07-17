@@ -16,13 +16,16 @@
               name="all"
               id="selectAll"
             />
-            <span>전체 상품 선택하기</span>
+            <span class="textAllSelect">전체 상품 선택하기</span>
+            <span class="cssAllDelete">
+              <a id="btnDeleteAll" class="btn red"> 전체 삭제 </a>
+            </span>
           </label>
         </div>
-        <div><a id="btnDeleteAll">전체 삭제</a></div>
+
         <section id="section1" class="z-depth-1">
           <form id="orderForm">
-            <table id="cartListAll" class="highlight">
+            <table id="cartListAll" class="cartPlace highlight">
               <tbody>
                 <tr
                   th:each="cart: ${list}"
@@ -32,38 +35,44 @@
                     <label>
                       <input
                         type="checkbox"
-                        class="filled-in partSelect"
+                        class="partSelect filled-in"
                         name="cart"
                         th:value="${cart.cart_id}"
                         th:data-cartPrice="${cart.amount*cart.product_price}"
                       />
-                      <span></span>
+                      <span class="chplace"></span>
                     </label>
                   </td>
                   <td>
                     <img
                       th:src="'/images/'+${cart.product_image}"
-                      style="width: 200px"
+                      style="width: 150px"
                     />
                   </td>
                   <td th:text="${cart.product_name}"></td>
-                  <td>상품금액</td>
-                  <td th:text="${cart.product_price}" id="productPrice"></td>
+                  <td class="textPrice">상품금액</td>
+                  <td>
+                    <span
+                      th:text="${#numbers.formatInteger(cart.product_price, 3, 'COMMA') }"
+                      id="productPrice"
+                    ></span
+                    >원
+                  </td>
                   <td>주문개수 :</td>
-                  <td th:text="${cart.amount}" id="amount"></td>
+                  <td><sapn th:text="${cart.amount}" id="amount"> </sapn>개</td>
                   <td>
                     <a
-                      class="btnDelete"
+                      class="btnDelete btn red"
                       th:onclick="onDelete([[${cart.cart_id}]])"
                       >삭제</a
                     >
                   </td>
                   <td>주문금액</td>
                   <td
-                    th:with="totalPrice=${cart.amount*cart.product_price}"
+                    th:with="totalPrice=${#numbers.formatInteger(cart.amount*cart.product_price,3,'COMMA')}"
                     class="onePayPrice"
                   >
-                    <span th:text="${totalPrice}"></span>
+                    <span th:text="${totalPrice}"></span>원
                   </td>
                 </tr>
               </tbody>
@@ -71,10 +80,21 @@
           </form>
         </section>
         <section id="section2" class="z-depth-1">
-          <table id="orderpalce" class="order">
-            <td>총상품금액</td>
-            <td id="allPrice">0</td>
-            <td><button id="btnAllPayment">총 주문하기</button></td>
+          <table id="orderpalce" class="orderCart">
+            <tr>
+              <td class="section10">
+                <span class="textAllPrice">총상품금액</span>
+              </td>
+              <td class="section11">
+                <span class="textZero" id="allPrice">0</span>
+                <span>원</span>
+              </td>
+              <td class="section12">
+                <a class="btnAllOrder btn green" id="btnAllPayment"
+                  >총 주문하기</a
+                >
+              </td>
+            </tr>
           </table>
         </section>
       </div>
@@ -96,6 +116,14 @@
     let allPrice = 0;
 
     btnAllPayment.addEventListener("click", () => {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const checkedItems = Array.from(checkboxes).filter(
+        (checkbox) => checkbox.checked
+      );
+      if (checkedItems.length === 0) {
+        alert("상품을 선택해주세요.");
+        return;
+      }
       orderForm.action = "/order/cartorderpage";
       orderForm.method = "POST";
       orderForm.submit();
@@ -135,10 +163,10 @@
         allPrice = allPrice + cartPrice;
         console.log(allPriceDiv);
 
-        allPriceDiv.textContent = allPrice;
+        allPriceDiv.textContent = allPrice.toLocaleString();
       } else {
         allPrice = allPrice - cartPrice;
-        allPriceDiv.textContent = allPrice;
+        allPriceDiv.textContent = allPrice.toLocaleString();
       }
       allCheck();
     }
@@ -162,7 +190,7 @@
           console.log(allPriceDiv);
         });
 
-        allPriceDiv.textContent = allPrice;
+        allPriceDiv.textContent = allPrice.toLocaleString();
       } else {
         partSelect.forEach(function (checkbox) {
           let cartPrice = Number(checkbox.getAttribute("data-cartPrice"));
