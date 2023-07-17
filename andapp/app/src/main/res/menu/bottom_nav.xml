@@ -19,8 +19,8 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/mydevice"
-        android:icon="@drawable/icon_mydevice"
-        android:title="내 기기"
+        android:icon="@drawable/icon_cart"
+        android:title="장바구니"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/mypage"
