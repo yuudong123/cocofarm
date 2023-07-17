@@ -33,8 +33,8 @@ public class MemberService {
     return mapper.sns_login(vo);
   }
 
-  public int sns_out(String email) {
-    return mapper.sns_out(email);
+  public void sns_out(String email) {
+    mapper.sns_out(email);
   }
 
   public MemberVO am_modify(MemberVO vo) {

@@ -19,7 +19,7 @@ public interface MemberMapper {
 
     public MemberVO sns_login(MemberVO vo);
 
-    public int sns_out(String email);
+    public void sns_out(String email);
 
     public void am_modify(MemberVO vo);
 
