@@ -19,6 +19,8 @@ public interface MemberMapper {
 
     public MemberVO sns_login(MemberVO vo);
 
+    public int sns_out(String email);
+
     public void am_modify(MemberVO vo);
 
     public void web_modify(MemberVO vo);
