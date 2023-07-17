@@ -21,8 +21,6 @@ public class SnsController {
     @Autowired
     MemberService memberService;
 
-
-
     // KAKAO -----------------------------------------------------------------------------------------------------------
     // 카카오 연동페이지 이동
     @GetMapping(value = "/member/kakaologin")

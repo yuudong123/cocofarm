@@ -38,7 +38,6 @@ public class AndReplyController {
     @PostMapping(value = "updatereply.and", produces = "text/html;charset=utf-8")
     public void updateReplyAnd(ReplyVO vo) {
         service.update(vo);
-
     }
 
     @PostMapping(value = "deletereply.and", produces = "text/html;charset=utf-8")

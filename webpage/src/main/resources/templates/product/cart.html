@@ -7,18 +7,11 @@
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <h3 class="cartEmpty" id="noresultmsg" th:if="${list.size == 0}">
-        장바구니가 비어있습니다.
-      </h3>
+      <h3 class="cartEmpty" id="noresultmsg" th:if="${list.size == 0}">장바구니가 비어있습니다.</h3>
       <div class="container" th:if="${list.size != 0}">
         <div class="checkbox1">
           <label>
-            <input
-              type="checkbox"
-              class="filled-in"
-              name="all"
-              id="selectAll"
-            />
+            <input type="checkbox" class="filled-in" name="all" id="selectAll" />
             <span class="textAllSelect">전체 상품 선택하기</span>
             <span class="cssAllDelete">
               <a id="btnDeleteAll" class="btn red"> 전체 삭제 </a>
@@ -30,53 +23,26 @@
           <form id="orderForm">
             <table id="cartListAll" class="cartPlace highlight">
               <tbody>
-                <tr
-                  th:each="cart: ${list}"
-                  th:id="'cartItem-' + ${cart.cart_id}"
-                >
+                <tr th:each="cart: ${list}" th:id="'cartItem-' + ${cart.cart_id}">
                   <td>
                     <label>
-                      <input
-                        type="checkbox"
-                        class="partSelect filled-in"
-                        name="cart"
-                        th:value="${cart.cart_id}"
-                        th:data-cartPrice="${cart.amount*cart.product_price}"
-                      />
+                      <input type="checkbox" class="partSelect filled-in" name="cart" th:value="${cart.cart_id}" th:data-cartPrice="${cart.amount*cart.product_price}" />
                       <span class="chplace"></span>
                     </label>
                   </td>
                   <td>
-                    <img
-                      th:src="'/images/'+${cart.product_image}"
-                      style="width: 150px"
-                    />
+                    <img th:src="'/images/'+${cart.product_image}" style="width: 150px" />
                   </td>
                   <td th:text="${cart.product_name}"></td>
                   <td class="textPrice">상품금액</td>
-                  <td>
-                    <span
-                      th:text="${#numbers.formatInteger(cart.product_price, 3, 'COMMA') }"
-                      id="productPrice"
-                    ></span
-                    >원
-                  </td>
+                  <td><span th:text="${#numbers.formatInteger(cart.product_price, 3, 'COMMA') }" id="productPrice"></span>원</td>
                   <td>주문개수 :</td>
                   <td><sapn th:text="${cart.amount}" id="amount"> </sapn>개</td>
                   <td>
-                    <a
-                      class="btnDelete btn red"
-                      th:onclick="onDelete([[${cart.cart_id}]])"
-                      >삭제</a
-                    >
+                    <a class="btnDelete btn red" th:onclick="onDelete([[${cart.cart_id}]])">삭제</a>
                   </td>
                   <td>주문금액</td>
-                  <td
-                    th:with="totalPrice=${#numbers.formatInteger(cart.amount*cart.product_price,3,'COMMA')}"
-                    class="onePayPrice"
-                  >
-                    <span th:text="${totalPrice}"></span>원
-                  </td>
+                  <td th:with="totalPrice=${#numbers.formatInteger(cart.amount*cart.product_price,3,'COMMA')}" class="onePayPrice"><span th:text="${totalPrice}"></span>원</td>
                 </tr>
               </tbody>
             </table>
@@ -93,9 +59,7 @@
                 <span>원</span>
               </td>
               <td class="section12">
-                <a class="btnAllOrder btn green" id="btnAllPayment"
-                  >총 주문하기</a
-                >
+                <a class="btnAllOrder btn green" id="btnAllPayment">총 주문하기</a>
               </td>
             </tr>
           </table>
@@ -120,9 +84,7 @@
 
     btnAllPayment.addEventListener("click", () => {
       const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      const checkedItems = Array.from(checkboxes).filter(
-        (checkbox) => checkbox.checked
-      );
+      const checkedItems = Array.from(checkboxes).filter((checkbox) => checkbox.checked);
       if (checkedItems.length === 0) {
         alert("상품을 선택해주세요.");
         return;
@@ -136,20 +98,14 @@
       const data = {
         cart_id: cart_id,
       };
-      sendServerData(
-        "POST",
-        "/cart/delete",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          if (Number(data) > 0) {
-            alert("삭제 되었습니다.");
-            window.location.reload(true);
-          } else {
-            alert("삭제하지 못했습니다.");
-          }
+      sendServerData("POST", "/cart/delete", "application/json", JSON.stringify(data), function (data) {
+        if (Number(data) > 0) {
+          alert("삭제 되었습니다.");
+          window.location.reload(true);
+        } else {
+          alert("삭제하지 못했습니다.");
         }
-      );
+      });
     }
 
     [].forEach.call(partSelect, function (part) {
@@ -229,32 +185,24 @@
     //   });
     // });
 
-    document
-      .querySelector("#btnDeleteAll")
-      .addEventListener("click", function () {
-        if (confirm("전체 삭제를 하시려면 확인을 눌러주세요.")) {
-          deleteCartList();
-        }
-      });
+    document.querySelector("#btnDeleteAll").addEventListener("click", function () {
+      if (confirm("전체 삭제를 하시려면 확인을 눌러주세요.")) {
+        deleteCartList();
+      }
+    });
 
     function deleteCartList(member_no) {
       const data = {
         member_no: member_no,
       };
-      sendServerData(
-        "POST",
-        "/cart/alldelete",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          if (Number(data) > 0) {
-            alert("삭제 되었습니다. ");
-            window.location.reload(true);
-          } else {
-            alert("삭제하지 못했습니다.");
-          }
+      sendServerData("POST", "/cart/alldelete", "application/json", JSON.stringify(data), function (data) {
+        if (Number(data) > 0) {
+          alert("삭제 되었습니다. ");
+          window.location.reload(true);
+        } else {
+          alert("삭제하지 못했습니다.");
         }
-      );
+      });
     }
   </script>
 </html>

@@ -48,9 +48,7 @@ public class AndImageController {
                     mime = "application/octet-stream";
             }
             if (imageResource.exists()) {
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_TYPE, mime) // 이미지 타입에 따라 변경
-                        .body(imageResource);
+                return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, mime).body(imageResource);
             } else {
                 return ResponseEntity.notFound().build();
             }
@@ -73,5 +71,4 @@ public class AndImageController {
         System.out.println(list);
         return new Gson().toJson(list);
     }
-
 }

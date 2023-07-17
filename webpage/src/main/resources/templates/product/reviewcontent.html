@@ -11,9 +11,7 @@
               <p id="productContent" th:text="${board.content}"></p>
             </div>
             <div>
-              <span
-                th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"
-              ></span>
+              <span th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></span>
               <span th:text="${board.nickname}"></span>
             </div>
           </div>

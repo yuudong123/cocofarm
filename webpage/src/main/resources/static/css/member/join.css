@@ -1,9 +1,9 @@
 .join {
-    color: #429F5D;
-    font-weight: bolder;
-    font-size: 40px;
-    margin-top: 70px;
-    margin-bottom: 50px;
+  color: #429f5d;
+  font-weight: bolder;
+  font-size: 40px;
+  margin-top: 70px;
+  margin-bottom: 50px;
 }
 
 .submit {
@@ -19,7 +19,7 @@
   border: 0;
   outline: none;
   border-radius: 40px;
-  background: linear-gradient(to left, #06D7A0, #E9D171);
+  background: linear-gradient(to left, #06d7a0, #e9d171);
   color: white;
   font-size: 1.5em;
   letter-spacing: 2px;

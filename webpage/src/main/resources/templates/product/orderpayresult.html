@@ -17,32 +17,21 @@
             <div class="order_cont" th:each="dto:${list}">
               <div class="buyContentP">
                 <div>
-                  <span
-                    th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"
-                  ></span>
+                  <span th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"></span>
                   <span>결제</span>
                 </div>
                 <div class="detailPricePlace">
-                  <span>결제금액 : </span
-                  ><span
-                    th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"
-                  ></span
-                  ><span>원</span>
+                  <span>결제금액 : </span>
+                  <span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"></span>
+                  <span>원</span>
                 </div>
               </div>
 
               <div class="order_cont" th:each="vo:${dto.orderproduct_list}">
-                <div
-                  id="order_status_cd"
-                  th:data-order-status-cd="${vo.order_status_cd}"
-                  th:data-orderproduct-id="${vo.orderproduct_id}"
-                >
+                <div id="order_status_cd" th:data-order-status-cd="${vo.order_status_cd}" th:data-orderproduct-id="${vo.orderproduct_id}">
                   <div class="status" th:text="${vo.value}"></div>
                   <div class="imageSpace">
-                    <img
-                      th:src="'/images/'+${vo.filename}"
-                      style="width: 200px"
-                    />
+                    <img th:src="'/images/'+${vo.filename}" style="width: 200px" />
                   </div>
                   <br />
                   <div class="rightPlaceP">
@@ -51,18 +40,10 @@
                     </div>
 
                     <div>
-                      <span
-                        >개당 상품 가격:
-                        <span
-                          th:text="${#numbers.formatInteger(vo.price,3,'COMMA')}"
-                        ></span
-                        >원</span
-                      >
+                      <span>개당 상품 가격: <span th:text="${#numbers.formatInteger(vo.price,3,'COMMA')}"></span>원</span>
                     </div>
                     <div>
-                      <span
-                        >구매 개수: <span th:text="${vo.amount}"></span>개</span
-                      >
+                      <span>구매 개수: <span th:text="${vo.amount}"></span>개</span>
                     </div>
                   </div>
                   <br />
@@ -71,40 +52,15 @@
                   <div class="buttonContainer">
                     <div id="button-list" th:switch="${vo.order_status_cd}">
                       <ul th:case="301">
-                        <a
-                          class="button_deliberyinfo btn"
-                          th:onclick="deliberyinfo([[${dto.order_id}]])"
-                        >
-                          배송조회
-                        </a>
-                        <a
-                          class="button_cancel btn red"
-                          th:onclick="cancel([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
-                        >
-                          주문 취소
-                        </a>
+                        <a class="button_deliberyinfo btn" th:onclick="deliberyinfo([[${dto.order_id}]])"> 배송조회 </a>
+                        <a class="button_cancel btn red" th:onclick="cancel([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"> 주문 취소 </a>
                       </ul>
                       <ul th:case="302">
-                        <a
-                          class="button_deliberyinfo btn"
-                          th:onclick="deliberyinfo([[${dto.order_id}]])"
-                        >
-                          배송조회
-                        </a>
-                        <a
-                          class="button_buyconfirm btn green"
-                          th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
-                        >
-                          구매확정
-                        </a>
+                        <a class="button_deliberyinfo btn" th:onclick="deliberyinfo([[${dto.order_id}]])"> 배송조회 </a>
+                        <a class="button_buyconfirm btn green" th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"> 구매확정 </a>
                       </ul>
                       <ul th:case="303">
-                        <a
-                          class="button_buyconfirm btn green"
-                          th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"
-                        >
-                          구매확정
-                        </a>
+                        <a class="button_buyconfirm btn green" th:onclick="buyconfirm([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]])"> 구매확정 </a>
                         <a
                           class="button_changeapply btn orange"
                           th:onclick="change([[${dto.order_id}]],[[${vo.order_status_cd}]],[[${vo.orderproduct_id}]]
@@ -121,42 +77,15 @@
                         </a>
                       </ul>
                       <ul th:case="304">
-                        <a
-                          class="button_deliberyinfo btn"
-                          th:onclick="deliberyinfo([[${dto.order_id}]])"
-                        >
-                          배송조회
-                        </a>
+                        <a class="button_deliberyinfo btn" th:onclick="deliberyinfo([[${dto.order_id}]])"> 배송조회 </a>
                       </ul>
                       <ul th:case="305">
-                        <a
-                          class="button_deliberyinfo btn"
-                          th:onclick="deliberyinfo([[${dto.order_id}]])"
-                        >
-                          배송조회
-                        </a>
+                        <a class="button_deliberyinfo btn" th:onclick="deliberyinfo([[${dto.order_id}]])"> 배송조회 </a>
                       </ul>
                       <ul th:case="310">
-                        <a
-                          class="button_deliberyinfo btn"
-                          th:onclick="deliberyinfo([[${dto.order_id}]])"
-                        >
-                          배송조회
-                        </a>
-                        <a
-                          class="button_reviewwrite btn green"
-                          th:if="${vo.checkreview eq  0}"
-                          th:onclick="reviewwrite([[${vo.orderproduct_id}]],[[${vo.filename}]],[[${vo.name}]])"
-                        >
-                          리뷰쓰기
-                        </a>
-                        <a
-                          class="button_reviewwrite btn"
-                          th:if="${vo.checkreview ne 0}"
-                          th:onclick="reviewread([[${vo.orderproduct_id}]])"
-                        >
-                          리뷰확인
-                        </a>
+                        <a class="button_deliberyinfo btn" th:onclick="deliberyinfo([[${dto.order_id}]])"> 배송조회 </a>
+                        <a class="button_reviewwrite btn green" th:if="${vo.checkreview eq  0}" th:onclick="reviewwrite([[${vo.orderproduct_id}]],[[${vo.filename}]],[[${vo.name}]])"> 리뷰쓰기 </a>
+                        <a class="button_reviewwrite btn" th:if="${vo.checkreview ne 0}" th:onclick="reviewread([[${vo.orderproduct_id}]])"> 리뷰확인 </a>
                       </ul>
                       <ul th:case="*"></ul>
                     </div>
@@ -230,40 +159,22 @@
     let buttonRefundapply = document.querySelectorAll(".button_refundapply");
     let buttonReviewWrite = document.querySelectorAll(".button_reviewwrite");
 
-    const deliberyModal = M.Modal.init(
-      document.querySelector("#deliberymodal"),
-      {}
-    );
-    const changeModal = M.Modal.init(
-      document.querySelector("#changemodal"),
-      {}
-    );
-    const refundModal = M.Modal.init(
-      document.querySelector("#refundmodal"),
-      {}
-    );
-    const reviewModal = M.Modal.init(
-      document.querySelector("#reviewmodal"),
-      {}
-    );
+    const deliberyModal = M.Modal.init(document.querySelector("#deliberymodal"), {});
+    const changeModal = M.Modal.init(document.querySelector("#changemodal"), {});
+    const refundModal = M.Modal.init(document.querySelector("#refundmodal"), {});
+    const reviewModal = M.Modal.init(document.querySelector("#reviewmodal"), {});
 
     //배송조회 확인
     function deliberyinfo(order_id) {
       const data = {
         order_id: order_id,
       };
-      sendServerData(
-        "POST",
-        "/order/deliberystatus",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          let title = document.querySelector("#deliberymodal .modal-title");
-          title.innerText = "배송정보";
-          let content = document.querySelector("#deliberycontent");
-          content.innerHTML = data;
-        }
-      );
+      sendServerData("POST", "/order/deliberystatus", "application/json", JSON.stringify(data), function (data) {
+        let title = document.querySelector("#deliberymodal .modal-title");
+        title.innerText = "배송정보";
+        let content = document.querySelector("#deliberycontent");
+        content.innerHTML = data;
+      });
       deliberyModal.open();
     }
     //-----------------------------------------------------------------
@@ -277,35 +188,22 @@
           order_id: order_id,
         };
         console.log(data);
-        sendServerData(
-          "POST",
-          "update",
-          "application/json",
-          JSON.stringify(data),
-          function (data) {
-            //data = JSON.parse(data);
-            if ((data.status = "OK")) {
-              //
-              alert("주문 취소 처리 되었습니다.");
-              location.reload();
-            } else {
-              alert("삭제하지 못했습니다.");
-            }
+        sendServerData("POST", "update", "application/json", JSON.stringify(data), function (data) {
+          //data = JSON.parse(data);
+          if ((data.status = "OK")) {
+            //
+            alert("주문 취소 처리 되었습니다.");
+            location.reload();
+          } else {
+            alert("삭제하지 못했습니다.");
           }
-        );
+        });
       }
     }
     //-----------------------------------------------------------------
 
     //교환 처리 확인
-    function change(
-      order_id,
-      order_status_cd,
-      orderproduct_id,
-      name,
-      filename,
-      amount
-    ) {
+    function change(order_id, order_status_cd, orderproduct_id, name, filename, amount) {
       const data = {
         orderproduct_id: orderproduct_id,
         name: name,
@@ -313,73 +211,52 @@
         amount: amount,
       };
       console.log(data);
-      sendServerData(
-        "POST",
-        "/order/changeandrefundpage",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          let title = document.querySelector("#changemodal .modal-title");
-          let content = document.querySelector("#changecontent");
-          title.innerText = "교환신청 작성";
-          content.innerHTML = data;
+      sendServerData("POST", "/order/changeandrefundpage", "application/json", JSON.stringify(data), function (data) {
+        let title = document.querySelector("#changemodal .modal-title");
+        let content = document.querySelector("#changecontent");
+        title.innerText = "교환신청 작성";
+        content.innerHTML = data;
 
-          let modalButton = document.querySelector(".btnconfirm");
-          if (modalButton) {
-            modalButton.onclick = function () {
-              let form = document.querySelector("#applicationForm");
-              let reasonInput = document.querySelector("#reasonInput");
-              const isButtonSelected = applicationForm.querySelector(
-                'input[name="changeandrefund"]:checked'
-              );
-              const isReasonProvided = reasonInput.value.trim().length > 0;
-              if (isButtonSelected || isReasonProvided) {
-                if (confirm("신청하시겠습니까?")) {
-                  const data = {
-                    orderproduct_id: orderproduct_id,
-                    reasoncode: form.changeandrefund.value,
-                    textreason: form.changeandrefundcontent.value,
-                    order_status_cd: 304,
-                  };
-                  sendServerData(
-                    "POST",
-                    "insertchangeandrefund",
-                    "application/json",
-                    JSON.stringify(data),
-                    function (data) {
-                      if ((data.status = "OK")) {
-                        console.log("정상 저장 ");
-                        alert("교환 신청이 접수되었습니다.");
-                        changeModal.close();
-                        location.reload();
-                      } else {
-                        console.log("저장되지 않음.");
-                        alert("신청 접수를 정상적으로 하지 못했습니다.");
-                      }
-                    }
-                  );
-                }
-              } else {
-                alert("버튼을 선택하거나 상세사유를 입력해주세요.");
+        let modalButton = document.querySelector(".btnconfirm");
+        if (modalButton) {
+          modalButton.onclick = function () {
+            let form = document.querySelector("#applicationForm");
+            let reasonInput = document.querySelector("#reasonInput");
+            const isButtonSelected = applicationForm.querySelector('input[name="changeandrefund"]:checked');
+            const isReasonProvided = reasonInput.value.trim().length > 0;
+            if (isButtonSelected || isReasonProvided) {
+              if (confirm("신청하시겠습니까?")) {
+                const data = {
+                  orderproduct_id: orderproduct_id,
+                  reasoncode: form.changeandrefund.value,
+                  textreason: form.changeandrefundcontent.value,
+                  order_status_cd: 304,
+                };
+                sendServerData("POST", "insertchangeandrefund", "application/json", JSON.stringify(data), function (data) {
+                  if ((data.status = "OK")) {
+                    console.log("정상 저장 ");
+                    alert("교환 신청이 접수되었습니다.");
+                    changeModal.close();
+                    location.reload();
+                  } else {
+                    console.log("저장되지 않음.");
+                    alert("신청 접수를 정상적으로 하지 못했습니다.");
+                  }
+                });
               }
-            };
-          }
-
-          changeModal.open();
+            } else {
+              alert("버튼을 선택하거나 상세사유를 입력해주세요.");
+            }
+          };
         }
-      );
+
+        changeModal.open();
+      });
     }
 
     //----------------------------------------------------------------
     //환불 처리 확인
-    function refund(
-      order_id,
-      order_status_cd,
-      orderproduct_id,
-      name,
-      filename,
-      amount
-    ) {
+    function refund(order_id, order_status_cd, orderproduct_id, name, filename, amount) {
       const data = {
         orderproduct_id: orderproduct_id,
         name: name,
@@ -387,60 +264,46 @@
         amount: amount,
       };
       console.log(data);
-      sendServerData(
-        "POST",
-        "/order/changeandrefundpage",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          let title = document.querySelector("#refundmodal .modal-title");
-          let content = document.querySelector("#refundcontent");
-          title.innerText = "환불신청 작성";
-          content.innerHTML = data;
+      sendServerData("POST", "/order/changeandrefundpage", "application/json", JSON.stringify(data), function (data) {
+        let title = document.querySelector("#refundmodal .modal-title");
+        let content = document.querySelector("#refundcontent");
+        title.innerText = "환불신청 작성";
+        content.innerHTML = data;
 
-          let modalButton = document.querySelector("#refundmodal .btnconfirm");
-          if (modalButton) {
-            modalButton.onclick = function () {
-              let form = document.querySelector("#applicationForm");
-              let reasonInput = document.querySelector("#reasonInput");
-              const isButtonSelected = applicationForm.querySelector(
-                'input[name="changeandrefund"]:checked'
-              );
-              const isReasonProvided = reasonInput.value.trim().length > 0;
-              if (isButtonSelected || isReasonProvided) {
-                if (confirm("신청하시겠습니까?")) {
-                  const data = {
-                    orderproduct_id: orderproduct_id,
-                    reasoncode: form.changeandrefund.value,
-                    textreason: form.changeandrefundcontent.value,
-                    order_status_cd: 305,
-                  };
-                  sendServerData(
-                    "POST",
-                    "insertchangeandrefund",
-                    "application/json",
-                    JSON.stringify(data),
-                    function (data) {
-                      if ((data.status = "OK")) {
-                        console.log("정상 저장 ");
-                        alert("환불 신청이 접수되었습니다.");
-                        refundModal.close();
-                        location.reload();
-                      } else {
-                        console.log("저장되지 않음.");
-                        alert("신청 접수를 정상적으로 하지 못했습니다.");
-                      }
-                    }
-                  );
-                }
-              } else {
-                alert("버튼을 선택하거나 상세사유를 입력해주세요.");
+        let modalButton = document.querySelector("#refundmodal .btnconfirm");
+        if (modalButton) {
+          modalButton.onclick = function () {
+            let form = document.querySelector("#applicationForm");
+            let reasonInput = document.querySelector("#reasonInput");
+            const isButtonSelected = applicationForm.querySelector('input[name="changeandrefund"]:checked');
+            const isReasonProvided = reasonInput.value.trim().length > 0;
+            if (isButtonSelected || isReasonProvided) {
+              if (confirm("신청하시겠습니까?")) {
+                const data = {
+                  orderproduct_id: orderproduct_id,
+                  reasoncode: form.changeandrefund.value,
+                  textreason: form.changeandrefundcontent.value,
+                  order_status_cd: 305,
+                };
+                sendServerData("POST", "insertchangeandrefund", "application/json", JSON.stringify(data), function (data) {
+                  if ((data.status = "OK")) {
+                    console.log("정상 저장 ");
+                    alert("환불 신청이 접수되었습니다.");
+                    refundModal.close();
+                    location.reload();
+                  } else {
+                    console.log("저장되지 않음.");
+                    alert("신청 접수를 정상적으로 하지 못했습니다.");
+                  }
+                });
               }
-            };
-          }
-          refundModal.open();
+            } else {
+              alert("버튼을 선택하거나 상세사유를 입력해주세요.");
+            }
+          };
         }
-      );
+        refundModal.open();
+      });
     }
 
     //리뷰
@@ -448,18 +311,12 @@
       const data = {
         orderproduct_id: orderproduct_id,
       };
-      sendServerData(
-        "POST",
-        "/order/reviewwritepage",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          let content = document.querySelector("#reviewcontent");
-          let title = document.querySelector("#reviewmodal .modal-title");
-          title.innerText = "리뷰쓰기";
-          content.innerHTML = data;
-        }
-      );
+      sendServerData("POST", "/order/reviewwritepage", "application/json", JSON.stringify(data), function (data) {
+        let content = document.querySelector("#reviewcontent");
+        let title = document.querySelector("#reviewmodal .modal-title");
+        title.innerText = "리뷰쓰기";
+        content.innerHTML = data;
+      });
 
       let modalButton = document.querySelector("#reviewmodal .btnconfirm");
       if (modalButton) {
@@ -476,22 +333,15 @@
             content: form.content.value,
           };
 
-          sendServerData(
-            "POST",
-            "/order/reviewsave",
-            "application/json",
-            JSON.stringify(data),
-            function (data) {
-              let content = document.querySelector("#reviewcontent");
-              let title = document.querySelector("#reviewmodal .modal-title");
-              title.innerText = "리뷰쓰기완료";
-              content.innerHTML = data;
-              let reviewfooter = document.querySelector("#reviewfooter");
-              reviewfooter.innerHTML =
-                "<button class='btn modal-close'>확인</button>";
-              // location.reload();
-            }
-          );
+          sendServerData("POST", "/order/reviewsave", "application/json", JSON.stringify(data), function (data) {
+            let content = document.querySelector("#reviewcontent");
+            let title = document.querySelector("#reviewmodal .modal-title");
+            title.innerText = "리뷰쓰기완료";
+            content.innerHTML = data;
+            let reviewfooter = document.querySelector("#reviewfooter");
+            reviewfooter.innerHTML = "<button class='btn modal-close'>확인</button>";
+            // location.reload();
+          });
         };
 
         reviewModal.open();
@@ -503,21 +353,14 @@
       const data = {
         orderproduct_id: orderproduct_id,
       };
-      sendServerData(
-        "POST",
-        "/order/reviewreadpage",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          let content = document.querySelector("#reviewcontent");
-          let title = document.querySelector("#reviewmodal .modal-title");
-          title.innerText = "내가 쓴 리뷰";
-          content.innerHTML = data;
-          let reviewfooter = document.querySelector("#reviewfooter");
-          reviewfooter.innerHTML =
-            "<button class='btn modal-close'>확인</button>";
-        }
-      );
+      sendServerData("POST", "/order/reviewreadpage", "application/json", JSON.stringify(data), function (data) {
+        let content = document.querySelector("#reviewcontent");
+        let title = document.querySelector("#reviewmodal .modal-title");
+        title.innerText = "내가 쓴 리뷰";
+        content.innerHTML = data;
+        let reviewfooter = document.querySelector("#reviewfooter");
+        reviewfooter.innerHTML = "<button class='btn modal-close'>확인</button>";
+      });
       reviewModal.open();
     }
 
@@ -530,22 +373,16 @@
           order_id: order_id,
         };
         console.log(data);
-        sendServerData(
-          "POST",
-          "update",
-          "application/json",
-          JSON.stringify(data),
-          function (data) {
-            //data = JSON.parse(data);
-            if ((data.status = "OK")) {
-              //
-              alert("구매확정 처리 되었습니다.");
-              location.reload();
-            } else {
-              alert("처리하지 못했습니다.");
-            }
+        sendServerData("POST", "update", "application/json", JSON.stringify(data), function (data) {
+          //data = JSON.parse(data);
+          if ((data.status = "OK")) {
+            //
+            alert("구매확정 처리 되었습니다.");
+            location.reload();
+          } else {
+            alert("처리하지 못했습니다.");
           }
-        );
+        });
       }
     }
     //-----------------------------------------------------------------버튼들 처리

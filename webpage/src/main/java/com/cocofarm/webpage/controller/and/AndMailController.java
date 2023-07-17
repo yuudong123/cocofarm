@@ -2,13 +2,13 @@ package com.cocofarm.webpage.controller.and;
 
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AndMailController {
 
-    @RequestMapping(value = "/email/send.and")
+    @PostMapping(value = "/email/send.and")
     public String sendEmail(String confirm_text, String email) {
         SimpleEmail mail = new SimpleEmail();
         mail.setHostName("smtp.naver.com");
@@ -34,7 +34,7 @@ public class AndMailController {
         return "ok";
     }
 
-    @RequestMapping(value = "/email/findpw.and")
+    @PostMapping(value = "/email/findpw.and")
     public String findPw(String confirm_text, String email) {
         SimpleEmail mail = new SimpleEmail();
         mail.setHostName("smtp.naver.com");

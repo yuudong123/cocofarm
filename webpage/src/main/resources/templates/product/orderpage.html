@@ -14,16 +14,13 @@
       <h3 class="order_payment"><span class="blind">주문/결제</span></h3>
       <section id="section1" class="z-depth-1">
         <form id="orderForm" method="POST" action="/order/orderbuypage">
-          <input type="hidden" name="product_id" th:value="${vo.product_id}"/>
-          <input type="hidden" name="amount" th:value="${orderproductvo.amount}"/>
+          <input type="hidden" name="product_id" th:value="${vo.product_id}" />
+          <input type="hidden" name="amount" th:value="${orderproductvo.amount}" />
           <table class="highlight">
             <tbody>
               <tr>
                 <td>
-                  <img
-                    th:src="'/images/'+${vo.filename}"
-                    style="width: 150px"
-                  />
+                  <img th:src="'/images/'+${vo.filename}" style="width: 150px" />
                 </td>
                 <td th:text="${vo.name}"></td>
                 <td>상품금액</td>
@@ -32,10 +29,7 @@
                 <td th:text="${orderproductvo.amount}" id="amount"></td>
                 <td th:text="${vo.filename}"></td>
                 <td>주문금액</td>
-                <td
-                  th:with="totalPrice=${orderproductvo.amount*vo.price}"
-                  class="onePayPrice"
-                >
+                <td th:with="totalPrice=${orderproductvo.amount*vo.price}" class="onePayPrice">
                   <span th:text="${totalPrice}"></span>
                 </td>
               </tr>

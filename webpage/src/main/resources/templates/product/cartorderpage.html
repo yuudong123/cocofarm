@@ -13,48 +13,23 @@
           <form id="orderForm">
             <table id="cartListAll" class="highlight">
               <tbody>
-                <tr
-                  th:each="cart: ${list}"
-                  th:id="'cartItem-' + ${cart.cart_id}"
-                >
+                <tr th:each="cart: ${list}" th:id="'cartItem-' + ${cart.cart_id}">
                   <input type="hidden" name="cart" th:value="${cart.cart_id}" />
                   <td>
-                    <img
-                      class="imageSpace"
-                      th:src="'/images/'+${cart.product_image}"
-                      style="width: 150px"
-                    />
+                    <img class="imageSpace" th:src="'/images/'+${cart.product_image}" style="width: 150px" />
                   </td>
                   <td class="namePlace" th:text="${cart.product_name}"></td>
                   <td>상품금액</td>
-                  <td>
-                    <span
-                      th:text="${#numbers.formatInteger(cart.product_price, 3, 'COMMA') }"
-                      id="productPrice"
-                    ></span
-                    >원
-                  </td>
+                  <td><span th:text="${#numbers.formatInteger(cart.product_price, 3, 'COMMA') }" id="productPrice"></span>원</td>
                   <td>주문개수 :</td>
-                  <td><sapn th:text="${cart.amount}" id="amount"> </sapn>개</td>
-
+                  <td><span th:text="${cart.amount}" id="amount"> </span>개</td>
                   <td>주문금액</td>
-                  <td
-                    th:with="totalPrice=${#numbers.formatInteger(cart.amount*cart.product_price,3,'COMMA')}"
-                    class="onePayPrice"
-                  >
-                    <span th:text="${totalPrice}"></span>원
-                  </td>
+                  <td th:with="totalPrice=${#numbers.formatInteger(cart.amount*cart.product_price,3,'COMMA')}" class="onePayPrice"><span th:text="${totalPrice}"></span>원</td>
                 </tr>
               </tbody>
             </table>
             <!-- 배송정보 -->
             <div class="orderinfo">
-              <!-- 줄효과 제거  -->
-              <style>
-                .orderinfo table tr {
-                  border-bottom: none;
-                }
-              </style>
               <table>
                 <thead>
                   <tr>
@@ -70,7 +45,6 @@
                         <span th:text="${member.nickname}"></span>
                       </td>
                     </tr>
-
                     <tr>
                       <td>
                         전화번호
@@ -92,9 +66,7 @@
             </div>
 
             <hr />
-            <div class="info">
-              주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
-            </div>
+            <div class="info">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</div>
             <br />
             <span></span>
           </form>
@@ -105,11 +77,7 @@
               <div class="text">총주문금액</div>
             </td>
             <td>
-              <span
-                class="priceInfo"
-                id="allprice"
-                th:text="${#numbers.formatInteger(allTotalPrice,3,'COMMA')}"
-              ></span>
+              <span class="priceInfo" id="allprice" th:text="${#numbers.formatInteger(allTotalPrice,3,'COMMA')}"></span>
               <sqan class="priceInfo">원</sqan>
             </td>
             <td><a class="btn green" id="btnAllPayment">결제하기</a></td>

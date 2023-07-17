@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 a {
   text-decoration: none;
   color: black;
@@ -20,7 +19,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to left, #06D7A0, #E9D171);
+  background: linear-gradient(to left, #06d7a0, #e9d171);
 }
 
 .refused {
@@ -39,7 +38,7 @@ h2 {
   color: rgb(89, 89, 89);
   font-size: 2em;
   font-weight: bold;
-  font-family: 'Do Hyeon', sans-serif;
+  font-family: "Do Hyeon", sans-serif;
 }
 
 h5 {
@@ -47,4 +46,3 @@ h5 {
   font-weight: 800;
   color: crimson;
 }
-

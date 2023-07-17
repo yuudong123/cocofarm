@@ -119,7 +119,6 @@ public class WebOrderController {
         ordervo.setPrice(total);
         ordervo.setOrderProductVOList(cartList);
         ordervo.setOrderdate(new Date());
-        int result = orderService.OrderInsert(ordervo);
 
         mav.addObject("member", member);
         mav.setViewName("product/orderbuypage");
@@ -168,7 +167,7 @@ public class WebOrderController {
             HttpSession session) {
         OrderVO vo = new OrderVO();
         ModelAndView mav = new ModelAndView();
-        ArrayList<CartDTO> cartList = null;
+        ArrayList<CartDTO> cartList = new ArrayList<>();
         int total = 0;
         if (order != null) {
             List<String> list = Arrays.asList(order);
@@ -189,7 +188,7 @@ public class WebOrderController {
         OrderProductVO orderProductVO = new OrderProductVO();
 
         int ok = orderService.OrderInsert(vo);
-        if (order.length == (ok - 1)) {
+        if (order != null && order.length == (ok - 1)) {
             vo.setOrder_status_cd(CodeTable.ORDER_STATUS_ONREADY);
         } else {
             System.out.println("주문 실패");
@@ -330,11 +329,8 @@ public class WebOrderController {
     @RequestMapping("order/reviewreadpage")
     public ModelAndView reviewRead(@RequestBody BoardVO vo, HttpSession session) {
         ModelAndView mav = new ModelAndView();
-        ProductVO productvo = new ProductVO();
-        MemberVO member = (MemberVO) session.getAttribute("userinfo");
-        // System.out.println(member.getMember_no());
         BoardVO boardvo = orderService.selectreviewboard(vo.getOrderproduct_id());
-        productvo = productService.selectProduct(boardvo.getProduct_id());
+        ProductVO productvo = productService.selectProduct(boardvo.getProduct_id());
         System.out.println(boardvo);
         mav.addObject("boardvo", boardvo);
         mav.addObject("productvo", productvo);

@@ -15,12 +15,8 @@
             <br />
             <a th:href="@{/board/qna}">질문하기</a>
             <br />
-            <a th:if="${userinfo != null}" th:href="@{/order/orderlist}"
-              >내 주문내역</a
-            >
-            <a th:if="${userinfo == null}" th:href="@{/member/login}"
-              >내 주문내역</a
-            >
+            <a th:if="${userinfo != null}" th:href="@{/order/orderlist}">내 주문내역</a>
+            <a th:if="${userinfo == null}" th:href="@{/member/login}">내 주문내역</a>
             <br />
             <a th:href="@{/board/review}">리뷰/후기</a>
           </div>
@@ -52,9 +48,7 @@
               예금주 : (주)코코팜
               <br />
               <br />
-              <a href="#" class="brand-logo center"
-                ><img class="whitelogo" src="/images/logo_white.png"
-              /></a>
+              <a href="#" class="brand-logo center"><img class="whitelogo" src="/images/logo_white.png" /></a>
             </span>
           </div>
         </div>
@@ -84,9 +78,7 @@
         </a>
       </div>
     </footer>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="/js/default.js"></script>
   </th:block>
 </html>

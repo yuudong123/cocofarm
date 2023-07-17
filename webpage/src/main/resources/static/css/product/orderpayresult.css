@@ -1,31 +1,29 @@
-.order_cont{
+.order_cont {
   overflow: hidden;
 }
-  .imageSpace{
-    margin-right: 10px;
-    float: left;
-  }
-  
-  .rightPlaceP{
-    float: left;
-    margin-right: 10px;
-    font-size: 20px;
+.imageSpace {
+  margin-right: 10px;
+  float: left;
+}
 
-  }
+.rightPlaceP {
+  float: left;
+  margin-right: 10px;
+  font-size: 20px;
+}
 
-  .buttonContainer {
-    overflow: auto;
-    clear: both;
- 
-  }
-  .buttonContainer a {
-    margin-right: 10px; /* 버튼 간 간격 조정 */
-  }
-.buyContentP{
+.buttonContainer {
+  overflow: auto;
+  clear: both;
+}
+.buttonContainer a {
+  margin-right: 10px; /* 버튼 간 간격 조정 */
+}
+.buyContentP {
   font-size: 16px;
   margin: 10px;
 }
-.status{
+.status {
   font-size: 20px;
   margin: 10px;
   font-weight: bold;

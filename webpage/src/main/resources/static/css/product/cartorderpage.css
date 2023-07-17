@@ -1,26 +1,29 @@
 /* 전체 */
-.orderPlaceP{
-    font-size: 18px;
-    padding: 0 10px;
+.orderPlaceP {
+  font-size: 18px;
+  padding: 0 10px;
 }
 
 /* 배송정보 */
-.text{
-    text-align: center;
+.text {
+  text-align: center;
 }
-.info{
-    text-align: center;
-    font-weight: bold;
-    margin: 10px;
-    margin-bottom: -10px;
-   
+.info {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px;
+  margin-bottom: -10px;
 }
-.orderBuyPageP{
-    font-size: 18px;
+.orderBuyPageP {
+  font-size: 18px;
 }
-.text{
-    margin-left: 20px;
+.text {
+  margin-left: 20px;
 }
-.priceInfo{
-    font-weight: bold;
+.priceInfo {
+  font-weight: bold;
+}
+/* 줄 효과 제거 */
+.orderinfo table tr {
+  border-bottom: none;
 }

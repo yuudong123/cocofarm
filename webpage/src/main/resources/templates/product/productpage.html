@@ -58,19 +58,7 @@
             let name = item.name;
             let price = item.price.toLocaleString();
             let content = item.content;
-            let link =
-              "<div class='card' onclick='redirectToProductDetail(" +
-              product_id +
-              ")'><div class='card-image'><img src='/images/" +
-              image +
-              "'/></div><div class='card-content'><span class='card-title'>" +
-              name +
-              "</span><p>" +
-              price +
-              "원" +
-              "</p><p>" +
-              content +
-              "</p></div></div>";
+            let link = "<div class='card' onclick='redirectToProductDetail(" + product_id + ")'><div class='card-image'><img src='/images/" + image + "'/></div><div class='card-content'><span class='card-title'>" + name + "</span><p>" + price + "원" + "</p><p>" + content + "</p></div></div>";
             list.innerHTML += link;
           });
         });

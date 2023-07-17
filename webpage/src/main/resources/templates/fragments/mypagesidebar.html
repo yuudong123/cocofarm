@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <th:block th:fragment="mypagesidebarFragment">
-        <div class="grid">
-            <div class="collection">
-                <a href="/member/myinfo" class="collection-item">내 정보</a>
-                <a href="/member/modifypw_mp" class="collection-item">비밀번호 변경</a>
-                <a href="/member/myboard" class="collection-item">내가 쓴 글</a>
-                <a href="/member/mydevice" class="collection-item">내 기기</a>
-                <a href="/member/away" class="collection-item">회원 탈퇴</a>
-            </div>
-        </div>
+    <div class="grid">
+      <div class="collection">
+        <a href="/member/myinfo" class="collection-item">내 정보</a>
+        <a href="/member/modifypw_mp" class="collection-item">비밀번호 변경</a>
+        <a href="/member/myboard" class="collection-item">내가 쓴 글</a>
+        <a href="/member/mydevice" class="collection-item">내 기기</a>
+        <a href="/member/away" class="collection-item">회원 탈퇴</a>
+      </div>
+    </div>
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
-      var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-      (function(){
-      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-      s1.async=true;
-      s1.src='https://embed.tawk.to/64a4debacc26a871b02666f9/1h4i0c2pf';
-      s1.charset='UTF-8';
-      s1.setAttribute('crossorigin','*');
-      s0.parentNode.insertBefore(s1,s0);
+      var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+      (function () {
+        var s1 = document.createElement("script");
+        var s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = "https://embed.tawk.to/64a4debacc26a871b02666f9/1h4i0c2pf";
+        s1.charset = "UTF-8";
+        s1.setAttribute("crossorigin", "*");
+        s0.parentNode.insertBefore(s1, s0);
       })();
-      </script>
-      <!--End of Tawk.to Script-->
+    </script>
+  </th:block>
+  <!--End of Tawk.to Script-->
 </html>

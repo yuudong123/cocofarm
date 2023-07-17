@@ -26,14 +26,14 @@ section {
   outline: none;
 }
 
-.card-image img{
+.card-image img {
   height: 200px;
- width: max-content;
+  width: max-content;
 }
-.card-content{
-  width:fit-content;
+.card-content {
+  width: fit-content;
 }
-.card-content p{
+.card-content p {
   padding: 0 !important;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -42,18 +42,17 @@ section {
   max-width: 200px;
 }
 
-.card{
-  width:fit-content;
-  
+.card {
+  width: fit-content;
 }
 
-.card-title{
+.card-title {
   white-space: nowrap;
   width: fit-content;
 }
 
-#plantList, #deviceList{
+#plantList,
+#deviceList {
   display: flex;
   flex-wrap: wrap;
 }
-

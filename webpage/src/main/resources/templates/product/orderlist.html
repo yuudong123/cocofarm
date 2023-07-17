@@ -7,9 +7,7 @@
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <h3 class="orderListEmpty" id="noresultmsg" th:if="${list.size == 0}">
-        주문 내역이 없습니다.
-      </h3>
+      <h3 class="orderListEmpty" id="noresultmsg" th:if="${list.size == 0}">주문 내역이 없습니다.</h3>
       <div class="container" th:if="${list.size != 0}">
         <!-- 결제완료 주문목록 창 -->
         <div class="order_header">
@@ -18,22 +16,12 @@
           <div class="order_content">
             <div class="order_cont" th:each="dto:${list}">
               <div class="detailDatePlace">
-                <span
-                  th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"
-                ></span>
+                <span th:text="${#dates.format(dto.orderdate, 'yyyy-MM-dd')}"></span>
                 <span>결제</span>
               </div>
-              <div class="detailPricePlace">
-                <span>결제금액 : </span
-                ><span
-                  th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"
-                ></span
-                ><span>원</span>
-              </div>
+              <div class="detailPricePlace"><span>결제금액 : </span><span th:text="${#numbers.formatInteger(dto.price,3,'COMMA')}"></span><span>원</span></div>
 
-              <a class="detail btn" th:data-order-id="${dto.order_id}">
-                상세보기
-              </a>
+              <a class="detail btn" th:data-order-id="${dto.order_id}"> 상세보기 </a>
             </div>
             <!-- </div> -->
           </div>

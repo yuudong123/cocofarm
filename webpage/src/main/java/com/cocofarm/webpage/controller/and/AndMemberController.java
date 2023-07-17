@@ -2,7 +2,6 @@ package com.cocofarm.webpage.controller.and;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cocofarm.webpage.PhoneHyphen;
@@ -58,7 +57,7 @@ public class AndMemberController {
         return new Gson().toJson(service.sns_login(vo));
     }
 
-    @RequestMapping(value = "/member/modify.and")
+    @PostMapping(value = "/member/modify.and")
     public String am_modify(String password, String nickname, String phonenumber, String email, String address) {
 
         MemberVO vo = new MemberVO();
@@ -77,11 +76,10 @@ public class AndMemberController {
         service.pw_modify(email, password);
     }
 
-    @RequestMapping(value = "/member/away.and")
+    @PostMapping(value = "/member/away.and")
     public int away(String email) {
         MemberVO vo = new MemberVO();
         vo.setEmail(email);
-
         return service.away(email);
     }
 
@@ -96,7 +94,6 @@ public class AndMemberController {
 
     // 내가 쓴 리뷰 보기.
     @PostMapping(value = "/member/myreviewboard.and", produces = "text/html;charset=utf-8")
-
     public String myreviewboard(MemberVO vo) {
         return new Gson().toJson(service.myreviewboard(vo));
     }

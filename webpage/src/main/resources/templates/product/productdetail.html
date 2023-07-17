@@ -10,59 +10,30 @@
       <div class="containerCenter">
         <div class="containerPlace">
           <div class="leftPlace">
-            <img
-              th:each="image : ${list}"
-              th:src="'/images/'+${image.filename}"
-              style="width: 300px"
-            />
+            <img th:each="image : ${list}" th:src="'/images/'+${image.filename}" style="width: 300px" />
           </div>
           <div class="rightPlace">
             <div class="rightContent">
               <div class="productName">[[${vo.name}]]</div>
               <div class="productPrice">[[${vo.price}]]</div>
-              <input
-                type="hidden"
-                id="member_no"
-                value="[[${member.member_no}]]"
-              />
+              <input type="hidden" id="member_no" value="[[${member.member_no}]]" />
               <div id="btnBox" class="btnBoxSpace">
                 <span>
                   <a id="btnMinus" class="btnA btn">-</a>
-                  <span id="count" class="numZero" th:data-amount="${vo.amount}"
-                    >0</span
-                  >
+                  <span id="count" class="numZero" th:data-amount="${vo.amount}">0</span>
                   <a id="btnPlus" class="btnA btn">+</a>
                 </span>
               </div>
             </div>
 
             <span class="allP"
-              >총상품금액
-              <span
-                ><span id="allprice" class="allpriceSpace">0 </span> 원</span
-              ></span
+              >총상품금액 <span><span id="allprice" class="allpriceSpace">0 </span> 원</span></span
             >
             <span>
-              <a
-                th:if="${userinfo != null}"
-                id="btnInsertCart"
-                th:data-product_id="${vo.product_id}"
-                class="btn"
-                >장바구니에 넣기</a
-              >
-              <a th:if="${userinfo == null}" id="notlogin" class="btn"
-                >장바구니에 넣기</a
-              >
-              <a
-                th:if="${userinfo != null}"
-                id="btnDirectBuy"
-                th:data-product_id="${vo.product_id}"
-                class="btnBuy btn"
-                >바로 구매하기</a
-              >
-              <a th:if="${userinfo == null}" id="notlogin2" class="btn"
-                >바로 구매하기</a
-              >
+              <a th:if="${userinfo != null}" id="btnInsertCart" th:data-product_id="${vo.product_id}" class="btn">장바구니에 넣기</a>
+              <a th:if="${userinfo == null}" id="notlogin" class="btn">장바구니에 넣기</a>
+              <a th:if="${userinfo != null}" id="btnDirectBuy" th:data-product_id="${vo.product_id}" class="btnBuy btn">바로 구매하기</a>
+              <a th:if="${userinfo == null}" id="notlogin2" class="btn">바로 구매하기</a>
             </span>
           </div>
         </div>
@@ -101,45 +72,27 @@
       const data = {
         product_id: product_id,
       };
-      sendServerData(
-        "POST",
-        "/product/productdetailcontent",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          detailcontent.innerHTML = data;
-        }
-      );
+      sendServerData("POST", "/product/productdetailcontent", "application/json", JSON.stringify(data), function (data) {
+        detailcontent.innerHTML = data;
+      });
     });
     btnreview.addEventListener("click", () => {
       let product_id = btnInsertCart.getAttribute("data-product_id");
       const data = {
         product_id: product_id,
       };
-      sendServerData(
-        "POST",
-        "/product/reviewcontent",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          detailcontent.innerHTML = data;
-        }
-      );
+      sendServerData("POST", "/product/reviewcontent", "application/json", JSON.stringify(data), function (data) {
+        detailcontent.innerHTML = data;
+      });
     });
     btnqna.addEventListener("click", () => {
       let product_id = btnInsertCart.getAttribute("data-product_id");
       const data = {
         product_id: product_id,
       };
-      sendServerData(
-        "POST",
-        "/product/qnacontent",
-        "application/json",
-        JSON.stringify(data),
-        function (data) {
-          detailcontent.innerHTML = data;
-        }
-      );
+      sendServerData("POST", "/product/qnacontent", "application/json", JSON.stringify(data), function (data) {
+        detailcontent.innerHTML = data;
+      });
     });
     const btnMinus = document.querySelector("#btnMinus");
     const btnPlus = document.querySelector("#btnPlus");
@@ -196,27 +149,17 @@
           product_id: product_id,
           amount: count,
         };
-        sendServerData(
-          "POST",
-          "/cartinsert",
-          "application/json",
-          JSON.stringify(data),
-          function (data) {
-            data = JSON.parse(data);
-            if ((data.status = "OK")) {
-              if (
-                confirm(
-                  "장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요."
-                )
-              ) {
-                //alert("장바구니 가기");
-                //장바구니 이동 페이지 필요
-                location.href = "cart";
-              } else {
-              }
+        sendServerData("POST", "/cartinsert", "application/json", JSON.stringify(data), function (data) {
+          data = JSON.parse(data);
+          if ((data.status = "OK")) {
+            if (confirm("장바구니로 가시려면 확인 페이지에 남으시려면 취소를 선택해주세요.")) {
+              //alert("장바구니 가기");
+              //장바구니 이동 페이지 필요
+              location.href = "cart";
+            } else {
             }
           }
-        );
+        });
 
         //   const xhr = new XMLHttpRequest();
         //   xhr.onload = function () {
@@ -252,11 +195,7 @@
     }
     if (notlogin) {
       notlogin.addEventListener("click", () => {
-        if (
-          confirm(
-            "로그인이 필요한 서비스 입니다. 로그인을 원하시면 확인을 눌러주세요."
-          )
-        ) {
+        if (confirm("로그인이 필요한 서비스 입니다. 로그인을 원하시면 확인을 눌러주세요.")) {
           location.href = "/member/login";
         } else {
           M.toast({ html: "로그인이 필요한 서비스 입니다." });
@@ -315,11 +254,7 @@
     }
     if (notlogin2) {
       notlogin2.addEventListener("click", () => {
-        if (
-          confirm(
-            "로그인이 필요한 서비스 입니다. 로그인을 원하시면 확인을 눌러주세요."
-          )
-        ) {
+        if (confirm("로그인이 필요한 서비스 입니다. 로그인을 원하시면 확인을 눌러주세요.")) {
           location.href = "/member/login";
         } else {
           M.toast({ html: "로그인이 필요한 서비스 입니다." });
