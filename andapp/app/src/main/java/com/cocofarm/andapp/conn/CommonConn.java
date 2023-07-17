@@ -26,12 +26,6 @@ public class CommonConn {
         params = new HashMap<>();
     }
 
-    public CommonConn(Context context, String mapping, HashMap<String, Object> params) {
-        this.context = context;
-        this.mapping = mapping;
-        this.params = params;
-    }
-
     public void addParam(String key, Object value) {
         if (key != null && value != null) {
             params.put(key, value);
