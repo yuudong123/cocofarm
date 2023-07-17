@@ -23,6 +23,12 @@ from TBL_MEMBER
 where EMAil = #{email}
     </select>
 
+    <update id="sns_out">
+update tbl_member
+set isactivated = 'N'
+where email = #{email}        
+    </update>
+
     <update id="pw_modify">
 update tbl_member
 set password = #{password}
