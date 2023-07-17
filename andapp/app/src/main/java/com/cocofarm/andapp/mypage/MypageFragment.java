@@ -3,6 +3,7 @@ package com.cocofarm.andapp.mypage;
 import static com.cocofarm.andapp.common.CommonVal.loginMember;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.cocofarm.andapp.SplashActivity;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentMypageBinding;
@@ -80,6 +82,11 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                 Toast.makeText(getActivity(), "로그아웃에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
+            SharedPreferences.Editor editor = SplashActivity.preferences.edit();
+            editor.putString("email", "");
+            editor.putString("password", "");
+            editor.putBoolean("checked", false);
+            editor.apply();
         });
 
         binding.tvSnsOut.setOnClickListener(v -> {

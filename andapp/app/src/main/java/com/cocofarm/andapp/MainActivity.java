@@ -6,7 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -14,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.board.BoardFragment;
+import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.databinding.ActivityMainBinding;
 import com.cocofarm.andapp.home.HomeFragment;
 import com.cocofarm.andapp.member.LoginActivity;
@@ -23,6 +26,11 @@ import com.cocofarm.andapp.mypage.NonMemberFragment;
 import com.cocofarm.andapp.order.CartActivity;
 import com.cocofarm.andapp.product.ProductFragment;
 import com.cocofarm.andapp.util.BackPressedHandler;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.kakao.sdk.user.UserApiClient;
+import com.navercorp.nid.NaverIdLoginSDK;
 
 public class MainActivity extends AppCompatActivity {
     public static Context mContext;
@@ -68,12 +76,39 @@ public class MainActivity extends AppCompatActivity {
             if (i == R.id.right_nav_home) {
                 binding.bottomNav.setSelectedItemId(R.id.home);
             } else if (i == R.id.right_nav_logout) {
-                loginMember = null;
+                if (loginMember.getSns().equals("KAKAO")) {
+                    UserApiClient.getInstance().logout(throwable -> {
+                        if (throwable != null) {
+                            Log.e("카카오 로그아웃", "로그아웃 실패. SDK에서 토큰 삭제됨", throwable);
+                        } else {
+                            Log.i("카카오 로그아웃", "로그아웃 성공. SDK에서 토큰 삭제됨");
+                        }
+                        return null;
+                    });
+                } else if (loginMember.getSns().equals("NAVER")) {
+                    NaverIdLoginSDK.INSTANCE.logout();
+                } else if (loginMember.getSns().equals("GOOGLE")) {
+                    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+                    GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                    mGoogleSignInClient.signOut().addOnCompleteListener(this, task ->this.finish());
+                } else if (loginMember.getSns().equals("N")) {
+                    loginMember = null;
+                    Intent intent = this.getIntent();
+                    finish();
+                    startActivity(intent);
+                    CommonVal.isCheckLogout = true;
+                    Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "로그아웃에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
                 SharedPreferences.Editor editor = SplashActivity.preferences.edit();
                 editor.putString("email", "");
                 editor.putString("password", "");
                 editor.putBoolean("checked", false);
                 editor.apply();
+                finish();
+
             } else if (i == R.id.right_nav_login) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
