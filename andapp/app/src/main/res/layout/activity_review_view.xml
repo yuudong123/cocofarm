@@ -55,6 +55,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:layout_marginLeft="10dp"
             android:id="@+id/ivProductImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -72,6 +73,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textSize="17dp"
                     android:id="@+id/tv_ProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,6 +97,7 @@
         android:paddingBottom="50dp">
 
         <TextView
+            android:textSize="17dp"
             android:id="@+id/tv_reviewview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

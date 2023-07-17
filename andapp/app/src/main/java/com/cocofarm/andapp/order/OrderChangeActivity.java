@@ -1,5 +1,6 @@
 package com.cocofarm.andapp.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RadioGroup;
@@ -11,6 +12,7 @@ import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.common.CodeTable;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityOrderChangeBinding;
+import com.cocofarm.andapp.image.ImageUtil;
 import com.google.gson.Gson;
 
 public class OrderChangeActivity extends AppCompatActivity {
@@ -23,6 +25,13 @@ public class OrderChangeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityOrderChangeBinding.inflate(getLayoutInflater());
+
+        OrderProductVO orderProductVO = (OrderProductVO) getIntent().getSerializableExtra("orderProductVO");
+
+        ImageUtil.load(binding.imgChangeapply,orderProductVO.getFilename());
+        binding.tvChangeapplyName.setText(orderProductVO.getName());
+        binding.tvChangeapplyAmount.setText(orderProductVO.getAmount()+"개");
+
         setContentView(binding.getRoot());
 
         binding.btnOrderChangeSubmit.setOnClickListener(v -> {

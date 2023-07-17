@@ -44,6 +44,7 @@
         android:padding="10dp">
 
         <ImageView
+            android:layout_marginLeft="10dp"
             android:id="@+id/ivProductImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -62,6 +63,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textSize="20dp"
                     android:id="@+id/tv_ProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,12 +92,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
+                android:textSize="17dp"
                 android:id="@+id/tv_delivery_onready"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -104,6 +111,7 @@
                 android:text="배송준비" />
 
             <TextView
+                android:textSize="17dp"
                 android:id="@+id/tv_delivery_on"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -112,6 +120,7 @@
                 android:text="배송중" />
 
             <TextView
+                android:textSize="17dp"
                 android:id="@+id/tv_delivery_finish"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -125,8 +134,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
+<View
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"/>
             <TextView
+                android:textStyle="bold"
+                android:textSize="25dp"
                 android:id="@+id/tv_status_ment"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
