@@ -63,3 +63,11 @@ footer a:hover {
 .sidenav-overlay {
   z-index: 996 !important;
 }
+
+.btnHeaderLogout {
+  cursor: pointer;
+}
+
+.divider {
+  margin: 0 !important;
+}

@@ -42,14 +42,12 @@
               <li>
                 <a th:if="${userinfo == null}" th:href="@{/member/login}">마이페이지</a>
               </li>
-              <th:block>
-                <li th:if="${userinfo == null}">
-                  <a id="btnHeaderLogin" href="/member/login">로그인</a>
-                </li>
-                <li th:if="${userinfo != null}">
-                  <a id="btnHeaderLogout">로그아웃</a>
-                </li>
-              </th:block>
+              <li th:if="${userinfo == null}">
+                <a id="btnHeaderLogin" href="/member/login">로그인</a>
+              </li>
+              <li th:if="${userinfo != null}">
+                <a class="btnHeaderLogout">로그아웃</a>
+              </li>
             </ul>
           </div>
         </nav>
@@ -71,6 +69,13 @@
           </li>
           <li>
             <a style="color: #7cb342" th:href="@{/about/location}">오시는 길</a>
+          </li>
+          <li class="divider"></li>
+          <li th:if="${userinfo == null}">
+            <a id="btnHeaderLogin" href="/member/login">로그인</a>
+          </li>
+          <li th:if="${userinfo != null}">
+            <a class="btnHeaderLogout">로그아웃</a>
           </li>
         </ul>
       </div>

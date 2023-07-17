@@ -42,13 +42,15 @@ function fetchTEXT(url, data, callback) {
     .catch((error) => console.error("Error : " + error));
 }
 
-btnLogout = document.querySelector("#btnHeaderLogout");
-if (btnLogout != null) {
-  btnLogout.addEventListener("click", (e) => {
-    e.preventDefault();
-    logout();
-  });
-}
+btnLogout = document.querySelectorAll(".btnHeaderLogout");
+btnLogout.forEach((btn) => {
+  if (btn != null) {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      logout();
+    });
+  }
+});
 
 function logout() {
   fetchTEXT("/member/logout", null, (data) => {
