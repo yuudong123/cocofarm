@@ -1,124 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <th:block th:replace="~{fragments/head :: headFragment}"></th:block>
+    <link rel="stylesheet" href="/css/product/cartorderpage.css" />
   </head>
   <body>
-    주문 목록
-    <div th:text="${vo.product_id}"></div>
-    <div th:text="${orderproductvo.amount}"></div>
+    <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
+    <main>
+      <!-- 주문 목록
+      <div th:text="${vo.product_id}"></div>
+      <div th:text="${orderproductvo.amount}"></div> -->
 
-    <div class="container">
-      <h3 class="order_payment"><span class="blind">주문/결제</span></h3>
-      <section id="section1" class="z-depth-1">
-        <form id="orderForm" method="POST" action="/order/orderbuypage">
-          <input type="hidden" name="product_id" th:value="${vo.product_id}" />
-          <input type="hidden" name="amount" th:value="${orderproductvo.amount}" />
-          <table class="highlight">
-            <tbody>
-              <tr>
-                <td>
-                  <img th:src="'/images/'+${vo.filename}" style="width: 150px" />
-                </td>
-                <td th:text="${vo.name}"></td>
-                <td>상품금액</td>
-                <td th:text="${vo.price}" id="productPrice"></td>
-                <td>주문개수 :</td>
-                <td th:text="${orderproductvo.amount}" id="amount"></td>
-                <td th:text="${vo.filename}"></td>
-                <td>주문금액</td>
-                <td th:with="totalPrice=${orderproductvo.amount*vo.price}" class="onePayPrice">
-                  <span th:text="${totalPrice}"></span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <!-- 배송정보 -->
-          <div class="orderinfo">
-            <!-- 줄효과 제거  -->
-            <style>
-              .orderinfo table tr {
-                border-bottom: none;
-              }
-            </style>
-            <table>
-              <thead>
-                <tr>
-                  <th><h5>배송정보</h5></th>
-                </tr>
-              </thead>
+      <div class="container">
+        <h3 class="order_payment"><span class="blind">주문/결제</span></h3>
+        <section id="section1" class="orderPlaceP z-depth-1">
+          <form id="orderForm" method="POST" action="/order/orderbuypage">
+            <input
+              type="hidden"
+              name="product_id"
+              th:value="${vo.product_id}"
+            />
+            <input
+              type="hidden"
+              name="amount"
+              th:value="${orderproductvo.amount}"
+            />
+
+            <table class="highlight">
               <tbody>
                 <tr>
                   <td>
-                    이름
-                    <br />
-                    <span th:text="${member.nickname}"></span>
+                    <img
+                      th:src="'/images/'+${vo.filename}"
+                      style="width: 150px"
+                    />
                   </td>
-                </tr>
-                <tr>
+                  <td th:text="${vo.name}"></td>
+                  <td>상품금액</td>
                   <td>
-                    전화번호
-                    <br />
-                    <span th:text="${member.phonenumber}"></span>
+                    <span
+                      th:text="${#numbers.formatInteger(vo.price,3,'COMMA')}"
+                      id="productPrice"
+                    ></span
+                    >원
                   </td>
-                </tr>
-                <tr>
+                  <td>주문개수 :</td>
                   <td>
-                    주소
-                    <br />
-                    <span th:text="${member.address}"></span>
+                    <span th:text="${orderproductvo.amount}" id="amount"></span>
+                    개
+                  </td>
+                  <td>주문금액</td>
+                  <td
+                    th:with="totalPrice=${orderproductvo.amount*vo.price}"
+                    class="onePayPrice"
+                  >
+                    <span
+                      th:text="${#numbers.formatInteger(totalPrice,3,'COMMA')}"
+                    ></span
+                    >원
                   </td>
                 </tr>
-                <!-- 가능 하다면 배송메세지 기능 -->
               </tbody>
             </table>
-          </div>
+            <!-- 배송정보 -->
+            <div class="orderinfo">
+              <table>
+                <thead>
+                  <tr>
+                    <th><h5 class="text">배송정보</h5></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <div class="addressPlace">
+                    <tr>
+                      <td>
+                        이름
+                        <br />
+                        <span th:text="${member.nickname}"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        전화번호
+                        <br />
+                        <span th:text="${member.phonenumber}"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        주소
+                        <br />
+                        <span th:text="${member.address}"></span>
+                      </td>
+                    </tr>
+                  </div>
+                  <!-- 가능 하다면 배송메세지 기능 -->
+                </tbody>
+              </table>
+            </div>
 
-          <hr />
-          <div>주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</div>
-
-          <span></span>
-        </form>
-      </section>
-      <section id="section2" class="z-depth-1">
-        <table id="orderpalce" class="order">
-          <td>총상품금액</td>
-          <td th:with="totalPrice=${orderproductvo.amount*vo.price}">
-            <span th:text="${totalPrice}"></span>
-          </td>
-          <td><button id="btnAllPayment">결제하기</button></td>
-        </table>
-      </section>
-    </div>
+            <hr />
+            <div class="info">
+              주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.
+            </div>
+            <br />
+            <span></span>
+          </form>
+        </section>
+        <section id="section2" class="z-depth-1">
+          <table id="orderpalce" class="order">
+            <td>
+              <div class="text">총주문금액</div>
+            </td>
+            <td th:with="totalPrice=${orderproductvo.amount*vo.price}">
+              <span
+                th:text="${#numbers.formatInteger(totalPrice,3,'COMMA')}"
+              ></span
+              >원
+            </td>
+            <td><a class="btn green" id="btnAllPayment">결제하기</a></td>
+          </table>
+        </section>
+      </div>
+    </main>
+    <th:block th:replace="~{fragments/footer :: footerFragment}"></th:block>
+    <script src="/js/cocofarm.js"></script>
   </body>
+
   <script>
     let btnAllPayment = document.querySelector("#btnAllPayment");
-
     btnAllPayment.addEventListener("click", () => {
-      let orderForm = document.querySelector("#orderForm");
-      orderForm.submit();
+      if (confirm("결제 하시겠습니까?")) {
+        let orderForm = document.querySelector("#orderForm");
+        orderForm.submit();
+      }
     });
   </script>
-  <!-- <script th:inline="javascript">
-    fetchTEXT(
-      "/product/orderpage/insert",
-      {
-        board_category_cd: 1,
-        title: 2,
-        content: 3,
-        product_id: 4,
-        mainimage: 5,
-      },
-      (data) => {
-        if (data == 1) {
-          alert("등록되었습니다.");
-          location.href = "/board/qna";
-        } else {
-          alert("작성에 실패했습니다.");
-        }
-      }
-    );
-  </script> -->
 </html>

@@ -7,12 +7,13 @@
         <td>
           <div id="productBox">
             <div>
-              <h6 th:text="${board.product_name}"></h6>
-              <p id="productContent" th:text="${board.content}"></p>
+              <span th:text="${board.nickname}"></span>
+              <span
+                th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"
+              ></span>
             </div>
             <div>
-              <span th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></span>
-              <span th:text="${board.nickname}"></span>
+              <p id="productContent" th:text="${board.content}"></p>
             </div>
           </div>
         </td>

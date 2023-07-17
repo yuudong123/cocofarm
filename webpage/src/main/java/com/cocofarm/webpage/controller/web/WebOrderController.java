@@ -110,7 +110,7 @@ public class WebOrderController {
         MemberVO member = (MemberVO) session.getAttribute("userinfo");
         ordervo.setMember_no(member.getMember_no());
         ordervo.setAddress(member.getAddress());
-        System.out.println(dto);
+        System.out.println(dto + "디티오에 뭐가있을까");
         int total = dto.getAmount() * vo.getPrice();
 
         dto.setMember_no(member.getMember_no());
@@ -119,7 +119,8 @@ public class WebOrderController {
         ordervo.setPrice(total);
         ordervo.setOrderProductVOList(cartList);
         ordervo.setOrderdate(new Date());
-
+        orderService.OrderInsert(ordervo);
+        
         mav.addObject("member", member);
         mav.setViewName("product/orderbuypage");
         return mav;
