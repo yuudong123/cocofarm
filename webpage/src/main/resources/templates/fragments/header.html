@@ -32,8 +32,20 @@
               <li><a th:href="@{/}">홈</a></li>
               <li><a th:href="@{/product}">제품</a></li>
               <li><a th:href="@{/board/notice}">게시판</a></li>
-              <li><a th:href="@{/cart}">장바구니</a></li>
-              <li><a th:href="@{/order/orderlist}">내 주문내역</a></li>
+              <li>
+                <a th:if="${userinfo != null}" th:href="@{/cart}">장바구니</a>
+                <a th:if="${userinfo == null}" th:href="@{/member/login}"
+                  >장바구니</a
+                >
+              </li>
+              <li>
+                <a th:if="${userinfo != null}" th:href="@{/order/orderlist}"
+                  >내 주문내역</a
+                >
+                <a th:if="${userinfo == null}" th:href="@{/member/login}"
+                  >내 주문내역</a
+                >
+              </li>
               <li>
                 <a class="dropdown-trigger" data-target="dropdown1"
                   >회사소개<i class="material-icons right"
@@ -68,6 +80,20 @@
           <li><a th:href="@{/}">홈</a></li>
           <li><a th:href="@{/product}">제품</a></li>
           <li><a th:href="@{/board/notice}">게시판</a></li>
+          <li>
+            <a th:if="${userinfo != null}" th:href="@{/cart}">장바구니</a>
+            <a th:if="${userinfo == null}" th:href="@{/member/login}"
+              >장바구니</a
+            >
+          </li>
+          <li>
+            <a th:if="${userinfo != null}" th:href="@{/order/orderlist}"
+              >내 주문내역</a
+            >
+            <a th:if="${userinfo == null}" th:href="@{/member/login}"
+              >내 주문내역</a
+            >
+          </li>
           <li class="divider"></li>
           <li>
             <a style="color: #7cb342" th:href="@{/about/overview}">개요</a>

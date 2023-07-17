@@ -1,3 +1,11 @@
+/* 주문내역 비어있을 때 */
+.orderListEmpty{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10%;
+}
+
 .detailDatePlace{
     font-size: 20px;
 }

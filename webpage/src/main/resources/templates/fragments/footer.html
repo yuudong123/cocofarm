@@ -15,7 +15,12 @@
             <br />
             <a th:href="@{/board/qna}">질문하기</a>
             <br />
-            <a th:href="@{/order/orderlist}">주문목록</a>
+            <a th:if="${userinfo != null}" th:href="@{/order/orderlist}"
+              >내 주문내역</a
+            >
+            <a th:if="${userinfo == null}" th:href="@{/member/login}"
+              >내 주문내역</a
+            >
             <br />
             <a th:href="@{/board/review}">리뷰/후기</a>
           </div>

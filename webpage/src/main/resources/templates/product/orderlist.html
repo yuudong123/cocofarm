@@ -7,12 +7,14 @@
   <body>
     <th:block th:replace="~{fragments/header :: headerFragment}"></th:block>
     <main>
-      <div class="container">
+      <h3 class="orderListEmpty" id="noresultmsg" th:if="${list.size == 0}">
+        주문 내역이 없습니다.
+      </h3>
+      <div class="container" th:if="${list.size != 0}">
         <!-- 결제완료 주문목록 창 -->
         <div class="order_header">
           <h4 class="order_payment"><span class="blind">주문결제내역</span></h4>
           <!-- <form> -->
-
           <div class="order_content">
             <div class="order_cont" th:each="dto:${list}">
               <div class="detailDatePlace">
