@@ -67,6 +67,12 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                 });
             } else if (loginMember.getSns().equals("NAVER")) {
                 NaverIdLoginSDK.INSTANCE.logout();
+                loginMember = null;
+                Intent intent = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(intent);
+                CommonVal.isCheckLogout = true;
+                Toast.makeText(getActivity(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
             } else if (loginMember.getSns().equals("GOOGLE")) {
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
                 GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
@@ -97,7 +103,7 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                     } else {
                         Log.i("카카오 연동해제", "연결 끊기 성공. SDK에서 토큰 삭제 됨");
                         CommonConn conn = new CommonConn(getActivity(), "/member/snsout");
-                        conn.addParam("email", loginMember.getEmail());
+                        conn.addParam("email", CommonVal.loginMember.getEmail());
                         conn.onExcute((isResult, data) -> {
                             if(!isResult) {
                                 return;
@@ -113,6 +119,20 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onSuccess() {
                         //서버에서 토큰 삭제에 성공한 상태입니다
+                        CommonConn conn = new CommonConn(getActivity(), "/member/sns_out.and");
+                        conn.addParam("email", loginMember.getEmail());
+                        conn.onExcute((isResult, data) -> {
+                            if (!isResult) {
+                                return;
+                            } else {
+                                loginMember = null;
+                                Intent intent = getActivity().getIntent();
+                                getActivity().finish();
+                                startActivity(intent);
+                                CommonVal.isCheckLogout = true;
+                                Toast.makeText(getActivity(), "연동이 해제되었습니다.\n해당 계정은 일반회원으로 전환되었으며,\n서비스 이용 및 탈퇴를 원하시면 가입하신 이메일과 비밀번호로 로그인 해주세요.", Toast.LENGTH_LONG).show();
+                            }
+                        });
                     }
 
                     @Override

@@ -25,7 +25,7 @@ where EMAil = #{email}
 
     <update id="sns_out">
 update tbl_member
-set isactivated = 'N'
+set sns = 'N'
 where email = #{email}        
     </update>
 
