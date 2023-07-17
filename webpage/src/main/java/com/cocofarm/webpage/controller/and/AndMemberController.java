@@ -57,6 +57,11 @@ public class AndMemberController {
         return new Gson().toJson(service.sns_login(vo));
     }
 
+    @PostMapping(value = "/member/snsout")
+    public void sns_out(String email) {
+        service.sns_out(email);
+    }
+
     @PostMapping(value = "/member/modify.and")
     public String am_modify(String password, String nickname, String phonenumber, String email, String address) {
 

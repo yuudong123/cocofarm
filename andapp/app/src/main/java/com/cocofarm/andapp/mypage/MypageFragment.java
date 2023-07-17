@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.cocofarm.andapp.common.CommonVal;
+import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.FragmentMypageBinding;
 import com.cocofarm.andapp.order.OrderProductListActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -88,6 +89,15 @@ public class MypageFragment extends Fragment implements View.OnClickListener {
                         Log.e("카카오 연동해제", "연결 끊기 실패", throwable);
                     } else {
                         Log.i("카카오 연동해제", "연결 끊기 성공. SDK에서 토큰 삭제 됨");
+                        CommonConn conn = new CommonConn(getActivity(), "/member/snsout");
+                        conn.addParam("email", loginMember.getEmail());
+                        conn.onExcute((isResult, data) -> {
+                            if(!isResult) {
+                                return;
+                            } else {
+                                Toast.makeText(getActivity(), "연동이 해제되었습니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                     return null;
                 });
