@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cocofarm.andapp.R;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityOrderRefundBinding;
+import com.cocofarm.andapp.image.ImageUtil;
 import com.google.gson.Gson;
 
 public class OrderRefundActivity extends AppCompatActivity {
@@ -29,6 +30,12 @@ public class OrderRefundActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOrderRefundBinding.inflate(getLayoutInflater());
 
+        OrderProductVO orderProductVO = (OrderProductVO) getIntent().getSerializableExtra("orderProductVO");
+
+        ImageUtil.load(binding.imgRefundapply,orderProductVO.getFilename());
+        binding.tvRefundapplyName.setText(orderProductVO.getName());
+        binding.tvRefundapplyamount.setText(orderProductVO.getAmount()+"개");
+        
         binding.btnOrderRefundSubmit.setOnClickListener(v -> {
             int reason;
             String textReason;
