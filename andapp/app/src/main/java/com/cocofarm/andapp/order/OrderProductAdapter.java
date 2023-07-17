@@ -182,7 +182,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
             case CodeTable.ORDER_STATUS_CHANGE_REQ: //304
             case CodeTable.ORDER_STATUS_REFUND_REQ:  //305
                 //교환환불 신청 하고 난후에 304.305상태면 교환환붛 취소할수있음.
-                status("교환,환불신청중", "배송조회", holder);
+                status("신청중", "배송조회", holder);
                 //취소 누르고 나서는 다시 교환환불 신청, 배송조회 버튼 등장
                 holder.binding.btn2.setOnClickListener(v -> {
                     deliveryActivity(orderProduct);
