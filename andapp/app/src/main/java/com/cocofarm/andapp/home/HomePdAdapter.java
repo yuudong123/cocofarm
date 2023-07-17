@@ -1,5 +1,7 @@
 package com.cocofarm.andapp.home;
 
+import static com.cocofarm.andapp.common.CommonVal.comma;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -37,9 +39,8 @@ public class HomePdAdapter extends RecyclerView.Adapter<HomePdAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         ProductVO productVO = list.get(i);
-        String price = CommonVal.comma(productVO.getPrice());
         holder.binding.tvName.setText(productVO.getName());
-        holder.binding.tvPrice.setText("₩ " + price);
+        holder.binding.tvPrice.setText(comma(productVO.getPrice()));
         ImageUtil.load(holder.binding.ivPd, productVO.getFilename());
 
         holder.binding.layout.setOnClickListener(view -> {
