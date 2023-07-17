@@ -4,23 +4,37 @@
   <table th:if="${boardlist.size != 0}">
     <thead>
       <tr>
-        <th>번호</th>
+        <th></th>
         <th>질문</th>
+
         <th>작성일</th>
       </tr>
     </thead>
     <tbody>
       <tr th:each="board : ${boardlist}">
-        <td th:text="${board.board_no}"></td>
+        <td></td>
         <td>
           <div>
-            <a class="boardtitle" th:data-no="${board.board_no}" th:text="${board.title}"></a>
+            <span
+              >질문제목 :
+              <a
+                class="boardtitle"
+                th:data-no="${board.board_no}"
+                th:text="${board.title}"
+              ></a>
+            </span>
           </div>
-          <div th:text="${board.content}"></div>
-          <small th:if="${not #strings.isEmpty(board.answercontent)}" style="color: #aaa; margin-right: 5px">[답변완료] </small>
+          <div>내용 : <span th:text="${board.content}"></span></div>
+          <small
+            th:if="${not #strings.isEmpty(board.answercontent)}"
+            style="color: #aaa; margin-right: 5px"
+            >[답변완료내용]
+          </small>
           <div th:text="${board.answercontent}"></div>
         </td>
-        <td th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"></td>
+        <td
+          th:text="${#dates.format(board.regdate, (#calendars.createNow().timeInMillis - board.regdate.time > 86400000) ? 'yyyy/MM/dd' : 'HH:mm:ss')}"
+        ></td>
       </tr>
     </tbody>
   </table>
