@@ -52,7 +52,7 @@ public class WebOrderController {
     @Autowired
     BoardService boardService;
 
-    // 제품페이지 3가지
+    // 제품페이지 3가지 제품상세
     @ResponseBody
     @RequestMapping("product/productdetailcontent")
     public ModelAndView productdetailcontent(@RequestBody CartDTO dto,
@@ -67,6 +67,7 @@ public class WebOrderController {
         return mav;
     }
 
+    // 리뷰
     @ResponseBody
     @RequestMapping("product/reviewcontent")
     public ModelAndView reviewcontent(@RequestBody CartDTO dto,
@@ -83,6 +84,7 @@ public class WebOrderController {
         return mav;
     }
 
+    // Q&A
     @ResponseBody
     @RequestMapping("product/qnacontent")
     public ModelAndView qnacontent(@RequestBody CartDTO dto,
@@ -120,7 +122,7 @@ public class WebOrderController {
         ordervo.setOrderProductVOList(cartList);
         ordervo.setOrderdate(new Date());
         orderService.OrderInsert(ordervo);
-        
+
         mav.addObject("member", member);
         mav.setViewName("product/orderbuypage");
         return mav;
@@ -196,6 +198,9 @@ public class WebOrderController {
         }
         orderProductVO.setOrder_status_cd(vo.getOrder_status_cd());
         orderProductVO.setValue("배송준비");
+
+        // 주문되면 장바구니에 있던거 삭제.
+        cartService.deleteCartProducts(vo.getOrderProductVOList());
 
         mav.addObject("orderproductvo", orderProductVO);
         mav.addObject("vo", vo);
