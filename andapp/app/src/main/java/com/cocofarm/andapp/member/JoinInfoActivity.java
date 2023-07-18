@@ -17,6 +17,7 @@ import com.cocofarm.andapp.util.BackPressedHandler;
 public class JoinInfoActivity extends AppCompatActivity {
 
     ActivityJoinInfoBinding binding;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +92,6 @@ public class JoinInfoActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }

@@ -52,6 +52,7 @@ public class FirstActivity extends AppCompatActivity {
     BtmSheetSnsBinding bindingSheet;
     BottomSheetDialog bottomSheetDialog;
     boolean isSheetVisible = false;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -362,7 +363,6 @@ public class FirstActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }

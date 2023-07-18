@@ -35,6 +35,7 @@ import com.navercorp.nid.NaverIdLoginSDK;
 public class MainActivity extends AppCompatActivity {
     public static Context mContext;
     public ActivityMainBinding binding;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
             binding.drawerLayout.closeDrawer(GravityCompat.END);
             return;
         }
-        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }

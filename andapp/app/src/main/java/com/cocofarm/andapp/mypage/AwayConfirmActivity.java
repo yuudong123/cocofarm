@@ -13,6 +13,7 @@ import com.cocofarm.andapp.util.BackPressedHandler;
 public class AwayConfirmActivity extends AppCompatActivity {
 
     ResultCompleteBinding binding;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,6 @@ public class AwayConfirmActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }

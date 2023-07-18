@@ -18,10 +18,12 @@ import com.cocofarm.andapp.SplashActivity;
 import com.cocofarm.andapp.common.CommonVal;
 import com.cocofarm.andapp.conn.CommonConn;
 import com.cocofarm.andapp.databinding.ActivityLogin2Binding;
+import com.cocofarm.andapp.util.BackPressedHandler;
 import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLogin2Binding binding;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,5 +116,10 @@ public class LoginActivity extends AppCompatActivity {
         binding.edtId.setText("");
         binding.edtPw.setText("");
         binding.chkLogin.setChecked(false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        backPressedHandler.onBackPressed();
     }
 }

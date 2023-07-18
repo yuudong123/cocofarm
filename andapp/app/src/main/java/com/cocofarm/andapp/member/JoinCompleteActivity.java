@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 public class JoinCompleteActivity extends AppCompatActivity {
 
     ResultCompleteLottieBinding binding;
+    BackPressedHandler backPressedHandler = new BackPressedHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,6 @@ public class JoinCompleteActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        BackPressedHandler backPressedHandler = new BackPressedHandler(this);
         backPressedHandler.onBackPressed();
     }
 }
