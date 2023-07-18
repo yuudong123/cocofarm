@@ -52,7 +52,7 @@ public class FindPwActivity extends AppCompatActivity {
 
                 String confirm_text = JoinEmailActivity.random_email();
 
-                CommonConn conn = new CommonConn(this, "/email/findpw");
+                CommonConn conn = new CommonConn(this, "/email/findpw.and");
                 conn.addParam("confirm_text", confirm_text);
                 conn.addParam("email", email);
                 conn.onExcute((isResult1, data1) -> Log.d("인증번호", "onCreate: " + data1));
