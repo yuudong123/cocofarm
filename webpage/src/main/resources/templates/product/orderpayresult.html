@@ -326,20 +326,26 @@
           title.innerText = "교환신청 작성";
           content.innerHTML = data;
 
+          //교환 환불 신청 넣기
           let modalButton = document.querySelector(".btnconfirm");
           if (modalButton) {
             modalButton.onclick = function () {
               let form = document.querySelector("#applicationForm");
               let reasonInput = document.querySelector("#reasonInput");
+
               const isButtonSelected = applicationForm.querySelector(
                 'input[name="changeandrefund"]:checked'
               );
+
               const isReasonProvided = reasonInput.value.trim().length > 0;
+
               if (isButtonSelected || isReasonProvided) {
                 if (confirm("신청하시겠습니까?")) {
                   const data = {
                     orderproduct_id: orderproduct_id,
-                    reasoncode: form.changeandrefund.value,
+                    reasoncode: isButtonSelected
+                      ? form.changeandrefund.value
+                      : 507,
                     textreason: form.changeandrefundcontent.value,
                     order_status_cd: 304,
                   };
@@ -413,7 +419,9 @@
                 if (confirm("신청하시겠습니까?")) {
                   const data = {
                     orderproduct_id: orderproduct_id,
-                    reasoncode: form.changeandrefund.value,
+                    reasoncode: isButtonSelected
+                      ? form.changeandrefund.value
+                      : 507,
                     textreason: form.changeandrefundcontent.value,
                     order_status_cd: 305,
                   };
@@ -491,7 +499,6 @@
               let reviewfooter = document.querySelector("#reviewfooter");
               reviewfooter.innerHTML =
                 "<button class='btn modal-close'>확인</button>";
-              // location.reload();
             }
           );
         };
@@ -518,6 +525,7 @@
           let reviewfooter = document.querySelector("#reviewfooter");
           reviewfooter.innerHTML =
             "<button class='btn modal-close'>확인</button>";
+          location.reload();
         }
       );
       reviewModal.open();
