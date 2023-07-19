@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="결제하기" />
+                android:text="구매하기" />
 
         </LinearLayout>
 
