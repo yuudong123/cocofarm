@@ -46,11 +46,6 @@ public class ProductFragment extends Fragment {
             }
         });
 
-        binding.btnGOCART.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), CartActivity.class);
-            startActivity(intent);
-        });
-
         return binding.getRoot();
     }
 

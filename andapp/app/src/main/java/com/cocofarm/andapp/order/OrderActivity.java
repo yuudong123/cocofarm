@@ -58,8 +58,8 @@ public class OrderActivity extends AppCompatActivity {
             }
         }
         binding.tvOrderAllPrice.setText(CommonVal.comma(getAllPrice(list))); //전체 값이 나옴.
-        binding.etOrderAddress.setText(loginMember.getAddress());
-        binding.tvOrderPersonname.setText(loginMember.getNickname());
+        binding.etOrderAddress.setText("배송지: "+loginMember.getAddress());
+        binding.tvOrderPersonname.setText("주문인: "+loginMember.getNickname());
 
         OrderAdapter adapter = new OrderAdapter(list);
         LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);

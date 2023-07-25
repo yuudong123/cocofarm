@@ -137,7 +137,7 @@ public class OrderProductAdapter extends RecyclerView.Adapter<OrderProductAdapte
                     //취소 버튼 눌렀을 경우 주문목록에서 삭제가 아니라 업데이트해서 결제 취소 뜨게 하기.
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("")
-                            .setMessage("취소신청을 원하시면 취소신청 버튼을 눌러주시고(함께 주문하신것들이 취소가 됩니다.) 취소를 원하시지 않으시면 아니오를 눌러주세요.")
+                            .setMessage("취소신청을 원하시면 취소신청 버튼을 눌러주세요.")
                             .setCancelable(false)
                             .setPositiveButton("취소신청", (dialogInterface, i1) -> {
                                 orderProduct.setOrder_status_cd(CodeTable.ORDER_STATUS_CANCEL);
